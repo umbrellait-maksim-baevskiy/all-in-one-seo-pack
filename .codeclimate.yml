@@ -14,9 +14,10 @@ engines:
     enabled: true
   phpmd:
     enabled: true
+    # ... CONFIG CONTENT ...
     checks:
-     Controversial/CamelCaseClassName:
-      enabled:false
+      Controversial/CamelCaseVariableName:
+        enabled: false
 ratings:
   paths:
   - "**.css"
