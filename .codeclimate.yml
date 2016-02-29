@@ -16,7 +16,7 @@ engines:
     enabled: true
     # ... CONFIG CONTENT ...
     checks:
-      Controversial/CamelCaseVariableName:
+      Controversial/CamelCasePropertyName:
         enabled: false
 ratings:
   paths:
