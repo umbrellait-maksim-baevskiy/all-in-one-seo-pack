@@ -185,14 +185,14 @@ jQuery(document).ready(function(){
     // listen for drag drop of metaboxes , bind mousedown to .hndle so it only fires when starting to drag
     jQuery('.hndle').mousedown(function(){                                                               
         // set live event listener for mouse up on the content .wrap and wait a tick to give the dragged div time to settle before firing the reclick function
-        jQuery('.wrap').mouseup(function(){store_radio(); setTimeout('reclick_radio();',50);});
+        jQuery('.wrap').mouseup(function(){aiosp_store_radio(); setTimeout('aiosp_reclick_radio();',50);});
     })
 });
 /**
 * stores object of all radio buttons that are checked for entire form
 */
-if(typeof store_radio != 'function') {
-	function store_radio(){
+
+	function aiosp_store_radio(){
 	    var radioshack = {};
 	    jQuery('input[type="radio"]').each(function(){
 	        if(jQuery(this).is(':checked')){
@@ -201,12 +201,12 @@ if(typeof store_radio != 'function') {
 	        jQuery(document).data('radioshack',radioshack);
 	    });
 	}
-}
+
 /**
 * detect mouseup and restore all radio buttons that were checked
 */
-if(typeof reclick_radio != 'function') {
-	function reclick_radio(){
+
+	function aiosp_reclick_radio(){
 	    // get object of checked radio button names and values
 	    var radios = jQuery(document).data('radioshack');
 	    //step thru each object element and trigger a click on it's corresponding radio button
@@ -216,7 +216,7 @@ if(typeof reclick_radio != 'function') {
 	    // unbind the event listener on .wrap  (prevents clicks on inputs from triggering function)
 	    jQuery('.wrap').unbind('mouseup');
 	}
-}
+
 
 function aioseop_handle_ajax_call( action, settings, options, success) {
 	var aioseop_sack = new sack(ajaxurl);

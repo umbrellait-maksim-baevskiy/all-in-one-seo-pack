@@ -90,12 +90,12 @@ div.aioseop_tip_icon {
 	width: 1em;
 	text-align: center;
 	padding: 0px 4px;
-	border-radius: 12px;
-	box-shadow: 1px 1px 1px #888;
 	-webkit-border-radius: 12px;
 	-moz-border-radius: 12px;
 	-webkit-box-shadow: 1px 1px 1px #888;
 	-moz-box-shadow: 1px 1px 1px #888;
+	box-shadow: 1px 1px 1px #888;
+	border-radius: 12px;	
 }
 div.aioseop_tip_icon:before {
 	content: '?';
@@ -772,6 +772,7 @@ table.aioseop_table td {
 	border-bottom-color: #dfdfdf;
 	text-shadow: #fff 0 1px 0;
 	-webkit-box-shadow: 0 1px 0 #fff;
+	-moz-box-shadow: 0 1px 0 #fff;
 	box-shadow: 0 1px 0 #fff;
 }
 .All_in_One_SEO_Pack_Opengraph table.aioseop_table td {
