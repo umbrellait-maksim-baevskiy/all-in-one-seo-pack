@@ -98,7 +98,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 			return 20;
 		}
 
-		function filter_submit( $submit, $location = null ) {
+		function filter_submit( $submit ) {
 			$submit['Submit']['value'] = __( 'Update Features', 'all-in-one-seo-pack' )  . ' &raquo;';
 			$submit['Submit']['class'] .= " hidden";
 			$submit['Submit_Default']['value'] = __( 'Reset Features', 'all-in-one-seo-pack' ) . ' &raquo;';
