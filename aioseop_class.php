@@ -1378,8 +1378,8 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				$meta = '';
 				$field = "aiosp_$f";
 
-				if ( ( isset( $_GET['taxonomy'] ) && isset( $_GET['tag_ID'] ) ) || is_category() || is_tag() || is_tax() ) {
-					if ( AIOSEOPPRO ) {
+				if ( AIOSEOPPRO ) {
+					if ( ( isset( $_GET['taxonomy'] ) && isset( $_GET['tag_ID'] ) ) || is_category() || is_tag() || is_tax() ) {
 						if ( is_admin() && isset( $_GET['tag_ID'] ) ) {
 							$meta = get_term_meta( $_GET['tag_ID'], '_aioseop_' . $f, true );
 						} else {
@@ -1388,13 +1388,21 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 								$meta = get_term_meta( $queried_object->term_id, '_aioseop_' . $f, true );
 							}
 						}
+					} else 
+						$meta = get_post_meta( $post_id, '_aioseop_' . $f, true );
+					if ( 'title' === $f || 'description' === $f ) {
+						$get_opts[$field] = htmlspecialchars( ( $meta ) );
+					} else {
+						$get_opts[$field] = htmlspecialchars( stripslashes( $meta ) );
 					}
-				} elseif ( is_singular() || is_admin() ) 
-					$meta = get_post_meta( $post_id, '_aioseop_' . $f, true );
-				if ($field === 'title') {
-					$get_opts[$field] = htmlspecialchars( ( $meta ) );
 				} else {
-					$get_opts[$field] = htmlspecialchars( stripslashes( $meta ) );
+					$field = "aiosp_$f";
+					$meta = get_post_meta( $post_id, '_aioseop_' . $f, true );
+					if ( 'title' === $f || 'description' === $f ) {
+						$get_opts[$field] = htmlspecialchars( ( $meta ) );
+					} else {
+						$get_opts[$field] = htmlspecialchars( stripslashes( $meta ) );
+					}
 				}
 
 			}
@@ -1957,11 +1965,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			//$description = $this->get_post_description( $post );
 			//$description = $this->apply_cf_fields( $description );
 			if ( !(woocommerce_get_page_id( 'shop' ) == get_option( 'page_on_front' ) )  ){
-		$description = trim( stripslashes( $this->internationalize( get_post_meta( $post->ID, "_aioseop_description", true ) ) ) );
+		$description = trim( ( $this->internationalize( get_post_meta( $post->ID, "_aioseop_description", true ) ) ) );
 			}
 			else if ( woocommerce_get_page_id( 'shop' ) == get_option( 'page_on_front' ) && !empty( $aioseop_options['aiosp_use_static_home_info'] ) ){
 			//$description = $this->get_aioseop_description( $post );
-					$description = trim( stripslashes( $this->internationalize( get_post_meta( $post->ID, "_aioseop_description", true ) ) ) );
+					$description = trim( ( $this->internationalize( get_post_meta( $post->ID, "_aioseop_description", true ) ) ) );
 		}else if ( woocommerce_get_page_id( 'shop' ) == get_option( 'page_on_front' ) && empty( $aioseop_options['aiosp_use_static_home_info'] ) ){
 			$description = $this->get_aioseop_description( $post );
 		}
@@ -2571,7 +2579,7 @@ EOF;
 		if ( !$this->show_page_description() ) {
 			return '';
 		}
-	    $description = trim( stripslashes( $this->internationalize( get_post_meta( $post->ID, "_aioseop_description", true ) ) ) );
+	    $description = trim( ( $this->internationalize( get_post_meta( $post->ID, "_aioseop_description", true ) ) ) );
 		if ( !empty( $post ) && post_password_required( $post ) ) {
 			return $description;
 		}
@@ -2614,7 +2622,7 @@ EOF;
 		$blog_page = $this->get_blog_page();
 		$description = '';
 		if ( is_front_page() && empty( $aioseop_options['aiosp_use_static_home_info'] ) )
-			$description = trim( stripslashes( $this->internationalize( $aioseop_options['aiosp_home_description'] ) ) );
+			$description = trim( ( $this->internationalize( $aioseop_options['aiosp_home_description'] ) ) );
 		elseif ( !empty( $blog_page ) )
 			$description = $this->get_post_description( $blog_page );
 		if ( empty( $description ) && is_object( $post ) && !is_archive() && empty( $blog_page ) )
@@ -3222,14 +3230,14 @@ EOF;
 			}
 		}
 		$text = $this->substr( $text, 0, $max );
-		return trim( stripslashes( $text ) );
+		return trim( ( $text ) );
 	}
 
 	function trim_excerpt_without_filters_full_length( $text ) {
 		$text = str_replace( ']]>', ']]&gt;', $text );
                 $text = preg_replace( '|\[(.+?)\](.+?\[/\\1\])?|s', '', $text );
 		$text = wp_strip_all_tags( $text );
-		return trim( stripslashes( $text ) );
+		return trim( ( $text ) );
 	}
 
 	function keyword_string_to_list( $keywords ) {
