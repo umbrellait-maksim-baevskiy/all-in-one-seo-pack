@@ -1739,15 +1739,6 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				}
 			}
 			
-			global $wp_version;
-			/*** Disable for now - this appears to be slower. -- pdb ***/
-			/*
-			if ( version_compare( $wp_version, '3.5', '>=' ) ) {
-				$args['meta_query'] = Array(
-					Array( 'key' => '_aioseop_sitemap_exclude', 'value' => '', 'compare' => 'NOT EXISTS' )
-				);
-			} else {
-			*/
 				$ex_args = $args;
 				$ex_args['meta_key'] = '_aioseop_sitemap_exclude';
 				$ex_args['meta_value'] = 'on';
