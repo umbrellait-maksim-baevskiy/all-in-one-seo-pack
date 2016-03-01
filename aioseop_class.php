@@ -3210,13 +3210,16 @@ EOF;
 
 	function trim_excerpt_without_filters( $text, $max = 0 ) {
 		$text = str_replace( ']]>', ']]&gt;', $text );
-                $text = preg_replace( '|\[(.+?)\](.+?\[/\\1\])?|s', '', $text );
+		$text = preg_replace( '|\[(.+?)\](.+?\[/\\1\])?|s', '', $text );
 		$text = wp_strip_all_tags( $text );
+		// Treat other common word-break characters like a space
+		$text2 = preg_replace( '/[,._\-=+&!\?;:*]/s', ' ', $text );
 		if ( !$max ) $max = $this->maximum_description_length;
-		$len = $this->strlen( $text );
+		$max_orig = $max;
+		$len = $this->strlen( $text2 );
 		if ( $max < $len ) {
 			if ( function_exists( 'mb_strrpos' ) ) {
-				$pos = mb_strrpos( $text, ' ', -($len - $max) );
+				$pos = mb_strrpos( $text2, ' ', -($len - $max) );
 				if ( $pos === false ) $pos = $max;
 				if ( $pos > $this->minimum_description_length ) {
 					$max = $pos;
@@ -3224,13 +3227,18 @@ EOF;
 					$max = $this->minimum_description_length;
 				}
 			} else {
-				while( $text[$max] != ' ' && $max > $this->minimum_description_length ) {
+				while( $text2[$max] != ' ' && $max > $this->minimum_description_length ) {
 					$max--;
 				}
 			}
+
+			// probably no valid chars to break on?
+			if ( $len > $max_orig && $max < intval( $max_orig / 2 ) ) {
+				$max = $max_orig;
+			}
 		}
 		$text = $this->substr( $text, 0, $max );
-		return trim( ( $text ) );
+		return trim( $text );
 	}
 
 	function trim_excerpt_without_filters_full_length( $text ) {
