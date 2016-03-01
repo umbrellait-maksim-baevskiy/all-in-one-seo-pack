@@ -1692,6 +1692,10 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 	function add_hooks() {
 		global $aioseop_options, $aioseop_update_checker;
+		
+		$role = get_role( 'administrator' );
+	    $role->add_cap( 'aiosp_manage_seo' );
+		
 		aioseop_update_settings_check();
 		add_filter( 'user_contactmethods', 'aioseop_add_contactmethods' );
 		if ( is_user_logged_in() && function_exists( 'is_admin_bar_showing' ) && is_admin_bar_showing() && current_user_can( 'aiosp_manage_seo' ) )
