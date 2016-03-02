@@ -1910,7 +1910,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 		$aioseop_woo_upgrade_notice_dismissed = get_user_meta( get_current_user_id(), 'aioseop_woo_upgrade_notice_dismissed', true );
 
-	  if ( '0' == get_option('blog_public') && empty( $aioseop_woo_upgrade_notice_dismissed ) ) {
+	  if ( function_exists( 'woocommerce_get_page_id') && empty( $aioseop_woo_upgrade_notice_dismissed ) ) {
 
 		printf( '
 			<div id="message" class="notice-info notice is-dismissible aioseop-notice">
@@ -1920,10 +1920,10 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 				</p>
 			</div>',
-			__( 'Warning: We\'ve detected you\'re running WooCommerce.', 'all-in-one-seo-pack' ),
-			sprintf( __( '%s Upgrade%s to All in One SEO Pack Pro for increased SEO compatibility with your products.', 'all-in-one-seo-pack' ), sprintf( '<a target="_blank" href="%s">', esc_url( 'http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/' ) ), '</a>' ));
+			__( 'We\'ve detected you\'re running WooCommerce.', 'all-in-one-seo-pack' ),
+			sprintf( __( '%s Upgrade%s to All in One SEO Pack Pro for increased SEO compatibility for your products.', 'all-in-one-seo-pack' ), sprintf( '<a target="_blank" href="%s">', esc_url( 'http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/' ) ), '</a>' ));
 
-	  }elseif( '1' == get_option('blog_public') && !empty( $aioseop_woo_upgrade_notice_dismissed ) ){
+	  }elseif( !function_exists( 'woocommerce_get_page_id') && !empty( $aioseop_woo_upgrade_notice_dismissed ) ){
 			delete_user_meta( get_current_user_id(), 'aioseop_woo_upgrade_notice_dismissed' );
 			}
 	}
