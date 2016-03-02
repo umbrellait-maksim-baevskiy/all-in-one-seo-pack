@@ -819,6 +819,8 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				add_action( "aioseop_global_settings_footer",	Array( $this, 'display_settings_footer' ) );
 				add_action( "output_option", Array( $this, 'custom_output_option' ), 10, 2 );
 				add_action('all_admin_notices', array( $this, 'visibility_warning'));
+				add_action('all_admin_notices', array( $this, 'woo_upgrade_notice'));
+				
 						}
 						if(AIOSEOPPRO){
 							add_action( 'split_shared_term', Array( $this, 'split_shared_term' ), 10, 4 );
@@ -1901,6 +1903,28 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 	  }elseif( '1' == get_option('blog_public') && !empty( $aioseop_visibility_notice_dismissed ) ){
 			delete_user_meta( get_current_user_id(), 'aioseop_visibility_notice_dismissed' );
+			}
+	}
+
+	function woo_upgrade_notice() {
+
+		$aioseop_woo_upgrade_notice_dismissed = get_user_meta( get_current_user_id(), 'aioseop_woo_upgrade_notice_dismissed', true );
+
+	  if ( '0' == get_option('blog_public') && empty( $aioseop_woo_upgrade_notice_dismissed ) ) {
+
+		printf( '
+			<div id="message" class="notice-info notice is-dismissible aioseop-notice">
+				<p>
+					<strong>%1$s</strong>
+					%2$s
+
+				</p>
+			</div>',
+			__( 'Warning: We\'ve detected you\'re running WooCommerce.', 'all-in-one-seo-pack' ),
+			sprintf( __( '%s Upgrade%s to All in One SEO Pack Pro for increased SEO compatibility with your products.', 'all-in-one-seo-pack' ), sprintf( '<a target="_blank" href="%s">', esc_url( 'http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/' ) ), '</a>' ));
+
+	  }elseif( '1' == get_option('blog_public') && !empty( $aioseop_woo_upgrade_notice_dismissed ) ){
+			delete_user_meta( get_current_user_id(), 'aioseop_woo_upgrade_notice_dismissed' );
 			}
 	}
 
