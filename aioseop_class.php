@@ -1893,7 +1893,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	  if ( '0' == get_option('blog_public') && empty( $aioseop_visibility_notice_dismissed ) ) {
 
 		printf( '
-			<div id="message" class="error notice is-dismissible aioseop-notice">
+			<div id="message" class="error notice is-dismissible aioseop-notice visibility-notice">
 				<p>
 					<strong>%1$s</strong>
 					%2$s
@@ -1915,7 +1915,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	  if ( function_exists( 'woocommerce_get_page_id') && empty( $aioseop_woo_upgrade_notice_dismissed ) ) {
 
 		printf( '
-			<div id="message" class="notice-info notice is-dismissible aioseop-notice">
+			<div id="message" class="notice-info notice is-dismissible aioseop-notice woo-upgrade-notice">
 				<p>
 					<strong>%1$s</strong>
 					%2$s
