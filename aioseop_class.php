@@ -819,8 +819,10 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				add_action( "aioseop_global_settings_footer",	Array( $this, 'display_settings_footer' ) );
 				add_action( "output_option", Array( $this, 'custom_output_option' ), 10, 2 );
 				add_action('all_admin_notices', array( $this, 'visibility_warning'));
-				add_action('all_admin_notices', array( $this, 'woo_upgrade_notice'));
 				
+				if(!AIOSEOPPRO){
+					add_action('all_admin_notices', array( $this, 'woo_upgrade_notice'));
+				}
 						}
 						if(AIOSEOPPRO){
 							add_action( 'split_shared_term', Array( $this, 'split_shared_term' ), 10, 4 );
