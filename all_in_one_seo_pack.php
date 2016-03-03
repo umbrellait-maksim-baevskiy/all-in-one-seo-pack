@@ -330,7 +330,8 @@ if ( !function_exists( 'aioseop_scan_post_header' ) ) {
 	}
 }
 
-require_once( 'init.php' );
+require_once( 'aioseop_init.php' );
+
 
 register_activation_hook( __FILE__, 'aiosp_install' );
 
