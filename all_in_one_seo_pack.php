@@ -3,7 +3,7 @@
 Plugin Name: All In One SEO Pack
 Plugin URI: http://semperfiwebdesign.com
 Description: Out-of-the-box SEO for your WordPress blog. Features like XML Sitemaps, SEO for custom post types, SEO for blogs or business sites, SEO for ecommerce sites, and much more. Almost 30 million downloads since 2007.
-Version: 2.3.2.2
+Version: 2.3.2.3
 Author: Michael Torbert
 Author URI: http://michaeltorbert.com
 Text Domain: all-in-one-seo-pack
@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * @package All-in-One-SEO-Pack
- * @version 2.3.2.2
+ * @version 2.3.2.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) return;
@@ -39,7 +39,7 @@ define('AIOSEOPPRO', false);
 global $aioseop_plugin_name;
 $aioseop_plugin_name = 'All in One SEO Pack';
 if ( ! defined( 'AIOSEOP_PLUGIN_NAME' ) ) define( 'AIOSEOP_PLUGIN_NAME', $aioseop_plugin_name );
-if ( ! defined( 'AIOSEOP_VERSION' ) ) define( 'AIOSEOP_VERSION', '2.3.2.2' );
+if ( ! defined( 'AIOSEOP_VERSION' ) ) define( 'AIOSEOP_VERSION', '2.3.2.3' );
 
 //register_activation_hook(__FILE__,'aioseop_activate_pl');
 
