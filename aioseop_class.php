@@ -1912,7 +1912,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 		$aioseop_woo_upgrade_notice_dismissed = get_user_meta( get_current_user_id(), 'aioseop_woo_upgrade_notice_dismissed', true );
 
-	  if ( class_exists( 'WooCommerce' ) && empty( $aioseop_woo_upgrade_notice_dismissed ) ) {
+	  if ( class_exists( 'WooCommerce' ) && empty( $aioseop_woo_upgrade_notice_dismissed ) && current_user_can( 'manage_options' ) ) {
 
 		printf( '
 			<div id="message" class="notice-info notice is-dismissible aioseop-notice woo-upgrade-notice">
