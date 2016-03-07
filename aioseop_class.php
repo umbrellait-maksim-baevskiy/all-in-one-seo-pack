@@ -336,7 +336,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				'condshow' => Array( "aiosp_use_static_home_info" => 0 ) ),
 		   "togglekeywords" => Array(
 				'name' => __( 'Use Keywords:', 'all-in-one-seo-pack' ),
-				'default' =>  0,
+				'default' =>  1,
 				'type' => 'radio',
 			    'initial_options' => Array( 0 => __( 'Enabled', 'all-in-one-seo-pack' ),
 			                                1 => __( 'Disabled', 'all-in-one-seo-pack' ) )
@@ -758,11 +758,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 						'help_link' => 'http://semperplugins.com/documentation/home-page-settings/',
 						'options' => Array( 'home_title', 'home_description', 'home_keywords', 'use_static_home_info' )
 					),
-				'keywords' => Array(
-					'name' => __( 'Keyword Settings', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/keyword-settings/',
-					'options' => Array( "togglekeywords", "use_categories", "use_tags_as_keywords", "dynamic_postspage_keywords" )
-					),
 				'title'	=> Array(
 						'name' => __( 'Title Settings', 'all-in-one-seo-pack' ),
 						'help_link' => 'http://semperplugins.com/documentation/title-settings/',
@@ -800,6 +795,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 						'name' => __( 'Advanced Settings', 'all-in-one-seo-pack' ),
 						'help_link' => 'http://semperplugins.com/documentation/advanced-settings/',
 						'options' => Array( 'generate_descriptions', 'skip_excerpt', 'run_shortcodes', 'hide_paginated_descriptions', 'dont_truncate_descriptions', 'unprotect_meta', 'ex_pages', 'post_meta_tags', 'page_meta_tags', 'front_meta_tags', 'home_meta_tags' )
+					),
+				'keywords' => Array(
+						'name' => __( 'Keyword Settings', 'all-in-one-seo-pack' ),
+						'help_link' => 'http://semperplugins.com/documentation/keyword-settings/',
+						'options' => Array( "togglekeywords", "use_categories", "use_tags_as_keywords", "dynamic_postspage_keywords" )
 					)
 				);
 
