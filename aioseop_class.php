@@ -1710,6 +1710,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			add_action( 'admin_head', array( $this, 'add_page_icon' ) );
 			add_action( 'admin_init', 'aioseop_addmycolumns', 1 );
 			add_action( 'admin_init', 'aioseop_handle_ignore_notice' );
+			add_action( 'admin_init', array( $this, 'version_update' ) );
 			if ( AIOSEOPPRO ){
 			if ( current_user_can( 'update_plugins' ) )
 				add_action( 'admin_notices', Array( $aioseop_update_checker, 'key_warning' ) );
@@ -3792,4 +3793,27 @@ EOF;
 								</div>
 								<?php
 							}
-						}
+
+	function version_update() {
+		global $aioseop_options;
+
+		// See if we need to do any update-related tasks
+		if ( false === $aioseop_options || !isset( $aioseop_options['update_version'] ) || version_compare( $aioseop_options['update_version'], $this->version, '<' ) ) {
+			$current_version = isset( $aioseop_options['update_version'] ) ? $aioseop_options['version'] : 0;
+			$this->do_version_updates( $current_version );
+			$aioseop_options['update_version'] = $this->version;
+			update_option( 'aioseop_options', $aioseop_options );
+		}
+	}
+
+	function do_version_updates( $old_version ) {
+		/*
+		if ( version_compare( $old_version, '2.4', '<' ) ) {
+			// Do changes needed for 2.4
+		}
+		if ( version_compare( $old_version, '2.5', '<' ) ) {
+			// Do changes needed for 2.5... etc
+		}
+		*/
+	}
+}
