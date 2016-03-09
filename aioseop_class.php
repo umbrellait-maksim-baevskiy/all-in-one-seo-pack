@@ -395,7 +395,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 												0 => __( 'Disabled', 'all-in-one-seo-pack' ) )
 				),
 			"cap_titles"=> Array(
-				'name' => __( 'Capitalize Titles:', 'all-in-one-seo-pack' ), 'default' => 1),
+				'name' => __( 'Capitalize Tag and Search Titles:', 'all-in-one-seo-pack' ), 'default' => 1),
 			"cap_cats"=> Array(
 				'name' => __( 'Capitalize Category Titles:', 'all-in-one-seo-pack' ), 'default' => 1),
 		   "home_page_title_format"=> Array(
@@ -3013,8 +3013,9 @@ EOF;
 			$title = $this->get_original_title();
 
 		//if we're going to have this here, which seems logical, we should probably take it out of other places... do all titles pass through here?
-		if ( !empty( $aioseop_options['aiosp_cap_titles'] ) )
-			$title = $this->capitalize( $title );
+		// The following lines have been commented out to fix an error with Capitalize Titles as reported in the WP forums
+		// if ( !empty( $aioseop_options['aiosp_cap_titles'] ) )
+		//	$title = $this->capitalize( $title );
 
 		return apply_filters( 'aioseop_title', $title );
 	}
