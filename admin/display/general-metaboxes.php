@@ -8,8 +8,10 @@ class aiosp_metaboxes {
 	
 	function __construct() {
 		//construct
+
 	}
 	
+
 	
 	
 	
@@ -36,9 +38,7 @@ class aiosp_metaboxes {
 							if ( !AIOSEOPPRO ) {
 							?>
 							<p>
-							<strong><a target="_blank" title="<?php _e('Pro Version', 'all-in-one-seo-pack' ); ?>"
-							href="http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/?loc=side">
-							<?php _e('UPGRADE TO PRO VERSION', 'all-in-one-seo-pack' ); ?></a></strong></p>
+							<strong><?php echo aiosp_common::get_upgrade_url( 'side', __('Pro Version', 'all-in-one-seo-pack'), __('UPGRADE TO PRO VERSION', 'all-in-one-seo-pack'), '_blank' );  ?></strong></p>
 							<?php } ?>
 						</div>
 				<?php

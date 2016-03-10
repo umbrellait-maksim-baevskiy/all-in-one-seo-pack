@@ -27,5 +27,26 @@ class aiosp_common {
 		return $blog_page;
 	}
 	
+	static function get_upgrade_url( $location = '', $title = '', $anchor = '', $target = '', $class = '', $id = ''  ){
+		
+		$affiliate_id = '';
+		
+		apply_filters( 'aiosp_aff_id' , $affiliate_id );
+
+
+		//build URL
+		$url = 'http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/';
+		if( $location ) $url .= '?loc=' . $location;
+		if( $affiliate_id ) $url .= "?ap_id=$affiliate_id";
+		
+		
+		//build hyperlink		
+		$hyperlink = '<a ';
+		if( $target ) $hyperlink .= "target=\"$target\" ";
+		if( $title ) $hyperlink .= "title=\"$title\" ";
+		$hyperlink .= "href=\"$url\">$title</a>";
+
+		return $hyperlink;
+	}
 	
 }
