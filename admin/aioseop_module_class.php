@@ -399,7 +399,6 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				"Crescent",
 				"discobot",
 				"DittoSpyder",
-				"DOC",
 				"DotBot",
 				"Download Ninja",
 				"EasouSpider",
