@@ -38,7 +38,7 @@ class aiosp_metaboxes {
 							if ( !AIOSEOPPRO ) {
 							?>
 							<p>
-							<strong><?php echo aiosp_common::get_upgrade_url( 'side', __('Pro Version', 'all-in-one-seo-pack'), __('UPGRADE TO PRO VERSION', 'all-in-one-seo-pack'), '_blank' );  ?></strong></p>
+							<strong><?php echo aiosp_common::get_upgrade_hyperlink( 'side', __('Pro Version', 'all-in-one-seo-pack'), __('UPGRADE TO PRO VERSION', 'all-in-one-seo-pack'), '_blank' );  ?></strong></p>
 							<?php } ?>
 						</div>
 				<?php

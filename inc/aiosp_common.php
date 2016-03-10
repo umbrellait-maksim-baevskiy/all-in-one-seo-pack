@@ -27,11 +27,11 @@ class aiosp_common {
 		return $blog_page;
 	}
 	
-	static function get_upgrade_url( $location = '', $title = '', $anchor = '', $target = '', $class = '', $id = ''  ){
+	static function get_upgrade_hyperlink( $location = '', $title = '', $anchor = '', $target = '', $class = '', $id = ''  ){
 		
 		$affiliate_id = '';
 		
-		apply_filters( 'aiosp_aff_id' , $affiliate_id );
+		$affiliate_id = apply_filters( 'aiosp_aff_id' , $affiliate_id );
 
 
 		//build URL
@@ -50,3 +50,7 @@ class aiosp_common {
 	}
 	
 }
+
+	static function get_upgrade_url(){
+		//put build URL stuff in here
+	}

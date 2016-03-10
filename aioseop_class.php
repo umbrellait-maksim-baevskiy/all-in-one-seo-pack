@@ -706,8 +706,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 																		'edit' 				 => Array( 'type' => 'hidden', 'default' => 'aiosp_edit', 'prefix' => true, 'nowrap' => 1 ),
 																		'nonce-aioseop-edit' => Array( 'type' => 'hidden', 'default' => null, 'prefix' => false, 'nowrap' => 1 ),
 																		'upgrade' 			 => Array( 'type' => 'html', 'label' => 'none',
-																										'default' => '<a target="__blank" href="http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/?loc=meta">'
-																										. __( 'Upgrade to All in One SEO Pack Pro Version', 'all-in-one-seo-pack' ) . '</a>'
+																										'default' => aiosp_common::get_upgrade_hyperlink( 'meta', __('Upgrade to All in One SEO Pack Pro Version', 'all-in-one-seo-pack'), __('UPGRADE TO PRO VERSION', 'all-in-one-seo-pack'), '_blank' )
 																					 		),
 																		'support' 			 => Array( 'type' => 'html', 'label' => 'none',
 																										'default' => '<a target="_blank" href="http://semperplugins.com/support/">'
@@ -1762,7 +1761,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				</p>
 			</div>',
 			__( 'We\'ve detected you\'re running WooCommerce.', 'all-in-one-seo-pack' ),
-			sprintf( __( '%s Upgrade%s to All in One SEO Pack Pro for increased SEO compatibility for your products.', 'all-in-one-seo-pack' ), sprintf( '<a target="_blank" href="%s">', esc_url( 'http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/' ) ), '</a>' ));
+			sprintf( __( '%s Upgrade%s to All in One SEO Pack Pro for increased SEO compatibility for your products.', 'all-in-one-seo-pack' ), sprintf( '<a target="_blank" href="%s">', esc_url( 'http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/?loc=woo' ) ), '</a>' ));
 
 	  }elseif( !class_exists( 'WooCommerce' ) && !empty( $aioseop_woo_upgrade_notice_dismissed ) ){
 			delete_user_meta( get_current_user_id(), 'aioseop_woo_upgrade_notice_dismissed' );
