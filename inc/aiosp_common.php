@@ -31,6 +31,7 @@ class aiosp_common {
 		
 		$affiliate_id = '';
 		
+		//call during plugins_loaded
 		$affiliate_id = apply_filters( 'aiosp_aff_id' , $affiliate_id );
 
 
@@ -49,8 +50,9 @@ class aiosp_common {
 		return $hyperlink;
 	}
 	
-}
-
 	static function get_upgrade_url(){
 		//put build URL stuff in here
 	}
+	
+}
+
