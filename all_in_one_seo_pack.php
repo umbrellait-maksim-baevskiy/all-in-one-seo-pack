@@ -274,12 +274,13 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 		require_once( AIOSEOP_PLUGIN_DIR . 'admin/display/postedit.php');
 		require_once( AIOSEOP_PLUGIN_DIR . 'admin/display/general-metaboxes.php');
 		require_once( AIOSEOP_PLUGIN_DIR . 'inc/aiosp_common.php');
+		require_once( AIOSEOP_PLUGIN_DIR . 'admin/meta_import.php');
 		
 		if( AIOSEOPPRO ){
 			require_once( AIOSEOP_PLUGIN_DIR . 'pro/functions_general.php' );
 			require_once( AIOSEOP_PLUGIN_DIR . 'pro/functions_class.php');
 		}
-
+		seodt_init();
 		$aiosp = new All_in_One_SEO_Pack();
 
 		if ( aioseop_option_isset( 'aiosp_unprotect_meta' ) )
