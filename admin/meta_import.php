@@ -51,12 +51,12 @@ function seodt_action() {
 	if ( empty( $_REQUEST['_wpnonce'] ) )
 		return;
 	
-	if ( empty( $_REQUEST['platform_old'] ) || empty( $_REQUEST['platform_new'] ) ) {
-		printf( '<div class="error"><p>%s</p></div>', __('Sorry, you can\'t do that. Please choose two different platforms.') );
+	if ( empty( $_REQUEST['platform_old'] ) ) {
+		printf( '<div class="error"><p>%s</p></div>', __('Sorry, you can\'t do that. Please choose a platform platforms.') );
 		return;
 	}
 		
-	if ( $_REQUEST['platform_old'] == $_REQUEST['platform_new'] ) {
+	if ( $_REQUEST['platform_old'] == 'All in One SEO Pack' ) {
 		printf( '<div class="error"><p>%s</p></div>', __('Sorry, you can\'t do that. Please choose two different platforms.') );
 		return;
 	}
@@ -67,13 +67,13 @@ function seodt_action() {
 		
 		printf( '<h3>%s</h3>', __('Analysis Results', 'all-in-one-seo-pack') );
 		
-		$response = seodt_post_meta_analyze( $_REQUEST['platform_old'], $_REQUEST['platform_new'] );
+		$response = seodt_post_meta_analyze( $_REQUEST['platform_old'], 'All in One SEO Pack' );
 		if ( is_wp_error( $response ) ) {
 			printf( '<div class="error"><p>%s</p></div>', __('Sorry, something went wrong. Please try again') );
 			return;
 		}
 		
-		printf( __('<p>Analyzing records in a %s to %s conversion&hellip;', 'all-in-one-seo-pack'), esc_html( $_POST['platform_old'] ), esc_html( $_POST['platform_new'] ) );
+		printf( __('<p>Analyzing records in a %s to %s conversion&hellip;', 'all-in-one-seo-pack'), esc_html( $_POST['platform_old'] ), 'All in One SEO Pack' );
 		printf( '<p><b>%d</b> Compatible Records were identified</p>', $response->update );
 //		printf( '<p>%d Compatible Records will be ignored</p>', $response->ignore );
 		
@@ -89,7 +89,7 @@ function seodt_action() {
 	
 	printf( '<h3>%s</h3>', __('Conversion Results', 'all-in-one-seo-pack') );
 	
-	$result = seodt_post_meta_convert( stripslashes($_REQUEST['platform_old']), stripslashes($_REQUEST['platform_new']) );
+	$result = seodt_post_meta_convert( stripslashes($_REQUEST['platform_old']), 'All in One SEO Pack' );
 	if ( is_wp_error( $result ) ) {
 		printf( '<p>%s</p>', __('Sorry, something went wrong. Please try again') );
 		return;
@@ -125,9 +125,12 @@ function seodt_admin() {
 	
 	<p><span class="description"><?php printf( __('Click "Convert" to perform the conversion. After the conversion is complete, you will be alerted to how many records were converted, and how many records had to be ignored, based on the criteria above.', 'all-in-one-seo-pack') ); ?></span></p>
 		
-	<form action="<?php echo admin_url('tools.php?page=seodt'); ?>" method="post">
+	<form action="<?php echo admin_url('tools.php?page=seoimport'); ?>" method="post">
 	<?php
 		wp_nonce_field('seodt');
+	
+		$platform_old = (!isset($_POST['platform_old'])) ? '' : $_POST['platform_old'];
+	//	$platform_new = (!isset($_POST['platform_new'])) ? '' : $_POST['platform_new'];
 	
 		_e('Convert inpost SEO data from:', 'all-in-one-seo-pack');
 		echo '<select name="platform_old">';
@@ -135,36 +138,36 @@ function seodt_admin() {
 		
 		printf( '<optgroup label="%s">', __('Themes', 'all-in-one-seo-pack') );
 		foreach ( $_seodt_themes as $platform => $data ) {
-			printf( '<option value="%s" %s>%s</option>', $platform, selected($platform, $_POST['platform_old'], 0), $platform );
+			printf( '<option value="%s" %s>%s</option>', $platform, selected($platform, $platform_old, 0), $platform );
 		}
 		printf( '</optgroup>' );
 		
 		printf( '<optgroup label="%s">', __('Plugins', 'all-in-one-seo-pack') );
 		foreach ( $_seodt_plugins as $platform => $data ) {
-			printf( '<option value="%s" %s>%s</option>', $platform, selected($platform, $_POST['platform_old'], 0), $platform );
+			printf( '<option value="%s" %s>%s</option>', $platform, selected($platform, $platform_old, 0), $platform );
 		}
 		printf( '</optgroup>' );
 		
 		echo '</select>' . "\n\n";
 		
-		_e('to:', 'all-in-one-seo-pack');
+	/*	_e('to:', 'all-in-one-seo-pack');
 		echo '<select name="platform_new">';
 		printf( '<option value="">%s</option>', __('Choose platform:', 'all-in-one-seo-pack') );
 		
 		printf( '<optgroup label="%s">', __('Themes', 'all-in-one-seo-pack') );
 		foreach ( $_seodt_themes as $platform => $data ) {
-			printf( '<option value="%s" %s>%s</option>', $platform, selected($platform, $_POST['platform_new'], 0), $platform );
+			printf( '<option value="%s" %s>%s</option>', $platform, selected($platform, $platform_new, 0), $platform );
 		}
 		printf( '</optgroup>' );
 		
 		printf( '<optgroup label="%s">', __('Plugins', 'all-in-one-seo-pack') );
 		foreach ( $_seodt_plugins as $platform => $data ) {
-			printf( '<option value="%s" %s>%s</option>', $platform, selected($platform, $_POST['platform_new'], 0), $platform );
+			printf( '<option value="%s" %s>%s</option>', $platform, selected($platform, $platform_new, 0), $platform );
 		}
 		printf( '</optgroup>' );
 		
 		
-		echo '</select>' . "\n\n";
+		echo '</select>' . "\n\n";*/
 	?>
 	
 	<input type="submit" class="button-highlighted" name="analyze" value="<?php _e('Analyze', 'genesis'); ?>" />
