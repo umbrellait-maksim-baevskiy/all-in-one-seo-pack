@@ -14,19 +14,29 @@ class WPSEO_Import_AIOSEO_Hooks extends WPSEO_Import_Hooks {
 	
 		$yoasturl = add_query_arg( array( '_wpnonce' => wp_create_nonce( 'wpseo-import' ) ), admin_url( 'admin.php?page=wpseo_tools&tool=import-export&import=1&importaioseo=1#top#import-seo' ) );
 		$aiourl = add_query_arg( array( '_wpnonce' => wp_create_nonce( 'aiosp-import' ) ), admin_url( 'tools.php?page=seoimport' ) );
-	
-		echo '<div class="notice is-dismissible"><p>', sprintf( esc_html__( 'The plugin Yoast SEO has been detected. Do you want to %simport its settings%s?', 'all-in-one-seo-pack' ), sprintf( '<a href="%s">', esc_url( $aiourl ) ), '</a>' ), '</p></div>';
 
-		echo '<div class="notice is-dismissible"><p>', sprintf( esc_html__( 'The plugin All-In-One-SEO has been detected. Do you want to %simport its settings%s?', 'wordpress-seo' ), sprintf( '<a href="%s">', esc_url( $yoasturl ) ), '</a>' ), '</p></div>';
+
+		$aioseop_yst_detected_notice_dismissed = get_user_meta( get_current_user_id(), 'aioseop_yst_detected_notice_dismissed', true );
+
+	  	if ( empty( $aioseop_yst_detected_notice_dismissed ) ) {	
+
+			echo '<div class="notice notice-warning row-title is-dismissible yst_notice"><p>', sprintf( esc_html__( 'The plugin Yoast SEO has been detected. Do you want to %simport its settings%s into All in One SEO Pack?', 'all-in-one-seo-pack' ), sprintf( '<a href="%s">', esc_url( $aiourl ) ), '</a>' ), '</p></div>';
+
+		}
+		
+
+		echo '<div class="error"><p>', sprintf( esc_html__( 'The plugin All-In-One-SEO has been detected. Do you want to %simport its settings%s?', 'wordpress-seo' ), sprintf( '<a href="%s">', esc_url( $yoasturl ) ), '</a>' ), '</p></div>';
 		
 		
 		
 	}
 
 	public function show_deactivate_notice() {
-		echo '<div class="updated"><p>', esc_html__( 'Yoast SEO has been deactivated', 'all-in-one-seo-pack' ), '</p></div>';
+		echo '<div class="updated"><p>', esc_html__( 'All in One SEO has been deactivated', 'all-in-one-seo-pack' ), '</p></div>';
 	}
 }
+}else{
+	delete_user_meta( get_current_user_id(), 'aioseop_yst_detected_notice_dismissed' );
 }
 
 /**
@@ -124,50 +134,37 @@ function seodt_admin() {
 	<p><span class="description"><?php printf( __('Click "Analyze" for a list of elements you are able to convert, along with the number of records that will be converted. Some platforms do not share similar elements, or store data in a non-standard way. These records will remain unchanged. Any compatible elements will be displayed for your review. Also, some records will be ignored if the post/page in question already contains a record for that particular SEO element in the new platform.', 'all-in-one-seo-pack') ); ?></span></p>
 	
 	<p><span class="description"><?php printf( __('Click "Convert" to perform the conversion. After the conversion is complete, you will be alerted to how many records were converted, and how many records had to be ignored, based on the criteria above.', 'all-in-one-seo-pack') ); ?></span></p>
+	
+	<p><span class="row-title"><?php printf( esc_html__('Before making changes to the database, you should make a backup. We use and recommend %s BackupBuddy %s.', 'all-in-one-seo-pack'), sprintf( '<a target="_blank" href="%s">', esc_url( 'http://semperfiwebdesign.com/backupbuddy/' ) ), '</a>' ); ?></span></p>
+
+
 		
 	<form action="<?php echo admin_url('tools.php?page=seoimport'); ?>" method="post">
 	<?php
 		wp_nonce_field('seodt');
 	
 		$platform_old = (!isset($_POST['platform_old'])) ? '' : $_POST['platform_old'];
-	//	$platform_new = (!isset($_POST['platform_new'])) ? '' : $_POST['platform_new'];
 	
 		_e('Convert inpost SEO data from:', 'all-in-one-seo-pack');
 		echo '<select name="platform_old">';
 		printf( '<option value="">%s</option>', __('Choose platform:', 'all-in-one-seo-pack') );
 		
+		printf( '<optgroup label="%s">', __('Plugins', 'all-in-one-seo-pack') );
+		foreach ( $_seodt_plugins as $platform => $data ) {
+			if($platform != "All in One SEO Pack") printf( '<option value="%s" %s>%s</option>', $platform, selected($platform, $platform_old, 0), $platform );
+		}
+		printf( '</optgroup>' );
+		
 		printf( '<optgroup label="%s">', __('Themes', 'all-in-one-seo-pack') );
 		foreach ( $_seodt_themes as $platform => $data ) {
 			printf( '<option value="%s" %s>%s</option>', $platform, selected($platform, $platform_old, 0), $platform );
 		}
 		printf( '</optgroup>' );
 		
-		printf( '<optgroup label="%s">', __('Plugins', 'all-in-one-seo-pack') );
-		foreach ( $_seodt_plugins as $platform => $data ) {
-			printf( '<option value="%s" %s>%s</option>', $platform, selected($platform, $platform_old, 0), $platform );
-		}
-		printf( '</optgroup>' );
+
 		
 		echo '</select>' . "\n\n";
-		
-	/*	_e('to:', 'all-in-one-seo-pack');
-		echo '<select name="platform_new">';
-		printf( '<option value="">%s</option>', __('Choose platform:', 'all-in-one-seo-pack') );
-		
-		printf( '<optgroup label="%s">', __('Themes', 'all-in-one-seo-pack') );
-		foreach ( $_seodt_themes as $platform => $data ) {
-			printf( '<option value="%s" %s>%s</option>', $platform, selected($platform, $platform_new, 0), $platform );
-		}
-		printf( '</optgroup>' );
-		
-		printf( '<optgroup label="%s">', __('Plugins', 'all-in-one-seo-pack') );
-		foreach ( $_seodt_plugins as $platform => $data ) {
-			printf( '<option value="%s" %s>%s</option>', $platform, selected($platform, $platform_new, 0), $platform );
-		}
-		printf( '</optgroup>' );
-		
-		
-		echo '</select>' . "\n\n";*/
+
 	?>
 	
 	<input type="submit" class="button-highlighted" name="analyze" value="<?php _e('Analyze', 'genesis'); ?>" />
@@ -252,7 +249,7 @@ function seodt_admin() {
 	 * finds compatible entries, it loops through them and preforms the conversion
 	 * on each entry.
 	 */
-	function seodt_post_meta_convert( $old_platform = '', $new_platform = '', $delete_old = false ) {
+	function seodt_post_meta_convert( $old_platform = '', $new_platform = 'All in One SEO Pack', $delete_old = false ) {
 
 		do_action( 'pre_seodt_post_meta_convert', $old_platform, $new_platform, $delete_old );
 
@@ -302,7 +299,7 @@ function seodt_admin() {
 	 * This function analyzes two platforms to see what Compatible elements they share,
 	 * what data can be converted from one to the other, and which elements to ignore (future).
 	 */
-	function seodt_post_meta_analyze( $old_platform = '', $new_platform = '' ) {
+	function seodt_post_meta_analyze( $old_platform = '', $new_platform = 'All in One SEO Pack' ) {
 
 		do_action( 'pre_seodt_post_meta_analyze', $old_platform, $new_platform );
 
@@ -494,7 +491,7 @@ function seodt_admin() {
 				'noindex' => '_su_meta_robots_noindex',
 				'nofollow' => '_su_meta_robots_nofollow',
 			),
-			'WordPress SEO' => array(
+			'Yoast SEO' => array(
 				'Custom Doctitle' => '_yoast_wpseo_title',
 				'META Description' => '_yoast_wpseo_metadesc',
 				'META Keywords' => '_yoast_wpseo_metakeywords',

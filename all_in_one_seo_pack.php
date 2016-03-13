@@ -316,7 +316,8 @@ if ( is_admin() ) {
 	}
 	add_action( 'wp_ajax_aioseop_ajax_save_settings', 'aioseop_ajax_save_settings');
 	add_action( 'wp_ajax_aioseop_ajax_get_menu_links', 'aioseop_ajax_get_menu_links');
-	add_action( 'wp_ajax_aioseo_dismiss_visibility_notice' , 'aioseop_update_user_visibilitynotice'); 
+	add_action( 'wp_ajax_aioseo_dismiss_yst_notice' , 'aioseop_update_yst_detected_notice');
+	add_action( 'wp_ajax_aioseo_dismiss_visibility_notice' , 'aioseop_update_user_visibilitynotice');
 	add_action( 'wp_ajax_aioseo_dismiss_woo_upgrade_notice' , 'aioseop_woo_upgrade_notice_dismissed'); 
 	if(AIOSEOPPRO){
 		add_action( 'wp_ajax_aioseop_ajax_update_oembed',	'aioseop_ajax_update_oembed' );
