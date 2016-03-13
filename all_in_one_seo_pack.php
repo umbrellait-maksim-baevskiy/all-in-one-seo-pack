@@ -174,6 +174,8 @@ if ( !function_exists( 'aioseop_activate' ) ) {
 	  $aiosp_activation = true;
 	  delete_transient( "aioseop_oauth_current" );
 
+		delete_user_meta( get_current_user_id(), 'aioseop_yst_detected_notice_dismissed' );
+
 	  if ( AIOSEOPPRO ){
 	  $aioseop_update_checker->checkForUpdates();
 		}
@@ -274,12 +276,13 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 		require_once( AIOSEOP_PLUGIN_DIR . 'admin/display/postedit.php');
 		require_once( AIOSEOP_PLUGIN_DIR . 'admin/display/general-metaboxes.php');
 		require_once( AIOSEOP_PLUGIN_DIR . 'inc/aiosp_common.php');
+		require_once( AIOSEOP_PLUGIN_DIR . 'admin/meta_import.php');
 		
 		if( AIOSEOPPRO ){
 			require_once( AIOSEOP_PLUGIN_DIR . 'pro/functions_general.php' );
 			require_once( AIOSEOP_PLUGIN_DIR . 'pro/functions_class.php');
 		}
-
+		seodt_init();
 		$aiosp = new All_in_One_SEO_Pack();
 
 		if ( aioseop_option_isset( 'aiosp_unprotect_meta' ) )
@@ -315,7 +318,8 @@ if ( is_admin() ) {
 	}
 	add_action( 'wp_ajax_aioseop_ajax_save_settings', 'aioseop_ajax_save_settings');
 	add_action( 'wp_ajax_aioseop_ajax_get_menu_links', 'aioseop_ajax_get_menu_links');
-	add_action( 'wp_ajax_aioseo_dismiss_visibility_notice' , 'aioseop_update_user_visibilitynotice'); 
+	add_action( 'wp_ajax_aioseo_dismiss_yst_notice' , 'aioseop_update_yst_detected_notice');
+	add_action( 'wp_ajax_aioseo_dismiss_visibility_notice' , 'aioseop_update_user_visibilitynotice');
 	add_action( 'wp_ajax_aioseo_dismiss_woo_upgrade_notice' , 'aioseop_woo_upgrade_notice_dismissed'); 
 	if(AIOSEOPPRO){
 		add_action( 'wp_ajax_aioseop_ajax_update_oembed',	'aioseop_ajax_update_oembed' );
