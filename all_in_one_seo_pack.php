@@ -174,6 +174,8 @@ if ( !function_exists( 'aioseop_activate' ) ) {
 	  $aiosp_activation = true;
 	  delete_transient( "aioseop_oauth_current" );
 
+		delete_user_meta( get_current_user_id(), 'aioseop_yst_detected_notice_dismissed' );
+
 	  if ( AIOSEOPPRO ){
 	  $aioseop_update_checker->checkForUpdates();
 		}
