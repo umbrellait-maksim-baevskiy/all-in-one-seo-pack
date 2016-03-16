@@ -32,9 +32,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * @version 2.3.3-alpha
  */
 
+if(!defined('AIOSEOPPRO')) define('AIOSEOPPRO', false);
+
+
+/*******
+*
+* All in One SEO Pack
+*
+*******/
+
 if ( ! defined( 'ABSPATH' ) ) return;
 
-define('AIOSEOPPRO', false);
+
+if( AIOSEOPPRO ){
+	
+	add_action( 'admin_init', 'disable_all_in_one_free', 1 );
+	
+}
 
 global $aioseop_plugin_name;
 $aioseop_plugin_name = 'All in One SEO Pack';
@@ -46,10 +60,17 @@ if ( ! defined( 'AIOSEOP_VERSION' ) ) define( 'AIOSEOP_VERSION', '2.3.3-alpha' )
 if ( ! defined( 'AIOSEOP_PLUGIN_DIR' ) ) {
     define( 'AIOSEOP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 } elseif ( AIOSEOP_PLUGIN_DIR != plugin_dir_path( __FILE__ ) ) {
+
+//this is not a great message
+/*	
 	add_action( 'admin_notices', create_function( '', 'echo "' . "<div class='error'>" . sprintf(
 				__( "%s detected a conflict; please deactivate the plugin located in %s.", 'all-in-one-seo-pack' ),
 				$aioseop_plugin_name, AIOSEOP_PLUGIN_DIR ) . "</div>" . '";' ) );
+*/
+
 	return;
+
+
 }
 
 if ( ! defined( 'AIOSEOP_PLUGIN_BASENAME' ) )
@@ -183,8 +204,14 @@ if ( !function_exists( 'aioseop_activate' ) ) {
 }
 
 add_action( 'plugins_loaded', 'aioseop_init_class' );
-add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , 'sfwd_add_action_links', 10, 2 );
-//add_filter( 'plugin_row_meta',     'sfwd_plugin_row_meta', 10, 2 );
+if(!function_exists('sfwd_add_action_links'))  {
+
+
+
+
+//	add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , 'sfwd_add_action_links', 10, 2 );
+
+
  
 
 function sfwd_add_action_links( $actions, $plugin_file ) {
@@ -222,32 +249,10 @@ $action_links['proupgrade'] =
 
   return sfwd_action_links( $actions, $plugin_file, $action_links, 'before');
 }
-
-function sfwd_plugin_row_meta( $actions, $plugin_file ) {
-
-if(!AIOSEOPPRO){	
-	
- $action_links = array(
-   'donatelink' => array(
-      'label' => __('Donate', 'all-in-one-seo-pack'),
-      'url'   => 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8'
-    )
-,
-	'amazon' => array(
-	      'label' => __('Amazon Wishlist', 'all-in-one-seo-pack'),
-	      'url'   => 'https://www.amazon.com/wishlist/1NFQ133FNCOOA/ref=wl_web'
-	    )
-
-
-);
-
-}else{
-	$action_links = '';
 }
 
-  return sfwd_action_links( $actions, $plugin_file, $action_links, 'after');
-}
- 
+ if(!function_exists('sfwd_action_links'))  {
+
 function  sfwd_action_links ( $actions, $plugin_file,  $action_links = array(), $position = 'after' ) { 
   static $plugin;
   if( !isset($plugin) ) {
@@ -265,7 +270,7 @@ function  sfwd_action_links ( $actions, $plugin_file,  $action_links = array(), 
   }// if
   return $actions;
 }
-
+}
 if ( !function_exists( 'aioseop_init_class' ) ) {
 	function aioseop_init_class() {
 		global $aiosp;
@@ -339,8 +344,17 @@ if ( !function_exists( 'aioseop_scan_post_header' ) ) {
 require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_init.php' );
 
 
+if(!function_exists('aiosp_install')){
 register_activation_hook( __FILE__, 'aiosp_install' );
 
 function aiosp_install(){
 	aioseop_activate();
 }
+}
+
+if(!function_exists('disable_all_in_one_free')){
+function disable_all_in_one_free(){
+	if ( AIOSEOPPRO && is_plugin_active( 'all-in-one-seo-pack/all_in_one_seo_pack.php' )){
+		deactivate_plugins( 'all-in-one-seo-pack/all_in_one_seo_pack.php' );
+	}
+}}
