@@ -87,7 +87,7 @@ function seodt_action() {
 		printf( '<p><b>%d</b> Compatible Records were identified</p>', $response->update );
 //		printf( '<p>%d Compatible Records will be ignored</p>', $response->ignore );
 		
-		printf( '<p><b>%s</b></p>', __('Compatible elements:', 'all-in-one-seo-pack') );
+		printf( '<p><b>%s</b></p>', __('Compatible data:', 'all-in-one-seo-pack') );
 		echo '<ol>';
 		foreach ( (array)$response->elements as $element ) {
 			printf( '<li>%s</li>', $element );
@@ -129,13 +129,15 @@ function seodt_admin() {
 	<?php screen_icon('tools'); ?>
 	<h2><?php _e('Import SEO Settings', 'all-in-one-seo-pack'); ?></h2>
 	
-	<p><span class="description"><?php printf( __('Use the form below to choose which platform you wish to convert from.', 'all-in-one-seo-pack') ); ?></span></p>
+	<p><span class="description"><?php printf( __('Use the drop down below to choose which plugin or theme you wish to import SEO data from.', 'all-in-one-seo-pack') ); ?></span></p>
 	
-	<p><span class="description"><?php printf( __('Click "Analyze" for a list of elements you are able to convert, along with the number of records that will be converted. Some platforms do not share similar elements, or store data in a non-standard way. These records will remain unchanged. Any compatible elements will be displayed for your review. Also, some records will be ignored if the post/page in question already contains a record for that particular SEO element in the new platform.', 'all-in-one-seo-pack') ); ?></span></p>
+	<p><span class="description"><?php printf( __('Click "Analyze" for a list of SEO data that can be imported into All in One SEO Pack, along with the number of records that will be imported.', 'all-in-one-seo-pack') ); ?></span></p>
 	
-	<p><span class="description"><?php printf( __('Click "Convert" to perform the conversion. After the conversion is complete, you will be alerted to how many records were converted, and how many records had to be ignored, based on the criteria above.', 'all-in-one-seo-pack') ); ?></span></p>
+	<p><span class="description"><strong><?php printf( __('Please Note: ') ); ?></strong><?php printf( __('Some plugins and themes do not share similar data, or they store data in a non-standard way. If we cannot import this data, it will remain unchanged in your database. Any compatible SEO data will be displayed for you to review. If a post or page already has SEO data in All in One SEO Pack, we will not import data from another plugin/theme.', 'all-in-one-seo-pack') ); ?></span></p>
 	
-	<p><span class="row-title"><?php printf( esc_html__('Before making changes to the database, you should make a backup. We use and recommend %s BackupBuddy %s.', 'all-in-one-seo-pack'), sprintf( '<a target="_blank" href="%s">', esc_url( 'http://semperfiwebdesign.com/backupbuddy/' ) ), '</a>' ); ?></span></p>
+	<p><span class="description"><?php printf( __('Click "Convert" to perform the import. After the import has completed, you will be alerted to how many records were imported, and how many records had to be ignored, based on the criteria above.', 'all-in-one-seo-pack') ); ?></span></p>
+	
+	<p><span class="row-title"><?php printf( esc_html__('Before performing an import, we strongly recommend that you make a backup of your site. We use and recommend %s BackupBuddy %s for backups.', 'all-in-one-seo-pack'), sprintf( '<a target="_blank" href="%s">', esc_url( 'http://semperfiwebdesign.com/backupbuddy/' ) ), '</a>' ); ?></span></p>
 
 
 		
@@ -145,7 +147,7 @@ function seodt_admin() {
 	
 		$platform_old = (!isset($_POST['platform_old'])) ? '' : $_POST['platform_old'];
 	
-		_e('Convert inpost SEO data from:', 'all-in-one-seo-pack');
+		_e('Import SEO data from:', 'all-in-one-seo-pack');
 		echo '<select name="platform_old">';
 		printf( '<option value="">%s</option>', __('Choose platform:', 'all-in-one-seo-pack') );
 		
