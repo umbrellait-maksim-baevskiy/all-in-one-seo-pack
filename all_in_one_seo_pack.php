@@ -204,15 +204,50 @@ if ( !function_exists( 'aioseop_activate' ) ) {
 }
 
 add_action( 'plugins_loaded', 'aioseop_init_class' );
+
+
+
+if(!function_exists('sfwd_plugin_row_meta')){
+
+add_filter( 'plugin_row_meta',     'sfwd_plugin_row_meta', 10, 2 );
+
+function sfwd_plugin_row_meta( $actions, $plugin_file ) {
+
+if(!AIOSEOPPRO){	
+
+ $action_links = array(
+   'donatelink' => array(
+      'label' => __('Donate', 'all-in-one-seo-pack'),
+      'url'   => 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8'
+    )
+,
+	'amazon' => array(
+	      'label' => __('Amazon Wishlist', 'all-in-one-seo-pack'),
+	      'url'   => 'https://www.amazon.com/wishlist/1NFQ133FNCOOA/ref=wl_web'
+	    )
+
+
+);
+
+}else{
+	$action_links = '';
+}
+
+  return sfwd_action_links( $actions, $plugin_file, $action_links, 'after');
+}
+}
+
+
+
+
+
+
 if(!function_exists('sfwd_add_action_links'))  {
 
 
+add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , 'sfwd_add_action_links', 10, 2 );
 
 
-	add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , 'sfwd_add_action_links', 10, 2 );
-
-
- 
 
 function sfwd_add_action_links( $actions, $plugin_file ) {
  
