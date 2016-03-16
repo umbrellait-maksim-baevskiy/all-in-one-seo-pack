@@ -209,7 +209,7 @@ if(!function_exists('sfwd_add_action_links'))  {
 
 
 
-//	add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , 'sfwd_add_action_links', 10, 2 );
+	add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , 'sfwd_add_action_links', 10, 2 );
 
 
  
