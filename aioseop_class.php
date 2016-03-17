@@ -1537,6 +1537,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		$role = get_role( 'administrator' );
 	    if ( is_object( $role ) ) $role->add_cap( 'aiosp_manage_seo' );
 		
+		error_log(var_export($aioseop_options, true));
 		aioseop_update_settings_check();
 		add_filter( 'user_contactmethods', 'aioseop_add_contactmethods' );
 		if ( is_user_logged_in() && function_exists( 'is_admin_bar_showing' ) && is_admin_bar_showing() && current_user_can( 'aiosp_manage_seo' ) )
@@ -3623,7 +3624,7 @@ EOF;
 
 		// See if we need to do any update-related tasks
 		if ( false === $aioseop_options || !isset( $aioseop_options['update_version'] ) || version_compare( $aioseop_options['update_version'], $this->version, '<' ) ) {
-			$current_version = isset( $aioseop_options['update_version'] ) ? $aioseop_options['version'] : 0;
+			$current_version = isset( $aioseop_options['update_version'] ) ? $aioseop_options['version'] : '0.0';
 			$this->do_version_updates( $current_version );
 			$aioseop_options['update_version'] = $this->version;
 			update_option( 'aioseop_options', $aioseop_options );
@@ -3631,12 +3632,29 @@ EOF;
 	}
 
 	function do_version_updates( $old_version ) {
-		/*
-		if ( version_compare( $old_version, '2.4', '<' ) ) {
-			// Do changes needed for 2.4
+		global $aioseop_options;
+
+		if ( 
+			( !AIOSEOPPRO && version_compare( $old_version, '2.3.3', '<' ) ) ||
+			( AIOSEOPPRO && version_compare( $old_version, '2.4.3', '<' ) ) 
+		   ) {
+			// Remove 'DOC' from bad bots list to avoid false positives
+			if( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_block_bots'],
+			 $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] )
+			 && 'on' === $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_block_bots'] ) {
+				$list = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
+				$list = str_replace("DOC\n", '', $list);
+				$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
+				update_option( 'aioseop_options', $aioseop_options );
+			}
+
 		}
-		if ( version_compare( $old_version, '2.5', '<' ) ) {
-			// Do changes needed for 2.5... etc
+		/*
+		if ( 
+			( !AIOSEOPPRO && version_compare( $old_version, '2.4', '<' ) ) ||
+			( AIOSEOPPRO && version_compare( $old_version, '2.5', '<' ) ) 
+		   ) {
+			// Do changes needed for 2.4/2.5... etc
 		}
 		*/
 	}
