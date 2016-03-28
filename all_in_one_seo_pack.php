@@ -207,11 +207,11 @@ add_action( 'plugins_loaded', 'aioseop_init_class' );
 
 
 
-if(!function_exists('sfwd_plugin_row_meta')){
+if(!function_exists('aiosp_plugin_row_meta')){
 
-add_filter( 'plugin_row_meta',     'sfwd_plugin_row_meta', 10, 2 );
+add_filter( 'plugin_row_meta',     'aiosp_plugin_row_meta', 10, 2 );
 
-function sfwd_plugin_row_meta( $actions, $plugin_file ) {
+function aiosp_plugin_row_meta( $actions, $plugin_file ) {
 
 if(!AIOSEOPPRO){	
 
@@ -233,7 +233,7 @@ if(!AIOSEOPPRO){
 	$action_links = '';
 }
 
-  return sfwd_action_links( $actions, $plugin_file, $action_links, 'after');
+  return aiosp_action_links( $actions, $plugin_file, $action_links, 'after');
 }
 }
 
@@ -242,14 +242,14 @@ if(!AIOSEOPPRO){
 
 
 
-if(!function_exists('sfwd_add_action_links'))  {
+if(!function_exists('aiosp_add_action_links'))  {
 
 
-add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , 'sfwd_add_action_links', 10, 2 );
+add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , 'aiosp_add_action_links', 10, 2 );
 
 
 
-function sfwd_add_action_links( $actions, $plugin_file ) {
+function aiosp_add_action_links( $actions, $plugin_file ) {
  
  $aioseop_plugin_dirname = AIOSEOP_PLUGIN_DIRNAME;
  $action_links = Array();
@@ -282,13 +282,13 @@ $action_links['proupgrade'] =
 );
 }
 
-  return sfwd_action_links( $actions, $plugin_file, $action_links, 'before');
+  return aiosp_action_links( $actions, $plugin_file, $action_links, 'before');
 }
 }
 
- if(!function_exists('sfwd_action_links'))  {
+ if(!function_exists('aiosp_action_links'))  {
 
-function  sfwd_action_links ( $actions, $plugin_file,  $action_links = array(), $position = 'after' ) { 
+function  aiosp_action_links ( $actions, $plugin_file,  $action_links = array(), $position = 'after' ) { 
   static $plugin;
   if( !isset($plugin) ) {
       $plugin = plugin_basename( __FILE__ );
@@ -379,10 +379,10 @@ if ( !function_exists( 'aioseop_scan_post_header' ) ) {
 require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_init.php' );
 
 
-if(!function_exists('aiosp_install')){
+if(!function_exists('aioseop_install')){
 register_activation_hook( __FILE__, 'aiosp_install' );
 
-function aiosp_install(){
+function aioseop_install(){
 	aioseop_activate();
 }
 }
