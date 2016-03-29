@@ -92,14 +92,21 @@ class aioseop_updates {
 	 */
 	function bad_bots_201603() {
 		// Remove 'DOC' from bad bots list to avoid false positives
-		if( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_block_bots'],
-		 $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] )
-		 && 'on' === $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_block_bots'] ) {
-			$list = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
-			$list = str_replace("\nDOC\n", "\n", $list);
-			$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
-			update_option( 'aioseop_options', $aioseop_options );
-		}
+		if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] ) ) {
+ -				$list = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
+ -				$list = str_replace(array( "DOC\n", "DOC\r\n"), '', $list);
+ -				$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
+ -				update_option( 'aioseop_options', $aioseop_options );
+ -			}
+ -			
+ -			if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ) ){
+ -				$aiosp_reset_htaccess = new All_in_One_SEO_Pack_Bad_Robots;
+ -				$aiosp_reset_htaccess->generate_htaccess_blocklist();
+ -			}
+ -			
+ -			if ( !isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ) && extract_from_markers( get_home_path() . '.htaccess', 'Bad Bot Blocker' ) ){
+ -	insert_with_markers( get_home_path() . '.htaccess', 'Bad Bot Blocker', '' );
+ -			}
 
 	}
 
