@@ -3643,7 +3643,7 @@ EOF;
 			 $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] )
 			 && 'on' === $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_block_bots'] ) {
 				$list = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
-				$list = str_replace("DOC\n", '', $list);
+				$list = str_replace(array( "DOC\n", "DOC\r\n"), '', $list);
 				$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
 				update_option( 'aioseop_options', $aioseop_options );
 			}
