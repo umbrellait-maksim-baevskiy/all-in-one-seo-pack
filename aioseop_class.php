@@ -3624,7 +3624,7 @@ EOF;
 
 		// See if we need to do any update-related tasks
 		if ( false === $aioseop_options || !isset( $aioseop_options['update_version'] ) || version_compare( $aioseop_options['update_version'], $this->version, '<' ) ) {
-			$current_version = isset( $aioseop_options['update_version'] ) ? $aioseop_options['version'] : '0.0';
+			$current_version = isset( $aioseop_options['update_version'] ) ? $aioseop_options['update_version'] : '0.0';
 			$this->do_version_updates( $current_version );
 			$aioseop_options['update_version'] = $this->version;
 			update_option( 'aioseop_options', $aioseop_options );

@@ -34,7 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 if(!defined('AIOSEOPPRO')) define('AIOSEOPPRO', false);
 if ( ! defined( 'AIOSEOP_VERSION' ) ) define( 'AIOSEOP_VERSION', '2.3.3-alpha' );
-
+global $aioseop_plugin_name;
+$aioseop_plugin_name = 'All in One SEO Pack';
 /*******
 *
 * All in One SEO Pack
@@ -50,8 +51,6 @@ if( AIOSEOPPRO ){
 	
 }
 
-global $aioseop_plugin_name;
-$aioseop_plugin_name = 'All in One SEO Pack';
 if ( ! defined( 'AIOSEOP_PLUGIN_NAME' ) ) define( 'AIOSEOP_PLUGIN_NAME', $aioseop_plugin_name );
 
 
@@ -380,7 +379,7 @@ require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_init.php' );
 
 
 if(!function_exists('aioseop_install')){
-register_activation_hook( __FILE__, 'aiosp_install' );
+register_activation_hook( __FILE__, 'aioseop_install' );
 
 function aioseop_install(){
 	aioseop_activate();
