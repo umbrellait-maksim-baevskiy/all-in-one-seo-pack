@@ -10,40 +10,25 @@
  * new WP core feature support, etc.
  */
 class aioseop_updates {
-	protected $aiosp;
-	protected $aioseop_options;
-	protected $update_options;
-
 	/**
 	 * Constructor
 	 */
 	function __construct() {
-		global $aiosp, $aioseop_options;
-		$this->aiosp = $aiosp;
-		$this->aioseop_options = $aioseop_options;
-		$this->update_options = isset( $aioseop_options['update_options'] ) ? $aioseop_options['update_options'] : array();
 	}
 
 	function version_updates() {
-		$aioseop_options = $this->aioseop_options;
-		$update_options = $this->update_options;
-
-		// We don't need to check all the time. Use a transient to limit frequency.
-		if ( get_site_transient( 'aioseop_update_check_time' ) ) return;
-
-		// We haven't checked recently. Reset the timestamp, timeout 6 hours.
-		set_site_transient( 'aioseop_update_check_time', time(), apply_filters( 'aioseop_update_check_time', 3600 * 6 ) );
+		global $aiosp, $aioseop_options;
 
 		// See if we are running a newer version than last time we checked.
-		if ( false === $aioseop_options || !isset( $aioseop_options['update_version'] ) || version_compare( $aioseop_options['update_version'], $this->aiosp->version, '<' ) ) {
+		if ( !isset( $aioseop_options ) || empty( $aioseop_options ) || !isset( $aioseop_options['update_version'] ) || version_compare( $aioseop_options['update_version'], AIOSEOP_VERSION, '<' ) ) {
 			// Last known running plugin version
-			$current_version = isset( $aioseop_options['update_version'] ) ? AIOSEOP_VERSION : '0.0';
+			$last_updated_version = isset( $aioseop_options['update_version'] ) ? $aioseop_options['update_version'] : '0.0';
 
 			// Do upgrades based on previous version
-			$this->do_version_updates( $current_version );
+			$this->do_version_updates( $last_updated_version );
 
 			// Save the current plugin version as the new update_version
-			$aioseop_options['update_version'] = $this->aiosp->version;
+			$aioseop_options['update_version'] = AIOSEOP_VERSION;
 			update_option( 'aioseop_options', $aioseop_options );
 		}
 
@@ -56,7 +41,7 @@ class aioseop_updates {
 	}
 
 	function do_version_updates( $old_version ) {
-		$aioseop_options = $this->aioseop_options;
+		global $aioseop_options;
 
 		if (  
 			( !AIOSEOPPRO && version_compare( $old_version, '2.3.3', '<' ) ) ||
@@ -76,8 +61,16 @@ class aioseop_updates {
 	}
 
 	function do_feature_updates() {
-		if ( ! ( isset( $this->update_options['term_meta_migrated'] ) && 
-		 $this->update_options['term_meta_migrated'] === true ) ) {
+		global $aioseop_options;
+
+		// We don't need to check all the time. Use a transient to limit frequency.
+		if ( get_site_transient( 'aioseop_update_check_time' ) ) return;
+
+		// We haven't checked recently. Reset the timestamp, timeout 6 hours.
+		set_site_transient( 'aioseop_update_check_time', time(), apply_filters( 'aioseop_update_check_time', 3600 * 6 ) );
+
+		if ( ! ( isset( $aioseop_options['update_options']['term_meta_migrated'] ) && 
+		 $aioseop_options['update_options']['term_meta_migrated'] === true ) ) {
 	   		$this->migrate_term_meta_201603();
 		}
 	}
@@ -91,23 +84,24 @@ class aioseop_updates {
 	 * bot blocking.
 	 */
 	function bad_bots_201603() {
+		global $aiosp, $aioseop_options;
 		// Remove 'DOC' from bad bots list to avoid false positives
 		if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] ) ) {
- -				$list = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
- -				$list = str_replace(array( "DOC\n", "DOC\r\n"), '', $list);
- -				$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
- -				update_option( 'aioseop_options', $aioseop_options );
- -			}
- -			
- -			if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ) ){
- -				$aiosp_reset_htaccess = new All_in_One_SEO_Pack_Bad_Robots;
- -				$aiosp_reset_htaccess->generate_htaccess_blocklist();
- -			}
- -			
- -			if ( !isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ) && extract_from_markers( get_home_path() . '.htaccess', 'Bad Bot Blocker' ) ){
- -	insert_with_markers( get_home_path() . '.htaccess', 'Bad Bot Blocker', '' );
- -			}
+			$list = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
+			$list = str_replace(array( "DOC\n", "DOC\r\n"), '', $list);
+			$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
+			update_option( 'aioseop_options', $aioseop_options );
+			$aiosp->update_class_option( $aioseop_options );
 
+			if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ) ){
+				$aiosp_reset_htaccess = new All_in_One_SEO_Pack_Bad_Robots;
+				$aiosp_reset_htaccess->generate_htaccess_blocklist();
+			}
+			
+			if ( !isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ) && extract_from_markers( get_home_path() . '.htaccess', 'Bad Bot Blocker' ) ){
+				insert_with_markers( get_home_path() . '.htaccess', 'Bad Bot Blocker', '' );
+			}
+		}
 	}
 
 	/**
@@ -158,7 +152,7 @@ class aioseop_updates {
          * already exist.
          */
         $table_name = "{$wpdb->prefix}taxonomymeta";
-        if ( $wpdb->get_var("SHOW TABLES LIKE '$table_name'") !== $table_name ) {
+        if ( $wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name ) {
         	$query = "INSERT INTO {$wpdb->termmeta} (term_id, meta_key, meta_value)
         	  SELECT taxm.taxonomy_id as term_id, taxm.meta_key as meta_key, taxm.meta_value as meta_value 
         	  FROM {$wpdb->termmeta} termm 
@@ -169,9 +163,8 @@ class aioseop_updates {
         	@$wpdb->query( $query );
     	}
 
-        $this->update_options['term_meta_migrated'] = true;
-        $this->aioseop_options['update_options'] = $this->update_options;
-        update_option('aioseop_options', $this->aioseop_options);
+        $aioseop_options['update_options']['term_meta_migrated'] = true;
+        update_option('aioseop_options', $aioseop_options);
 	}
 
 }
