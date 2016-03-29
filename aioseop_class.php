@@ -3646,7 +3646,7 @@ EOF;
 				update_option( 'aioseop_options', $aioseop_options );
 			}
 			
-			if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules) ){
+			if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ) ){
 				$aiosp_reset_htaccess = new All_in_One_SEO_Pack_Bad_Robots;
 				$aiosp_reset_htaccess->generate_htaccess_blocklist();
 			}
