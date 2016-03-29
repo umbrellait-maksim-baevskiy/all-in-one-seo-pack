@@ -3639,13 +3639,16 @@ EOF;
 			( AIOSEOPPRO && version_compare( $old_version, '2.4.3', '<' ) ) 
 		   ) {
 			// Remove 'DOC' from bad bots list to avoid false positives
-			if( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_block_bots'],
-			 $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] )
-			 && 'on' === $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_block_bots'] ) {
+			if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] ) ) {
 				$list = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
 				$list = str_replace(array( "DOC\n", "DOC\r\n"), '', $list);
 				$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
 				update_option( 'aioseop_options', $aioseop_options );
+			}
+			
+			if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules) ){
+				$aiosp_reset_htaccess = new All_in_One_SEO_Pack_Bad_Robots;
+				$aiosp_reset_htaccess->generate_htaccess_blocklist();
 			}
 
 		}
