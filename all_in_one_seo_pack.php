@@ -380,7 +380,7 @@ require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_init.php' );
 
 
 if(!function_exists('aioseop_install')){
-register_activation_hook( __FILE__, 'aiosp_install' );
+register_activation_hook( __FILE__, 'aioseop_install' );
 
 function aioseop_install(){
 	aioseop_activate();
