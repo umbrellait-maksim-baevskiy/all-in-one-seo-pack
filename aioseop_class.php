@@ -977,16 +977,16 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				if(AIOSEOPPRO){
 					if ( !empty( $_GET ) && !empty( $_GET['taxonomy'] ) && function_exists( 'wp_get_split_terms' ) ) {
 						$was_split = get_term_meta( $term_id, '_aioseop_term_was_split', true );
-					if ( !$was_split ) {
-						$split_terms = wp_get_split_terms( $featured_tag_id, $_GET['taxonomy'] );
-					if ( !empty( $split_terms ) ) {
-						foreach ( $split_terms as $new_tax => $new_term ) {
-							$this->split_shared_term( $term_id, $new_term );
+						if ( !$was_split ) {
+							$split_terms = wp_get_split_terms( $featured_tag_id, $_GET['taxonomy'] );
+							if ( !empty( $split_terms ) ) {
+								foreach ( $split_terms as $new_tax => $new_term ) {
+									$this->split_shared_term( $term_id, $new_term );
+								}
+							}
 						}
 					}
 				}
-			}
-		}
 				if ( strpos( $title_format, '%category_title%' ) !== false ) $title_format = str_replace( '%category_title%', $replace_title, $title_format );
 				if ( strpos( $title_format, '%taxonomy_title%' ) !== false ) $title_format = str_replace( '%taxonomy_title%', $replace_title, $title_format );
 			} else {
@@ -1537,7 +1537,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		$role = get_role( 'administrator' );
 	    if ( is_object( $role ) ) $role->add_cap( 'aiosp_manage_seo' );
 		
-		error_log(var_export($aioseop_options, true));
 		aioseop_update_settings_check();
 		add_filter( 'user_contactmethods', 'aioseop_add_contactmethods' );
 		if ( is_user_logged_in() && function_exists( 'is_admin_bar_showing' ) && is_admin_bar_showing() && current_user_can( 'aiosp_manage_seo' ) )
@@ -1548,7 +1547,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			add_action( 'admin_head', array( $this, 'add_page_icon' ) );
 			add_action( 'admin_init', 'aioseop_addmycolumns', 1 );
 			add_action( 'admin_init', 'aioseop_handle_ignore_notice' );
-			add_action( 'admin_init', array( $this, 'version_update' ) );
 			if ( AIOSEOPPRO ){
 			if ( current_user_can( 'update_plugins' ) )
 				add_action( 'admin_notices', Array( $aioseop_update_checker, 'key_warning' ) );
@@ -3619,50 +3617,4 @@ EOF;
 								<?php
 							}
 
-	function version_update() {
-		global $aioseop_options;
-
-		// See if we need to do any update-related tasks
-		if ( false === $aioseop_options || !isset( $aioseop_options['update_version'] ) || version_compare( $aioseop_options['update_version'], $this->version, '<' ) ) {
-			$current_version = isset( $aioseop_options['update_version'] ) ? $aioseop_options['update_version'] : '0.0';
-			$this->do_version_updates( $current_version );
-			$aioseop_options['update_version'] = $this->version;
-			update_option( 'aioseop_options', $aioseop_options );
-		}
-	}
-
-	function do_version_updates( $old_version ) {
-		global $aioseop_options;
-
-		if ( 
-			( !AIOSEOPPRO && version_compare( $old_version, '2.3.3', '<' ) ) ||
-			( AIOSEOPPRO && version_compare( $old_version, '2.4.3', '<' ) ) 
-		   ) {
-			// Remove 'DOC' from bad bots list to avoid false positives
-			if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] ) ) {
-				$list = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
-				$list = str_replace(array( "DOC\n", "DOC\r\n"), '', $list);
-				$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
-				update_option( 'aioseop_options', $aioseop_options );
-			}
-			
-			if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ) ){
-				$aiosp_reset_htaccess = new All_in_One_SEO_Pack_Bad_Robots;
-				$aiosp_reset_htaccess->generate_htaccess_blocklist();
-			}
-			
-			if ( !isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ) && extract_from_markers( get_home_path() . '.htaccess', 'Bad Bot Blocker' ) ){
-	insert_with_markers( get_home_path() . '.htaccess', 'Bad Bot Blocker', '' );
-			}
-
-		}
-		/*
-		if ( 
-			( !AIOSEOPPRO && version_compare( $old_version, '2.4', '<' ) ) ||
-			( AIOSEOPPRO && version_compare( $old_version, '2.5', '<' ) ) 
-		   ) {
-			// Do changes needed for 2.4/2.5... etc
-		}
-		*/
-	}
 }
