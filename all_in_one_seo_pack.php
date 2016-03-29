@@ -36,6 +36,7 @@ if(!defined('AIOSEOPPRO')) define('AIOSEOPPRO', false);
 if ( ! defined( 'AIOSEOP_VERSION' ) ) define( 'AIOSEOP_VERSION', '2.3.3-alpha' );
 global $aioseop_plugin_name;
 $aioseop_plugin_name = 'All in One SEO Pack';
+
 /*******
 *
 * All in One SEO Pack
@@ -331,6 +332,7 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 
 
 		add_action( 'init', array( $aiosp, 'add_hooks' ) );
+		add_action( 'admin_init', array( $aioseop_updates, 'version_updates' ), 11 );
 		
 		if ( defined( 'DOING_AJAX' ) && !empty( $_POST ) && !empty( $_POST['action'] ) && ( $_POST['action'] === 'aioseop_ajax_scan_header' ) ) {
 			remove_action( 'init', array( $aiosp, 'add_hooks' ) );
