@@ -88,7 +88,7 @@ class aioseop_updates {
 		// Remove 'DOC' from bad bots list to avoid false positives
 		if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] ) ) {
 			$list = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
-			$list = str_replace(array( "DOC\n", "DOC\r\n"), '', $list);
+			$list = str_replace(array( "DOC\r\n", "DOC\n"), '', $list);
 			$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
 			update_option( 'aioseop_options', $aioseop_options );
 			$aiosp->update_class_option( $aioseop_options );
