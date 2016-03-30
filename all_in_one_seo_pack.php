@@ -312,6 +312,7 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 		load_plugin_textdomain( 'all-in-one-seo-pack', false, dirname( plugin_basename( __FILE__ ) ) . '/i18n/' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'inc/aioseop_functions.php' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_class.php' );
+		require_once( AIOSEOP_PLUGIN_DIR . 'inc/aioseop_updates_class.php');
 		require_once( AIOSEOP_PLUGIN_DIR . 'inc/commonstrings.php');
 		require_once( AIOSEOP_PLUGIN_DIR . 'admin/display/postedit.php');
 		require_once( AIOSEOP_PLUGIN_DIR . 'admin/display/general-metaboxes.php');
@@ -324,6 +325,8 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 		}
 		seodt_init();
 		$aiosp = new All_in_One_SEO_Pack();
+		
+		$aioseop_updates = new AIOSEOP_Updates();
 
 		if ( aioseop_option_isset( 'aiosp_unprotect_meta' ) )
 			add_filter( 'is_protected_meta', 'aioseop_unprotect_meta', 10, 3 );

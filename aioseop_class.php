@@ -1252,7 +1252,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 	function filter_submit( $submit ) {
 		$submit['Submit_Default']['value'] = __( 'Reset General Settings to Defaults', 'all-in-one-seo-pack' ) . ' &raquo;';
-		$submit['Submit_All_Default'] = Array( 'type' => 'submit', 'class' => 'button-primary', 'value' => __( 'Reset ALL Settings to Defaults', 'all-in-one-seo-pack' ) . ' &raquo;' );
+		$submit['Submit_All_Default'] = Array( 'type' => 'submit', 'class' => 'button-secondary', 'value' => __( 'Reset ALL Settings to Defaults', 'all-in-one-seo-pack' ) . ' &raquo;' );
 		return $submit;
 	}
 

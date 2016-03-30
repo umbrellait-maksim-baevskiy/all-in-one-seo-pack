@@ -1810,7 +1810,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 									'nonce-aioseop'	=> Array( 'type' => 'hidden', 'value' => wp_create_nonce('aioseop-nonce') ),
 									'page_options'	=> Array( 'type' => 'hidden', 'value' => 'aiosp_home_description' ),
 									'Submit'		=> Array( 'type' => 'submit', 'class' => 'button-primary', 'value' => __('Update Options', 'all-in-one-seo-pack') . ' &raquo;' ),
-									'Submit_Default'=> Array( 'type' => 'submit', 'class' => 'button-primary', 'value' => __( sprintf( 'Reset %s Settings to Defaults', $name ), 'all-in-one-seo-pack') . ' &raquo;' )
+									'Submit_Default'=> Array( 'type' => 'submit', 'class' => 'button-secondary', 'value' => __( sprintf( 'Reset %s Settings to Defaults', $name ), 'all-in-one-seo-pack') . ' &raquo;' )
 								   );
 			$submit_options = apply_filters( "{$this->prefix}submit_options", $submit_options, $location );
 			foreach ( $submit_options as $k => $s ) {
