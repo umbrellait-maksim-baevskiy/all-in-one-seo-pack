@@ -322,11 +322,17 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 		if( AIOSEOPPRO ){
 			require_once( AIOSEOP_PLUGIN_DIR . 'pro/functions_general.php' );
 			require_once( AIOSEOP_PLUGIN_DIR . 'pro/functions_class.php');
+			require_once( AIOSEOP_PLUGIN_DIR . 'pro/aioseop_pro_updates_class.php');
 		}
 		seodt_init();
 		$aiosp = new All_in_One_SEO_Pack();
 		
 		$aioseop_updates = new AIOSEOP_Updates();
+
+		if( AIOSEOPPRO ){
+			$aioseop_pro_updates = new AIOSEOP_Pro_Updates();
+			add_action( 'admin_init', array( $aioseop_pro_updates, 'version_updates' ), 11 );
+		}
 
 		if ( aioseop_option_isset( 'aiosp_unprotect_meta' ) )
 			add_filter( 'is_protected_meta', 'aioseop_unprotect_meta', 10, 3 );
