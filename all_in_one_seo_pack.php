@@ -331,7 +331,7 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 
 		if( AIOSEOPPRO ){
 			$aioseop_pro_updates = new AIOSEOP_Pro_Updates();
-			add_action( 'admin_init', array( $aioseop_pro_updates, 'version_updates' ), 11 );
+			add_action( 'admin_init', array( $aioseop_pro_updates, 'version_updates' ), 12 );
 		}
 
 		if ( aioseop_option_isset( 'aiosp_unprotect_meta' ) )

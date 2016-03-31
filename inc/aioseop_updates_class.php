@@ -18,6 +18,9 @@ class aioseop_updates {
 
 	function version_updates() {
 		global $aiosp, $aioseop_options;
+		if ( empty( $aioseop_options ) ) {
+			$aioseop_options = get_option( $aioseop_options );
+		}
 
 		// See if we are running a newer version than last time we checked.
 		if ( !isset( $aioseop_options ) || empty( $aioseop_options ) || !isset( $aioseop_options['update_version'] ) || version_compare( $aioseop_options['update_version'], AIOSEOP_VERSION, '<' ) ) {
@@ -27,9 +30,12 @@ class aioseop_updates {
 			// Do upgrades based on previous version
 			$this->do_version_updates( $last_updated_version );
 
-			// Save the current plugin version as the new update_version
-			$aioseop_options['update_version'] = AIOSEOP_VERSION;
-			update_option( 'aioseop_options', $aioseop_options );
+			// If we're running Pro, let the Pro updater set the version.
+			if ( !AIOSEOPPRO ) {
+				// Save the current plugin version as the new update_version
+				$aioseop_options['update_version'] = AIOSEOP_VERSION;
+				$aiosp->update_class_option( $aioseop_options );
+			}
 		}
 
 		/**
@@ -66,8 +72,11 @@ class aioseop_updates {
 		// We don't need to check all the time. Use a transient to limit frequency.
 		if ( get_site_transient( 'aioseop_update_check_time' ) ) return;
 
-		// We haven't checked recently. Reset the timestamp, timeout 6 hours.
-		set_site_transient( 'aioseop_update_check_time', time(), apply_filters( 'aioseop_update_check_time', 3600 * 6 ) );
+		// If we're running Pro, let the Pro updater set the transient.
+		if ( !AIOSEOPPRO ) {
+			// We haven't checked recently. Reset the timestamp, timeout 6 hours.
+			set_site_transient( 'aioseop_update_check_time', time(), apply_filters( 'aioseop_update_check_time', 3600 * 6 ) );
+		}
 
 		/*
 		if ( ! ( isset( $aioseop_options['update_options']['FEATURE_NAME'] ) && 
