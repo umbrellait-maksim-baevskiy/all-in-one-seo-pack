@@ -1215,7 +1215,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 											);
 		$this->pointers['aioseop_welcome_230'] = Array( 'pointer_target' => '#aioseop_top_button',
 													'pointer_text' => '<h3>' . sprintf( __( 'Review Your Settings', 'all-in-one-seo-pack' ), AIOSEOP_VERSION )
-													. '</h3><p>' . __( 'New in 2.3: improved support for taxonomies and a Video Sitemap module; enable modules from our feature manager! And please review your settings, we have added some new ones!', 'all-in-one-seo-pack' ) . '</p>',
+													. '</h3><p>' . __( 'New in 2.4: Improved support for taxonomies, Woocommerce and massive performance improvements under the hood! Please review your settings on each options page!', 'all-in-one-seo-pack' ) . '</p>',
 													 'pointer_edge' => 'bottom',
 													 'pointer_align' => 'left',
 													 'pointer_scope' => 'local'
