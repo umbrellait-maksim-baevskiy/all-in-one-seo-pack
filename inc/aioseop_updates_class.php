@@ -20,12 +20,17 @@ class aioseop_updates {
 		global $aiosp, $aioseop_options;
 		if ( empty( $aioseop_options ) ) {
 			$aioseop_options = get_option( $aioseop_options );
+			if ( empty( $aioseop_options ) ) {
+				// something's wrong. bail.
+				return;
+			}
 		}
 
+		// Last known running plugin version
+		$last_active_version = isset( $aioseop_options['last_active_version'] ) ? $aioseop_options['last_active_version'] : '0.0';
+
 		// See if we are running a newer version than last time we checked.
-		if ( !isset( $aioseop_options ) || empty( $aioseop_options ) || !isset( $aioseop_options['last_active_version'] ) || version_compare( $aioseop_options['last_active_version'], AIOSEOP_VERSION, '<' ) ) {
-			// Last known running plugin version
-			$last_active_version = isset( $aioseop_options['last_active_version'] ) ? $aioseop_options['last_active_version'] : '0.0';
+		if ( version_compare( $aioseop_options['last_active_version'], AIOSEOP_VERSION, '<' ) ) {
 
 			// Do upgrades based on previous version
 			$this->do_version_updates( $last_active_version );
