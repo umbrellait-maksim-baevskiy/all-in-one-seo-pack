@@ -23,17 +23,17 @@ class aioseop_updates {
 		}
 
 		// See if we are running a newer version than last time we checked.
-		if ( !isset( $aioseop_options ) || empty( $aioseop_options ) || !isset( $aioseop_options['update_version'] ) || version_compare( $aioseop_options['update_version'], AIOSEOP_VERSION, '<' ) ) {
+		if ( !isset( $aioseop_options ) || empty( $aioseop_options ) || !isset( $aioseop_options['last_active_version'] ) || version_compare( $aioseop_options['last_active_version'], AIOSEOP_VERSION, '<' ) ) {
 			// Last known running plugin version
-			$last_updated_version = isset( $aioseop_options['update_version'] ) ? $aioseop_options['update_version'] : '0.0';
+			$last_active_version = isset( $aioseop_options['last_active_version'] ) ? $aioseop_options['last_active_version'] : '0.0';
 
 			// Do upgrades based on previous version
-			$this->do_version_updates( $last_updated_version );
+			$this->do_version_updates( $last_active_version );
 
 			// If we're running Pro, let the Pro updater set the version.
 			if ( !AIOSEOPPRO ) {
-				// Save the current plugin version as the new update_version
-				$aioseop_options['update_version'] = AIOSEOP_VERSION;
+				// Save the current plugin version as the new last_active_version
+				$aioseop_options['last_active_version'] = AIOSEOP_VERSION;
 				$aiosp->update_class_option( $aioseop_options );
 			}
 		}
@@ -79,9 +79,9 @@ class aioseop_updates {
 		}
 
 		/*
-		if ( ! ( isset( $aioseop_options['update_options']['FEATURE_NAME'] ) && 
-		 $aioseop_options['update_options']['FEATURE_NAME'] === true ) ) {
-	   		$this->some_feature();
+		if ( ! ( isset( $aioseop_options['version_feature_flags']['FEATURE_NAME'] ) && 
+		 $aioseop_options['version_feature_flags']['FEATURE_NAME'] === 'yes' ) ) {
+	   		$this->some_feature_update_method(); // sets flag to 'yes' on completion.
 		}
 		*/
 	}
