@@ -975,10 +975,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			if ( strpos( $title_format, '%page_title%' ) !== false ) $title_format = str_replace( '%page_title%', $replace_title, $title_format );
 			if ( $w->is_category || $w->is_tag || $w->is_tax ) {
 				if(AIOSEOPPRO){
-					if ( !empty( $_GET ) && !empty( $_GET['taxonomy'] ) && function_exists( 'wp_get_split_terms' ) ) {
+					if ( !empty( $_GET ) && !empty( $_GET['taxonomy'] ) && !empty( $_GET['tag_ID'] ) && function_exists( 'wp_get_split_terms' ) ) {
+						$term_id = intval( $_GET['tag_ID'] );
 						$was_split = get_term_meta( $term_id, '_aioseop_term_was_split', true );
 						if ( !$was_split ) {
-							$split_terms = wp_get_split_terms( $featured_tag_id, $_GET['taxonomy'] );
+							$split_terms = wp_get_split_terms( $term_id, $_GET['taxonomy'] );
 							if ( !empty( $split_terms ) ) {
 								foreach ( $split_terms as $new_tax => $new_term ) {
 									$this->split_shared_term( $term_id, $new_term );
@@ -1214,7 +1215,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 											);
 		$this->pointers['aioseop_welcome_230'] = Array( 'pointer_target' => '#aioseop_top_button',
 													'pointer_text' => '<h3>' . sprintf( __( 'Review Your Settings', 'all-in-one-seo-pack' ), AIOSEOP_VERSION )
-													. '</h3><p>' . __( 'New in 2.3: improved support for taxonomies and a Video Sitemap module; enable modules from our feature manager! And please review your settings, we have added some new ones!', 'all-in-one-seo-pack' ) . '</p>',
+													. '</h3><p>' . __( 'New in 2.4: Improved support for taxonomies, Woocommerce and massive performance improvements under the hood! Please review your settings on each options page!', 'all-in-one-seo-pack' ) . '</p>',
 													 'pointer_edge' => 'bottom',
 													 'pointer_align' => 'left',
 													 'pointer_scope' => 'local'
