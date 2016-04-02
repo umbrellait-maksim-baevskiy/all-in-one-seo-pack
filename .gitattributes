@@ -4,5 +4,5 @@ README.md export-ignore
 .codeclimate.yml export-ignore
 .csslintrc export-ignore
 .eslintignore export-ignore
-.eslintrc
+.eslintrc export-ignore
 .gitattributes export-ignore
