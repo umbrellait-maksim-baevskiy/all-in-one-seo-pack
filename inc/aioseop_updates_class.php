@@ -30,7 +30,7 @@ class aioseop_updates {
 		$last_active_version = isset( $aioseop_options['last_active_version'] ) ? $aioseop_options['last_active_version'] : '0.0';
 
 		// See if we are running a newer version than last time we checked.
-		if ( version_compare( $aioseop_options['last_active_version'], AIOSEOP_VERSION, '<' ) ) {
+		if ( version_compare( $last_active_version, AIOSEOP_VERSION, '<' ) ) {
 
 			// Do upgrades based on previous version
 			$this->do_version_updates( $last_active_version );
@@ -109,7 +109,13 @@ class aioseop_updates {
 			update_option( 'aioseop_options', $aioseop_options );
 			$aiosp->update_class_option( $aioseop_options );
 
-			if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ) ){
+			if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ) && 'on' === $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ){
+
+				if (!class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
+					require_once( AIOSEOP_PLUGIN_DIR . 'admin/aioseop_module_class.php');
+					require_once( AIOSEOP_PLUGIN_DIR . 'modules/aioseop_bad_robots.php');
+				}
+
 				$aiosp_reset_htaccess = new All_in_One_SEO_Pack_Bad_Robots;
 				$aiosp_reset_htaccess->generate_htaccess_blocklist();
 			}
