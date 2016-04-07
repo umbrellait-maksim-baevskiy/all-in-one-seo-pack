@@ -30,5 +30,5 @@ There are many ways to contribute:
 ## Acknowledgements
 
 - [x] Coffee
-- [ ] Bacon
-- [ ] Coffee
+- [x] Bacon
+- [ ] More Coffee
