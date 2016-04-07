@@ -22,9 +22,9 @@ What makes the issue really helpful:
 
 ## Feature ideas
 
-Ideas are great. VersionPress needs them. There are so many difficult problems still to solve, and so many opportunities to make the project better. :bulb: :bulb: :bulb:
+Ideas are great. All in One SEO Pack needs them. There are so many difficult problems still to solve, and so many opportunities to make the project better. :bulb: :bulb: :bulb:
 
-The best place to start is [our Gitter room](https://gitter.im/versionpress/versionpress). You'll get some initial feedback and eventually, it will turn into an issue (ticket) here.
+[Submit a new feature request](https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues/new) and start a discussion.
 
 
 ## Contributing code
@@ -40,33 +40,26 @@ Generally:
 
 Smaller changes like updating README's etc. don't need to use the full workflow, a direct PR or sometimes even a commit into `master` is fine. However, most code changes undergo the suggested workflow which is described in more detail [below](#development-workflow).
 
-> Note: VersionPress is not the easiest WordPress project to contribute to at the moment. Some things are hard in nature (VersionPress is a lot more complex than most other WP plugins), some we try to continually improve (simplifying [Dev-Setup](./docs/Dev-Setup.md), marking issues as `good-first-bug`'s etc.). Any help on this front is always appreciated! 
-
 The following discusses some of the important details if you want to contribute.
-
 
 ### Core values
 
 - **We care about user / dev experience**. Everything that is outward-facing, be it a user interface, developer API or a file format, must be carefully designed for usability and usefulness. We invest our energy to save it for the others.
 - **We care about code quality**. Bad code is a liability, not an asset. We value tests, review each other's code and try to make it good and clean.
-- **We try to be pragmatic**. While we care about quality, the main thing for VersionPress and its users is to move forward. We're always looking for the right balance.
+- **We try to be pragmatic**. While we care about quality, the main thing for All in One SEO Pack and its users is to move forward. We're always looking for the right balance.
 
 
 ### Our development process
 
-**Major versions** (1.0, 2.0 etc.) are released every few months. Each major version has a [corresponding milestone](https://github.com/versionpress/versionpress/milestones/) and issues are assigned to it by the core team. Issues not assigned to any milestone are in a backlog – we want to do them one day but there's no immediate plans yet.
+**Major versions** (2.0, 2.1 etc.) are released every few months. Each major version has a [corresponding milestone](https://github.com/semperfiwebdesign/all-in-one-seo-pack/milestones/) and issues are assigned to it by the core team. Issues not assigned to any milestone are in a backlog – we want to do them one day but there's no immediate plans yet.
 
 **Issues** are the most important tool to plan and manage almost everything around VersionPress:
 
 - We create them for new features, bugs, improvements or even larger things like planning documents. **We strongly prefer issues over wiki** or other documents as they are actionable and time-framed.
-- [This set of **labels**](https://github.com/versionpress/versionpress/wiki/Issues#labels) is used to categorize issues.
+- [This set of **labels**](https://github.com/semperfiwebdesign/all-in-one-seo-pack/wiki/Issues#labels) is used to categorize issues.
 - Issues go through **four states**: 'open', 'in progress', 'in review' and 'closed'. There's an [**overv.io board**](https://overv.io/workspace/JanVoracek/cautious-tarsier/) board to visualize that. Also, overv.io helps us set priorities – tickets higher up will be worked on first.
 
-Regarding **branches**, the current release being worked on is **`master`**. It is hence inherently unsafe, even though we do our best to keep it in a good shape.
-
-**There's a long-running branch** for every major release named `1.x`, `2.x` etc. in case a fix needs to go there. Merging / cherry picking between `master` and long-running branches is always a bit tricky, see e.g. [this blog post](http://blogs.atlassian.com/2013/11/the-essence-of-branch-based-workflows/); generally, merge from older to newer (`1.x` -> `2.x` -> `master`), never the other way around. At the same time, we generally only want to support the latest and greatest and especially during the Early Access period, we don't care that much about the older releases.
-
-We have quite a large **test suite** and every major feature usually has some tests around it, from small unit tests to large, Selenium-based functional tests. Please see [Testing](./docs/Testing.md) for more info.
+Regarding **branches**, the current release being worked on is **`development`**. It is hence inherently unsafe, even though we do our best to keep it in a good shape. **`Master`** is typically relatively stable.
 
 
 ### Development workflow
@@ -126,10 +119,6 @@ A couple of notes:
 - We used to use **rebasing** in the past – you can still see that in commits before April 2015 – but left it in favor of merging which is much more natural on GitHub. Plus, rebases [have their own issues](http://geekblog.oneandoneis2.org/index.php/2013/04/30/please-stay-away-from-rebase).
 - **Issues vs. pull requests**: most of the new improvements and features start as issues as they are quick to create and don't require a Git branch. Then there's usually a single PR against the issue (sometimes more but that's relatively rare). However, issues and pull requests are almost the same thing on GitHub and it's not a problem to start something (possibly simpler) directly as a PR.
 
-
-### License
-
-VersionPress is licensed under [GNU General Public License v3](http://www.gnu.org/licenses/gpl-3.0.txt). By contributing, you agree that your contributions will also be licensed under the same license.
 
 ### Style guides
 
