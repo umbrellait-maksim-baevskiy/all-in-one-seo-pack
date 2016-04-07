@@ -15,7 +15,7 @@ Typically the one-click installer... run bleeding edge coming soon
 There are many ways to contribute:
 
 - Developers, we'd love [your help](./CONTRIBUTING.md).
-- Want more functionality? Suggest a [new feature](https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues).
+- Suggest a [new feature](https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues).
 - Found a bug? [File an issue](https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues).
 
 1. Create your feature branch: `git checkout -b my-new-feature`
