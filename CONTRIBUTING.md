@@ -10,7 +10,7 @@ You're awesome!
 
 ## Reporting bugs
 
-1. Support issues (white screen of death, plugin/theme conflict, post meta or titles not showing up, etc.) should go to the [**support Forums**](http://semperplugins.com/support/). Make sure you're reporting a true AIOSEOP issue here. First do some [basic debugging](http://semperplugins.com/faqs/how-to-troubleshoot-issues-with-our-plugins/).
+1. Support issues (white screen of death, plugin/theme conflict, post meta or titles not showing up, etc.) should go to the [**support forums**](http://semperplugins.com/support/). Make sure you're reporting a true AIOSEOP issue here. First do some [basic debugging](http://semperplugins.com/faqs/how-to-troubleshoot-issues-with-our-plugins/).
 2. [**Search** the issues](https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues) first.
 3. [Open a new issue](https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues/new).
 
