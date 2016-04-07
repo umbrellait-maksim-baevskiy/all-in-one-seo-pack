@@ -1,6 +1,6 @@
-# Contributing
+# Contributing to All in One SEO Pack
 
-You're awesome!
+So you'd like to contribute to an open source project? You're awesome!
 
 - [Reporting bugs](#reporting-bugs)
 - [Feature ideas](#feature-ideas)
