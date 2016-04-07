@@ -15,9 +15,6 @@ Typically the one-click installer... run bleeding edge coming soon
 There are many ways to contribute:
 
 - Developers, we'd love [your help](./CONTRIBUTING.md).
-- Good at writing? Help maintain [the docs](https://github.com/versionpress/docs).
-- Found a bug? [File an issue](https://github.com/versionpress/versionpress/issues).
-- Developers, we'd love [your help](./CONTRIBUTING.md).
 - Suggest a [new feature](https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues).
 - Found a bug? [File an issue](https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues).
 - Beta testers
