@@ -149,9 +149,9 @@ Feel free to reach the devs in the [Gitter room](https://gitter.im/versionpress/
 
 ## Improving docs
 
-Public docs (docs.versionpress.net) are managed via [versionpress/docs](https://github.com/versionpress/docs). We're happy to accept pull requests with improvements, fixes for spelling errors etc. Thank you!
+Documentation contributions coming soon.
 
 
 ---
 
-Other ideas of how to contribute? Tell us [on Gitter](https://gitter.im/versionpress/versionpress). 
+Other ideas of how to contribute? [Tell us](http://semperplugins.com/contact). 
