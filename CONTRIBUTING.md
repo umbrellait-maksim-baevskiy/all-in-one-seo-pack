@@ -135,8 +135,6 @@ Generally, try to follow what's already in place. The project ships with PhpStor
 
 #### JavaScript style guide
 
-VersionPress' GUI is a separate React application, developed in TypeScript.
-
 The styleguide is under construction. :construction:
 
 
