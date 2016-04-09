@@ -141,14 +141,6 @@ There are tools out there for apps like Netbeans and PHPStorm to apply WordPress
 
 
 
-
-### Get help
-
-Feel free to reach the devs in the [Gitter room](https://gitter.im/versionpress/versionpress) if you need help with anything.
-
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/versionpress/versionpress)
-
-
 ## Translating
 
 We would love your help translating the project into your language. [Translations](https://translate.wordpress.org/projects/wp-plugins/all-in-one-seo-pack)
