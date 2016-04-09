@@ -5,7 +5,7 @@ So you'd like to contribute to an open source project? You're awesome!
 - [Reporting bugs](#reporting-bugs)
 - [Feature ideas](#feature-ideas)
 - [Contributing code](#contributing-code)
-- [Improving docs](#improving-docs)
+- [Translating](#translating)
 
 
 ## Reporting bugs
@@ -145,9 +145,12 @@ Feel free to reach the devs in the [Gitter room](https://gitter.im/versionpress/
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/versionpress/versionpress)
 
 
-## Improving docs
+## Translating
 
-Documentation contributions coming soon.
+We would love your help translating the project into your language. [Translations](https://translate.wordpress.org/projects/wp-plugins/all-in-one-seo-pack)
+
+
+*more instructions coming soon
 
 
 ---
