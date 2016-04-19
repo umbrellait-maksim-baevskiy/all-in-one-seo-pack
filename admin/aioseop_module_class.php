@@ -508,7 +508,6 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				"wsr-agent",
 				"WWW-Collector-E",
 				"Xenu",
-				"yandex",
 				"Zao",
 				"Zeus",
 				"ZyBORG",
