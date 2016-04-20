@@ -3422,7 +3422,7 @@ EOF;
 
 		if ( $custom_menu_order ) {
 			add_filter( 'custom_menu_order', '__return_true' );
-			add_filter( 'menu_order', array( $this, 'set_menu_order' ) );
+			add_filter( 'menu_order', array( $this, 'set_menu_order' ), 11 );
 		}
 
 		if ( $donated ) {
@@ -3463,10 +3463,8 @@ EOF;
 			$this->locations['aiosp']['display'] = Array( 'post', 'page' );
 		}
 
-		if ( $custom_menu_order )
+
 			add_menu_page( $menu_name, $menu_name, apply_filters( 'manage_aiosp', 'aiosp_manage_seo' ) , $file, Array( $this, 'display_settings_page' ) );
-		else
-			add_utility_page( $menu_name, $menu_name, apply_filters( 'manage_aiosp', 'aiosp_manage_seo' ), $file, Array( $this, 'display_settings_page' ) );
 
 		add_meta_box('aioseop-list', __( "Join Our Mailing List", 'all-in-one-seo-pack' ), array( 'aiosp_metaboxes', 'display_extra_metaboxes'), 'aioseop_metaboxes', 'normal', 'core');
 		if ( AIOSEOPPRO ){
