@@ -1090,14 +1090,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		$rempost = array( 'revision', 'nav_menu_item' );
 		$pt = array_diff( $pt, $rempost );
 		$post_types = Array();
-		$default_posttypes = Array('Posts','Pages','Media');
 
 		$aiosp_enablecpost = '';
 		if (isset($_REQUEST['aiosp_enablecpost'])) $aiosp_enablecpost = $_REQUEST['aiosp_enablecpost'];
 
 		foreach ( $pt as $p ) {
 			if ( !empty( $post_objs[$p]->label ) ){
-				if (in_array($post_objs[$p]->label,$default_posttypes) && empty( $aioseop_options['aiosp_enablecpost'] )){
+				if ( $post_objs[$p]->_builtin && empty( $aioseop_options['aiosp_enablecpost'] )){
 				$post_types[$p] = $post_objs[$p]->label;
 			}elseif (!empty( $aioseop_options['aiosp_enablecpost'] )  || $aiosp_enablecpost == 'on' ) {
 				$post_types[$p] = $post_objs[$p]->label;
