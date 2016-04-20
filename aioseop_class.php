@@ -1083,7 +1083,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 	function add_page_hooks() {
 
-global $aioseop_options;
+		global $aioseop_options;
 
 		$post_objs = get_post_types( '', 'objects' );
 		$pt = array_keys( $post_objs );
