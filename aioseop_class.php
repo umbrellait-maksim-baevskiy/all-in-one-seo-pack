@@ -1083,7 +1083,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 	function add_page_hooks() {
 
-		global $aioseop_options;
+global $aioseop_options;
 
 		$post_objs = get_post_types( '', 'objects' );
 		$pt = array_keys( $post_objs );
@@ -1107,6 +1107,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				$post_types[$p] = $p;
 			}
 		}
+		
+		foreach ($pt as $p){
+			if ( !empty( $post_objs[$p]->label)){
+				$all_post_types[$p] = $post_objs[$p]->label;
+			}
+		}
+		
 		$taxes = get_taxonomies( '', 'objects' );
 		$tx = array_keys( $taxes );
 		$remtax = array( 'nav_menu', 'link_category', 'post_format' );
@@ -1118,7 +1125,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			else
 				$taxes[$t] = $t;
 		$this->default_options["posttypecolumns"]['initial_options'] = $post_types;
-		$this->default_options["cpostactive"]['initial_options'] = $post_types;
+		$this->default_options["cpostactive"]['initial_options'] = $all_post_types;
 		$this->default_options["cpostnoindex"]['initial_options'] = $post_types;
 		$this->default_options["cpostnofollow"]['initial_options'] = $post_types;
 		$this->default_options["cpostnoodp"]['initial_options'] = $post_types;
