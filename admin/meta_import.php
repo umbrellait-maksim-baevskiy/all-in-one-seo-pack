@@ -36,10 +36,10 @@ class WPSEO_Import_AIOSEO_Hooks extends WPSEO_Import_Hooks {
 	}
 }
 }else{
-	if ( !empty($aioseop_yst_detected_notice_dismissed)) add_action( 'init', 'aioseop_yst_detected_notice_dismissed' );
+	add_action( 'init', 'mi_aioseop_yst_detected_notice_dismissed' );
 }
 
-function aioseop_yst_detected_notice_dismissed(){
+function mi_aioseop_yst_detected_notice_dismissed(){
 	delete_user_meta( get_current_user_id(), 'aioseop_yst_detected_notice_dismissed' );
 }
 
