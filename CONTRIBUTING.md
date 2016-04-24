@@ -147,6 +147,7 @@ We would love your help translating the project into your language. [Translation
 
 
 [How to Contribute Translations](https://github.com/semperfiwebdesign/all-in-one-seo-pack/wiki/Translating-into-your-language)
+
 [Translations FAQ](https://github.com/semperfiwebdesign/all-in-one-seo-pack/wiki/Translations-FAQ)
 
 
