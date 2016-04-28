@@ -515,7 +515,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Importer_Exporter' ) ) {
 									}
 								}
 							}
-						} catch (Exception $e) {
+						} catch ( Exception $e ) {
 							$this->warnings[] = $e->getMessage();
 						}
 
