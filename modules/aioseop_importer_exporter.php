@@ -9,7 +9,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Importer_Exporter' ) ) {
 	 * @author Semper Fi Web Design.
 	 * @copyright http://semperplugins.com
 	 * @package All-in-One-SEO-Pack.
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 */
 	class All_in_One_SEO_Pack_Importer_Exporter extends All_in_One_SEO_Pack_Module {
 
@@ -363,6 +363,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Importer_Exporter' ) ) {
 		/**
 		 * Gets ini file.
 		 * @since 1.0.0
+		 * @since 1.0.1 File imported is sanitized.
 		 * @global $aioseop_options, $aiosp, $aioseop_module_list.
 		 */
 		function do_importer_exporter() {
@@ -394,7 +395,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Importer_Exporter' ) ) {
 					case 'Import':
 
 						// Parses export file
-						$file = file(
+						$file = $this->get_sanitized_file(
 							$_FILES['aiosp_importer_exporter_import_submit']['tmp_name']
 						);
 						$section = Array();
@@ -557,6 +558,32 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Importer_Exporter' ) ) {
 		 * @since 1.0.0
 		 */
 		function settings_update() {
+		}
+
+		/**
+		 * Returns sanitized imported file.
+		 * Vulnerability fix (Tracking Case #: FG-VD-16-027)
+		 * @since 1.0.1
+		 *
+		 * @param string $filename Path to where the uploaded file is located.
+		 *
+		 * @return array Sanitized file as array.
+		 */
+		private function get_sanitized_file( $filename ) {
+			$file = file( $filename );
+			for ( $i = count( $file ) - 1; $i >= 0; --$i ) {
+				// Remove insecured lines
+				if ( preg_match( '/\<(\?php|script)/', $file[$i] ) ) {
+					unset( $file[$i] );
+					continue;
+				}
+				// Apply security filters
+				$file[$i] = strip_tags( trim( $file[$i] ) );
+				// Remove empty lines
+				if ( empty( $file[$i] ) )
+					unset( $file[$i] );
+			}
+			return $file;
 		}
 	}
 }
