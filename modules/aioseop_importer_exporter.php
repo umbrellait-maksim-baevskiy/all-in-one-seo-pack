@@ -363,7 +363,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Importer_Exporter' ) ) {
 		/**
 		 * Gets ini file.
 		 * @since 1.0.0
-		 * @since 1.0.1 File imported is sanitized.
+		 * @since 1.0.1 File imported is sanitized and exception handling.
 		 * @global $aioseop_options, $aiosp, $aioseop_module_list.
 		 */
 		function do_importer_exporter() {
@@ -393,127 +393,130 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Importer_Exporter' ) ) {
 			if ( ( $submit != null ) && ( wp_verify_nonce( $nonce, 'aioseop-nonce') ) ) {
 				switch ( $submit ) {
 					case 'Import':
-
-						// Parses export file
-						$file = $this->get_sanitized_file(
-							$_FILES['aiosp_importer_exporter_import_submit']['tmp_name']
-						);
-						$section = Array();
-						$section_label = null;
-						foreach ( $file as $line_number => $line ) {
-							$line = trim( $line );
-							$matches = Array();
-							if ( empty( $line ) )
-								continue;
-							if ( $line[0] == ';' )
-								continue;
-							if ( preg_match("/^\[(\S+)\]$/", $line, $label ) ) {
-								$section_label = strval( $label[1] );
-								if ( $section_label == 'post_data')
-									$count++;
-								if ( ! isset( $section[ $section_label ] ) )
-									$section[ $section_label ] = Array();
-							} elseif ( preg_match( "/^(\S+)\s*=\s*'(.*)'$/", $line, $matches ) ) {
-								if ( $section_label == 'post_data')
-									$section[ $section_label ][$count][ $matches[ 1 ] ] = $matches[ 2 ];
-								else
-									$section[ $section_label ][ $matches[ 1 ] ] = $matches[ 2 ];
-							} elseif ( preg_match( "/^(\S+)\s*=\s*NULL$/", $line, $matches ) ) {
-								if( $section_label == 'post_data' )
-									$section[ $section_label ][$count][ $matches[ 1 ] ] = NULL;
-								else
-									$section[ $section_label ][ $matches[ 1 ] ] = NULL;
-							} else {
-								$this->warnings[] = sprintf(
-									__(
-										'<b>
-											Warning:
-										</b>
-										Line not matched:
-										<b>
-											"%s"
-										</b>
-										, On Line:
-										<b>
-											%s
-										</b>',
-										'all-in-one-seo-pack'
-									),
-									$line,
-									$line_number
-								);
-							}
-						}
-
-						// Updates Plugin Settings
-						if( is_array( $section ) ) {
-							foreach( $section as $label => $module_options ) {
-								if( is_array( $module_options ) ) {
-									foreach( $module_options as $key => $value ) {
-
-										// Updates Post Data
-										if( $label == 'post_data' ) {
-											$post_exists = post_exists(
-												$module_options[$key]['post_title'],
-												'',
-												$module_options[$key]['post_date']
-											);
-											$target = get_post( $post_exists );
-											if( ( !empty( $module_options[$key]['post_type'] ) )
-												&& $post_exists != null ) {
-												if( is_array($value) )
-													foreach ( $value as $field_name => $field_value )
-														if ( substr( $field_name, 1, 7) == 'aioseop' )
-															if ( $value )
-																update_post_meta(
-																	$target->ID,
-																	$field_name,
-																	maybe_unserialize( $field_value )
-																);
-															else
-																delete_post_meta(
-																	$target->ID,
-																	$field_name
-																);
-												$post_exists = null;
-											} else {
-												$target_title = $module_options[$key]['post_title'];
-												$post_warning = sprintf(
-													__(
-														'<b>
-															Warning:
-														</b>
-														This following post could not be found:
-														<b>
-															"%s"
-														</b>',
-														'all-in-one-seo-pack'
-													),
-													$target_title
-												);
-											}
-											if ( $post_warning != null ) {
-												$this->warnings[] = $post_warning;
-												$post_warning = null;
-											}
-
-										// Updates Module Settings
-										} else{
-											$module_options[$key] = str_replace(
-												Array( "\'", '\n', '\r' ),
-												Array( "'", "\n", "\r" ),
-												maybe_unserialize( $value )
-											);
-										}
-									}
-
-									// Updates Module Settings
-									$this->update_class_option(
-										$module_options,
-										$label
+						try {
+							// Parses export file
+							$file = $this->get_sanitized_file(
+								$_FILES['aiosp_importer_exporter_import_submit']['tmp_name']
+							);
+							$section = Array();
+							$section_label = null;
+							foreach ( $file as $line_number => $line ) {
+								$line = trim( $line );
+								$matches = Array();
+								if ( empty( $line ) )
+									continue;
+								if ( $line[0] == ';' )
+									continue;
+								if ( preg_match("/^\[(\S+)\]$/", $line, $label ) ) {
+									$section_label = strval( $label[1] );
+									if ( $section_label == 'post_data')
+										$count++;
+									if ( ! isset( $section[ $section_label ] ) )
+										$section[ $section_label ] = Array();
+								} elseif ( preg_match( "/^(\S+)\s*=\s*'(.*)'$/", $line, $matches ) ) {
+									if ( $section_label == 'post_data')
+										$section[ $section_label ][$count][ $matches[ 1 ] ] = $matches[ 2 ];
+									else
+										$section[ $section_label ][ $matches[ 1 ] ] = $matches[ 2 ];
+								} elseif ( preg_match( "/^(\S+)\s*=\s*NULL$/", $line, $matches ) ) {
+									if( $section_label == 'post_data' )
+										$section[ $section_label ][$count][ $matches[ 1 ] ] = NULL;
+									else
+										$section[ $section_label ][ $matches[ 1 ] ] = NULL;
+								} else {
+									$this->warnings[] = sprintf(
+										__(
+											'<b>
+												Warning:
+											</b>
+											Line not matched:
+											<b>
+												"%s"
+											</b>
+											, On Line:
+											<b>
+												%s
+											</b>',
+											'all-in-one-seo-pack'
+										),
+										$line,
+										$line_number
 									);
 								}
 							}
+
+							// Updates Plugin Settings
+							if( is_array( $section ) ) {
+								foreach( $section as $label => $module_options ) {
+									if( is_array( $module_options ) ) {
+										foreach( $module_options as $key => $value ) {
+
+											// Updates Post Data
+											if( $label == 'post_data' ) {
+												$post_exists = post_exists(
+													$module_options[$key]['post_title'],
+													'',
+													$module_options[$key]['post_date']
+												);
+												$target = get_post( $post_exists );
+												if( ( !empty( $module_options[$key]['post_type'] ) )
+													&& $post_exists != null ) {
+													if( is_array($value) )
+														foreach ( $value as $field_name => $field_value )
+															if ( substr( $field_name, 1, 7) == 'aioseop' )
+																if ( $value )
+																	update_post_meta(
+																		$target->ID,
+																		$field_name,
+																		maybe_unserialize( $field_value )
+																	);
+																else
+																	delete_post_meta(
+																		$target->ID,
+																		$field_name
+																	);
+													$post_exists = null;
+												} else {
+													$target_title = $module_options[$key]['post_title'];
+													$post_warning = sprintf(
+														__(
+															'<b>
+																Warning:
+															</b>
+															This following post could not be found:
+															<b>
+																"%s"
+															</b>',
+															'all-in-one-seo-pack'
+														),
+														$target_title
+													);
+												}
+												if ( $post_warning != null ) {
+													$this->warnings[] = $post_warning;
+													$post_warning = null;
+												}
+
+											// Updates Module Settings
+											} else{
+												$module_options[$key] = str_replace(
+													Array( "\'", '\n', '\r' ),
+													Array( "'", "\n", "\r" ),
+													maybe_unserialize( $value )
+												);
+											}
+										}
+
+										// Updates Module Settings
+										$this->update_class_option(
+											$module_options,
+											$label
+										);
+									}
+								}
+							}
+						} catch (Exception $e) {
+							$this->warnings[] = $e->getMessage();
 						}
 
 						// Shows all errors found
@@ -574,8 +577,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Importer_Exporter' ) ) {
 			for ( $i = count( $file ) - 1; $i >= 0; --$i ) {
 				// Remove insecured lines
 				if ( preg_match( '/\<(\?php|script)/', $file[$i] ) ) {
-					unset( $file[$i] );
-					continue;
+					throw new Exception( __(
+						'<b>Security warning:</b> Your file looks compromised. Please check the file for any script-injection.',
+						'all-in-one-seo-pack'
+					) );
 				}
 				// Apply security filters
 				$file[$i] = strip_tags( trim( $file[$i] ) );
