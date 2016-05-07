@@ -25,7 +25,7 @@ class aioseop_updates {
 	 * Updates version.
 	 * @since 1.0.0
 	 * @global $aiosp, $aioseop_options.
-	 * @return null.
+	 * @return null
 	 */
 	function version_updates() {
 		global $aiosp, $aioseop_options;
@@ -69,7 +69,7 @@ class aioseop_updates {
 	 * TODO: the compare here should be extracted into a function
 	 * @since 1.0.0
 	 * @global $aioseop_options.
-	 * @param String $old_version.
+	 * @param String $old_version
 	 */
 	function do_version_updates( $old_version ) {
 		global $aioseop_options;
@@ -87,22 +87,14 @@ class aioseop_updates {
 	   		$this->bad_bots_remove_yandex_201604();
 		}
 
-		/*
-		if (
-			( !AIOSEOPPRO && version_compare( $old_version, '2.4', '<' ) ) ||
-			( AIOSEOPPRO && version_compare( $old_version, '2.5', '<' ) )
-		   ) {
-			// Do changes needed for 2.4/2.5... etc
-		}
-		*/
 	}
 
 	/**
 	 * Updates features.
 	 * @since 1.0.0
-	 * @return null.
+	 * @return null
 	 */
-	function do_feature_updates() {
+	public function do_feature_updates() {
 		global $aioseop_options;
 
 		// We don't need to check all the time. Use a transient to limit frequency.
@@ -119,6 +111,7 @@ class aioseop_updates {
 				apply_filters( 'aioseop_update_check_time', 3600 * 6 )
 			);
 		}
+
 
 		/*
 		if ( ! ( isset( $aioseop_options['version_feature_flags']['FEATURE_NAME'] ) &&
