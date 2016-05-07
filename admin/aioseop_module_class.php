@@ -41,8 +41,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Handles calls to display_settings_page_{$location}, does error checking.
 		 * @since 1.0.0
-		 * @param string $name.
-		 * @return String.
+		 * @param string $name
+		 * @return String
 		 */
 		function __call( $name, $arguments ) {
 			if ( $this->strpos( $name, "display_settings_page_" ) === 0 )
@@ -76,7 +76,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets options for the module and stored individually or together.
 		 * @since 1.0.0
-		 * @return Mixed.
+		 * @return Mixed
 		 */
 		function get_class_option()	{
 			$option_name = $this->get_option_name();
@@ -93,8 +93,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Updates options for module and stored individually or together.
 		 * @since 1.0.0
-		 * @param string $option_data, boolean $option_name.
-		 * @return array.
+		 * @param string $option_data
+		 * @param boolean $option_name
+		 * @return array
 		 */
 		function update_class_option( $option_data, $option_name = false ) {
 			if ( $option_name == false )
@@ -113,8 +114,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Deletes options for module, stored individually or together.
 		 * @since 1.0.0
-		 * @param boolean $delete.
-		 * @return array.
+		 * @param boolean $delete
+		 * @return array
 		 */
 		function delete_class_option( $delete = false ) {
 			$option_name = $this->get_option_name();
@@ -133,7 +134,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets the option name with prefix.
 		 * @since 1.0.0
-		 * @return string.
+		 * @return string
 		 */
 		function get_option_name() {
 			if ( ! isset( $this->option_name ) || empty( $this->option_name ) )
@@ -144,8 +145,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Checks conveniences function to see if an option is set.
 		 * @since 1.0.0
-		 * @param array $option, string $location.
-		 * @return array options[].
+		 * @param array $option
+		 * @param string $location
+		 * @return array options[]
 		 */
 		function option_isset( $option, $location = null ) {
 			$prefix = $this->get_prefix( $location );
@@ -157,9 +159,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * Handles non UTF-8 encodings and fallback.
 		 * @since 1.0.0
 		 * @global $UTF8_TABLES.
-		 * @param string $str, string $mode.
-		 * @return mb_convert_case(), ucwords(), strtr().
-		 * @return String.
+		 * @param string $str
+		 * @param string $mode
+		 * @return mb_convert_case() | ucwords() | strtr().
+		 * @return String
 		 */
 		function convert_case( $str, $mode = 'upper' ) {
 			static $charset = null;
@@ -203,8 +206,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * an UTF-8 friendly replacement for strtolower()
 		 * @since 1.0.0
 		 * @see mb_strtolower(), strtolower().
-		 * @param String $str.
-		 * @return String.
+		 * @param String $str
+		 * @return String
 		 */
 		function strtolower( $str ) {
 			return $this->convert_case( $str, 'lower' );
@@ -216,7 +219,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * an UTF-8 friendly replacement for strtoupper()
 		 * @since 1.0.0
 		 * @see mb_strtoupper(), strtoupper().
-		 * @param String $str.
+		 * @param String $str
 		 * @return function convert_case().
 		 */
 		function strtoupper( $str ) {
@@ -229,8 +232,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * an UTF-8 friendly replacement for ucwords()
 		 * @since 1.0.0
 		 * @see mb_convert_case(), ucwords().
-		 * @param String $str.
-		 * @return String.
+		 * @param String $str
+		 * @return String
 		 */
 		function ucwords( $str ) {
 			return $this->convert_case( $str, 'title' );
@@ -240,8 +243,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * Wrappers for strlen() and uses mb_strlen() if possible.
 		 * @since 1.0.0
 		 * @see strlen(), mb_strlen().
-		 * @param String $string.
-		 * @return String.
+		 * @param String $string
+		 * @return String
 		 */
 		function strlen( $string ) {
 			if ( function_exists( 'mb_strlen' ) )
@@ -253,8 +256,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * Wrapper for substr() - uses mb_substr() if possible.
 		 * @since 1.0.0
 		 * @see substr(), mb_substr().
-		 * @param String $string, int $start,int $length.
-		 * @return array.
+		 * @param String $string
+		 * @param int $start
+		 * @param int $length.
+		 * @return array
 		 */
 		function substr( $string, $start = 0, $length = 2147483647 ) {
 			$args = func_get_args();
@@ -267,8 +272,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * Wrappers for strpos() and uses mb_strpos() if possible.
 		 * @since 1.0.0
 		 * @see strpos(), mb_strpos().
-		 * @param String $haystack, String $needle, int $offset.
-		 * @return String.
+		 * @param String $haystack
+		 * @param String $needle
+		 * @param int $offset.
+		 * @return String
 		 */
 		function strpos( $haystack, $needle, $offset = 0 ) {
 			if ( function_exists( 'mb_strpos' ) )
@@ -280,8 +287,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
  		 * Wrappers for strrpos() and uses mb_strrpos() if possible.
 		 * @since 1.0.0
 		 * @see strrpos(), mb_strrpos().
-		 * @param String $haystack, String $needle, int $offset.
-		 * @return String.
+		 * @param String $haystack
+		 * @param String $needle
+		 * @param int $offset.
+		 * @return String
 		 */
 		function strrpos( $haystack, $needle, $offset = 0 ) {
 			if ( function_exists( 'mb_strrpos' ) )
@@ -292,8 +301,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * convert xml string to php array - useful to get a serializable value
 		 *
-		 * @param string $xmlstr.
-		 * @return array.
+		 * @param string $xmlstr
+		 * @return array
 		 *
 		 * @author Adrien aka Gaarf & contributors.
 		 * @see http://gaarf.info/2009/08/13/xml-string-to-php-array/
@@ -312,8 +321,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
  		 * Changes a XML String to an array.
 		 * @since 1.0.0
-		 * @param String $xmlstr.
-		 * @return array.
+		 * @param String $xmlstr
+		 * @return array
 		 */
 		function xml_string_to_array( $xmlstr ) {
 			if ( ! class_exists( 'DOMDocument' ) )	{
@@ -328,8 +337,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
  		 * Changes a DOMnode to an array.
 		 * @since 1.0.0
-		 * @param String $node.
-		 * @return array $output.
+		 * @param String $node
+		 * @return array $output
 		 */
 		function domnode_to_array( $node ) {
 			switch ( $node->nodeType )	{
@@ -378,8 +387,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
  		 * Adds support for using %cf_(name of field)% for using custom fields.
 		 * @since 1.0.0
-		 * @param String $format.
-		 * @return array.
+		 * @param String $format
+		 * @return array
 		 */
 		function apply_cf_fields( $format ) {
 			return preg_replace_callback( '/%cf_([^%]*?)%/', Array( $this, 'cf_field_replace' ), $format );
@@ -388,7 +397,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
  		 * Replaces field.
 		 * @since 1.0.0
-		 * @param String $matches.
+		 * @param String $matches
 		 * @return String $result.
 		 */
 		function cf_field_replace( $matches ) {
@@ -414,7 +423,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Returns child blogs of parent in a multisite.
 		 * @since 1.0.0
-		 * @return mixed.
+		 * @return mixed
 		 */
 		function get_child_blogs() {
 			global $wpdb, $blog_id;
@@ -434,8 +443,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Checks if the plugin is active on a given blog by blogid on a multisite.
 		 * @since 1.0.0
-		 * @param boolean $bid.
-		 * @return array in_array() or boolean.
+		 * @param boolean $bid
+		 * @return array | boolean
 		 */
 		function is_aioseop_active_on_blog( $bid = false ) {
 			global $blog_id;
@@ -454,8 +463,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Adds quote list for the regex.
 		 * @since 1.0.0
-		 * @param String $quote, array $list.
-		 * @return String $gregex.
+		 * @param String $quote
+		 * @param array $list
+		 * @return String $gregex
 		 */
 		function quote_list_for_regex( $list, $quote = '/' ) {
 			$regex = '';
@@ -475,7 +485,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * @since 1.0.0
 		 * @author Sean M. Brown.
 		 * @link http://smbrown.wordpress.com/2009/04/29/verify-googlebot-forward-reverse-dns/
-		 * @return boolean.
+		 * @return boolean
 		 */
 		function is_good_bot() {
 			$botlist = Array(
@@ -657,7 +667,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Checks if it is bad bot.
 		 * @since 1.0.0
-		 * @return boolean.
+		 * @return boolean
 		 */
 		function is_bad_bot() {
 			$botlist = $this->default_bad_bots();
@@ -711,7 +721,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Checks for if it bad refererer.
 		 * @since 1.0.0
-		 * @return boolean.
+		 * @return boolean
 		 */
 		function is_bad_referer() {
 			$referlist = $this->default_bad_referers();
@@ -731,7 +741,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Allows or not a bot.
 		 * @since 1.0.0
-		 * @return array.
+		 * @return array
 		 */
 		function allow_bot() {
 			$allow_bot = true;
@@ -745,7 +755,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Displays tabs for tabbed locations on a settings page.
 		 * @since 1.0.0
-		 * @param String $location.
+		 * @param String $location
 		 */
 		function display_tabs( $location ) {
 			if ( ( $location != null ) && isset( $locations[$location]['tabs'] ) )
@@ -778,8 +788,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets objet labels.
 		 * @since 1.0.0
-		 * @param String $post_objs.
-		 * @return array $post_types.
+		 * @param String $post_objs
+		 * @return array $post_types
 		 */
 		function get_object_labels( $post_objs ) {
 			$pt = array_keys( $post_objs );
@@ -795,8 +805,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets term labels.
 		 * @since 1.0.0
-		 * @param array $post_objs.
-		 * @return array $post_types.
+		 * @param array $post_objs
+		 * @return array $post_types
 		 */
 		function get_term_labels( $post_objs ) {
 			$post_types = Array();
@@ -809,8 +819,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets term labels.
 		 * @since 1.0.0
-		 * @param array $args.
-		 * @return array get_object_labels.
+		 * @param array $args
+		 * @return array get_object_labels
 		 */
 		function get_post_type_titles( $args = Array() ) {
 			return $this->get_object_labels(
@@ -821,8 +831,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets taxonomy titles.
 		 * @since 1.0.0
-		 * @param array $args.
-		 * @return array get_object_labels.
+		 * @param array $args
+		 * @return array get_object_labels
 		 */
 		function get_taxonomy_titles( $args = Array() ) {
 			return $this->get_object_labels(
@@ -833,8 +843,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets category titles.
 		 * @since 1.0.0
-		 * @param array $args.
-		 * @return array get_term_labels.
+		 * @param array $args
+		 * @return array get_term_labels
 		 */
 		function get_category_titles( $args = Array() ) {
 			return $this->get_term_labels( get_categories( $args ) );
@@ -843,8 +853,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Helps functions for exporting settings on a post data.
 		 * @since 1.0.0
-		 * @param String $prefix, array $querry.
-		 * @return String $buf.
+		 * @param String $prefix
+		 * @param array $querry
+		 * @return String $buf
 		 */
 		function post_data_export( $prefix = '_aioseop', $query = Array( 'posts_per_page' => -1 ) ) {
 			$buf = '';
@@ -888,8 +899,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Handles exporting settings data for a module.
 		 * @since 1.0.0
-		 * @param String $buf.
-		 * @return String $buf.
+		 * @param String $buf
+		 * @return String $buf
 		 */
 		function settings_export( $buf ) {
 			global $aiosp;
@@ -948,7 +959,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Adds the menus for the aioseop_modules_add_menus hook.
 		 * @since 1.0.0
-		 * @return int.
+		 * @return int
 		 */
 		function menu_order() {
 			return 10;
@@ -957,8 +968,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Prints a basic error message.
 		 * @since 1.0.0
-		 * @param String $error.
-		 * @return boolean.
+		 * @param String $error
+		 * @return boolean
 		 */
 		function output_error( $error ) {
 			echo 	"<div class='aioseop_module error'>
@@ -971,8 +982,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * Backwards compatibility.
 		 * @since 1.0.0
 		 * @see http://php.net/manual/en/function.str-getcsv.php
-		 * @param String $input, String $delimiter, String $enclosure, String $escape.
-		 * @return array $data.
+		 * @param String $input
+		 * @param String $delimiter
+		 * @param String $enclosure
+		 * @param String $escape
+		 * @return array $data
 		 */
 		function str_getcsv( $input, $delimiter = ",", $enclosure = '"', $escape = "\\" ) {
 			$fp = fopen( "php://memory", 'r+' );
@@ -991,8 +1005,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 *  Helps functions converting csv in key/value pair format to an associative array.
 		 * @since 1.0.0
-		 * @param String $csv.
-		 * @return array $args.
+		 * @param String $csv
+		 * @return array $args
 		 */
 		function csv_to_array( $csv ) {
 			$args = Array();
@@ -1010,7 +1024,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Allows modules to use WP Filesystem if available and desired, fall back to PHP filesystem access otherwise.
 		 * @since 1.0.0
-		 * @param String $method, Boolean $form_fields, String $url, Boolean $error.
+		 * @param String $method
+		 * @param Boolean $form_fields
+		 * @param String $url
+		 * @param Boolean $error
 		 * @return array $credentials.
 		 */
 		function use_wp_filesystem( $method = '', $form_fields = false, $url = '', $error = false ) {
@@ -1030,7 +1047,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Wrapps function to get filesystem object.
 		 * @since 1.0.0
-		 * @return array $wp_filesystem, boolean.
+		 * @return array $wp_filesystem | boolean
 		 */
 		function get_filesystem_object() {
 			$cred = get_transient( 'aioseop_fs_credentials' );
@@ -1057,8 +1074,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Sees if a file exists using WP Filesystem.
 		 * @since 1.0.0
-		 * @param String $filename.
-		 * @return String $wpfs.
+		 * @param String $filename
+		 * @return String $wpfs
 		 */
 		function file_exists( $filename ) {
 			$wpfs = $this->get_filesystem_object();
@@ -1070,8 +1087,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Sees if the directory entry is a file using WP Filesystem..
 		 * @since 1.0.0
-		 * @param String $filename.
-		 * @return String $wpfs.
+		 * @param String $filename
+		 * @return String $wpfs
 		 */
 		function is_file( $filename ) {
 			$wpfs = $this->get_filesystem_object();
@@ -1083,8 +1100,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Lists files in a directory using WP Filesystem.
 		 * @since 1.0.0
-		 * @param String $path.
-		 * @return String $wpfs, String $dirlist.
+		 * @param String $path
+		 * @return String $wpfs
+		 * @return String $dirlist
 		 */
 		function scandir( $path ) {
 			$wpfs = $this->get_filesystem_object();
@@ -1100,8 +1118,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Loads a file through WP Filesystem and implements basic support for offset and maxlen.
 		 * @since 1.0.0
-		 * @param String $filename, Boolean $use_include_path, String $context, int $offset, int $maxlen.
-		 * @return Boolean, String, String substr(), String $wpfs.
+		 * @param String $filename
+		 * @param Boolean $use_include_path
+		 * @param String $context
+		 * @param int $offset
+		 * @param int $maxlen.
+		 * @return Boolean | String | String substr() | String $wpfs
 		 */
 		function load_file( $filename, $use_include_path = false, $context = null, $offset = -1, $maxlen = -1 ) {
 			$wpfs = $this->get_filesystem_object();
@@ -1130,8 +1152,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Saves a file through WP Filesystem.
 		 * @since 1.0.0
-		 * @param String $filename, String $contents.
-		 * @return Boolean, String, String output_error().
+		 * @param String $filename
+		 * @param String $contents
+		 * @return Boolean | String | String output_error()
 		 */
 		function save_file( $filename, $contents ) {
 			$failed_str = __(
@@ -1158,8 +1181,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Deletes a file through WP Filesystem.
 		 * @since 1.0.0
-		 * @param String $filename.
-		 * @return Boolean.
+		 * @param String $filename
+		 * @return Boolean
 		 */
 		function delete_file( $filename ) {
 			$wpfs = $this->get_filesystem_object();
@@ -1188,8 +1211,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Renames a file through WP Filesystem.
 		 * @since 1.0.0
-		 * @param String $filename, String $newname.
-		 * @return Boolean.
+		 * @param String $filename
+		 * @param String $newname
+		 * @return Boolean
 		 */
 		function rename_file( $filename, $newname ) {
 			$wpfs = $this->get_filesystem_object();
@@ -1228,8 +1252,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Loads multiple files.
 		 * @since 1.0.0
-		 * @param String $filename, String $newname.
-		 * @return array $options.
+		 * @param String $filename
+		 * @param String $newname
+		 * @return array $options
 		 */
 		function load_files( $options, $opts, $prefix ) {
 			foreach ( $opts as $opt => $file )	{
@@ -1245,7 +1270,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Saves multiple files.
 		 * @since 1.0.0
-		 * @param array $opts, String $prefix.
+		 * @param array $opts
+		 * @param String $prefix
 		 */
 		function save_files( $opts, $prefix ) {
 			foreach ( $opts as $opt => $file )	{
@@ -1261,7 +1287,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Deletes multiple files.
 		 * @since 1.0.0
-		 * @param array $opts.
+		 * @param array $opts
 		 */
 		function delete_files( $opts ) {
 			foreach ( $opts as $opt => $file )	{
@@ -1273,8 +1299,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets all iamges by their type.
 		 * @since 1.0.0
-		 * @param String $options, String $p.
-		 * @return array.
+		 * @param String $options
+		 * @param String $p
+		 * @return array
 		 */
 		function get_all_images_by_type( $options = null, $p = null ) {
 			$img = Array();
@@ -1402,8 +1429,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets all iamges.
 		 * @since 1.0.0
-		 * @param String $options, String $p.
-		 * @return array.
+		 * @param String $options
+		 * @param String $p
+		 * @return array
 		 */
 		function get_all_images( $options = null, $p = null ) {
 			$img = $this->get_all_images_by_type( $options, $p );
@@ -1425,8 +1453,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * @since 1.0.0
 		 * @author Justin Tadlock
 		 * @link http://themehybrid.com/plugins/get-the-image
-		 * @param String $options, String $p.
-		 * @return array.
+		 * @param String $options
+		 * @param String $p
+		 * @return array
 		 */
 		function get_the_image( $options = null, $p = null ) {
 
@@ -1464,8 +1493,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets the image by default.
 		 * @since 1.0.0
-		 * @param String $p.
-		 * @return String.
+		 * @param String $p
+		 * @return String
 		 */
 		function get_the_image_by_default( $p = null ) {
 			return '';
@@ -1474,8 +1503,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets the image by meta key.
 		 * @since 1.0.0
-		 * @param array $args.
-		 * @return Mixed.
+		 * @param array $args
+		 * @return Mixed
 		 */
 		function get_the_image_by_meta_key( $args = array() ) {
 
@@ -1499,8 +1528,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets the image by post thumbnail.
 		 * @since 1.0.0
-		 * @param String $p.
-		 * @return array.
+		 * @param String $p
+		 * @return array
 		 */
 		function get_the_image_by_post_thumbnail( $p = null ) {
 			if ( $p === null )	{
@@ -1523,8 +1552,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets the image by attachment.
 		 * @since 1.0.0
-		 * @param String $p.
-		 * @return array.
+		 * @param String $p
+		 * @return array
 		 */
 		function get_the_image_by_attachment( $p = null ) {
 			if ( $p === null )	{
@@ -1581,8 +1610,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets the image by scan.
 		 * @since 1.0.0
-		 * @param String $p.
-		 * @return array.
+		 * @param String $p
+		 * @return array
 		 */
 		function get_the_image_by_scan( $p = null ) {
 			if ( $p === null )	{
@@ -1610,8 +1639,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * crude approximization of whether current user is an admin
 		 * @since 1.0.0
-		 * @param String $p.
-		 * @return String.
+		 * @param String $p
+		 * @return String
 		 */
 		function is_admin() {
 			return current_user_can( 'level_8' );
@@ -1620,7 +1649,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * crude approximization of whether current user is an admin
 		 * @since 1.0.0
-		 * @param String $default_options, array $options, String $help_link.
+		 * @param String $default_options
+		 * @param array $options
+		 * @param String $help_link.
 		 */
 		function help_text_helper( &$default_options, $options, $help_link = '' ) {
 			foreach( $options as $o )	{
@@ -1816,8 +1847,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Localizes Script data.
 		 * @since 1.0.0
-		 * @param array $data.
-		 * @return array.
+		 * @param array $data
+		 * @return array
 		 */
 		function localize_script_data( $data ) {
 			if ( ! is_array( $data ) )	{
@@ -1899,7 +1930,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets administratos' links.
 		 * @since 1.0.0
-		 * @return array.
+		 * @return array
 		 */
 		function get_admin_links() {
 			if ( !empty( $this->menu_name ) )
@@ -1987,7 +2018,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * Collects metabox data together for tabbed metaboxes.
 		 * @since 1.0.0
 		 * @param array $args
-		 * @return array.
+		 * @return array
 		 */
 		function filter_return_metaboxes( $args ) {
 			return array_merge( $args, $this->post_metaboxes );
@@ -1997,7 +2028,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * Adds submenu for module, call page hooks, set up metaboxes.
 		 * @since 1.0.0
 		 * @param String $parent_slug.
-		 * @return Mixed.
+		 * @return Mixed
 		 */
 		function add_menu( $parent_slug ) {
 			if ( !empty( $this->menu_name ) )
@@ -2143,8 +2174,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Updates postmeta for metabox.
 		 * @since 1.0.0
-		 * @param int $post_id.
-		 * @return Mixed.
+		 * @param int $post_id
+		 * @return Mixed
 		 */
 		function save_post_data( $post_id ) {
 			static $update = false;
@@ -2186,8 +2217,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Outputs radio buttons, checkboxes, selects, multiselects, handles groups.
 		 * @since 1.0.0
-		 * @param array $args.
-		 * @return array.
+		 * @param array $args
+		 * @return array
 		 */
 		function do_multi_input( $args ) {
 			extract( $args );
@@ -2263,8 +2294,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Outputs a setting item for settings pages and metaboxes.
 		 * @since 1.0.0
-		 * @param array $args.
-		 * @return array.
+		 * @param array $args
+		 * @return array
 		 */
 		function get_option_html( $args ) {
 			static $n = 0;
@@ -2439,8 +2470,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Formats a row for an option on a settings page.
 		 * @since 1.0.0
-		 * @param String $name, array $opts, array $args.
-		 * @return Mixed.
+		 * @param String $name
+		 * @param array $opts
+		 * @param array $args
+		 * @return Mixed
 		 */
 		function get_option_row( $name, $opts, $args ) {
 			$label_text = $input_attr = $help_text_2 = $id_attr = '';
@@ -2491,7 +2524,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * Allows for filtering settings, custom display options.
 		 * Formats a row for an option on a settings page.
 		 * @since 1.0.0
-		 * @param String $location, String $meta_args.
+		 * @param String $location
+		 * @param String $meta_args
 		 */
 		function display_options( $location = null, $meta_args = null ) {
 				static $location_settings = Array();
@@ -2617,8 +2651,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Sanitizes the domain.
 		 * @since 1.0.0
-		 * @param String $domain.
-		 * @return String.
+		 * @param String $domain
+		 * @return String
 		 */
 		function sanitize_domain( $domain ) {
 			$domain = trim( $domain );
@@ -2635,7 +2669,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Sanitizes options.
 		 * @since 1.0.0
-		 * @param String $location.
+		 * @param String $location
 		 */
 		function sanitize_options( $location = null ) {
 			foreach ( $this->setting_options( $location ) as $k => $v )	{
@@ -2686,7 +2720,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Display metaboxes with display_options()
 		 * @since 1.0.0
-		 * @param String $post, array $metabox.
+		 * @param String $post
+		 * @param array $metabox
 		 */
 		function display_metabox( $post, $metabox ) {
 			$this->display_options( $metabox['args']['location'], $metabox );
@@ -2695,7 +2730,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Handles resetting options to defaults.
 		 * @since 1.0.0
-		 * @param String $location, boolean $delete.
+		 * @param String $location
+		 * @param boolean $delete
 		 */
 		function reset_options( $location = null, $delete = false ) {
 			if ( $delete === true ) {
@@ -2712,8 +2748,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Handles option resetting and updating.
 		 * @since 1.0.0
-		 * @param String $location.
-		 * @return String.
+		 * @param String $location
+		 * @return String
 		 */
 		function handle_settings_updates( $location = null ) {
 			$message = '';
@@ -2773,7 +2809,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Updates, reset settings, prints options, sanitizes and posts back.
 		 * @since 1.0.0
-		 * @param String $location.
+		 * @param String $location
 		 */
 		function display_settings_page( $location = null ) {
 			if ( $location != null )
@@ -2974,8 +3010,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets the prefix used for a given location.
 		 * @since 1.0.0
-		 * @param String $location.
-		 * @return String.
+		 * @param String $location
+		 * @return String
 		 */
 		function get_prefix( $location = null ) {
 			if ( ( $location != null ) && isset( $this->locations[$location]['prefix'] ) )
@@ -2986,8 +3022,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Sets up initial settings.
 		 * @since 1.0.0
-		 * @param String $location, String $defaults.
-		 * @return array.
+		 * @param String $location
+		 * @param String $defaults
+		 * @return array
 		 */
 		function setting_options( $location = null, $defaults = null ) {
 			if ( $defaults === null )
@@ -3071,9 +3108,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Generates just the default option names and values.
-		 * @param String $location, array $defaults
+		 * @param String $location
+		 * @param array $defaults
 		 * @since 1.0.0
-		 * @return array.
+		 * @return array
 		 */
 		function default_options( $location = null, $defaults = null ) {
 			$options = $this->setting_options( $location, $defaults );
@@ -3086,8 +3124,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Gets the current options stored for a given location.
 		 * @since 1.0.0
-		 * @param array opts, String location, String $defaults, String $post.
-		 * @return array.
+		 * @param array opts
+		 * @param String location
+		 * @param String $defaults
+		 * @param String $post
+		 * @return array
 		 */
 		function get_current_options( $opts = Array(), $location = null, $defaults = null, $post = null ) {
 			$prefix = $this->get_prefix( $location );
@@ -3132,8 +3173,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Updates the options array in the module, loads saved settings with get_option() or uses defaults.
 		 * @since 1.0.0
-		 * @param array opts, String location, String $defaults.
-		 * @return array.
+		 * @param array opts
+		 * @param String location
+		 * @param String $defaults
+		 * @return array
 		 */
 		function update_options( $opts = Array(), $location = null, $defaults = null ) {
 			if ( $location === null )
