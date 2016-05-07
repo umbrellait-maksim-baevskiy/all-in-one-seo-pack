@@ -63,10 +63,10 @@ class aioseop_updates {
 		$this->do_feature_updates();
 	}
 
-	//TODO: the compare here should be extracted into a function
 
 	/**
 	 * Updates version.
+	 * TODO: the compare here should be extracted into a function
 	 * @since 1.0.0
 	 * @global $aioseop_options.
 	 * @param String $old_version.
@@ -78,6 +78,13 @@ class aioseop_updates {
 			( AIOSEOPPRO && version_compare( $old_version, '2.4.3', '<' ) )
 		  	) {
 	   		$this->bad_bots_201603();
+		}
+
+		if (  
+			( !AIOSEOPPRO && version_compare( $old_version, '2.3.4.1', '<' ) ) ||
+			( AIOSEOPPRO && version_compare( $old_version, '2.4.4.1', '<' ) ) 
+		   ) {
+	   		$this->bad_bots_remove_yandex_201604();
 		}
 
 		/*
@@ -126,7 +133,7 @@ class aioseop_updates {
 	/**
 	 * Removes overzealous 'DOC' entry which is causing false-positive bad
 	 * bot blocking.
-	 * @since 1.0.0
+	 * @since 2.3.3
 	 * @global $aiosp, $aioseop_options.
 	 */
 	function bad_bots_201603() {
@@ -166,4 +173,40 @@ class aioseop_updates {
 			}
 		}
 	}
+	
+
+	/**
+	 * Remove 'yandex' entry. This is a major Russian search engine, and no longer needs to be blocked.
+	 * @since 2.3.4.1
+	 * @global $aiosp, $aioseop_options.
+	 */
+	function bad_bots_remove_yandex_201604() {
+		global $aiosp, $aioseop_options;
+		// Remove 'yandex' from bad bots list to avoid false positives
+		if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] ) ) {
+			$list = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
+			$list = str_replace(array( "yandex\r\n", "yandex\n"), '', $list);
+			$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
+			update_option( 'aioseop_options', $aioseop_options );
+			$aiosp->update_class_option( $aioseop_options );
+
+			if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ) && 'on' === $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ){
+
+				if (!class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
+					require_once( AIOSEOP_PLUGIN_DIR . 'admin/aioseop_module_class.php');
+					require_once( AIOSEOP_PLUGIN_DIR . 'modules/aioseop_bad_robots.php');
+				}
+
+				$aiosp_reset_htaccess = new All_in_One_SEO_Pack_Bad_Robots;
+				$aiosp_reset_htaccess->generate_htaccess_blocklist();
+			}
+			
+			if ( !isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ) && extract_from_markers( get_home_path() . '.htaccess', 'Bad Bot Blocker' ) ){
+				insert_with_markers( get_home_path() . '.htaccess', 'Bad Bot Blocker', '' );
+			}
+		}
+	}
+
+
+
 }
