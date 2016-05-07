@@ -27,7 +27,6 @@ checks:
         require_php_tag_first: true
         code_rating: true
         duplication: true
-        variable_existance: true
         useless_calls: true
         use_statement_alias_conflict: true
         unused_variables: true
