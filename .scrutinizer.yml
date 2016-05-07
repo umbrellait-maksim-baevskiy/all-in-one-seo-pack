@@ -79,15 +79,7 @@ checks:
         fix_doc_comments: true
         security_vulnerabilities: true
         no_exit: false
-filter: {  }
-coding_style:
-    php:
-        indentation:
-            general:
-                use_tabs: true
-        spaces:
-            around_operators:
-                concatenation: true
+
 build: true
 
 
