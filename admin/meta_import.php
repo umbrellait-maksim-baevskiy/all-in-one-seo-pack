@@ -81,11 +81,12 @@ if ( class_exists( 'WPSEO_Import_Hooks' ) ) {
 				</div>';
 		}
 	}
-} else {
-	delete_user_meta(
-		get_current_user_id(),
-		'aioseop_yst_detected_notice_dismissed'
-	);
+}else{
+	add_action( 'init', 'mi_aioseop_yst_detected_notice_dismissed' );
+}
+
+function mi_aioseop_yst_detected_notice_dismissed(){
+	delete_user_meta( get_current_user_id(), 'aioseop_yst_detected_notice_dismissed' );
 }
 
 /**
@@ -129,7 +130,7 @@ function aiosp_seometa_action() {
 					%s
 				</p>
 			</div>',
-			__( 'Sorry, you can\'t do that. Please choose a platform platforms.' )
+			__( 'Sorry, you can\'t do that. Please choose a platform and then click Analyze or Convert.' )
 		);
 		return;
 	}
@@ -140,7 +141,7 @@ function aiosp_seometa_action() {
 					%s
 				</p>
 			</div>',
-			__( 'Sorry, you can\'t do that. Please choose two different platforms.')
+			__( 'Sorry, you can\'t do that. a platform and then click Analyze or Convert.')
 		);
 		return;
 	}
