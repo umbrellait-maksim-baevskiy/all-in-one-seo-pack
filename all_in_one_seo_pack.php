@@ -103,7 +103,7 @@ if ( ! function_exists( 'aioseop_convert_bytestring' ) ) {
 	 * Converts byteString
 	 * @since 1
 	 * @param $byteString
-	 * @return mixed
+	 * @return integer
 	 */
 	function aioseop_convert_bytestring( $byteString ) {
 		$num = 0;
