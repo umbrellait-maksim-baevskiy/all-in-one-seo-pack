@@ -141,13 +141,8 @@ if ( is_array( $aioseop_options )
 		$aioseop_mem_limit = $perf_opts['aiosp_performance_memory_limit'];
 	if ( isset( $perf_opts['aiosp_performance_execution_time'] )
 		&& ( $perf_opts['aiosp_performance_execution_time'] !== '' ) ) {
-		@ini_set(
-			'max_execution_time',
-			( int )$perf_opts['aiosp_performance_execution_time']
-		);
-		@set_time_limit(
-			( int )$perf_opts['aiosp_performance_execution_time']
-		);
+		@ini_set( 'max_execution_time', ( int )$perf_opts['aiosp_performance_execution_time'] );
+		@set_time_limit( ( int )$perf_opts['aiosp_performance_execution_time']	);
 	}
 } else {
 	$aioseop_mem_limit = aioseop_convert_bytestring( $aioseop_mem_limit );
@@ -245,7 +240,8 @@ if( ! function_exists( 'aiosp_plugin_row_meta' ) ) {
 	/**
 	 * Does plugin row meta.
 	 * @since 1
-	 * @param $actions, $plugin_file.
+	 * @param array $actions actions to take.
+	 * @param string $plugin_file this is the plugin file.
 	 * @return mixed
 	 */
 	function aiosp_plugin_row_meta( $actions, $plugin_file ) {
@@ -276,7 +272,8 @@ if( ! function_exists( 'aiosp_add_action_links' ) ) {
 	/**
 	 * Adds action links.
 	 * @since 1
-	 * @param $actions, $plugin_file.
+	 * @param $actions
+	 * @param $plugin_file
 	 * @return mixed
 	 */
 	function aiosp_add_action_links( $actions, $plugin_file ) {
@@ -315,7 +312,10 @@ if( ! function_exists( 'aiosp_action_links' ) ) {
 	/**
 	 * Does action links.
 	 * @since 1
-	 * @param array $actions, $plugin_file, array $action_links, String $position.
+	 * @param array $actions
+	 * @param $plugin_file
+	 * @param array $action_links
+	 * @param String $position
 	 * @return mixed
 	 */
 	function aiosp_action_links( $actions, $plugin_file,  $action_links = array(), $position = 'after' ) {
