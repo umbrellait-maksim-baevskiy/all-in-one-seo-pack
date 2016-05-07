@@ -1706,10 +1706,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			$bail = false;
 			if ( empty( $screen ) )
 				$bail = true;
-			if ( ( $screen->base != 'post' )
-				&& ( $screen->base != 'edit-tags' )
-				&& ( $screen->base != 'toplevel_page_shopp-products' ) )
-					$bail = true;
+			if ( ( $screen->base != 'post' ) && ( $screen->base != 'term' ) && ( $screen->base != 'edit-tags' ) && ( $screen->base != 'toplevel_page_shopp-products' ) ) $bail = true;
 			$prefix = $this->get_prefix();
 			$bail = apply_filters(
 				$prefix . 'bail_on_enqueue',
