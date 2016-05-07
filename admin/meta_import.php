@@ -116,7 +116,7 @@ function aiosp_seometa_settings_init() {
 * intercepts POST data from the form submission, and uses that
 * data to convert values in the postmeta table from one platform to another.
 * @since 1.0.0.
-* @return null.
+* @return null
 */
 function aiosp_seometa_action() {
 	//print_r($_REQUEST);
@@ -422,16 +422,13 @@ function aiosp_seometa_admin() { //The admin page output
  * The function returns an object for error detection, and the number of affected rows.
  * @since 1.0.0.
  * @global $wpdb.
- * @param String $old, String $new, boolean $delete_old.
- * @return array.
+ * @param String $old
+ * @param String $new
+ * @param boolean $delete_old
+ * @return array
  */
 function aiosp_seometa_meta_key_convert( $old = '', $new = '', $delete_old = false ) {
-	do_action(
-		'pre_aiosp_seometa_meta_key_convert_before',
-		$old,
-		$new,
-		$delete_old
-	);
+	do_action( 'pre_aiosp_seometa_meta_key_convert_before',	$old, $new,	$delete_old	);
 	global $wpdb;
 	$output = new stdClass;
 	if ( ! $old || ! $new ) {
@@ -500,16 +497,13 @@ function aiosp_seometa_meta_key_convert( $old = '', $new = '', $delete_old = fal
  * the results as an object.
  * @since 1.0.0.
  * @global $_aiosp_seometa_platforms.
- * @param String $old_platform, String $new_platform, boolean $delete_old.
- * @return array.
+ * @param String $old_platform
+ * @param String $new_platform
+ * @param boolean $delete_old.
+ * @return array
  */
 function aiosp_seometa_post_meta_convert( $old_platform = '', $new_platform = 'All in One SEO Pack', $delete_old = false ) {
-	do_action(
-		'pre_aiosp_seometa_post_meta_convert',
-		$old_platform,
-		$new_platform,
-		$delete_old
-	);
+	do_action( 'pre_aiosp_seometa_post_meta_convert', $old_platform, $new_platform, $delete_old );
 	global $_aiosp_seometa_platforms;
 	$output = new stdClass;
 	if ( empty( $_aiosp_seometa_platforms[$old_platform] )
@@ -542,13 +536,7 @@ function aiosp_seometa_post_meta_convert( $old_platform = '', $new_platform = 'A
 		$output->ignored = $output->ignored + (int)$result->ignored;
 	}
 
-	do_action(
-		'aiosp_seometa_post_meta_convert',
-		$output,
-		$old_platform,
-		$new_platform,
-		$delete_old
-	);
+	do_action( 'aiosp_seometa_post_meta_convert', $output, $old_platform, $new_platform, $delete_old );
 	return $output;
 }
 
@@ -557,8 +545,9 @@ function aiosp_seometa_post_meta_convert( $old_platform = '', $new_platform = 'A
  * what data can be converted from one to the other, and which elements to ignore (future).
  * @since 1.0.0.
  * @global $wpdb, $_aiosp_seometa_platforms.
- * @param String $old_platform, String $new_platform.
- * @return array.
+ * @param String $old_platform
+ * @param String $new_platform.
+ * @return array
  */
 function aiosp_seometa_post_meta_analyze( $old_platform = '', $new_platform = 'All in One SEO Pack' ) {
 	do_action( 'pre_aiosp_seometa_post_meta_analyze', $old_platform, $new_platform );
@@ -614,7 +603,7 @@ function aiosp_seometa_post_meta_analyze( $old_platform = '', $new_platform = 'A
 /**
  * Initializes the SEO Data Transporter plugin.
  * @since 1.0.0.
- * @return array.
+ * @return array
  */
 function aiosp_seometa_import() {
 	global $_aiosp_seometa_themes, $_aiosp_seometa_plugins, $_aiosp_seometa_platforms;
