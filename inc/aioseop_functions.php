@@ -142,7 +142,7 @@ if ( ! function_exists( 'aioseop_get_version' ) ) {
 	/**
 	 * Gets the AIOSEOP verson.
 	 * @since 1.0.0
-	 * @return int
+	 * @return string
 	 */
 	function aioseop_get_version() {
 		return AIOSEOP_VERSION;
@@ -156,7 +156,7 @@ if ( ! function_exists( 'aioseop_option_isset' ) ) {
 	 * @since 1.0.0
 	 * @global $aioseop_options
 	 * @param String $option
-	 * @return array
+	 * @return boolean
 	 */
 	function aioseop_option_isset( $option ) {
 		global $aioseop_options;
@@ -389,7 +389,7 @@ if ( ! function_exists( 'aioseop_output_dismissable_notice' ) ) {
 	 * @global $wp
 	 * @param String $message
 	 * @param String $class
-	 * @return mixed
+	 * @return boolean
 	 */
 	function aioseop_output_dismissable_notice( $message, $id = "", $class = "updated fade") {
 		global $current_user;
@@ -1179,8 +1179,7 @@ if ( ! function_exists( 'aioseop_filter_callback' ) ) {
 	 * @author Sarah G.
 	 * @since 1.0.0
 	 * @link http://wordpress.org/extend/plugins/page-menu-editor/
-	 * @param String $content
-	 * @return mixed
+	 * @return string
 	 */
 	function aioseop_filter_callback( $matches ) {
 		if ( $matches[1] && !empty( $matches[1] ) )
@@ -1210,7 +1209,6 @@ if ( ! function_exists( 'aioseop_add_contactmethods' ) ) {
 	 * @since 1.0.0
 	 * @global $aioseop_options
 	 * @global $aioseop_modules
-	 * @param String $content
 	 * @return array
 	 */
 	function aioseop_add_contactmethods( $contactmethods ) {
@@ -1266,7 +1264,7 @@ if ( ! function_exists( 'aioseop_array_insert_after' ) ) {
 	 * Inserts elements into associative arrays by key.
 	 * @since 1.0.0
 	 * @param array $arr
-	 * @param array $insertKey
+	 * @param string $insertKey
 	 * @param array $newValues
 	 * @return mixed
 	 */
@@ -1295,7 +1293,7 @@ if ( ! function_exists( 'aioseop_load_json_services' ) ) {
 	/**
 	 * Supports for JSON for PHP < 5.2
 	 * @since 1.0.0
-	 * @return mixed
+	 * @return Services_JSON
 	 */
 	function aioseop_load_json_services() {
 		static $services_json = null;
@@ -1344,9 +1342,10 @@ if( ! function_exists( 'fnmatch' ) ) {
 	 * Fnmatch Function.
 	 * fnmatch() doesn't exist on Windows pre PHP 5.3
 	 * @since 1.0.0
-	 * @param String pattern
-	 * @param String $string
-	 * @return mixed
+	 * @param String string
+	 * @param string $string
+	 * @param string string
+	 * @return integer
 	 */
 	function fnmatch( $pattern, $string ) {
         return preg_match(
