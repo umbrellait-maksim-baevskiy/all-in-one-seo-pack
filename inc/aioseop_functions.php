@@ -1345,6 +1345,7 @@ if( ! function_exists( 'fnmatch' ) ) {
 	 * @param String string
 	 * @param string $string
 	 * @param string string
+	 * @param string $pattern
 	 * @return integer
 	 */
 	function fnmatch( $pattern, $string ) {
