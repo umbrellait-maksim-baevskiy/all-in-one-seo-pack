@@ -1342,9 +1342,7 @@ if( ! function_exists( 'fnmatch' ) ) {
 	 * Fnmatch Function.
 	 * fnmatch() doesn't exist on Windows pre PHP 5.3
 	 * @since 1.0.0
-	 * @param String string
 	 * @param string $string
-	 * @param string string
 	 * @param string $pattern
 	 * @return integer
 	 */
