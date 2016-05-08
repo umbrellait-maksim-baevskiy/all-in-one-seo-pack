@@ -14,7 +14,8 @@ if ( ! function_exists( 'aioseop_load_modules' ) ) {
 	/**
 	 * Loads modules.
 	 * @since 1.0.0
-	 * @global $aioseop_modules, $aioseop_module_list.
+	 * @global $aioseop_modules
+	 * @global $aioseop_module_list
 	 */
 	function aioseop_load_modules() {
 		global $aioseop_modules, $aioseop_module_list;
@@ -31,8 +32,8 @@ if ( ! function_exists( 'aioseop_get_options' ) ) {
 	/**
 	 * Loads modules.
 	 * @since 1.0.0
-	 * @global $aioseop_options.
-	 * @return array.
+	 * @global $aioseop_options
+	 * @return array
 	 */
 	function aioseop_get_options() {
 		global $aioseop_options;
@@ -48,7 +49,7 @@ if ( ! function_exists( 'aioseop_update_settings_check' ) ) {
 	/**
 	 * Checks if settings need to be updated / migrated from old version.
 	 * @since 1.0.0
-	 * @global $aioseop_options.
+	 * @global $aioseop_options
 	 */
 	function aioseop_update_settings_check() {
 		global $aioseop_options;
@@ -94,7 +95,8 @@ if ( ! function_exists( 'aioseop_mrt_mkarry' ) ) {
 	/**
 	 * Initializes settings to defaults.
 	 * @since 1.0.0
-	 * @global $aiosp, $aioseop_options.
+	 * @global $aiosp
+	 * @global $aioseop_options
 	 */
 	function aioseop_mrt_mkarry() {
 		global $aiosp, $aioseop_options;
@@ -120,8 +122,9 @@ if ( ! function_exists( 'aioseop_activate_pl' ) ) {
 	/**
 	 * Activates AIOSEOP.
 	 * @since 1.0.0
-	 * @global $aiosp, $aioseop_options.
-	 * @return array.
+	 * @global $aiosp
+	 * @global $aioseop_options
+	 * @return array
 	 */
 	function aioseop_activate_pl() {
 		if( $aioseop_options = get_option( 'aioseop_options' ) ) {
@@ -139,7 +142,7 @@ if ( ! function_exists( 'aioseop_get_version' ) ) {
 	/**
 	 * Gets the AIOSEOP verson.
 	 * @since 1.0.0
-	 * @return int.
+	 * @return int
 	 */
 	function aioseop_get_version() {
 		return AIOSEOP_VERSION;
@@ -151,9 +154,9 @@ if ( ! function_exists( 'aioseop_option_isset' ) ) {
 	/**
 	 * Sets the AIOSEOP options.
 	 * @since 1.0.0
-	 * @global $aioseop_options.
-	 * @param String $option.
-	 * @return array.
+	 * @global $aioseop_options
+	 * @param String $option
+	 * @return array
 	 */
 	function aioseop_option_isset( $option ) {
 		global $aioseop_options;
@@ -166,7 +169,8 @@ if ( ! function_exists( 'aioseop_addmycolumns' ) ) {
 	/**
 	 * Adds columns to AIOSEOP.
 	 * @since 1.0.0
-	 * @global $aioseop_options, $pagenow.
+	 * @global $aioseop_options
+	 * @global $pagenow
 	 */
 	function aioseop_addmycolumns() {
 		global $aioseop_options, $pagenow;
@@ -220,9 +224,9 @@ if ( ! function_exists( 'aioseop_mrt_pcolumns' ) ) {
 	/**
 	 * Adds columns to AIOSEOP.
 	 * @since 1.0.0
-	 * @global $aioseop_options.
-	 * @param Array $aioseopc.
-	 * @return array.
+	 * @global $aioseop_options
+	 * @param Array $aioseopc
+	 * @return array
 	 */
 	function aioseop_mrt_pcolumns( $aioseopc ) {
 		global $aioseop_options;
@@ -239,7 +243,7 @@ if ( ! function_exists( 'aioseop_admin_head' ) ) {
 	/**
 	 * Adds columns to AIOSEOP.
 	 * @since 1.0.0
-	 * @global $aioseop_options.
+	 * @global $aioseop_options
 	 */
 	function aioseop_admin_head() {
 		echo
@@ -329,7 +333,7 @@ if ( ! function_exists( 'aioseop_handle_ignore_notice' ) ) {
 	/**
 	 * Handles ignore notices.
 	 * @since 1.0.0
-	 * @global $current_user.
+	 * @global $current_user
 	 */
 	function aioseop_handle_ignore_notice() {
 		if ( !empty( $_GET ) ) {
@@ -355,9 +359,11 @@ if ( ! function_exists( 'aioseop_output_notice' ) ) {
 	/**
 	 * Handles ignore notices.
 	 * @since 1.0.0
-	 * @global $current_user.
-	 * @param String $message, String $id, String $class.
-	 * @return Boolean.
+	 * @global $current_user
+	 * @param String $message
+	 * @param String $id
+	 * @param String $class
+	 * @return Boolean
 	 */
 	function aioseop_output_notice( $message, $id = '', $class = "updated fade" ) {
 		$class = 'aioseop_notice ' . $class;
@@ -379,9 +385,11 @@ if ( ! function_exists( 'aioseop_output_dismissable_notice' ) ) {
 	/**
 	 * Displays dismissable notices.
 	 * @since 1.0.0
-	 * @global $current_user, $wp.
-	 * @param String $message, String $class.
-	 * @return mixed.
+	 * @global $current_user
+	 * @global $wp
+	 * @param String $message
+	 * @param String $class
+	 * @return mixed
 	 */
 	function aioseop_output_dismissable_notice( $message, $id = "", $class = "updated fade") {
 		global $current_user;
@@ -513,8 +521,10 @@ if ( ! function_exists( 'aioseop_ajax_init' ) ) {
 /**
  * Handles embed HTML.
  * @since 1.0.0
- * @param String $return, String $url, String $attr.
- * @return String.
+ * @param String $return
+ * @param String $url
+ * @param String $attr
+ * @return String
  */
 function aioseop_embed_handler_html( $return, $url, $attr ) {
 	return AIO_ProGeneral::aioseop_embed_handler_html();
@@ -580,7 +590,8 @@ if ( ! function_exists( 'aioseop_ajax_delete_url' ) ) {
 
 	/**
 	 * Deletes AJAX URL.
-	 * @global $aiosp, $aioseop_modules.
+	 * @global $aiosp
+	 * @global $aioseop_modules
 	 * @since 1.0.0
 	 */
 	function aioseop_ajax_delete_url() {
@@ -635,7 +646,8 @@ if ( ! function_exists( 'aioseop_ajax_scan_header' ) ) {
 	/**
 	 * Scans AJAX header.
 	 * @since 1.0.0
-	 * @global $aiosp, $aioseop_modules.
+	 * @global $aiosp
+	 * @global $aioseop_modules
 	 */
 	function aioseop_ajax_scan_header() {
 		$_POST["options"] = "foo";
@@ -829,7 +841,8 @@ if ( ! function_exists( 'aioseop_ajax_save_settings' ) ) {
 	/**
 	 * Saves AJAX settings.
 	 * @since 1.0.0
-	 * @global $aiosp, $aioseop_modules.
+	 * @global $aiosp
+	 * @global $aioseop_modules
 	 */
 	function aioseop_ajax_save_settings() {
 		aioseop_ajax_init();
@@ -881,7 +894,8 @@ if ( ! function_exists( 'aioseop_ajax_get_menu_links' ) ) {
 	/**
 	 * Saves AJAX settings.
 	 * @since 1.0.0
-	 * @global $aiosp, $aioseop_modules.
+	 * @global $aiosp
+	 * @global $aioseop_modules
 	 */
 	function aioseop_ajax_get_menu_links() {
 		aioseop_ajax_init();
@@ -952,7 +966,8 @@ if ( ! function_exists( 'aioseop_mrt_pccolumn' ) ) {
 	/**
 	 * Creates columns.
 	 * @since 1.0.0
-	 * @param String $aioseopcn, String $aioseoppi.
+	 * @param String $aioseopcn
+	 * @param String $aioseoppi
 	 */
 	function aioseop_mrt_pccolumn( $aioseopcn, $aioseoppi ) {
 		$id = $aioseoppi;
@@ -1025,7 +1040,9 @@ if (  !function_exists( 'aioseop_unprotect_meta' ) ) {
 	/**
 	 * Checks unprotected meta.
 	 * @since 1.0.0
-	 * @param Boolean $protected, String $meta_key, String $meta_type.
+	 * @param Boolean $protected
+	 * @param String $meta_key
+	 * @param String $meta_type
 	 * @return mixed.
 	 */
 	function aioseop_unprotect_meta( $protected, $meta_key, $meta_type ) {
@@ -1040,9 +1057,9 @@ if ( ! function_exists( 'aioseop_mrt_exclude_this_page' ) ) {
 	/**
 	 * Excludes seleted URL.
 	 * @since 1.0.0
-	 * @global $aioseop_options.
-	 * @param String $url.
-	 * @return Boolean.
+	 * @global $aioseop_options
+	 * @param String $url
+	 * @return Boolean
 	 */
 	function aioseop_mrt_exclude_this_page( $url = null ) {
 		static $excluded = false;
@@ -1086,9 +1103,9 @@ if ( ! function_exists( 'aioseop_get_pages_start' ) ) {
 	/**
 	 * Gets started pages
 	 * @since 1.0.0
-	 * @global $aioseop_get_pages_start.
-	 * @param String $excludes.
-	 * @return String.
+	 * @global $aioseop_get_pages_start
+	 * @param String $excludes
+	 * @return String
 	 */
 	function aioseop_get_pages_start( $excludes ) {
 		global $aioseop_get_pages_start;
@@ -1102,9 +1119,9 @@ if ( ! function_exists( 'aioseop_get_pages' ) ) {
 	/**
 	 * Gets AIOSEOP pages.
 	 * @since 1.0.0
-	 * @global $aioseop_get_pages_start.
-	 * @param array $pages.
-	 * @return array.
+	 * @global $aioseop_get_pages_start
+	 * @param array $pages
+	 * @return array
 	 */
 	function aioseop_get_pages( $pages ) {
 		global $aioseop_get_pages_start;
@@ -1132,10 +1149,10 @@ if ( ! function_exists( 'aioseop_list_pages' ) ) {
 	 * Edits Page Menu
 	 * @author Sarah G.
 	 * @since 1.0.0
-	 * @link http://wordpress.org/extend/plugins/page-menu-editor/.
-	 * @global $wp_version.
-	 * @param String $content.
-	 * @return String.
+	 * @link http://wordpress.org/extend/plugins/page-menu-editor/
+	 * @global $wp_version
+	 * @param String $content
+	 * @return String
 	 */
 	function aioseop_list_pages( $content ) {
 		global $wp_version;
@@ -1161,9 +1178,9 @@ if ( ! function_exists( 'aioseop_filter_callback' ) ) {
 	 * Calls back filter.
 	 * @author Sarah G.
 	 * @since 1.0.0
-	 * @link http://wordpress.org/extend/plugins/page-menu-editor/.
-	 * @param String $content.
-	 * @return mixed.
+	 * @link http://wordpress.org/extend/plugins/page-menu-editor/
+	 * @param String $content
+	 * @return mixed
 	 */
 	function aioseop_filter_callback( $matches ) {
 		if ( $matches[1] && !empty( $matches[1] ) )
@@ -1191,9 +1208,10 @@ if ( ! function_exists( 'aioseop_add_contactmethods' ) ) {
 	/**
 	 * Calls back filter.
 	 * @since 1.0.0
-	 * @global $aioseop_options, $aioseop_modules.
-	 * @param String $content.
-	 * @return array.
+	 * @global $aioseop_options
+	 * @global $aioseop_modules
+	 * @param String $content
+	 * @return array
 	 */
 	function aioseop_add_contactmethods( $contactmethods ) {
 		global $aioseop_options, $aioseop_modules;
@@ -1247,8 +1265,10 @@ if ( ! function_exists( 'aioseop_array_insert_after' ) ) {
 	/**
 	 * Inserts elements into associative arrays by key.
 	 * @since 1.0.0
-	 * @param array $arr, array $insertKey, array $newValues.
-	 * @return mixed.
+	 * @param array $arr
+	 * @param array $insertKey
+	 * @param array $newValues
+	 * @return mixed
 	 */
 	function aioseop_array_insert_after( $arr, $insertKey, $newValues ) {
         $keys = array_keys( $arr );
@@ -1275,7 +1295,7 @@ if ( ! function_exists( 'aioseop_load_json_services' ) ) {
 	/**
 	 * Supports for JSON for PHP < 5.2
 	 * @since 1.0.0
-	 * @return mixed.
+	 * @return mixed
 	 */
 	function aioseop_load_json_services() {
 		static $services_json = null;
@@ -1294,8 +1314,8 @@ if ( ! function_exists( 'json_encode' ) ) {
 	/**
 	 * Encodes JSON.
 	 * @since 1.0.0
-	 * @param String $arg.
-	 * @return String.
+	 * @param String $arg
+	 * @return String
 	 */
 	function json_encode( $arg ) {
 		$services_json = aioseop_load_json_services();
@@ -1308,8 +1328,8 @@ if ( ! function_exists( 'json_decode' ) ) {
 	/**
 	 * Decodes JSON.
 	 * @since 1.0.0
-	 * @param String $arg.
-	 * @return String.
+	 * @param String $arg
+	 * @return String
 	 */
 	function json_decode( $arg ) {
 		$services_json = aioseop_load_json_services();
@@ -1324,8 +1344,9 @@ if( ! function_exists( 'fnmatch' ) ) {
 	 * Fnmatch Function.
 	 * fnmatch() doesn't exist on Windows pre PHP 5.3
 	 * @since 1.0.0
-	 * @param String pattern, String $string.
-	 * @return mixed.
+	 * @param String pattern
+	 * @param String $string
+	 * @return mixed
 	 */
 	function fnmatch( $pattern, $string ) {
         return preg_match(
@@ -1344,8 +1365,9 @@ if ( ! function_exists( 'parse_ini_string' ) ) {
 	/**
 	 * Parses a String.
 	 * @since 1.0.0
-	 * @param String $process_sections, String $string.
-	 * @return mixed.
+	 * @param String $process_sections
+	 * @param String $string
+	 * @return mixed
 	 */
 	function parse_ini_string( $string, $process_sections ) {
 
