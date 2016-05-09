@@ -221,7 +221,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Importer_Exporter' ) ) {
 		 * @since 1.0.0
 		 */
 		function show_import_warnings() {
-			echo '<div class="error fade" style="width:52%">';
+			echo '<div class="error fade">';
 				if( is_array( $this->warnings ) ) {
 					foreach( $this->warnings as $warning ){
 						echo "<p>{$warning}</p>";
