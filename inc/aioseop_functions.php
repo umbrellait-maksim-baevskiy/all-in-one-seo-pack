@@ -95,35 +95,13 @@ if ( !function_exists( 'aioseop_activate_pl' ) ) {
 	}
 }
 
-<<<<<<< HEAD
-if ( ! function_exists( 'aioseop_get_version' ) ) {
-
-	/**
-	 * Gets the AIOSEOP verson.
-	 * @since 1.0.0
-	 * @return string
-	 */
-=======
 if ( !function_exists( 'aioseop_get_version' ) ) {
->>>>>>> parent of 1794006... Merge branch 'standards-noconflict' into development
 	function aioseop_get_version() {
 		return AIOSEOP_VERSION;
 	}
 }
 
-<<<<<<< HEAD
-if ( ! function_exists( 'aioseop_option_isset' ) ) {
-
-	/**
-	 * Sets the AIOSEOP options.
-	 * @since 1.0.0
-	 * @global $aioseop_options
-	 * @param String $option
-	 * @return boolean
-	 */
-=======
 if ( !function_exists( 'aioseop_option_isset' ) ) {
->>>>>>> parent of 1794006... Merge branch 'standards-noconflict' into development
 	function aioseop_option_isset( $option ) {
 		global $aioseop_options;
 		return ( ( isset( $aioseop_options[$option] ) ) && $aioseop_options[$option] );
@@ -264,21 +242,7 @@ if ( !function_exists( 'aioseop_output_notice' ) ) {
 	}
 }
 
-<<<<<<< HEAD
-if ( ! function_exists( 'aioseop_output_dismissable_notice' ) ) {
-
-	/**
-	 * Displays dismissable notices.
-	 * @since 1.0.0
-	 * @global $current_user
-	 * @global $wp
-	 * @param String $message
-	 * @param String $class
-	 * @return boolean
-	 */
-=======
 if ( !function_exists( 'aioseop_output_dismissable_notice' ) ) {
->>>>>>> parent of 1794006... Merge branch 'standards-noconflict' into development
 	function aioseop_output_dismissable_notice( $message, $id = "", $class = "updated fade") {
 		global $current_user;
 		if ( !empty( $current_user ) ) {
@@ -478,9 +442,9 @@ if ( !function_exists( 'aioseop_ajax_scan_header' ) ) {
 		else {
 			$meta = "<table cellspacing=0 cellpadding=0 width=80% class='aioseop_table'><tr class='aioseop_table_header'><th>Meta For Site</th><th>Kind of Meta</th><th>Element Name</th><th>Element Value</th></tr>" . $meta . "</table>";
 			$meta .= "<p><div class='aioseop_meta_info'><h3 style='padding:5px;margin-bottom:0px;'>" . __( 'What Does This Mean?', 'all-in-one-seo-pack' ) . "</h3><div style='padding:5px;padding-top:0px;'>"
-					. "<p>" . __( 'All in One SEO Pack has detected that a plugin(s) or theme is also outputting social meta tags on your site.  You can view this social meta in the source code of your site (check your browser help for instructions on how to view source code).',  'all-in-one-seo-pack' )
-					. "</p><p>" . __( 'You may prefer to use the social meta tags that are being output by the other plugin(s) or theme.  If so, then you should deactivate this Social Meta feature in All in One SEO Pack Feature Manager.',  'all-in-one-seo-pack' )
-				 	. "</p><p>" . __( 'You should avoid duplicate social meta tags.  You can use these free tools from Facebook, Google and Twitter to validate your social meta and check for errors:',  'all-in-one-seo-pack' ) . "</p>";
+					. "<p>" . __( 'All in One SEO Pack has detected that a plugin(s) or theme is also outputting social meta tags on your site. Â You can view this social meta in the source code of your site (check your browser help for instructions on how to view source code).',  'all-in-one-seo-pack' )
+					. "</p><p>" . __( 'You may prefer to use the social meta tags that are being output by the other plugin(s) or theme. Â If so, then you should deactivate this Social Meta feature in All in One SEO Pack Feature Manager.',  'all-in-one-seo-pack' )
+				 	. "</p><p>" . __( 'You should avoid duplicate social meta tags. Â You can use these free tools from Facebook, Google and Twitter to validate your social meta and check for errors:',  'all-in-one-seo-pack' ) . "</p>";
 
 			foreach( Array( 'https://developers.facebook.com/tools/debug', 'http://www.google.com/webmasters/tools/richsnippets', 'https://dev.twitter.com/docs/cards/validation/validator' ) as $link ) {
 				$meta .= "<a href='{$link}' target='_blank'>{$link}</a><br />";
@@ -693,19 +657,7 @@ if ( !function_exists( 'aioseop_list_pages' ) ) {
 	}
 }
 
-<<<<<<< HEAD
-if ( ! function_exists( 'aioseop_filter_callback' ) ) {
-
-	/**
-	 * Calls back filter.
-	 * @author Sarah G.
-	 * @since 1.0.0
-	 * @link http://wordpress.org/extend/plugins/page-menu-editor/
-	 * @return string
-	 */
-=======
 if ( !function_exists( 'aioseop_filter_callback' ) ) {
->>>>>>> parent of 1794006... Merge branch 'standards-noconflict' into development
 	function aioseop_filter_callback( $matches ) {
 		if ( $matches[1] && !empty( $matches[1] ) ) $postID = $matches[1];
 		if ( empty( $postID ) ) $postID = get_option( "page_on_front" );
@@ -716,19 +668,7 @@ if ( !function_exists( 'aioseop_filter_callback' ) ) {
 	}
 }
 
-<<<<<<< HEAD
-if ( ! function_exists( 'aioseop_add_contactmethods' ) ) {
-
-	/**
-	 * Calls back filter.
-	 * @since 1.0.0
-	 * @global $aioseop_options
-	 * @global $aioseop_modules
-	 * @return array
-	 */
-=======
 if ( !function_exists( 'aioseop_add_contactmethods' ) ) {
->>>>>>> parent of 1794006... Merge branch 'standards-noconflict' into development
 	function aioseop_add_contactmethods( $contactmethods ) {
 		global $aioseop_options, $aioseop_modules;
 		if ( empty( $aioseop_options['aiosp_google_disable_profile'] ) )
@@ -760,20 +700,7 @@ if ( !function_exists( 'aioseop_localize_script_data' ) ) {
 /***
  * Utility function for inserting elements into associative arrays by key
  */
-<<<<<<< HEAD
-if ( ! function_exists( 'aioseop_array_insert_after' ) ) {
-
-	/**
-	 * Inserts elements into associative arrays by key.
-	 * @since 1.0.0
-	 * @param array $arr
-	 * @param string $insertKey
-	 * @param array $newValues
-	 * @return mixed
-	 */
-=======
 if ( !function_exists( 'aioseop_array_insert_after' ) ) {
->>>>>>> parent of 1794006... Merge branch 'standards-noconflict' into development
 	function aioseop_array_insert_after( $arr, $insertKey, $newValues ) {
 	        $keys = array_keys($arr);
 	        $vals = array_values($arr);
@@ -791,17 +718,7 @@ if ( !function_exists( 'aioseop_array_insert_after' ) ) {
 /***
  * JSON support for PHP < 5.2
  */
-<<<<<<< HEAD
-if ( ! function_exists( 'aioseop_load_json_services' ) ) {
-
-	/**
-	 * Supports for JSON for PHP < 5.2
-	 * @since 1.0.0
-	 * @return Services_JSON
-	 */
-=======
 if ( !function_exists( 'aioseop_load_json_services' ) ) {
->>>>>>> parent of 1794006... Merge branch 'standards-noconflict' into development
 	function aioseop_load_json_services() {
 		static $services_json = null;
 		if ( $services_json ) return $services_json;
@@ -825,32 +742,12 @@ if ( !function_exists( 'json_decode' ) ) {
 	}
 }
 
-<<<<<<< HEAD
-// fnmatch() doesn't exist on Windows pre PHP 5.3
-if( ! function_exists( 'fnmatch' ) ) {
-
-	/**
-	 * Fnmatch Function.
-	 * fnmatch() doesn't exist on Windows pre PHP 5.3
-	 * @since 1.0.0
-	 * @param string $string
-	 * @param string $pattern
-	 * @return integer
-	 */
-	function fnmatch( $pattern, $string ) {
-        return preg_match(
-			"#^" . strtr( preg_quote( $pattern, '#' ),
-			array( '\*' => '.*', '\?' => '.' ) ) . "$#i",
-			$string
-		);
-=======
 /***
  * fnmatch() doesn't exist on Windows pre PHP 5.3
  */
 if( !function_exists( 'fnmatch' ) ) {
     function fnmatch( $pattern, $string ) {
         return preg_match( "#^" . strtr( preg_quote( $pattern, '#' ), array( '\*' => '.*', '\?' => '.' ) ) . "$#i", $string );
->>>>>>> parent of 1794006... Merge branch 'standards-noconflict' into development
     }
 }
 
