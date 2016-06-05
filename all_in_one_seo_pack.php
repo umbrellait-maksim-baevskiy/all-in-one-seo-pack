@@ -37,7 +37,7 @@ if ( ! defined( 'AIOSEOP_VERSION' ) ) define( 'AIOSEOP_VERSION', '2.3.4.2' );
 global $aioseop_plugin_name;
 $aioseop_plugin_name = 'All in One SEO Pack';
 
-/*******
+/**********
 *
 * All in One SEO Pack
 *
