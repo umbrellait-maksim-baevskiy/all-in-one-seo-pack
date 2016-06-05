@@ -81,3 +81,9 @@ checks:
         no_exit: false
 
 build: true
+<<<<<<< HEAD
+
+
+        
+=======
+>>>>>>> standards-noconflict
