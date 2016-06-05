@@ -22,12 +22,20 @@ class WPSEO_Import_AIOSEO_Hooks extends WPSEO_Import_Hooks {
 	public function show_deactivate_notice() {
 		echo '<div class="updated"><p>', esc_html__( 'All in One SEO has been deactivated', 'all-in-one-seo-pack' ), '</p></div>';
 	}
+<<<<<<< HEAD
 }
 }else{
 	add_action( 'init', 'mi_aioseop_yst_detected_notice_dismissed' );
 }
 function mi_aioseop_yst_detected_notice_dismissed(){
 	delete_user_meta( get_current_user_id(), 'aioseop_yst_detected_notice_dismissed' );
+=======
+} else {
+	delete_user_meta(
+		get_current_user_id(),
+		'aioseop_yst_detected_notice_dismissed'
+	);
+>>>>>>> parent of ce90ea6... Merge pull request #277 from semperfiwebdesign/standards-conflict-check
 }
 /**
  * Register the admin menu page
@@ -51,12 +59,34 @@ function aiosp_seometa_action() {
 		return;
 	
 	if ( empty( $_REQUEST['platform_old'] ) ) {
+<<<<<<< HEAD
 		printf( '<div class="error"><p>%s</p></div>', __('Sorry, you can\'t do that. Please choose a platform and then click Analyze or Convert.') );
+=======
+		printf(
+			'<div class="error">
+				<p>
+					%s
+				</p>
+			</div>',
+			__( 'Sorry, you can\'t do that. Please choose a platform platforms.' )
+		);
+>>>>>>> parent of ce90ea6... Merge pull request #277 from semperfiwebdesign/standards-conflict-check
 		return;
 	}
 		
 	if ( $_REQUEST['platform_old'] == 'All in One SEO Pack' ) {
+<<<<<<< HEAD
 		printf( '<div class="error"><p>%s</p></div>', __('Sorry, you can\'t do that. Please choose a platform and then click Analyze or Convert.') );
+=======
+		printf(
+			'<div class="error">
+				<p>
+					%s
+				</p>
+			</div>',
+			__( 'Sorry, you can\'t do that. Please choose two different platforms.')
+		);
+>>>>>>> parent of ce90ea6... Merge pull request #277 from semperfiwebdesign/standards-conflict-check
 		return;
 	}
 		
