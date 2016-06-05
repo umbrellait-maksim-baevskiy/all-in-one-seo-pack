@@ -81,6 +81,15 @@ checks:
         no_exit: false
 
 build: true
+<<<<<<< HEAD
 
 
         
+=======
+<<<<<<< HEAD
+
+
+        
+=======
+>>>>>>> standards-noconflict
+>>>>>>> parent of 7929574... Merge branch 'standards-noconflict' into development
