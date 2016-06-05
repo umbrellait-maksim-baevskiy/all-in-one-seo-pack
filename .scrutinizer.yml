@@ -80,5 +80,4 @@ checks:
         security_vulnerabilities: true
         no_exit: false
 
-
 build: true
