@@ -1,5 +1,7 @@
 ---
 engines:
+  phpcodesniffer:
+    enabled: true
   csslint:
     enabled: true
   duplication:
