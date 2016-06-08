@@ -38,3 +38,8 @@ ratings:
   - "**.php"
   - "**.py"
   - "**.rb"
+exclude_paths:
+- "images/"
+- "bin/"
+- "tests/"
+- "i18n/"

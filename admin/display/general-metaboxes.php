@@ -71,18 +71,12 @@ class aiosp_metaboxes {
 					<a target="_blank" title="<?php _e( 'Follow us on Twitter', 'all-in-one-seo-pack' ); ?>" href="http://twitter.com/semperfidev/"><span class="aioseop_follow_button aioseop_twitter_follow"></span></a>
 					</div><?php if(get_locale() != 'en_US'){ ?>
 					<div><strong>
-					<a target="_blank" title="translate" href="https://translate.wordpress.org/projects/wp-plugins/all-in-one-seo-pack">
-					<?php _e( 'We need your help translating All in One SEO Pack into your language! Click Here to help make the translation complete and fix any errors.' , 'all-in-one-seo-pack' );  ?>
-					</a></strong>
 						<?php
 
 						$aiosp_trans = new AIOSEOP_Translations();
 
 						if ( $aiosp_trans->percent_translated < 100 ) {
 
-
-
-							
 							/* translators: %1$s expands to the number of languages All in One SEO Pack has been translated into. $2%s to the percentage translated of the current language, $3%s to the language name, %4$s and %5$s to anchor tags with link to translation page at translate.wordpress.org  */
 							printf( __(
 								'All in One SEO Pack has been translated into %1$s languages, but currently the %3$s translation is only %2$s percent complete. %4$s Click here %5$s to help get it to 100 percent.', 'all-in-one-seo-pack' ),
@@ -94,7 +88,7 @@ class aiosp_metaboxes {
 						}
 
 						?>
-					</div>
+				</strong></div>
 					<?php } ?>
 				</div>
 		        <?php
