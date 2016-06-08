@@ -318,6 +318,7 @@ if ( !function_exists( 'aioseop_init_class' ) ) {
 		require_once( AIOSEOP_PLUGIN_DIR . 'admin/display/general-metaboxes.php');
 		require_once( AIOSEOP_PLUGIN_DIR . 'inc/aiosp_common.php');
 		require_once( AIOSEOP_PLUGIN_DIR . 'admin/meta_import.php');
+		require_once( AIOSEOP_PLUGIN_DIR . 'inc/translations.php');
 		
 		if( AIOSEOPPRO ){
 			require_once( AIOSEOP_PLUGIN_DIR . 'pro/functions_general.php' );
