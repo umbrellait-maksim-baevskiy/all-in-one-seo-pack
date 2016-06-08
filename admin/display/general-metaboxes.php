@@ -78,7 +78,7 @@ class aiosp_metaboxes {
 
 						$aiosp_trans = new AIOSEOP_Translations();
 
-						if ( $aiosp_trans->percent_translated < 101 ) {
+						if ( $aiosp_trans->percent_translated < 100 ) {
 
 
 
