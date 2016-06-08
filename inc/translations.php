@@ -17,7 +17,7 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 
 		public $wplocale = '';
 
-		public $translated_count = '';
+		public $translated_count = 0;
 
 		public $translation_url = 'https://translate.wordpress.org/projects/wp-plugins/all-in-one-seo-pack';
 
