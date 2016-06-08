@@ -14,10 +14,10 @@ engines:
       - php
   eslint:
     enabled: true
-  fixme:
-    enabled: true
-  phpmd:
-    enabled: true
+ # fixme:
+ #   enabled: true
+ # phpmd:
+  #  enabled: true
     # ... CONFIG CONTENT ...
     checks:
       Controversial/CamelCaseClassName:
@@ -30,16 +30,16 @@ engines:
         enabled: false
       Controversial/CamelCaseVariableName:
         enabled: false
-ratings:
-  paths:
-  - "**.css"
-  - "**.inc"
-  - "**.js"
-  - "**.jsx"
-  - "**.module"
-  - "**.php"
-  - "**.py"
-  - "**.rb"
+#ratings:
+#  paths:
+#  - "**.css"
+#  - "**.inc"
+#  - "**.js"
+#  - "**.jsx"
+#  - "**.module"
+#  - "**.php"
+#  - "**.py"
+#  - "**.rb"
 exclude_paths:
 - "images/"
 - "bin/"
