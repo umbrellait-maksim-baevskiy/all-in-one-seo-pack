@@ -45,3 +45,4 @@ exclude_paths:
 - "bin/"
 - "tests/"
 - "i18n/"
+- "modules/images/"
