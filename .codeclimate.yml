@@ -2,8 +2,8 @@
 engines:
   phpcodesniffer:
     enabled: true
-    config:
-       standard: "WordPress"
+#    config:
+#       standard: "WordPress"
   csslint:
     enabled: true
   duplication:
