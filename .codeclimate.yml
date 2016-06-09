@@ -32,3 +32,5 @@ ratings:
   - "**.css"
   - "**.js"
   - "**.php"
+exclude_paths:
+- "sitemap.xsl"
