@@ -2,7 +2,7 @@ engines:
   phpcodesniffer:
     enabled: true
     config:
-      standard: "Wordpress"
+      standard: "WordPress-Extra"
   csslint:
     enabled: true
   duplication:
