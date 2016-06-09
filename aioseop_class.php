@@ -2093,7 +2093,7 @@ global $aioseop_options;
 	 *
 	 * @return string $url
 	 *
-	 * @since
+	 * @since 2.3.5
 	 */
 	function validate_url_scheme( $url ) {
 
