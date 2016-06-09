@@ -1,6 +1,16 @@
 engines:
   phpcodesniffer:
     enabled: true
+    # ... CONFIG CONTENT - remove once we have WPCS ...
+        checks:
+          Squiz Functions FunctionDeclarationArgumentSpacing SpacingBeforeClose:
+            enabled: false
+          Squiz ControlStructures ForEachLoopDeclaration SpaceAfterOpen:
+            enabled: false
+          PSR2 ControlStructures ControlStructureSpacing SpaceBeforeCloseBrace:
+            enabled: false
+          PSR2 Classes ClassDeclaration OpenBraceNewLine:
+                  enabled: false
   csslint:
     enabled: true
   duplication:
@@ -41,3 +51,7 @@ exclude_paths:
 - "**.xml"
 - "images/"
 - "modules/images"
+- "inc/aioseop_UTF8.php"
+- "inc/extlib/"
+- "readme.txt"
+- "README.md"
