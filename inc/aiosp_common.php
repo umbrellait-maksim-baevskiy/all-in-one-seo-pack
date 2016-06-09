@@ -25,16 +25,16 @@ class aiosp_common {
 	static function get_blog_page( $p = null ) {
 		static $blog_page = '';
 		static $page_for_posts = '';
-		if ( $p === null ) {
+		if ( null === $p ) {
 			global $post;
 		} else {
 			$post = $p;
 		}
-		if ( $blog_page === '' ) {
-			if ( $page_for_posts === '' ) {
+		if ( '' === $blog_page ) {
+			if ( '' === $page_for_posts ) {
 				$page_for_posts = get_option( 'page_for_posts' );
 			}
-			if ( $page_for_posts && is_home() && ( ! is_object( $post ) || ( $page_for_posts != $post->ID ) ) ) {
+			if ( $page_for_posts && is_home() && ( ! is_object( $post ) || ( $page_for_posts !== $post->ID ) ) ) {
 				$blog_page = get_post( $page_for_posts );
 			}
 		}
@@ -59,7 +59,6 @@ class aiosp_common {
 		//call during plugins_loaded
 		$affiliate_id = apply_filters( 'aiosp_aff_id', $affiliate_id );
 
-
 		//build URL
 		$url = 'http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/';
 		if ( $location ) {
@@ -69,8 +68,7 @@ class aiosp_common {
 			$url .= "?ap_id=$affiliate_id";
 		}
 
-
-		//build hyperlink		
+		//build hyperlink
 		$hyperlink = '<a ';
 		if ( $target ) {
 			$hyperlink .= "target=\"$target\" ";
@@ -86,5 +84,4 @@ class aiosp_common {
 	static function get_upgrade_url() {
 		//put build URL stuff in here
 	}
-
 }
