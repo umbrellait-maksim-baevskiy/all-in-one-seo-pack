@@ -15,6 +15,9 @@ engines:
     enabled: true
   fixme:
     enabled: true
+    checks:
+      TODO:
+        enabled: false
 #  phpmd:
 #    enabled: true
     # ... CONFIG CONTENT ...

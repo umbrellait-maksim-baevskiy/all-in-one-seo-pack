@@ -5,12 +5,19 @@
  */
 class aiosp_metaboxes {
 
+	/**
+	 * aiosp_metaboxes constructor.
+	 */
 	function __construct() {
 		//construct
 
 	}
 
 
+	/**
+	 * @param $add
+	 * @param $meta
+	 */
 	static function display_extra_metaboxes( $add, $meta ) {
 		echo "<div class='aioseop_metabox_wrapper' >";
 		switch ( $meta['id'] ) {
