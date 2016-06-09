@@ -1,35 +1,38 @@
 ---
+languages:
+  JavaScript: true
+  PHP: true
 engines:
   phpcodesniffer:
     enabled: true
 #    config:
 #       standard: "WordPress"
-  csslint:
-    enabled: true
-  duplication:
-    enabled: true
-    config:
-      languages:
-      - javascript
-      - php
-  eslint:
-    enabled: true
+#  csslint:
+#    enabled: true
+#  duplication:
+#    enabled: true
+#    config:
+#      languages:
+#      - javascript
+#      - php
+#  eslint:
+#    enabled: true
  # fixme:
  #   enabled: true
  # phpmd:
   #  enabled: true
     # ... CONFIG CONTENT ...
-    checks:
-      Controversial/CamelCaseClassName:
-        enabled: false
-      Controversial/CamelCasePropertyName:
-        enabled: false
-      Controversial/CamelCaseMethodName:
-        enabled: false
-      Controversial/CamelCaseParameterName:
-        enabled: false
-      Controversial/CamelCaseVariableName:
-        enabled: false
+#    checks:
+#      Controversial/CamelCaseClassName:
+#        enabled: false
+#      Controversial/CamelCasePropertyName:
+#        enabled: false
+#      Controversial/CamelCaseMethodName:
+#        enabled: false
+#      Controversial/CamelCaseParameterName:
+#        enabled: false
+#      Controversial/CamelCaseVariableName:
+#        enabled: false
 #ratings:
 #  paths:
 #  - "**.css"
@@ -45,4 +48,4 @@ exclude_paths:
 - "bin/"
 - "tests/"
 - "i18n/"
-- "modules/images/"
+#- "modules/images/"
