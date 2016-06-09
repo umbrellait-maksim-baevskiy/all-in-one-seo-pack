@@ -153,14 +153,14 @@ div.aioseop_feature {
 	clear: left
 }
 
-#aiosp div.preview_snippet {
+#aiosp .preview_snippet {
 	padding: 15px 7px 20px 15px
 }
 
 #aiosp_sitemap_addl_pages,
 #aiosp_video_sitemap_addl_pages {
 	clear: right;
-	margin-left: 0px;
+	margin-left: 0;
 	margin-right: 20px
 }
 
@@ -222,7 +222,7 @@ div.aioseop_feature {
 	margin-top: 10px;
 }
 
-div.aioseop_notice a.aioseop_dismiss_link {
+.aioseop_notice .aioseop_dismiss_link {
 	position: absolute;
 	top: 10px;
 	left: 10px;
@@ -256,7 +256,7 @@ div.aioseop_notice a.aioseop_dismiss_link {
 	padding-right: 5px
 }
 
-form#aiosp_settings_form,
+#aiosp_settings_form,
 .aioseop_tabs_div {
 	padding-right: 0;
 	padding-left: 477px
