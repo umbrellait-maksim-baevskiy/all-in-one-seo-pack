@@ -2054,25 +2054,61 @@ global $aioseop_options;
 			if ( !empty( $prev ) ) $meta_string .= "<link rel='prev' href='" . esc_url( $prev ) . "' />\n";
 			if ( !empty( $next ) ) $meta_string .= "<link rel='next' href='" . esc_url( $next ) . "' />\n";
 			if ( $meta_string != null ) echo "$meta_string\n";
+
 			// handle canonical links
 			$show_page = true;
 			if ( !empty( $aioseop_options["aiosp_no_paged_canonical_links"] ) ) $show_page = false;
 
-			if ( $aioseop_options['aiosp_can'] ) {
-				$url = '';
-				if ( !empty( $aioseop_options['aiosp_customize_canonical_links'] ) && !empty( $opts['aiosp_custom_link'] ) ) $url = $opts['aiosp_custom_link'];
-				if ( empty( $url ) )
-					$url = $this->aiosp_mrt_get_url( $wp_query, $show_page );
-				$url = apply_filters( 'aioseop_canonical_url', $url );
-				if ( !empty( $url ) )
-					echo '<link rel="canonical" href="'. esc_url( $url ) . '" />'."\n";
+		if ( $aioseop_options['aiosp_can'] ) {
+			$url = '';
+			if ( ! empty( $aioseop_options['aiosp_customize_canonical_links'] ) && ! empty( $opts['aiosp_custom_link'] ) ) {
+				$url = $opts['aiosp_custom_link'];
 			}
-			do_action( 'aioseop_modules_wp_head' );
-			if ( AIOSEOPPRO ) {
+			if ( empty( $url ) ) {
+				$url = $this->aiosp_mrt_get_url( $wp_query, $show_page );
+			}
+
+			$url = $this->validate_url_scheme( $url );
+
+			$url = apply_filters( 'aioseop_canonical_url', $url );
+			if ( ! empty( $url ) ) {
+				echo '<link rel="canonical" href="' . esc_url( $url ) . '" />' . "\n";
+			}
+		}
+		do_action( 'aioseop_modules_wp_head' );
+		if ( AIOSEOPPRO ) {
 			echo "<!-- /all in one seo pack pro -->\n";
-			} else{
-				echo "<!-- /all in one seo pack -->\n";
-			}
+		} else {
+			echo "<!-- /all in one seo pack -->\n";
+		}
+	}
+
+	/**
+	 *
+	 * Validates whether the url should be https or http.
+	 *
+	 * Mainly we're just using this for canonical URLS, but eventually it may be useful for other things
+	 *
+	 * @param $url
+	 *
+	 * @return string $url
+	 *
+	 * @since
+	 */
+	function validate_url_scheme( $url ) {
+
+		//TODO we should check for the site setting in the case of auto
+
+		global $aioseop_options;
+
+		if ( $aioseop_options['aiosp_can_set_protocol'] == 'http' ) {
+			$url = preg_replace( "/^https:/i", "http:", $url );
+		}
+		if ( $aioseop_options['aiosp_can_set_protocol'] == 'https' ) {
+			$url = preg_replace( "/^http:/i", "https:", $url );
+		}
+
+		return $url;
 	}
 
 	function override_options( $options, $location, $settings ) {
@@ -2337,22 +2373,29 @@ EOF;
 	}
 
 	function aiosp_mrt_get_url( $query, $show_page = true ) {
-		if ( $query->is_404 || $query->is_search )
+		if ( $query->is_404 || $query->is_search ) {
 			return false;
-		$link = '';
+		}
+		$link    = '';
 		$haspost = count( $query->posts ) > 0;
 		if ( get_query_var( 'm' ) ) {
 			$m = preg_replace( '/[^0-9]/', '', get_query_var( 'm' ) );
 			switch ( $this->strlen( $m ) ) {
-				case 4: $link = get_year_link( $m ); break;
-        		case 6: $link = get_month_link( $this->substr( $m, 0, 4), $this->substr($m, 4, 2 ) ); break;
-        		case 8: $link = get_day_link( $this->substr( $m, 0, 4 ), $this->substr( $m, 4, 2 ), $this->substr( $m, 6, 2 ) ); break;
-       			default:
-       			return false;
+				case 4:
+					$link = get_year_link( $m );
+					break;
+				case 6:
+					$link = get_month_link( $this->substr( $m, 0, 4 ), $this->substr( $m, 4, 2 ) );
+					break;
+				case 8:
+					$link = get_day_link( $this->substr( $m, 0, 4 ), $this->substr( $m, 4, 2 ), $this->substr( $m, 6, 2 ) );
+					break;
+				default:
+					return false;
 			}
-		} elseif ( ( $query->is_home && (get_option( 'show_on_front' ) == 'page' ) && ( $pageid = get_option( 'page_for_posts' ) ) ) ) {
+		} elseif ( ( $query->is_home && ( get_option( 'show_on_front' ) == 'page' ) && ( $pageid = get_option( 'page_for_posts' ) ) ) ) {
 			$link = get_permalink( $pageid );
-		} elseif ( is_front_page() || ( $query->is_home && ( get_option( 'show_on_front' ) != 'page' || !get_option( 'page_for_posts' ) ) ) ) {
+		} elseif ( is_front_page() || ( $query->is_home && ( get_option( 'show_on_front' ) != 'page' || ! get_option( 'page_for_posts' ) ) ) ) {
 			if ( function_exists( 'icl_get_home_url' ) ) {
 				$link = icl_get_home_url();
 			} else {
@@ -2363,48 +2406,57 @@ EOF;
 			$link = get_permalink( $post->ID );
 		} elseif ( $query->is_author && $haspost ) {
 			$author = get_userdata( get_query_var( 'author' ) );
-     		if ($author === false) return false;
+			if ( $author === false ) {
+				return false;
+			}
 			$link = get_author_posts_url( $author->ID, $author->user_nicename );
-  		} elseif ( $query->is_category && $haspost ) {
-    		$link = get_category_link( get_query_var( 'cat' ) );
+		} elseif ( $query->is_category && $haspost ) {
+			$link = get_category_link( get_query_var( 'cat' ) );
 		} elseif ( $query->is_tag && $haspost ) {
 			$tag = get_term_by( 'slug', get_query_var( 'tag' ), 'post_tag' );
-       		if ( !empty( $tag->term_id ) )
+			if ( ! empty( $tag->term_id ) ) {
 				$link = get_tag_link( $tag->term_id );
-  		} elseif ( $query->is_day && $haspost ) {
-  			$link = get_day_link( get_query_var( 'year' ),
-	                              get_query_var( 'monthnum' ),
-	                              get_query_var( 'day' ) );
-	    } elseif ( $query->is_month && $haspost ) {
-	        $link = get_month_link( get_query_var( 'year' ),
-	                               get_query_var( 'monthnum' ) );
-	    } elseif ( $query->is_year && $haspost ) {
-	        $link = get_year_link( get_query_var( 'year' ) );
+			}
+		} elseif ( $query->is_day && $haspost ) {
+			$link = get_day_link( get_query_var( 'year' ),
+				get_query_var( 'monthnum' ),
+				get_query_var( 'day' ) );
+		} elseif ( $query->is_month && $haspost ) {
+			$link = get_month_link( get_query_var( 'year' ),
+				get_query_var( 'monthnum' ) );
+		} elseif ( $query->is_year && $haspost ) {
+			$link = get_year_link( get_query_var( 'year' ) );
 		} elseif ( $query->is_tax && $haspost ) {
 			$taxonomy = get_query_var( 'taxonomy' );
-			$term = get_query_var( 'term' );
-			if ( !empty( $term ) )
+			$term     = get_query_var( 'term' );
+			if ( ! empty( $term ) ) {
 				$link = get_term_link( $term, $taxonomy );
-        } elseif ( $query->is_archive && function_exists( 'get_post_type_archive_link' ) && ( $post_type = get_query_var( 'post_type' ) ) ) {
-			if ( is_array( $post_type ) )
+			}
+		} elseif ( $query->is_archive && function_exists( 'get_post_type_archive_link' ) && ( $post_type = get_query_var( 'post_type' ) ) ) {
+			if ( is_array( $post_type ) ) {
 				$post_type = reset( $post_type );
+			}
 			$link = get_post_type_archive_link( $post_type );
-	    } else {
-	        return false;
-	    }
-		if ( empty( $link ) || !is_string( $link ) ) return false;
-		if ( apply_filters( 'aioseop_canonical_url_pagination', $show_page ) )
+		} else {
+			return false;
+		}
+		if ( empty( $link ) || ! is_string( $link ) ) {
+			return false;
+		}
+		if ( apply_filters( 'aioseop_canonical_url_pagination', $show_page ) ) {
 			$link = $this->get_paged( $link );
-		if ( !empty( $link ) ) {
+		}
+		if ( ! empty( $link ) ) {
 			global $aioseop_options;
-			if ( !empty( $aioseop_options['aiosp_can_set_protocol'] ) && ( $aioseop_options['aiosp_can_set_protocol'] != 'auto' ) ) {
+			if ( ! empty( $aioseop_options['aiosp_can_set_protocol'] ) && ( $aioseop_options['aiosp_can_set_protocol'] != 'auto' ) ) {
 				if ( $aioseop_options['aiosp_can_set_protocol'] == 'http' ) {
-					$link = preg_replace("/^https:/i", "http:", $link );
+					$link = preg_replace( "/^https:/i", "http:", $link );
 				} elseif ( $aioseop_options['aiosp_can_set_protocol'] == 'https' ) {
-					$link = preg_replace("/^http:/i", "https:", $link );
+					$link = preg_replace( "/^http:/i", "https:", $link );
 				}
 			}
 		}
+
 		return $link;
 	}
 
