@@ -78,10 +78,10 @@ class aiosp_metaboxes {
 						<?php } ?>
 
 						<a target="_blank" title="<?php _e( 'Follow us on Facebook', 'all-in-one-seo-pack' ); ?>"
-						   href="http://www.facebook.com/pages/Semper-Fi-Web-Design/121878784498475"><span
+						   href="https://www.facebook.com/aioseopack/"><span
 								class="aioseop_follow_button aioseop_facebook_follow"></span></a>
 						<a target="_blank" title="<?php _e( 'Follow us on Twitter', 'all-in-one-seo-pack' ); ?>"
-						   href="http://twitter.com/semperfidev/"><span
+						   href="https://twitter.com/aioseopack"><span
 								class="aioseop_follow_button aioseop_twitter_follow"></span></a>
 					</div><?php if ( get_locale() != 'en_US' ) { ?>
 						<div><strong>
