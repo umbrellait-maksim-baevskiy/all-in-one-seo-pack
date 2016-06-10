@@ -13,7 +13,6 @@ if ( ! class_exists( 'AIOSEOP_Opengraph_Public' ) ) {
 	class AIOSEOP_Opengraph_Public {
 
 		/**
-		 *
 		 * Prepare twitter username for public display.
 		 *
 		 * We do things like strip out the URL, etc and return just (at)username.
@@ -23,7 +22,7 @@ if ( ! class_exists( 'AIOSEOP_Opengraph_Public' ) ) {
 		 * @param $twitter_profile
 		 *
 		 * @return string
-		 *
+		 * @since 2.3.5
 		 */
 		public static function prepare_twitter_username( $twitter_profile ) {
 
@@ -58,10 +57,16 @@ if ( ! class_exists( 'AIOSEOP_Opengraph_Public' ) ) {
 		}
 
 
+		/**
+		 * @param $twitter_profile
+		 *
+		 * @return mixed
+		 * @since 2.3.5
+		 */
 		public static function twitter_url_to_user( $twitter_profile ) {
 
 			//extract the twitter username from the url
-
+			
 			$parsed_twitter_profile = wp_parse_url( $twitter_profile );
 
 			$path            = $parsed_twitter_profile['path'];
@@ -70,10 +75,17 @@ if ( ! class_exists( 'AIOSEOP_Opengraph_Public' ) ) {
 
 			return $twitter_profile;
 
-
 		}
 
 
+		/**
+		 * @param $twitter_profile
+		 *
+		 * @return string
+		 * @since 2.3.5
+		 *
+		 * TODO- this claims to just validate, but it's actually validating and adding the AT symbol as needed rather than returning true/false
+		 */
 		public static function validate_twitter_profile( $twitter_profile ) {
 			//test for valid twitter username, with or without @
 			if ( preg_match( '/^(\@)?[A-Za-z0-9_]+$/', $twitter_profile ) ) {
@@ -82,13 +94,18 @@ if ( ! class_exists( 'AIOSEOP_Opengraph_Public' ) ) {
 
 				return $twitter_profile;
 			}
-
 		}
 
 
+		/**
+		 * @param $twitter_profile
+		 *
+		 * @return string
+		 * @since 2.3.5
+		 */
 		public static function prepend_at_symbol( $twitter_profile ) {
 			//checks for @ in the beginning, if it's not there adds it
-			if ( $twitter_profile[0] !== '@' ) {
+			if ( '@' !== $twitter_profile[0] ) {
 				$twitter_profile = '@' . $twitter_profile;
 			}
 
