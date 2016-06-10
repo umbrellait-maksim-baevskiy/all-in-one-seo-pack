@@ -2,11 +2,16 @@
 /**
  * @package All-in-One-SEO-Pack
  */
-/**
- * The Bad Robots class.
- */
+
 if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
+	/**
+	 * Class All_in_One_SEO_Pack_Bad_Robots
+	 */
 	class All_in_One_SEO_Pack_Bad_Robots extends All_in_One_SEO_Pack_Module {
+
+		/**
+		 * All_in_One_SEO_Pack_Bad_Robots constructor.
+		 */
 		function __construct() {
 			$this->name   = __( 'Bad Bot Blocker', 'all-in-one-seo-pack' );    // Human-readable name of the plugin
 			$this->prefix = 'aiosp_bad_robots_';                        // option prefix
@@ -63,12 +68,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 				)
 			);
 			$is_apache             = false;
-			if ( ( ! empty( $_SERVER['SERVER_SOFTWARE'] ) && stristr( $_SERVER['SERVER_SOFTWARE'], 'Apache' ) !== false ) ) {
+			if ( ! empty( $_SERVER['SERVER_SOFTWARE'] ) && stristr( $_SERVER['SERVER_SOFTWARE'], 'Apache' ) !== false ) {
 				$is_apache = true;
 				add_action( $this->prefix . 'settings_update', Array( $this, 'generate_htaccess_blocklist' ), 10 );
 			} else {
-				unset( $this->default_options["htaccess_rules"] );
-				unset( $help_text["htaccess_rules"] );
+				unset( $this->default_options['htaccess_rules'] );
+				unset( $help_text['htaccess_rules'] );
 			}
 
 			if ( ! empty( $help_text ) ) {
@@ -94,13 +99,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 					status_header( 503 );
 					$ip         = $_SERVER['REMOTE_ADDR'];
 					$user_agent = $_SERVER['HTTP_USER_AGENT'];
-					$this->blocked_message( sprintf( __( "Blocked bot with IP %s -- matched user agent %s found in blocklist.", 'all-in-one-seo-pack' ), $ip, $user_agent ) );
+					$this->blocked_message( sprintf( __( 'Blocked bot with IP %s -- matched user agent %s found in blocklist.', 'all-in-one-seo-pack' ), $ip, $user_agent ) );
 					exit();
 				} elseif ( $this->option_isset( 'block_refer' ) && $this->is_bad_referer() ) {
 					status_header( 503 );
 					$ip      = $_SERVER['REMOTE_ADDR'];
 					$referer = $_SERVER['HTTP_REFERER'];
-					$this->blocked_message( sprintf( __( "Blocked bot with IP %s -- matched referer %s found in blocklist.", 'all-in-one-seo-pack' ), $ip, $referer ) );
+					$this->blocked_message( sprintf( __( 'Blocked bot with IP %s -- matched referer %s found in blocklist.', 'all-in-one-seo-pack' ), $ip, $referer ) );
 				}
 			}
 		}
@@ -109,9 +114,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 			if ( ! $this->option_isset( 'htaccess_rules' ) ) {
 
 				if ( insert_with_markers( get_home_path() . '.htaccess', $this->name, '' ) ) {
-					aioseop_output_notice( __( "Updated .htaccess rules.", 'all-in-one-seo-pack' ) );
+					aioseop_output_notice( __( 'Updated .htaccess rules.', 'all-in-one-seo-pack' ) );
 				} else {
-					aioseop_output_notice( __( "Failed to update .htaccess rules!", 'all-in-one-seo-pack' ), "", "error" );
+					aioseop_output_notice( __( 'Failed to update .htaccess rules!', 'all-in-one-seo-pack' ), '', 'error' );
 				}
 
 				return;
@@ -122,19 +127,19 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 				$modules = apache_get_modules();
 				foreach ( Array( 'mod_authz_host', 'mod_setenvif' ) as $m ) {
 					if ( ! in_array( $m, $modules ) ) {
-						aioseop_output_notice( sprintf( __( "Apache module %s is required!", 'all-in-one-seo-pack' ), $m ), "", "error" );
+						aioseop_output_notice( sprintf( __( 'Apache module %s is required!', 'all-in-one-seo-pack' ), $m ), '', 'error' );
 					}
 				}
 			}
 			$botlist = $this->default_bad_bots();
-			$botlist = apply_filters( $this->prefix . "badbotlist", $botlist );
+			$botlist = apply_filters( $this->prefix . 'badbotlist', $botlist );
 			if ( ! empty( $botlist ) ) {
 				$regex      = $this->quote_list_for_regex( $botlist, '"' );
 				$htaccess   = Array();
 				$htaccess[] = 'SetEnvIfNoCase User-Agent "' . $regex . '" bad_bot';
 				if ( $this->option_isset( 'edit_blocks' ) && $this->option_isset( 'block_refer' ) && $this->option_isset( 'referlist' ) ) {
 					$referlist = $this->default_bad_referers();
-					$referlist = apply_filters( $this->prefix . "badreferlist", $botlist );
+					$referlist = apply_filters( $this->prefix . 'badreferlist', $botlist );
 					if ( ! empty( $referlist ) ) {
 						$regex      = $this->quote_list_for_regex( $referlist, '"' );
 						$htaccess[] = 'SetEnvIfNoCase Referer "' . $regex . '" bad_bot';
@@ -142,15 +147,20 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 				}
 				$htaccess[] = 'Deny from env=bad_bot';
 				if ( insert_with_markers( get_home_path() . '.htaccess', $this->name, $htaccess ) ) {
-					aioseop_output_notice( __( "Updated .htaccess rules.", 'all-in-one-seo-pack' ) );
+					aioseop_output_notice( __( 'Updated .htaccess rules.', 'all-in-one-seo-pack' ) );
 				} else {
-					aioseop_output_notice( __( "Failed to update .htaccess rules!", 'all-in-one-seo-pack' ), "", "error" );
+					aioseop_output_notice( __( 'Failed to update .htaccess rules!', 'all-in-one-seo-pack' ), '', 'error' );
 				}
 			} else {
-				aioseop_output_notice( __( "No rules to update!", 'all-in-one-seo-pack' ), "", "error" );
+				aioseop_output_notice( __( 'No rules to update!', 'all-in-one-seo-pack' ), '', 'error' );
 			}
 		}
 
+		/**
+		 * @param $referlist
+		 *
+		 * @return array
+		 */
 		function filter_bad_referlist( $referlist ) {
 			if ( $this->option_isset( 'edit_blocks' ) && $this->option_isset( 'block_refer' ) && $this->option_isset( 'referlist' ) ) {
 				$referlist = explode( "\n", $this->options["{$this->prefix}referlist"] );
@@ -159,6 +169,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 			return $referlist;
 		}
 
+		/**
+		 * @param $botlist
+		 *
+		 * @return array
+		 */
 		function filter_bad_botlist( $botlist ) {
 			if ( $this->option_isset( 'edit_blocks' ) && $this->option_isset( 'blocklist' ) ) {
 				$botlist = explode( "\n", $this->options["{$this->prefix}blocklist"] );
@@ -167,8 +182,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 			return $botlist;
 		}
 
-		/** Updates blocked log messages. **/
+
+		/**
+		 * @param $msg
+		 */
 		function blocked_message( $msg ) {
+			/** Updates blocked log messages. **/
 			if ( empty( $this->options["{$this->prefix}blocked_log"] ) ) {
 				$this->options["{$this->prefix}blocked_log"] = '';
 			}
@@ -183,8 +202,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 			$this->update_class_option( $this->options );
 		}
 
-		/** Add in options for status display on settings page, sitemap rewriting on multisite. **/
+
+		/**
+		 * @param $options
+		 *
+		 * @return mixed
+		 */
 		function filter_display_options( $options ) {
+			/** Add in options for status display on settings page, sitemap rewriting on multisite. **/
 			if ( $this->option_isset( 'blocked_log' ) ) {
 				$options["{$this->prefix}blocked_log"] = '<pre>' . $options["{$this->prefix}blocked_log"] . '</pre>';
 			}
