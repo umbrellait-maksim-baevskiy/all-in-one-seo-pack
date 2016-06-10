@@ -184,7 +184,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 
 
 		/**
-		 * @param $msg
+		 * @param string $msg
 		 */
 		function blocked_message( $msg ) {
 			/** Updates blocked log messages. **/
