@@ -509,6 +509,9 @@ form#edittag div#aiosp_sitemap_exclude_wrapper {
 
 .All_in_One_SEO_Pack_Feature_Manager > #aiosp_settings_form > #aioseop_top_button {
 	height: 5px;
+	position: absolute;
+	top: 0;
+	width: 97%;
 }
 .All_in_One_SEO_Pack_Feature_Manager > .aioseop_right_sidebar.aioseop_options_wrapper {
 	margin-top: 10px;
