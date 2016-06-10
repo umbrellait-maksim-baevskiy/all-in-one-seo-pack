@@ -2,23 +2,25 @@
 /**
  * @package All-in-One-SEO-Pack
  */
+
 /**
  * Load the module manager.
  */
-if (!function_exists('aioseop_load_modules')) {
+if ( ! function_exists( 'aioseop_load_modules' ) ) {
 	function aioseop_load_modules() {
 		global $aioseop_modules, $aioseop_module_list;
-	 	require_once( AIOSEOP_PLUGIN_DIR . 'admin/aioseop_module_manager.php' );
-	 	$aioseop_modules = new All_in_One_SEO_Pack_Module_Manager( apply_filters( 'aioseop_module_list', $aioseop_module_list ) );
-	 	$aioseop_modules->load_modules();
+		require_once( AIOSEOP_PLUGIN_DIR . 'admin/aioseop_module_manager.php' );
+		$aioseop_modules = new All_in_One_SEO_Pack_Module_Manager( apply_filters( 'aioseop_module_list', $aioseop_module_list ) );
+		$aioseop_modules->load_modules();
 	}
 }
 
-if ( !function_exists( 'aioseop_get_options' ) ) {
+if ( ! function_exists( 'aioseop_get_options' ) ) {
 	function aioseop_get_options() {
 		global $aioseop_options;
 		$aioseop_options = get_option( 'aioseop_options' );
 		$aioseop_options = apply_filters( 'aioseop_get_options', $aioseop_options );
+
 		return $aioseop_options;
 	}
 }
@@ -26,32 +28,35 @@ if ( !function_exists( 'aioseop_get_options' ) ) {
 /**
  * Check if settings need to be updated / migrated from old version.
  */
-if ( !function_exists( 'aioseop_update_settings_check' ) ) {
+if ( ! function_exists( 'aioseop_update_settings_check' ) ) {
 	function aioseop_update_settings_check() {
 		global $aioseop_options;
-		if ( ( isset( $_POST['aioseop_migrate_options'] ) )  ||
-			 ( empty( $aioseop_options ) ) )
+		if ( ( isset( $_POST['aioseop_migrate_options'] ) ) ||
+		     ( empty( $aioseop_options ) )
+		) {
 			aioseop_mrt_mkarry();
+		}
 		// WPML has now attached to filters, read settings again so they can be translated
 		aioseop_get_options();
 		$update_options = false;
-		if ( !empty( $aioseop_options ) ) {
-			if ( !empty( $aioseop_options['aiosp_archive_noindex'] ) ) { // migrate setting for noindex archives
+		if ( ! empty( $aioseop_options ) ) {
+			if ( ! empty( $aioseop_options['aiosp_archive_noindex'] ) ) { // migrate setting for noindex archives
 				$aioseop_options['aiosp_archive_date_noindex'] = $aioseop_options['aiosp_archive_author_noindex'] = $aioseop_options['aiosp_archive_noindex'];
 				unset( $aioseop_options['aiosp_archive_noindex'] );
 				$update_options = true;
 			}
-			if ( !empty( $aioseop_options['aiosp_archive_title_format'] ) && empty( $aioseop_options['aiosp_date_title_format'] ) ) {
+			if ( ! empty( $aioseop_options['aiosp_archive_title_format'] ) && empty( $aioseop_options['aiosp_date_title_format'] ) ) {
 				$aioseop_options['aiosp_date_title_format'] = $aioseop_options['aiosp_archive_title_format'];
 				unset( $aioseop_options['aiosp_archive_title_format'] );
 				$update_options = true;
 			}
-			if ( !empty( $aioseop_options['aiosp_archive_title_format'] ) && ( $aioseop_options['aiosp_archive_title_format'] == '%date% | %blog_title%' ) ) {
+			if ( ! empty( $aioseop_options['aiosp_archive_title_format'] ) && ( $aioseop_options['aiosp_archive_title_format'] == '%date% | %blog_title%' ) ) {
 				$aioseop_options['aiosp_archive_title_format'] = '%archive_title% | %blog_title%';
-				$update_options = true;
+				$update_options                                = true;
 			}
-			if ( $update_options )
+			if ( $update_options ) {
 				update_option( 'aioseop_options', $aioseop_options );
+			}
 		}
 	}
 }
@@ -59,19 +64,19 @@ if ( !function_exists( 'aioseop_update_settings_check' ) ) {
 /**
  * Initialize settings to defaults.
  */
-if ( !function_exists( 'aioseop_mrt_mkarry' ) ) {
+if ( ! function_exists( 'aioseop_mrt_mkarry' ) ) {
 	function aioseop_mrt_mkarry() {
 		global $aiosp;
 		global $aioseop_options;
 		$naioseop_options = $aiosp->default_options();
 
-		if( get_option( 'aiosp_post_title_format' ) ) {
-		foreach( $naioseop_options as $aioseop_opt_name => $value ) {
-				if( $aioseop_oldval = get_option( $aioseop_opt_name ) ) {
-					$naioseop_options[$aioseop_opt_name] = $aioseop_oldval;
+		if ( get_option( 'aiosp_post_title_format' ) ) {
+			foreach ( $naioseop_options as $aioseop_opt_name => $value ) {
+				if ( $aioseop_oldval = get_option( $aioseop_opt_name ) ) {
+					$naioseop_options[ $aioseop_opt_name ] = $aioseop_oldval;
 				}
-				if( $aioseop_oldval == '' ) {
-					$naioseop_options[$aioseop_opt_name] = '';
+				if ( $aioseop_oldval == '' ) {
+					$naioseop_options[ $aioseop_opt_name ] = '';
 				}
 				delete_option( $aioseop_opt_name );
 			}
@@ -81,73 +86,79 @@ if ( !function_exists( 'aioseop_mrt_mkarry' ) ) {
 	}
 }
 
-if ( !function_exists( 'aioseop_activate_pl' ) ) {
+if ( ! function_exists( 'aioseop_activate_pl' ) ) {
 	function aioseop_activate_pl() {
-		if( $aioseop_options = get_option( 'aioseop_options' ) ) {
+		if ( $aioseop_options = get_option( 'aioseop_options' ) ) {
 			$aioseop_options['aiosp_enabled'] = "0";
 
-			if( empty( $aioseop_options['aiosp_posttypecolumns'] ) ) {
-				$aioseop_options['aiosp_posttypecolumns'] = array('post','page');
+			if ( empty( $aioseop_options['aiosp_posttypecolumns'] ) ) {
+				$aioseop_options['aiosp_posttypecolumns'] = array( 'post', 'page' );
 			}
 
-			update_option('aioseop_options', $aioseop_options);
+			update_option( 'aioseop_options', $aioseop_options );
 		}
 	}
 }
 
-if ( !function_exists( 'aioseop_get_version' ) ) {
+if ( ! function_exists( 'aioseop_get_version' ) ) {
 	function aioseop_get_version() {
 		return AIOSEOP_VERSION;
 	}
 }
 
-if ( !function_exists( 'aioseop_option_isset' ) ) {
+if ( ! function_exists( 'aioseop_option_isset' ) ) {
 	function aioseop_option_isset( $option ) {
 		global $aioseop_options;
-		return ( ( isset( $aioseop_options[$option] ) ) && $aioseop_options[$option] );
+
+		return ( ( isset( $aioseop_options[ $option ] ) ) && $aioseop_options[ $option ] );
 	}
 }
 
-if ( !function_exists( 'aioseop_addmycolumns' ) ) {
+if ( ! function_exists( 'aioseop_addmycolumns' ) ) {
 	function aioseop_addmycolumns() {
 		global $aioseop_options, $pagenow;
 		$aiosp_posttypecolumns = Array();
-		if ( !empty( $aioseop_options) && !empty( $aioseop_options['aiosp_posttypecolumns'] ) ) {
+		if ( ! empty( $aioseop_options ) && ! empty( $aioseop_options['aiosp_posttypecolumns'] ) ) {
 			$aiosp_posttypecolumns = $aioseop_options['aiosp_posttypecolumns'];
 		}
-		if ( !empty( $pagenow ) && ( $pagenow == 'upload.php' ) )
+		if ( ! empty( $pagenow ) && ( $pagenow == 'upload.php' ) ) {
 			$post_type = 'attachment';
-		elseif ( !isset( $_REQUEST['post_type'] ) )
+		} elseif ( ! isset( $_REQUEST['post_type'] ) ) {
 			$post_type = 'post';
-		else
+		} else {
 			$post_type = $_REQUEST['post_type'];
+		}
 
-		if( is_array( $aiosp_posttypecolumns ) && in_array( $post_type, $aiosp_posttypecolumns ) ) {
+		if ( is_array( $aiosp_posttypecolumns ) && in_array( $post_type, $aiosp_posttypecolumns ) ) {
 			add_action( 'admin_head', 'aioseop_admin_head' );
-			if ( $post_type == 'page' )
+			if ( $post_type == 'page' ) {
 				add_filter( 'manage_pages_columns', 'aioseop_mrt_pcolumns' );
-			elseif ( $post_type == 'attachment' )
+			} elseif ( $post_type == 'attachment' ) {
 				add_filter( 'manage_media_columns', 'aioseop_mrt_pcolumns' );
-			else
+			} else {
 				add_filter( 'manage_posts_columns', 'aioseop_mrt_pcolumns' );
-			if ( $post_type == 'attachment' )
+			}
+			if ( $post_type == 'attachment' ) {
 				add_action( 'manage_media_custom_column', 'aioseop_mrt_pccolumn', 10, 2 );
-			elseif ( is_post_type_hierarchical( $post_type ) )
+			} elseif ( is_post_type_hierarchical( $post_type ) ) {
 				add_action( 'manage_pages_custom_column', 'aioseop_mrt_pccolumn', 10, 2 );
-			else
+			} else {
 				add_action( 'manage_posts_custom_column', 'aioseop_mrt_pccolumn', 10, 2 );
+			}
 		}
 	}
 }
 
-if ( !function_exists( 'aioseop_mrt_pcolumns' ) ) {
+if ( ! function_exists( 'aioseop_mrt_pcolumns' ) ) {
 	function aioseop_mrt_pcolumns( $aioseopc ) {
 		global $aioseop_options;
-	    $aioseopc['seotitle'] = __( 'SEO Title', 'all-in-one-seo-pack' );
-	    $aioseopc['seodesc'] = __( 'SEO Description', 'all-in-one-seo-pack' );
-	    if ( empty( $aioseop_options['aiosp_togglekeywords'] ) )
+		$aioseopc['seotitle'] = __( 'SEO Title', 'all-in-one-seo-pack' );
+		$aioseopc['seodesc']  = __( 'SEO Description', 'all-in-one-seo-pack' );
+		if ( empty( $aioseop_options['aiosp_togglekeywords'] ) ) {
 			$aioseopc['seokeywords'] = __( 'SEO Keywords', 'all-in-one-seo-pack' );
-	    return $aioseopc;
+		}
+
+		return $aioseopc;
 	}
 }
 
@@ -214,30 +225,35 @@ if ( !function_exists( 'aioseop_admin_head' ) ) {
 	}
 }
 
-if ( !function_exists( 'aioseop_handle_ignore_notice' ) ) {
+if ( ! function_exists( 'aioseop_handle_ignore_notice' ) ) {
 	function aioseop_handle_ignore_notice() {
 
-		if ( !empty( $_GET ) ) {
+		if ( ! empty( $_GET ) ) {
 			global $current_user;
 			$user_id = $current_user->ID;
 
-			if ( !empty( $_GET["aioseop_reset_notices"] ) ) {
+			if ( ! empty( $_GET["aioseop_reset_notices"] ) ) {
 				delete_user_meta( $user_id, 'aioseop_ignore_notice' );
 			}
-		    if ( !empty($_GET['aioseop_ignore_notice'] ) ) {
+			if ( ! empty( $_GET['aioseop_ignore_notice'] ) ) {
 				add_user_meta( $user_id, 'aioseop_ignore_notice', $_GET['aioseop_ignore_notice'], false );
 			}
 		}
 	}
 }
 
-if ( !function_exists( 'aioseop_output_notice' ) ) {
+if ( ! function_exists( 'aioseop_output_notice' ) ) {
 	function aioseop_output_notice( $message, $id = '', $class = "updated fade" ) {
 		$class = 'aioseop_notice ' . $class;
-		if ( !empty( $class ) )	$class = ' class="' . esc_attr( $class ) . '"';
-		if ( !empty( $id ) )	$class .= ' id="' . esc_attr( $id ) . '"';
+		if ( ! empty( $class ) ) {
+			$class = ' class="' . esc_attr( $class ) . '"';
+		}
+		if ( ! empty( $id ) ) {
+			$class .= ' id="' . esc_attr( $id ) . '"';
+		}
 		$dismiss = ' ';
 		echo "<div{$class}>" . wp_kses_post( $message ) . "<br class=clear /></div>";
+
 		return true;
 	}
 }
@@ -480,7 +496,7 @@ if (!function_exists('aioseop_ajax_save_settings')) {
 				}else{
 					$output = '<div id="aioseop_settings_header"><div id="message" class="updated fade"><p>' . $output . '</p></div></div><style>body.all-in-one-seo_page_all-in-one-seo-pack-aioseop_feature_manager .aioseop_settings_left { margin-top: 45px !important; }</style>';
 				}
-		
+
 		die( sprintf( AIOSEOP_AJAX_MSG_TMPL, $output ) );
 	}
 }
