@@ -704,18 +704,18 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 			$site = $domain = $creator = '';
 
-			if ( !empty( $this->options['aiosp_opengraph_twitter_site'] ) )
+			if ( ! empty( $this->options['aiosp_opengraph_twitter_site'] ) ) {
 				$site = $this->options['aiosp_opengraph_twitter_site'];
+				$site = AIOSEOP_Opengraph_Public::prepare_twitter_username( $site );
+			}
 
 			if ( !empty( $this->options['aiosp_opengraph_twitter_domain'] ) )
 				$domain = $this->options['aiosp_opengraph_twitter_domain'];
-			
-			if ( !empty( $post ) && isset( $post->post_author ) && !empty( $this->options['aiosp_opengraph_twitter_creator'] ) )
+
+			if ( ! empty( $post ) && isset( $post->post_author ) && ! empty( $this->options['aiosp_opengraph_twitter_creator'] ) ) {
 				$creator = get_the_author_meta( 'twitter', $post->post_author );
-
-			if ( !empty( $site ) && $site[0] != '@' ) $site = '@' . $site;
-
-			if ( !empty( $creator ) && $creator[0] != '@' ) $creator = '@' . $creator;
+				$creator = AIOSEOP_Opengraph_Public::prepare_twitter_username( $creator );
+			}
 
 			$meta = Array(
 				'facebook'	=> Array(
