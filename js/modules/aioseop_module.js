@@ -447,7 +447,7 @@ jQuery( document ).ready(function() {
 	 * @param $e.
 	 * @return boolean.
 	 */
-	jQuery( ".all-in-one-seo_page_all-in-one-seo-pack-pro-aioseop_feature_manager #aiosp_settings_form .aioseop_settings_left" )
+	jQuery( ".all-in-one-seo_page_all-in-one-seo-pack-modules-aioseop_feature_manager #aiosp_settings_form .aioseop_settings_left" )
 		.delegate("input[name='Submit']", "click", function( e ) {
 		e.preventDefault();
 		return false;
@@ -458,7 +458,7 @@ jQuery( document ).ready(function() {
 	 * @param $e.
 	 * @return boolean.
 	 */
-	jQuery( ".all-in-one-seo_page_all-in-one-seo-pack-pro-aioseop_feature_manager #aiosp_settings_form" )
+	jQuery( ".all-in-one-seo_page_all-in-one-seo-pack-modules-aioseop_feature_manager #aiosp_settings_form" )
 		.delegate( "input[name='Submit']", "click", function( e ) {
 		e.preventDefault();
 		aioseop_handle_post_url(
@@ -476,6 +476,41 @@ jQuery( document ).ready(function() {
 			} );
 		return false;
 	});
+
+	/**
+	 * @since 1.0.0
+	 * @param $e.
+	 * @return boolean.
+	 */
+	jQuery( ".all-in-one-seo_page_all-in-one-seo-pack-pro-modules-aioseop_feature_manager #aiosp_settings_form .aioseop_settings_left" )
+		.delegate("input[name='Submit']", "click", function( e ) {
+			e.preventDefault();
+			return false;
+		});
+
+	/**
+	 * @since 1.0.0
+	 * @param $e.
+	 * @return boolean.
+	 */
+	jQuery( ".all-in-one-seo_page_all-in-one-seo-pack-pro-modules-aioseop_feature_manager #aiosp_settings_form" )
+		.delegate( "input[name='Submit']", "click", function( e ) {
+			e.preventDefault();
+			aioseop_handle_post_url(
+				'aioseop_ajax_save_settings',
+				'ajax_settings_message',
+				jQuery( 'form#aiosp_settings_form' ).serialize(),
+				function() {
+					jQuery( '.wp-has-current-submenu' ).fadeIn( 'fast', function() {
+						aioseop_handle_ajax_call(
+							'aioseop_ajax_get_menu_links',
+							'ajax_settings_message',
+							jQuery.param( {target: '.wp-has-current-submenu > ul'} )
+						);
+					});
+				} );
+			return false;
+		});
 
 	var selectors =
 		"div.aioseop_multicheckbox_type div.aioseop_option_div, #aiosp_sitemap_debug div.aioseop_option_div, #aiosp_performance_status div.aioseop_option_div";
