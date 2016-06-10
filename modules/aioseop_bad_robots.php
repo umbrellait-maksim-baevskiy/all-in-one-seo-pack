@@ -17,7 +17,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 				'block_bots'     => __( 'Block requests from user agents that are known to misbehave with 503.', 'all-in-one-seo-pack' ),
 				'block_refer'    => __( 'Block Referral Spam using HTTP.', 'all-in-one-seo-pack' ),
 				'track_blocks'   => __( 'Log and show recent requests from blocked bots.', 'all-in-one-seo-pack' ),
-				'htaccess_rules' => __( 'Block bad robots via Apaache .htaccess rules. Warning: this will change your web server configuration, make sure you are able to edit this file manually as well.', 'all-in-one-seo-pack' ),
+				'htaccess_rules' => __( 'Block bad robots via Apache .htaccess rules. Warning: this will change your web server configuration, make sure you are able to edit this file manually as well.', 'all-in-one-seo-pack' ),
 				'edit_blocks'    => __( 'Check this to edit the list of disallowed user agents for blocking bad bots.', 'all-in-one-seo-pack' ),
 				'blocklist'      => __( 'This is the list of disallowed user agents used for blocking bad bots.', 'all-in-one-seo-pack' ),
 				'referlist'      => __( 'This is the list of disallowed referers used for blocking bad bots.', 'all-in-one-seo-pack' ),
