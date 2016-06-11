@@ -12,16 +12,16 @@ function oauth_init() {
 	$preload      = $this->get_class_option();
 	$manual_ua    = '';
 	if ( ! empty( $_POST ) ) {
-		if ( ! empty( $_POST["{$this->prefix}google_connect"] ) ) {
+		if ( ! empty( $_POST[ "{$this->prefix}google_connect" ] ) ) {
 			$manual_ua = 1;
 		}
-	} elseif ( ! empty( $preload["{$this->prefix}google_connect"] ) ) {
+	} elseif ( ! empty( $preload[ "{$this->prefix}google_connect" ] ) ) {
 		$manual_ua = 1;
 	}
 	if ( ! empty( $manual_ua ) ) {
 		foreach ( array( 'token', 'secret', 'access_token', 'ga_token', 'account_cache' ) as $v ) {
-			if ( ! empty( $preload["{$this->prefix}{$v}"] ) ) {
-				unset( $preload["{$this->prefix}{$v}"] );
+			if ( ! empty( $preload[ "{$this->prefix}{$v}" ] ) ) {
+				unset( $preload[ "{$this->prefix}{$v}" ] );
 				unset( $this->$v );
 			}
 		}
@@ -30,8 +30,8 @@ function oauth_init() {
 		//return;
 	}
 	foreach ( array( 'token', 'secret', 'access_token', 'ga_token', 'account_cache' ) as $v ) {
-		if ( ! empty( $preload["{$this->prefix}{$v}"] ) ) {
-			$this->$v = $preload["{$this->prefix}{$v}"];
+		if ( ! empty( $preload[ "{$this->prefix}{$v}" ] ) ) {
+			$this->$v = $preload[ "{$this->prefix}{$v}" ];
 		}
 	}
 	$callback_url = null;
@@ -46,7 +46,7 @@ function oauth_init() {
 					$this->ga_token = $this->access_token['oauth_token'];
 					foreach ( array( 'token', 'secret', 'access_token', 'ga_token' ) as $v ) {
 						if ( ! empty( $this->$v ) ) {
-							$preload["{$this->prefix}{$v}"] = $this->$v;
+							$preload[ "{$this->prefix}{$v}" ] = $this->$v;
 						}
 					}
 					$this->update_class_option( $preload );
