@@ -120,6 +120,11 @@ $aioseop_options = get_option( 'aioseop_options' );
 $aioseop_mem_limit = @ini_get( 'memory_limit' );
 
 if ( ! function_exists( 'aioseop_convert_bytestring' ) ) {
+	/**
+	 * @param $byteString
+	 *
+	 * @return int
+	 */
 	function aioseop_convert_bytestring( $byteString ) {
 		$num = 0;
 		preg_match( '/^\s*([0-9.]+)\s*([KMGTPE])B?\s*$/i', $byteString, $matches );
@@ -127,17 +132,17 @@ if ( ! function_exists( 'aioseop_convert_bytestring' ) ) {
 			$num = ( float ) $matches[1];
 			switch ( strtoupper( $matches[2] ) ) {
 				case 'E':
-					$num = $num * 1024;
+					$num *= 1024;
 				case 'P':
-					$num = $num * 1024;
+					$num *= 1024;
 				case 'T':
-					$num = $num * 1024;
+					$num *= 1024;
 				case 'G':
-					$num = $num * 1024;
+					$num *= 1024;
 				case 'M':
-					$num = $num * 1024;
+					$num *= 1024;
 				case 'K':
-					$num = $num * 1024;
+					$num *= 1024;
 			}
 		}
 
@@ -225,7 +230,7 @@ if ( ! function_exists( 'aioseop_activate' ) ) {
 			global $aioseop_update_checker;
 		}
 		$aiosp_activation = true;
-		delete_transient( "aioseop_oauth_current" );
+		delete_transient( 'aioseop_oauth_current' );
 
 		delete_user_meta( get_current_user_id(), 'aioseop_yst_detected_notice_dismissed' );
 
@@ -241,6 +246,12 @@ if ( ! function_exists( 'aiosp_plugin_row_meta' ) ) {
 
 	add_filter( 'plugin_row_meta', 'aiosp_plugin_row_meta', 10, 2 );
 
+	/**
+	 * @param $actions
+	 * @param $plugin_file
+	 *
+	 * @return array
+	 */
 	function aiosp_plugin_row_meta( $actions, $plugin_file ) {
 
 		if ( ! AIOSEOPPRO ) {
@@ -272,6 +283,12 @@ if ( ! function_exists( 'aiosp_add_action_links' ) ) {
 
 	add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'aiosp_add_action_links', 10, 2 );
 
+	/**
+	 * @param $actions
+	 * @param $plugin_file
+	 *
+	 * @return array
+	 */
 	function aiosp_add_action_links( $actions, $plugin_file ) {
 
 		$aioseop_plugin_dirname = AIOSEOP_PLUGIN_DIRNAME;
@@ -311,6 +328,14 @@ if ( ! function_exists( 'aiosp_add_action_links' ) ) {
 
 if ( ! function_exists( 'aiosp_action_links' ) ) {
 
+	/**
+	 * @param $actions
+	 * @param $plugin_file
+	 * @param array $action_links
+	 * @param string $position
+	 *
+	 * @return array
+	 */
 	function aiosp_action_links( $actions, $plugin_file, $action_links = array(), $position = 'after' ) {
 		static $plugin;
 		if ( ! isset( $plugin ) ) {
