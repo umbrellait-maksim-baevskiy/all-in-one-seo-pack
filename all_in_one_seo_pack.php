@@ -42,10 +42,10 @@ global $aioseop_plugin_name;
 $aioseop_plugin_name = 'All in One SEO Pack';
 
 /**********
-*
-* All in One SEO Pack
-*
-*******/
+ *
+ * All in One SEO Pack
+ *
+ *******/
 
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
@@ -65,7 +65,7 @@ if ( ! defined( 'AIOSEOP_PLUGIN_NAME' ) ) {
 
 if ( ! defined( 'AIOSEOP_PLUGIN_DIR' ) ) {
 	define( 'AIOSEOP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-} elseif ( AIOSEOP_PLUGIN_DIR != plugin_dir_path( __FILE__ ) ) {
+} elseif ( AIOSEOP_PLUGIN_DIR !== plugin_dir_path( __FILE__ ) ) {
 
 //this is not a great message
 	/*
@@ -121,15 +121,15 @@ $aioseop_mem_limit = @ini_get( 'memory_limit' );
 
 if ( ! function_exists( 'aioseop_convert_bytestring' ) ) {
 	/**
-	 * @param $byteString
+	 * @param $byte_string
 	 *
 	 * @return int
 	 */
-	function aioseop_convert_bytestring( $byteString ) {
+	function aioseop_convert_bytestring( $byte_string ) {
 		$num = 0;
-		preg_match( '/^\s*([0-9.]+)\s*([KMGTPE])B?\s*$/i', $byteString, $matches );
+		preg_match( '/^\s*([0-9.]+)\s*([KMGTPE])B?\s*$/i', $byte_string, $matches );
 		if ( ! empty( $matches ) ) {
-			$num = ( float ) $matches[1];
+			$num = (float) $matches[1];
 			switch ( strtoupper( $matches[2] ) ) {
 				case 'E':
 					$num *= 1024;
@@ -155,7 +155,7 @@ if ( is_array( $aioseop_options ) && isset( $aioseop_options['modules'] ) && iss
 	if ( isset( $perf_opts['aiosp_performance_memory_limit'] ) ) {
 		$aioseop_mem_limit = $perf_opts['aiosp_performance_memory_limit'];
 	}
-	if ( isset( $perf_opts['aiosp_performance_execution_time'] ) && ( $perf_opts['aiosp_performance_execution_time'] !== '' ) ) {
+	if ( isset( $perf_opts['aiosp_performance_execution_time'] ) && ( '' !== $perf_opts['aiosp_performance_execution_time'] ) ) {
 		@ini_set( 'max_execution_time', (int) $perf_opts['aiosp_performance_execution_time'] );
 		@set_time_limit( (int) $perf_opts['aiosp_performance_execution_time'] );
 	}
@@ -176,14 +176,14 @@ if ( ! empty( $aioseop_mem_limit ) ) {
 }
 
 $aiosp_activation = false;
-$aioseop_module_list = Array(
+$aioseop_module_list = array(
 	'sitemap',
 	'opengraph',
 	'robots',
 	'file_editor',
 	'importer_exporter',
 	'bad_robots',
-	'performance'
+	'performance',
 ); // list all available modules here
 
 if ( AIOSEOPPRO ) {
@@ -192,8 +192,8 @@ if ( AIOSEOPPRO ) {
 
 if ( class_exists( 'All_in_One_SEO_Pack' ) ) {
 	add_action( 'admin_notices', create_function( '', 'echo "<div class=\'error\'>The All In One SEO Pack class is already defined";'
-	. "if ( class_exists( 'ReflectionClass' ) ) { \$r = new ReflectionClass( 'All_in_One_SEO_Pack' ); echo ' in ' . \$r->getFileName(); } "
-	. ' echo ", preventing All In One SEO Pack from loading.</div>";' ) );
+	                                                  . "if ( class_exists( 'ReflectionClass' ) ) { \$r = new ReflectionClass( 'All_in_One_SEO_Pack' ); echo ' in ' . \$r->getFileName(); } "
+	                                                  . ' echo ", preventing All In One SEO Pack from loading.</div>";' ) );
 	return;
 }
 
@@ -216,7 +216,7 @@ if ( AIOSEOPPRO ) {
 	$aioseop_update_checker->options_page = 'all-in-one-seo-pack-pro/aioseop_class.php';
 	$aioseop_update_checker->renewal_page = 'http://semperplugins.com/all-in-one-seo-pack-pro-support-updates-renewal/';
 
-	$aioseop_update_checker->addQueryArgFilter( Array( $aioseop_update_checker, 'add_secret_key' ) );
+	$aioseop_update_checker->addQueryArgFilter( array( $aioseop_update_checker, 'add_secret_key' ) );
 }
 
 
@@ -258,14 +258,12 @@ if ( ! function_exists( 'aiosp_plugin_row_meta' ) ) {
 			$action_links = array(
 				'donatelink' => array(
 					'label' => __( 'Donate', 'all-in-one-seo-pack' ),
-					'url'   => 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8'
-				)
-			,
+					'url'   => 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8',
+				),
 				'amazon'     => array(
 					'label' => __( 'Amazon Wishlist', 'all-in-one-seo-pack' ),
-					'url'   => 'https://www.amazon.com/wishlist/1NFQ133FNCOOA/ref=wl_web'
-				)
-
+					'url'   => 'https://www.amazon.com/wishlist/1NFQ133FNCOOA/ref=wl_web',
+				),
 
 			);
 
@@ -291,22 +289,22 @@ if ( ! function_exists( 'aiosp_add_action_links' ) ) {
 	function aiosp_add_action_links( $actions, $plugin_file ) {
 
 		$aioseop_plugin_dirname = AIOSEOP_PLUGIN_DIRNAME;
-		$action_links           = Array();
+		$action_links           = array();
 		$action_links           = array(
 			'settings' => array(
 				'label' => __( 'SEO Settings', 'all-in-one-seo-pack' ),
-				'url'   => get_admin_url( null, "admin.php?page=$aioseop_plugin_dirname/aioseop_class.php" )
+				'url'   => get_admin_url( null, "admin.php?page=$aioseop_plugin_dirname/aioseop_class.php" ),
 			),
 
 			'forum' => array(
 				'label' => __( 'Support Forum', 'all-in-one-seo-pack' ),
-				'url'   => 'http://semperplugins.com/support/'
+				'url'   => 'http://semperplugins.com/support/',
 			),
 
 			'docs' => array(
 				'label' => __( 'Documentation', 'all-in-one-seo-pack' ),
-				'url'   => 'http://semperplugins.com/documentation/'
-			)
+				'url'   => 'http://semperplugins.com/documentation/',
+			),
 
 		);
 
@@ -340,10 +338,10 @@ if ( ! function_exists( 'aiosp_action_links' ) ) {
 		if ( ! isset( $plugin ) ) {
 			$plugin = plugin_basename( __FILE__ );
 		}
-		if ( $plugin == $plugin_file && ! empty( $action_links ) ) {
+		if ( $plugin === $plugin_file && ! empty( $action_links ) ) {
 			foreach ( $action_links as $key => $value ) {
 				$link = array( $key => '<a href="' . $value['url'] . '">' . $value['label'] . '</a>' );
-				if ( $position == 'after' ) {
+				if ( 'after' === $position ) {
 					$actions = array_merge( $actions, $link );
 				} else {
 					$actions = array_merge( $link, $actions );
@@ -389,11 +387,10 @@ if ( ! function_exists( 'aioseop_init_class' ) ) {
 			add_filter( 'is_protected_meta', 'aioseop_unprotect_meta', 10, 3 );
 		}
 
-
 		add_action( 'init', array( $aiosp, 'add_hooks' ) );
 		add_action( 'admin_init', array( $aioseop_updates, 'version_updates' ), 11 );
 
-		if ( defined( 'DOING_AJAX' ) && ! empty( $_POST ) && ! empty( $_POST['action'] ) && ( $_POST['action'] === 'aioseop_ajax_scan_header' ) ) {
+		if ( defined( 'DOING_AJAX' ) && ! empty( $_POST ) && ! empty( $_POST['action'] ) && 'aioseop_ajax_scan_header' === ( $_POST['action'] ) ) {
 			remove_action( 'init', array( $aiosp, 'add_hooks' ) );
 			add_action( 'admin_init', 'aioseop_scan_post_header' );
 			add_action( 'shutdown', 'aioseop_ajax_scan_header' ); // if the action doesn't run -- pdb
