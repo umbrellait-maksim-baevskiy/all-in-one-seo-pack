@@ -175,7 +175,7 @@ if ( ! empty( $aioseop_mem_limit ) ) {
 	}
 }
 
-$aiosp_activation = false;
+$aiosp_activation    = false;
 $aioseop_module_list = array(
 	'sitemap',
 	'opengraph',
@@ -194,6 +194,7 @@ if ( class_exists( 'All_in_One_SEO_Pack' ) ) {
 	add_action( 'admin_notices', create_function( '', 'echo "<div class=\'error\'>The All In One SEO Pack class is already defined";'
 	                                                  . "if ( class_exists( 'ReflectionClass' ) ) { \$r = new ReflectionClass( 'All_in_One_SEO_Pack' ); echo ' in ' . \$r->getFileName(); } "
 	                                                  . ' echo ", preventing All In One SEO Pack from loading.</div>";' ) );
+
 	return;
 }
 
