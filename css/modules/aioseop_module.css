@@ -369,7 +369,6 @@ div.aioseop_tip_icon:before {
     -webkit-box-shadow: inset 0 1px 0 #fff;
     box-shadow: inset 0 1px 0 #fff;
     -moz-border-radius: 3px;
-    -khtml-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
 }
