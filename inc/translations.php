@@ -15,6 +15,13 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 
 		public $name = '';
 
+		/**
+		 * Loop through the locale info.
+		 *
+		 * @since 2.3.5
+		 * @access public
+		 * @var string $wplocale Information for a particular locale (in loop)
+		 */
 		public $wplocale = '';
 
 		public $translated_count = 0;
@@ -40,6 +47,7 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 		}
 
 		/**
+		 * Fetch locale data from WP.
 		 *
 		 * @since 2.3.5
 		 *
@@ -60,7 +68,7 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 		 */
 		private function set_current_locale_data( $locales ) {
 
-			//some locales are missing the locale code (wp_locale) so we need to check for that
+			// Some locales are missing the locale code (wp_locale) so we need to check for that.
 
 			foreach ( $locales as $locale ) {
 
@@ -119,7 +127,6 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 		 *
 		 *
 		 *  @since 2.3.5
-		 *
 		 */
 		private function set_translation_url() {
 
@@ -153,4 +160,4 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 		}
 	}
 
-endif; // class_exists check
+endif; // End class_exists check.
