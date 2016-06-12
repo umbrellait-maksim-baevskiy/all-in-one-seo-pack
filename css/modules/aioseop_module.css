@@ -107,7 +107,7 @@ div.aioseop_tip_icon {
     border: 1px solid #888;
     width: 1em;
     text-align: center;
-    padding: 0px 4px;
+    padding: 0 4px;
     -webkit-border-radius: 12px;
     -moz-border-radius: 12px;
     -webkit-box-shadow: 1px 1px 1px #888;
@@ -128,7 +128,7 @@ div.aioseop_tip_icon:before {
 .aioseop_meta_box_help,
 .aioseop_meta_box_help:active {
     float: right;
-    padding-left: 0px;
+    padding-left: 0;
     width: 16px;
     margin-right: 32px;
     text-decoration: none;
@@ -165,7 +165,7 @@ div.aioseop_tip_icon:before {
 .aioseop input[type="text"] {
     color: #515151;
     height: 35px;
-    padding: 10px 0px 10px 10px;
+    padding: 10px 0 10px 10px;
     font-size: 14px;
     width: 95%;
     max-width: 600px;
@@ -173,8 +173,8 @@ div.aioseop_tip_icon:before {
 
 .aioseop textarea {
     color: #515151;
-    padding: 10px 0px 0px 10px;
-    margin: 0px;
+    padding: 10px 0 0 10px;
+    margin: 0;
     font-size: 14px;
     line-height: 25px;
     width: 95%;
@@ -184,7 +184,7 @@ div.aioseop_tip_icon:before {
 .aioseop_help_text_div {
     text-align: left;
     width: 100%;
-    margin: 10px 0px 10px 0px;
+    margin: 10px 0 10px 0;
 }
 
 .aioseop_help_text {
@@ -204,7 +204,7 @@ div.aioseop_tip_icon:before {
 .aioseop_head_nav {
     float: left;
     font-size: 18px;
-    margin: 0px 0 16px 0;
+    margin: 0 0 16px 0;
     font-family: "HelveticaNeue-Light",
     "Helvetica Neue Light",
     "Helvetica Neue",
@@ -217,7 +217,7 @@ div.aioseop_tip_icon:before {
     padding: 10px 15px 10px 15px;
     margin: 0 0 0 15px;
     border-width: 1px 1px 0;
-    border-radius: 4px 4px 0px 0;
+    border-radius: 4px 4px 0 0;
     border-style: solid;
     border-color: #CCC #CCC white;
     float: left;
@@ -234,7 +234,7 @@ div.aioseop_tip_icon:before {
 }
 
 .aioseop_head_nav_tab:first-child {
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 .aioseop_head_nav_tab:hover {
@@ -261,12 +261,12 @@ div.aioseop_tip_icon:before {
 }
 
 .aioseop_nopad {
-    padding-left: 0px;
-    padding-top: 0px;
+    padding-left: 0;
+    padding-top: 0;
 }
 
 .aioseop_nopad_all {
-    padding: 0px;
+    padding: 0;
     height: 220px;
     width: 445px;
     margin-bottom: 20px;
@@ -282,7 +282,7 @@ div.aioseop_tip_icon:before {
     height: 100%;
     background-size: 100%;
     background-repeat: no-repeat;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     border: none;
 }
 
@@ -344,7 +344,7 @@ div.aioseop_tip_icon:before {
 }
 
 .aioseop_metabox_text p {
-    margin: 0 0 0px 0;
+    margin: 0 0 0 0;
     width: 101%;
 }
 
@@ -354,11 +354,11 @@ div.aioseop_tip_icon:before {
 }
 
 .aioseop_metabox_text {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .aioseop_metabox_wrapper {
-    padding: 0px;
+    padding: 0;
 }
 
 .aioseop_metabox_text *:last-child {
@@ -374,7 +374,7 @@ div.aioseop_tip_icon:before {
 
 .aioseop_option_label {
     float: left;
-    margin: 0px;
+    margin: 0;
     min-width: 150px;
     width: 37%;
     max-width: 270px;
@@ -385,7 +385,7 @@ div.aioseop_tip_icon:before {
 
 .aioseop_metabox_text h2 {
     font-size: 14px;
-    padding: 0px;
+    padding: 0;
     font-weight: bold;
     line-height: 29px;
 }
@@ -413,8 +413,8 @@ div.aioseop_tip_icon:before {
 
 .aioseop_settings_left {
     float: left;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     width: 100%;
 }
 
@@ -437,12 +437,12 @@ body.all-in-one-seo_page_all-in-one-seo-pack-pro-aioseop_feature_manager .aioseo
 }
 
 .aioseop_top {
-    margin: 10px 10px 0px 0px;
+    margin: 10px 10px 0 0;
     /*	margin: 10px 477px 0px 0px; */
 }
 
 .aioseop_top #aioseop-list {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .aioseop_right_sidebar {
@@ -488,7 +488,7 @@ div.aioseop_feature {
     -webkit-border-radius: 3px;
     border-radius: 3px;
     background: white;
-    padding: 10px 0px 0px;
+    padding: 10px 0 0;
     -webkit-box-shadow: inset 0 1px 0 #fff,
     inset 0 0 20px rgba(0, 0, 0, 0.05),
     0 1px 2px rgba(0, 0, 0, 0.1);
@@ -505,7 +505,7 @@ div.aioseop_feature {
 .aioseop_feature h3 {
     font-size: 17px;
     margin: 0;
-    padding: 0px 10px 5px 10px;
+    padding: 0 10px 5px 10px;
     font-weight: normal;
     font-style: normal;
     font-family: "Helvetica Neue",
@@ -526,7 +526,7 @@ div.aioseop_feature {
     Times, serif;
     margin-bottom: 20px;
     color: #666;
-    padding: 0px 10px;
+    padding: 0 10px;
 }
 
 .aioseop_feature p.aioseop_desc {
@@ -641,7 +641,7 @@ div.aioseop_feature#aioseop_coming_soon2 .aioseop_featured_image {
     display: inline-block;
     width: 100px;
     background-size: auto 50px !important;
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 .aioseop_facebook_follow {
@@ -740,7 +740,7 @@ div.aioseop_feature#aioseop_coming_soon2 .aioseop_featured_image {
 
 .aioseop_options {
     width: 100%;
-    margin: 18px 0px 10px 0px;
+    margin: 18px 0 10px 0;
 }
 
 .aioseop_wrapper {
@@ -778,7 +778,7 @@ div#aioseop_snippet {
 div#aioseop_snippet > h3 {
     font-size: 16px;
     padding: 8px 0;
-    border: 0px;
+    border: 0;
     background: inherit;
 }
 
@@ -804,9 +804,9 @@ div#aioseop_snippet > div > div > cite {
 }
 
 div#aioseop_snippet > div > span {
-    margin: 0px;
-    padding: 0px;
-    border: 0px;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 #aiosp_sitemap_addl_pages,
@@ -827,7 +827,7 @@ div#aioseop_snippet > div > span {
 #aiosp_sitemap_addl_pages_metabox .aioseop_help_text_div,
 #aiosp_video_sitemap_addl_pages_metabox .aioseop_help_text_div {
     position: absolute;
-    margin: 5px 0px 10px 0px;
+    margin: 5px 0 10px 0;
 }
 
 #aiosp_sitemap_addl_pages_metabox .aioseop_option_input,
@@ -840,7 +840,7 @@ div#aioseop_snippet > div > span {
 #aiosp_video_sitemap_addl_pages_metabox table.aioseop_table {
     width: 96%;
     border: 1px solid #CCC;
-    margin: 5px 0px 10px 0px;
+    margin: 5px 0 10px 0;
 }
 
 table.aioseop_table tr:nth-child(odd) {
@@ -926,7 +926,7 @@ table.aioseop_table td, table.aioseop_table th {
 }
 
 #aiosp_settings_form .postbox {
-    margin: 0px 0px 20px 0px;
+    margin: 0 0 20px 0;
 }
 
 .aioseop_settings_left .postbox {
@@ -955,7 +955,7 @@ table.aioseop_table td, table.aioseop_table th {
     float: left;
     width: 92%;
     max-width: 100%;
-    margin: 0px 23px 0px 13px;
+    margin: 0 23px 0 13px;
 }
 
 .aioseop_top_label {
@@ -970,8 +970,8 @@ table.aioseop_table td, table.aioseop_table th {
 }
 
 .aioseop_module.error.below-h2 {
-    padding: 5px 0px;
-    margin: 0px 477px 15px 0px !important;
+    padding: 5px 0;
+    margin: 0 477px 15px 0 !important;
 }
 
 #aioseop_opengraph_settings .inside {
@@ -1092,7 +1092,7 @@ div.aioseop_notice a.aioseop_dismiss_link {
 }
 
 .aioseop_input select {
-    margin: 7px 0px;
+    margin: 7px 0;
 }
 
 .aioseop_help_text ul {
@@ -1123,16 +1123,16 @@ div.aioseop_notice a.aioseop_dismiss_link {
 
 .aioseop_header_tabs li {
     display: inline;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 .aioseop_header_tabs {
-    margin: 0px;
+    margin: 0;
 }
 
 .aioseop_header_nav {
-    margin: 0px;
+    margin: 0;
 }
 
 .aioseop_header_tabs li a.aioseop_header_tab.active {
@@ -1179,8 +1179,8 @@ div.aioseop_notice a.aioseop_dismiss_link {
     display: inline-block;
     width: 24px;
     height: 24px;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     vertical-align: bottom;
 }
 
@@ -1189,8 +1189,8 @@ div.aioseop_notice a.aioseop_dismiss_link {
     display: inline-block;
     width: 16px;
     height: 16px;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     vertical-align: bottom;
 }
 
@@ -1223,8 +1223,8 @@ form#aiosp_settings_form,
 #aiosp_settings_form ul.sfwd_debug_settings li {
     clear: left;
     padding: 5px;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     background-color: #EEE;
     overflow: auto;
     max-width: 75%;
@@ -1238,7 +1238,7 @@ form#aiosp_settings_form,
 div.sfwd_debug_mail_sent {
     background-color: #080;
     border: 1px solid #0A0;
-    margin: 10px 0px 10px 0px;
+    margin: 10px 0 10px 0;
     width: 598px;
     color: #FFF;
     text-align: center;
@@ -1248,7 +1248,7 @@ div.sfwd_debug_error {
     background-color: #F00;
     color: #FFF;
     border: 1px solid #A00;
-    margin: 10px 0px 10px 0px;
+    margin: 10px 0 10px 0;
     width: 598px;
     text-align: center;
     font-weight: bolder;
