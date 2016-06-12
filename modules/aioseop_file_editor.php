@@ -96,14 +96,16 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 			unset( $submit['Submit_Default'] );
 			$submit['Submit']['type'] = 'hidden';
 			if ( $this->current_tab === 'robots' ) {
-				$submit['Submit_File_Editor'] = Array( 'type'  => 'submit',
-				                                       'class' => 'button-primary',
-				                                       'value' => __( 'Update robots.txt', 'all-in-one-seo-pack' ) . ' &raquo;'
+				$submit['Submit_File_Editor'] = Array(
+					'type'  => 'submit',
+					'class' => 'button-primary',
+					'value' => __( 'Update robots.txt', 'all-in-one-seo-pack' ) . ' &raquo;'
 				);
 			} elseif ( $this->current_tab === 'htaccess' ) {
-				$submit['Submit_htaccess'] = Array( 'type'  => 'submit',
-				                                    'class' => 'button-primary',
-				                                    'value' => __( 'Update .htaccess', 'all-in-one-seo-pack' ) . ' &raquo;'
+				$submit['Submit_htaccess'] = Array(
+					'type'  => 'submit',
+					'class' => 'button-primary',
+					'value' => __( 'Update .htaccess', 'all-in-one-seo-pack' ) . ' &raquo;'
 				);
 			}
 
