@@ -1,6 +1,6 @@
 <?php
 /**
- * @package All-in-One-SEO-Pack 
+ * @package All-in-One-SEO-Pack
  */
 /**
  * The Robots class.
@@ -13,14 +13,14 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 			$this->prefix = 'aiosp_robots_';						// option prefix
 			$this->file = __FILE__;									// the current file
 			parent::__construct();
-			
+
 			$help_text = Array(
 				'additional'=> __('Rule Type', 'all-in-one-seo-pack'),
 				'useragent' => __('User Agent', 'all-in-one-seo-pack'),
 				'path' 		=> __('Directory Path', 'all-in-one-seo-pack'),
 				'robotgen' 	=> __('Robots.txt editor', 'all-in-one-seo-pack'),
 			);
-			
+
 			$this->default_options = array(
 					'usage'		=> Array( 'type' => 'html', 'label' => 'none',
 										  'default' => __( 'Use the rule builder below to add rules to create a new Robots.txt file.  If you already have a Robots.txt file you should use the File Editor feature in All in One SEO Pack to edit it or you can delete your current Robots.txt file and start a new one with the rule builder below.', 'all-in-one-seo-pack' ),
@@ -47,11 +47,11 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 					'Submit_Opt_Preview' => Array( 'type' => 'submit', 'class' => 'button-primary', 'name' => __( 'Disregard Changes', 'all-in-one-seo-pack' ) . ' &raquo;', 'nowrap' => 1),
 					'Submit_Optimize' => Array( 'type' => 'submit', 'class' => 'button-primary', 'name' => __('Optimize', 'all-in-one-seo-pack') . ' &raquo;' )
 					);
-			
+
 			if ( !empty( $help_text ) )
 				foreach( $help_text as $k => $v )
 					$this->default_options[$k]['help_text'] = $v;
-			
+
 			$this->locations = array(	'generator' => Array(	'name' => "Robots.txt", 'type' => 'settings',
 																'options' => Array( 'usage', 'additional', 'useragent', 'path', 'Submit_Preview', 'Submit_Update', 'Submit_Delete', 'robotgen', 'optusage', 'Submit_Opt_Update', 'Submit_Opt_Preview', 'Submit_Optimize' ) ),
 								);
@@ -70,14 +70,14 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 				$this->layout['optimize']['options'] = Array( 'optusage', 'Submit_Opt_Update', 'Submit_Opt_Preview', 'robothtml' );
 				$this->default_options['optusage']['default'] = __( "Your Robots.txt file has been optimized.  Here are the results and recommendations.  Click the Update Robots.txt File button below to write these changes to your Robots.txt file.  Click the Disregard Changes button to ignore these recommendations and keep your current Robots.txt file.", 'all-in-one-seo-pack' );
 			}
-					
+
 			// load initial options / set defaults
 			$this->update_options( );
-			
+
 			add_action( $this->prefix . 'settings_update',  Array( $this, 'do_robots' ), 10, 2 );
 			add_filter( $this->prefix . 'display_options',  Array( $this, 'filter_options' ), 10, 2 );
 			add_filter( $this->prefix . 'submit_options',   Array( $this, 'filter_submit' ), 10, 2 );
-			add_filter( $this->prefix . 'display_settings', Array( $this, 'filter_settings' ), 10, 2 );			
+			add_filter( $this->prefix . 'display_settings', Array( $this, 'filter_settings' ), 10, 2 );
 		}
 
 		function filter_settings( $settings, $location ) {
@@ -95,7 +95,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 			}
 			return $settings;
 		}
-		
+
 		function filter_submit( $submit, $location ) {
 			if ( $location == 'generator' ) {
 				unset( $submit['Submit_Default'] );
@@ -103,7 +103,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 			}
 			return $submit;
 		}
-		
+
 		function filter_options( $options, $location ) {
 			if ( $location ) $prefix = $this->get_prefix( $location ) . $location . '_';
 			if ( $location === 'generator' ) {
@@ -116,8 +116,8 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 							$optimize = true;
 						if ( !isset( $options[$prefix . 'robotgen'] ) || empty( $options[$prefix . 'robotgen'] ) ) {
 							if ( $optimize ) $options[$prefix . 'robotgen'] = $robotgen;
-							if ( empty( $options[$prefix . 'robotgen'] ) ) 
-								$options = $this->load_files( $options, Array( 'robotgen' => 'robots.txt' ), $prefix );							
+							if ( empty( $options[$prefix . 'robotgen'] ) )
+								$options = $this->load_files( $options, Array( 'robotgen' => 'robots.txt' ), $prefix );
 						}
 					}
 					$access = ( get_option('blog_public') ) ? 'allow' : 'block';
@@ -128,7 +128,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 						if ( isset( $_POST['Submit_Preview'] ) && ( ( $options[$prefix . 'robotgen'] == $allow_rule ) ||
 							 ( $options[$prefix . 'robotgen'] == $block_rule ) ) )
 							$options[$prefix . 'robotgen'] = '';
-						if ( $access === 'block' && empty( $options[$prefix . 'robotgen'] ) ) 
+						if ( $access === 'block' && empty( $options[$prefix . 'robotgen'] ) )
 								$options[$prefix . 'robotgen'] .= $block_rule;
 						elseif ( $access === 'allow' && empty( $options[$prefix . 'robotgen'] ) )
 								$options[$prefix . 'robotgen'] .= $allow_rule;
@@ -212,7 +212,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 				$buf .= '</tbody>';
 
 				$buf .= '</table>';
-				if ( $show_help ) { 
+				if ( $show_help ) {
 					$buf .= '<div class="aioseop_option_docs" id="aiosp_robots_main_legend_tip">
 				<h3>' . __( 'Legend', 'all-in-one-seo-pack' ) . '</h3>
 				<ul>
@@ -283,7 +283,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 				$blank_rule = $rule;
 				foreach ($robots as $l) {
 					switch ( $l['type'] ) {
-						case 'blank': 
+						case 'blank':
 							if ( $state >= 1 ) {
 								if ( ( $state === 1 ) && ( empty($rule['user-agent'] ) ) ) $rule['user-agent'] = Array( null );
 								$rules[] = $rule;
@@ -327,7 +327,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 				if ($state >= 1) $rules[] = $rule;
 				return $rules;
 		}
-		
+
 		function parse_robots( $robots ) {
 			return $this->parse_annotated_robots ( $this->annotate_robots( $robots ) );
 		}
@@ -363,7 +363,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 			if ( is_array($dis) ) { // unique rules only
 				$dis = array_unique( $dis, SORT_STRING );
 			    $pd = null;
-			    foreach( $dis as $k => $d ) { 
+			    foreach( $dis as $k => $d ) {
 						$d = trim($d);
 			            if ( !empty($pd) && !empty($d) ) {
 							if ( strpos( $d, $pd ) === 0 ) {

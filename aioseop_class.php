@@ -48,7 +48,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 	function __construct() {
 		global $aioseop_options;
-		$this->log_file = dirname( __FILE__ ) . '/all-in-one-seo-pack.log'; // PHP <5.3 compatibility, once we drop support we can use __DIR__
+		$this->log_file = dirname( __FILE__ ) . '/all-in-one-seo-pack.log'; // PHP <5.3 compatibility, once we drop support we can use __DIR___
 
 		if ( !empty( $aioseop_options ) && isset( $aioseop_options['aiosp_do_log'] ) && $aioseop_options['aiosp_do_log'] )
 			$this->do_log = true;
@@ -857,7 +857,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				add_action( 'aioseop_global_settings_footer',	Array( $this, 'display_settings_footer' ) );
 				add_action( 'output_option', Array( $this, 'custom_output_option' ), 10, 2 );
 				add_action('all_admin_notices', array( $this, 'visibility_warning'));
-				
+
 				if(!AIOSEOPPRO){
 				//	add_action('all_admin_notices', array( $this, 'woo_upgrade_notice'));
 				}
@@ -1068,9 +1068,9 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		wp_enqueue_style( 'wp-pointer' );
 		$this->add_admin_pointers();
 
-	
+
 	   	wp_enqueue_style( 'aiosp_admin_style' , AIOSEOP_PLUGIN_URL . 'css/aiosp_admin.css' );
-?>	
+?>
 			<script>
 			function aioseop_show_pointer( handle, value ) {
 				if ( typeof( jQuery ) != 'undefined' ) {
@@ -1145,13 +1145,13 @@ global $aioseop_options;
 				$post_types[$p] = $p;
 			}
 		}
-		
+
 		foreach ($pt as $p){
 			if ( !empty( $post_objs[$p]->label)){
 				$all_post_types[$p] = $post_objs[$p]->label;
 			}
 		}
-		
+
 		$taxes = get_taxonomies( '', 'objects' );
 		$tx = array_keys( $taxes );
 		$remtax = array( 'nav_menu', 'link_category', 'post_format' );
@@ -1366,7 +1366,7 @@ global $aioseop_options;
 								$meta = get_term_meta( $queried_object->term_id, '_aioseop_' . $f, true );
 							}
 						}
-					} else 
+					} else
 						$meta = get_post_meta( $post_id, '_aioseop_' . $f, true );
 					if ( 'title' === $f || 'description' === $f ) {
 						$get_opts[$field] = htmlspecialchars( ( $meta ) );
@@ -1488,7 +1488,7 @@ global $aioseop_options;
 		return $options;
 	}
 
-	
+
 
 	function get_queried_object() {
 		static $p = null;
@@ -1579,10 +1579,10 @@ global $aioseop_options;
 
 	function add_hooks() {
 		global $aioseop_options, $aioseop_update_checker;
-		
+
 		$role = get_role( 'administrator' );
 	    if ( is_object( $role ) ) $role->add_cap( 'aiosp_manage_seo' );
-		
+
 		aioseop_update_settings_check();
 		add_filter( 'user_contactmethods', 'aioseop_add_contactmethods' );
 		if ( is_user_logged_in() && function_exists( 'is_admin_bar_showing' ) && is_admin_bar_showing() && current_user_can( 'aiosp_manage_seo' ) )
@@ -1933,7 +1933,7 @@ global $aioseop_options;
 	function make_unique_att_desc($description){
 		global $wp_query;
 		if( is_attachment() ) {
-			
+
 			$url = $this->aiosp_mrt_get_url( $wp_query );
 			if ( $url ) {
 				$matches = Array();
