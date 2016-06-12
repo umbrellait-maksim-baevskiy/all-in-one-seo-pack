@@ -65,7 +65,7 @@ if ( ! defined( 'AIOSEOP_PLUGIN_NAME' ) ) {
 
 if ( ! defined( 'AIOSEOP_PLUGIN_DIR' ) ) {
 	define( 'AIOSEOP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-} elseif ( AIOSEOP_PLUGIN_DIR !== plugin_dir_path( __FILE__ ) ) {
+} elseif ( AIOSEOP_PLUGIN_DIR !=== plugin_dir_path( __FILE__ ) ) {
 
 //this is not a great message
 	/*
@@ -390,7 +390,7 @@ if ( ! function_exists( 'aioseop_init_class' ) ) {
 		add_action( 'init', array( $aiosp, 'add_hooks' ) );
 		add_action( 'admin_init', array( $aioseop_updates, 'version_updates' ), 11 );
 
-		if ( defined( 'DOING_AJAX' ) && ! empty( $_POST ) && ! empty( $_POST['action'] ) && 'aioseop_ajax_scan_header' === ( $_POST['action'] ) ) {
+		if ( defined( 'DOING_AJAX' ) && ! empty( $_POST ) && ! empty( $_POST['action'] ) && 'aioseop_ajax_scan_header' === $_POST['action'] ) {
 			remove_action( 'init', array( $aiosp, 'add_hooks' ) );
 			add_action( 'admin_init', 'aioseop_scan_post_header' );
 			add_action( 'shutdown', 'aioseop_ajax_scan_header' ); // if the action doesn't run -- pdb
