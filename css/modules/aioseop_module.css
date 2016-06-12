@@ -36,7 +36,6 @@
     border-radius: 33px;
     width: 22px;
     height: 20px;
-    display: inline-block;
     font-family: sans-serif;
 }
 
@@ -366,9 +365,6 @@ div.aioseop_tip_icon:before {
 
 .aioseop_metabox_feature {
     margin-top: 20px;
-}
-
-.aioseop_metabox_feature img {
 }
 
 .aioseop_option_label {
@@ -1037,9 +1033,6 @@ table.aioseop_table td, table.aioseop_table th {
 
 .invalid .entry_label {
     font-weight: bold;
-}
-
-.column_label, .entry_label {
 }
 
 .aioseop .aioseop_option_input tbody {
