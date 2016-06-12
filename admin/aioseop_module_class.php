@@ -674,17 +674,17 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			if ( ! empty( $tabs ) ) {
 				?>
 				<div class="aioseop_tabs_div"><label class="aioseop_head_nav">
-					<?php
-					foreach ( $tabs as $k => $v ) {
-						?>
-						<a class="aioseop_head_nav_tab aioseop_head_nav_<?php if ( $this->current_tab != $k ) {
-							echo "in";
-						} ?>active"
-						   href="<?php echo esc_url( add_query_arg( 'tab', $k ) ); ?>"><?php echo $v['name']; ?></a>
 						<?php
-					}
-					?>
-				</label></div>
+						foreach ( $tabs as $k => $v ) {
+							?>
+							<a class="aioseop_head_nav_tab aioseop_head_nav_<?php if ( $this->current_tab != $k ) {
+								echo "in";
+							} ?>active"
+							   href="<?php echo esc_url( add_query_arg( 'tab', $k ) ); ?>"><?php echo $v['name']; ?></a>
+							<?php
+						}
+						?>
+					</label></div>
 				<?php
 			}
 		}
