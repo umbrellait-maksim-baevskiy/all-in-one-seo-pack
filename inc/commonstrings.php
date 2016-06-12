@@ -12,7 +12,7 @@ class AIOSP_Common_Strings {
 	 * AIOSP_Common_Strings constructor.
 	 *
 	 * We'll just put all the strings in the contruct for lack of a better.
-	 * 
+	 *
 	 */
 	private function __construct() {
 
