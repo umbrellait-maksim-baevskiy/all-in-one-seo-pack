@@ -307,8 +307,8 @@ function aiosp_seometa_post_meta_convert( $old_platform = '', $new_platform = 'A
 		}
 
 		// update total updated/ignored count
-		$output->updated += (int) $result->updated
-		$output->ignored += (int) $result->ignored
+		$output->updated += (int) $result->updated;
+		$output->ignored += (int) $result->ignored;
 
 	}
 
@@ -364,8 +364,8 @@ function aiosp_seometa_post_meta_analyze( $old_platform = '', $new_platform = 'A
 		//		$update = ( (int)$update > (int)$ignore ) ? ( (int)$update - (int)$ignore ) : 0;
 
 		// update output numbers
-		$output->update += (int) $update
-		$output->ignore += (int) $ignore
+		$output->update += (int) $update;
+		$output->ignore += (int) $ignore;
 
 	} // endforeach
 
