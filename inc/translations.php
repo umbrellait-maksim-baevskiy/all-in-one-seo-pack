@@ -116,7 +116,7 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 			foreach ( $locales as $locale ) {
 
 				if ( $locale->percent_translated > 0 ) {
-					++$count;
+					++ $count;
 				}
 			}
 
@@ -126,7 +126,7 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 		/**
 		 *
 		 *
-		 *  @since 2.3.5
+		 * @since 2.3.5
 		 */
 		private function set_translation_url() {
 
@@ -141,7 +141,7 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 
 		/**
 		 *
-		 *  @since 2.3.5
+		 * @since 2.3.5
 		 *
 		 */
 		private function init() {
