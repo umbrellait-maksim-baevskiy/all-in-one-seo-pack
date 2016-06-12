@@ -216,10 +216,9 @@ div.aioseop_tip_icon:before {
 .aioseop_head_nav_tab {
     padding: 10px 15px 10px 15px;
     margin: 0 0 0 15px;
-    border-width: 1px 1px 0;
     border-radius: 4px 4px 0 0;
-    border-style: solid;
-    border-color: #CCC #CCC white;
+    border: 1px solid #CCC;
+    border-bottom: 0 white;
     float: left;
     opacity: 0.5;
     color: black;
@@ -1150,15 +1149,13 @@ div.aioseop_notice a.aioseop_dismiss_link {
     margin: 5px 5px 0 0;
     padding: 4px 5px 2px;
     cursor: pointer;
-    border-width: 1px;
-    border-style: solid;
     -webkit-border-top-right-radius: 3px;
     -webkit-border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
     background-color: rgb(255, 255, 255);
     background-color: rgba(255, 255, 255, 0.5);
-    border-color: #ccc;
+    border: 1px solid #ccc;
     color: #5F5F5F;
 }
 
@@ -1209,8 +1206,7 @@ form#aiosp_settings_form,
     text-align: right;
     background-color: #DDD;
     margin-right: 8px;
-    padding: 1px;
-    padding-right: 8px;
+    padding: 1px 8px 1px 1px;
     overflow: auto;
     width: 200px;
     min-height: 16px;
