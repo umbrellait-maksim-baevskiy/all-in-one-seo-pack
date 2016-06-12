@@ -71,7 +71,7 @@ function aiosp_seometa_action() {
 		return;
 	}
 
-	if ( $_REQUEST['platform_old'] == 'All in One SEO Pack' ) {
+	if ( $_REQUEST['platform_old'] === 'All in One SEO Pack' ) {
 		printf( '<div class="error"><p>%s</p></div>', __( 'Sorry, you can\'t do that. Please choose a platform and then click Analyze or Convert.' ) );
 
 		return;
@@ -134,7 +134,7 @@ function aiosp_seometa_admin() {
 
 	<div class="wrap">
 
-		<?php screen_icon( 'tools' ); ?>
+
 		<h2><?php _e( 'Import SEO Settings', 'all-in-one-seo-pack' ); ?></h2>
 
 		<p><span
@@ -170,7 +170,7 @@ function aiosp_seometa_admin() {
 
 			printf( '<optgroup label="%s">', __( 'Plugins', 'all-in-one-seo-pack' ) );
 			foreach ( $_aiosp_seometa_plugins as $platform => $data ) {
-				if ( $platform != "All in One SEO Pack" ) {
+				if ( $platform !== 'All in One SEO Pack' ) {
 					printf( '<option value="%s" %s>%s</option>', $platform, selected( $platform, $platform_old, 0 ), $platform );
 				}
 			}
@@ -307,8 +307,8 @@ function aiosp_seometa_post_meta_convert( $old_platform = '', $new_platform = 'A
 		}
 
 		// update total updated/ignored count
-		$output->updated = $output->updated + (int) $result->updated;
-		$output->ignored = $output->ignored + (int) $result->ignored;
+		$output->updated += (int) $result->updated
+		$output->ignored += (int) $result->ignored
 
 	}
 
@@ -364,8 +364,8 @@ function aiosp_seometa_post_meta_analyze( $old_platform = '', $new_platform = 'A
 		//		$update = ( (int)$update > (int)$ignore ) ? ( (int)$update - (int)$ignore ) : 0;
 
 		// update output numbers
-		$output->update = $output->update + (int) $update;
-		$output->ignore = $output->ignore + (int) $ignore;
+		$output->update += (int) $update
+		$output->ignore += (int) $ignore
 
 	} // endforeach
 
