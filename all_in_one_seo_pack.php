@@ -65,7 +65,7 @@ if ( ! defined( 'AIOSEOP_PLUGIN_NAME' ) ) {
 
 if ( ! defined( 'AIOSEOP_PLUGIN_DIR' ) ) {
 	define( 'AIOSEOP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-} elseif ( AIOSEOP_PLUGIN_DIR !=== plugin_dir_path( __FILE__ ) ) {
+} elseif ( AIOSEOP_PLUGIN_DIR !== plugin_dir_path( __FILE__ ) ) {
 
 //this is not a great message
 	/*
