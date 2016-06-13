@@ -37,7 +37,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * Handles calls to display_settings_page_{$location}, does error checking.
 		 */
 		function __call( $name, $arguments ) {
-			if ( $this->strpos( $name, "display_settings_page_" ) === 0 ) {
+			if ( $this->strpos( $name, 'display_settings_page_' ) === 0 ) {
 				return $this->display_settings_page( $this->substr( $name, 22 ) );
 			}
 			$error = __( sprintf( "Method %s doesn't exist", $name ), 'all-in-one-seo-pack' );
@@ -135,7 +135,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			$prefix = $this->get_prefix( $location );
 			$opt    = $prefix . $option;
 
-			return ( ( isset( $this->options[ $opt ] ) ) && $this->options[ $opt ] );
+			return ( isset( $this->options[ $opt ] ) && $this->options[ $opt ] );
 		}
 
 		/*** Case conversion; handle non UTF-8 encodings and fallback ***/
@@ -418,11 +418,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		// original code thanks to Sean M. Brown -- http://smbrown.wordpress.com/2009/04/29/verify-googlebot-forward-reverse-dns/
 		function is_good_bot() {
 			$botlist = Array(
-				"Yahoo! Slurp" => "crawl.yahoo.net",
-				"googlebot"    => ".googlebot.com",
-				"msnbot"       => "search.msn.com"
+				'Yahoo! Slurp' => 'crawl.yahoo.net',
+				'googlebot'    => '.googlebot.com',
+				'msnbot'       => 'search.msn.com'
 			);
-			$botlist = apply_filters( $this->prefix . "botlist", $botlist );
+			$botlist = apply_filters( $this->prefix . 'botlist', $botlist );
 			if ( ! empty( $botlist ) ) {
 				$ua  = $_SERVER['HTTP_USER_AGENT'];
 				$uas = $this->quote_list_for_regex( $botlist );
@@ -448,137 +448,137 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		function default_bad_bots() {
 			$botlist = Array(
-				"Abonti",
-				"aggregator",
-				"AhrefsBot",
-				"asterias",
-				"BDCbot",
-				"BLEXBot",
-				"BuiltBotTough",
-				"Bullseye",
-				"BunnySlippers",
-				"ca-crawler",
-				"CCBot",
-				"Cegbfeieh",
-				"CheeseBot",
-				"CherryPicker",
-				"CopyRightCheck",
-				"cosmos",
-				"Crescent",
-				"discobot",
-				"DittoSpyder",
-				"DotBot",
-				"Download Ninja",
-				"EasouSpider",
-				"EmailCollector",
-				"EmailSiphon",
-				"EmailWolf",
-				"EroCrawler",
-				"Exabot",
-				"ExtractorPro",
-				"Fasterfox",
-				"FeedBooster",
-				"Foobot",
-				"Genieo",
-				"grub-client",
-				"Harvest",
-				"hloader",
-				"httplib",
-				"HTTrack",
-				"humanlinks",
-				"ieautodiscovery",
-				"InfoNaviRobot",
-				"IstellaBot",
-				"Java/1.",
-				"JennyBot",
-				"k2spider",
-				"Kenjin Spider",
-				"Keyword Density/0.9",
-				"larbin",
-				"LexiBot",
-				"libWeb",
-				"libwww",
-				"LinkextractorPro",
-				"linko",
-				"LinkScan/8.1a Unix",
-				"LinkWalker",
-				"LNSpiderguy",
-				"lwp-trivial",
-				"magpie",
-				"Mata Hari",
+				'Abonti',
+				'aggregator',
+				'AhrefsBot',
+				'asterias',
+				'BDCbot',
+				'BLEXBot',
+				'BuiltBotTough',
+				'Bullseye',
+				'BunnySlippers',
+				'ca-crawler',
+				'CCBot',
+				'Cegbfeieh',
+				'CheeseBot',
+				'CherryPicker',
+				'CopyRightCheck',
+				'cosmos',
+				'Crescent',
+				'discobot',
+				'DittoSpyder',
+				'DotBot',
+				'Download Ninja',
+				'EasouSpider',
+				'EmailCollector',
+				'EmailSiphon',
+				'EmailWolf',
+				'EroCrawler',
+				'Exabot',
+				'ExtractorPro',
+				'Fasterfox',
+				'FeedBooster',
+				'Foobot',
+				'Genieo',
+				'grub-client',
+				'Harvest',
+				'hloader',
+				'httplib',
+				'HTTrack',
+				'humanlinks',
+				'ieautodiscovery',
+				'InfoNaviRobot',
+				'IstellaBot',
+				'Java/1.',
+				'JennyBot',
+				'k2spider',
+				'Kenjin Spider',
+				'Keyword Density/0.9',
+				'larbin',
+				'LexiBot',
+				'libWeb',
+				'libwww',
+				'LinkextractorPro',
+				'linko',
+				'LinkScan/8.1a Unix',
+				'LinkWalker',
+				'LNSpiderguy',
+				'lwp-trivial',
+				'magpie',
+				'Mata Hari',
 				'MaxPointCrawler',
 				'MegaIndex',
-				"Microsoft URL Control",
-				"MIIxpc",
-				"Mippin",
-				"Missigua Locator",
-				"Mister PiX",
-				"MJ12bot",
-				"moget",
-				"MSIECrawler",
-				"NetAnts",
-				"NICErsPRO",
-				"Niki-Bot",
-				"NPBot",
-				"Nutch",
-				"Offline Explorer",
-				"Openfind",
+				'Microsoft URL Control',
+				'MIIxpc',
+				'Mippin',
+				'Missigua Locator',
+				'Mister PiX',
+				'MJ12bot',
+				'moget',
+				'MSIECrawler',
+				'NetAnts',
+				'NICErsPRO',
+				'Niki-Bot',
+				'NPBot',
+				'Nutch',
+				'Offline Explorer',
+				'Openfind',
 				'panscient.com',
-				"PHP/5.{",
-				"ProPowerBot/2.14",
-				"ProWebWalker",
-				"Python-urllib",
-				"QueryN Metasearch",
-				"RepoMonkey",
-				"RMA",
+				'PHP/5.{',
+				'ProPowerBot/2.14',
+				'ProWebWalker',
+				'Python-urllib',
+				'QueryN Metasearch',
+				'RepoMonkey',
+				'RMA',
 				'SemrushBot',
-				"SeznamBot",
-				"SISTRIX",
-				"sitecheck.Internetseer.com",
-				"SiteSnagger",
-				"SnapPreviewBot",
-				"Sogou",
-				"SpankBot",
-				"spanner",
-				"spbot",
-				"Spinn3r",
-				"suzuran",
-				"Szukacz/1.4",
-				"Teleport",
-				"Telesoft",
-				"The Intraformant",
-				"TheNomad",
-				"TightTwatBot",
-				"Titan",
-				"toCrawl/UrlDispatcher",
-				"True_Robot",
-				"turingos",
-				"TurnitinBot",
-				"UbiCrawler",
-				"UnisterBot",
-				"URLy Warning",
-				"VCI",
-				"WBSearchBot",
-				"Web Downloader/6.9",
-				"Web Image Collector",
-				"WebAuto",
-				"WebBandit",
-				"WebCopier",
-				"WebEnhancer",
-				"WebmasterWorldForumBot",
-				"WebReaper",
-				"WebSauger",
-				"Website Quester",
-				"Webster Pro",
-				"WebStripper",
-				"WebZip",
-				"Wotbox",
-				"wsr-agent",
-				"WWW-Collector-E",
-				"Xenu",
-				"Zao",
-				"Zeus",
-				"ZyBORG",
+				'SeznamBot',
+				'SISTRIX',
+				'sitecheck.Internetseer.com',
+				'SiteSnagger',
+				'SnapPreviewBot',
+				'Sogou',
+				'SpankBot',
+				'spanner',
+				'spbot',
+				'Spinn3r',
+				'suzuran',
+				'Szukacz/1.4',
+				'Teleport',
+				'Telesoft',
+				'The Intraformant',
+				'TheNomad',
+				'TightTwatBot',
+				'Titan',
+				'toCrawl/UrlDispatcher',
+				'True_Robot',
+				'turingos',
+				'TurnitinBot',
+				'UbiCrawler',
+				'UnisterBot',
+				'URLy Warning',
+				'VCI',
+				'WBSearchBot',
+				'Web Downloader/6.9',
+				'Web Image Collector',
+				'WebAuto',
+				'WebBandit',
+				'WebCopier',
+				'WebEnhancer',
+				'WebmasterWorldForumBot',
+				'WebReaper',
+				'WebSauger',
+				'Website Quester',
+				'Webster Pro',
+				'WebStripper',
+				'WebZip',
+				'Wotbox',
+				'wsr-agent',
+				'WWW-Collector-E',
+				'Xenu',
+				'Zao',
+				'Zeus',
+				'ZyBORG',
 				'coccoc',
 				'Incutio',
 				'lmspider',
@@ -594,7 +594,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		function is_bad_bot() {
 			$botlist = $this->default_bad_bots();
-			$botlist = apply_filters( $this->prefix . "badbotlist", $botlist );
+			$botlist = apply_filters( $this->prefix . 'badbotlist', $botlist );
 			if ( ! empty( $botlist ) ) {
 				$ua  = $_SERVER['HTTP_USER_AGENT'];
 				$uas = $this->quote_list_for_regex( $botlist );
@@ -640,7 +640,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		function is_bad_referer() {
 			$referlist = $this->default_bad_referers();
-			$referlist = apply_filters( $this->prefix . "badreferlist", $referlist );
+			$referlist = apply_filters( $this->prefix . 'badreferlist', $referlist );
 
 			if ( ! empty( $referlist ) && ! empty( $_SERVER ) && ! empty( $_SERVER['HTTP_REFERER'] ) ) {
 				$ref   = $_SERVER['HTTP_REFERER'];
@@ -655,11 +655,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		function allow_bot() {
 			$allow_bot = true;
-			if ( ( ! $this->is_good_bot() ) && ( $this->is_bad_bot() ) && ! is_user_logged_in() ) {
+			if ( ( ! $this->is_good_bot() ) && $this->is_bad_bot() && ! is_user_logged_in() ) {
 				$allow_bot = false;
 			}
 
-			return apply_filters( $this->prefix . "allow_bot", $allow_bot );
+			return apply_filters( $this->prefix . 'allow_bot', $allow_bot );
 		}
 
 		/**
@@ -678,7 +678,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 						foreach ( $tabs as $k => $v ) {
 							?>
 							<a class="aioseop_head_nav_tab aioseop_head_nav_<?php if ( $this->current_tab != $k ) {
-								echo "in";
+								echo 'in';
 							} ?>active"
 							   href="<?php echo esc_url( add_query_arg( 'tab', $k ) ); ?>"><?php echo $v['name']; ?></a>
 							<?php
@@ -745,7 +745,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 				if ( is_array( $post_custom_fields ) ) {
 					foreach ( $post_custom_fields as $field_name => $field ) {
-						if ( ( $this->strpos( $field_name, $prefix ) === 0 ) && ( $field[0] ) ) {
+						if ( ( $this->strpos( $field_name, $prefix ) === 0 ) && $field[0] ) {
 							$has_data = true;
 							$data .= $field_name . " = '" . $field[0] . "'\n";
 						}
@@ -788,10 +788,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 					if ( $ex == 1 ) {
 						$general_settings = true;
 					}
-					if ( $ex == 2 ) {
-						if ( isset( $_REQUEST['aiosp_importer_exporter_export_post_types'] ) ) {
+					if ( $ex == 2 && isset( $_REQUEST['aiosp_importer_exporter_export_post_types'] ) ) {
 							$post_types = $_REQUEST['aiosp_importer_exporter_export_post_types'];
-						}
 					}
 				}
 			}
@@ -850,8 +848,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/***
 		 * Backwards compatibility - see http://php.net/manual/en/function.str-getcsv.php
 		 */
-		function str_getcsv( $input, $delimiter = ",", $enclosure = '"', $escape = "\\" ) {
-			$fp = fopen( "php://memory", 'r+' );
+		function str_getcsv( $input, $delimiter = ',', $enclosure = '"', $escape = "\\" ) {
+			$fp = fopen( 'php://memory', 'r+' );
 			fputs( $fp, $input );
 			rewind( $fp );
 			$data = fgetcsv( $fp, null, $delimiter, $enclosure ); // $escape only got added in 5.3.0
@@ -900,7 +898,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				$this->credentials = $cred;
 			}
 
-			if ( function_exists( 'WP_Filesystem' ) && ( WP_Filesystem( $this->credentials ) ) ) {
+			if ( function_exists( 'WP_Filesystem' ) && WP_Filesystem( $this->credentials ) ) {
 				global $wp_filesystem;
 
 				return $wp_filesystem;
@@ -1146,10 +1144,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 					$w       = $wp_query;
 
 					$meta_key = '';
-					if ( is_array( $options ) ) {
-						if ( isset( $options['meta_key'] ) ) {
+					if ( is_array( $options ) && isset( $options['meta_key'] ) ) {
 							$meta_key = $options['meta_key'];
-						}
 					}
 
 					if ( ! empty( $meta_key ) && ! empty( $post ) ) {
@@ -1173,10 +1169,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 					} else {
 						$wp_query->is_single = true;
 					}
-					if ( get_option( 'show_on_front' ) == 'page' ) {
-						if ( $post->ID == get_option( 'page_for_posts' ) ) {
+					if ( get_option( 'show_on_front' ) == 'page' && $post->ID == get_option( 'page_for_posts' ) ) {
 							$wp_query->is_home = true;
-						}
 					}
 					$args['options']['type']   = 'html';
 					$args['options']['nowrap'] = false;
@@ -1240,10 +1234,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			}
 
 			$meta_key = '';
-			if ( is_array( $options ) ) {
-				if ( isset( $options['meta_key'] ) ) {
+			if ( is_array( $options ) && isset( $options['meta_key'] ) ) {
 					$meta_key = $options['meta_key'];
-				}
 			}
 
 			if ( ! empty( $meta_key ) && ! empty( $post ) ) {
@@ -1333,10 +1325,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				'orderby'        => 'menu_order ID'
 			) );
 
-			if ( empty( $attachments ) ) {
-				if ( 'attachment' == get_post_type( $post->ID ) ) {
+			if ( empty( $attachments ) && 'attachment' == get_post_type( $post->ID ) ) {
 					$image = wp_get_attachment_image_src( $post->ID, 'large' );
-				}
 			}
 
 			/* If no attachments or image is found, return false. */
@@ -1391,8 +1381,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				$ht = '';
 				if ( ! empty( $this->help_text[ $o ] ) ) {
 					$ht = $this->help_text[ $o ];
-				} elseif ( ! empty( $default_options[ $o ]["help_text"] ) ) {
-					$ht = $default_options[ $o ]["help_text"];
+				} elseif ( ! empty( $default_options[ $o ]['help_text'] ) ) {
+					$ht = $default_options[ $o ]['help_text'];
 				}
 				if ( $ht && ! is_array( $ht ) ) {
 					$ha = '';
@@ -1403,14 +1393,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 					if ( ! empty( $this->help_anchors[ $o ] ) ) {
 						$ha = $this->help_anchors[ $o ];
 					}
-					if ( ( ! empty( $ha ) && ( $pos = strrpos( $hl, '#' ) ) ) ) {
+					if ( ! empty( $ha ) && ( $pos = strrpos( $hl, '#' ) ) ) {
 						$hl = substr( $hl, 0, $pos );
 					}
-					if ( ( ! empty( $ha ) && ( $ha[0] == 'h' ) ) ) {
+					if ( ! empty( $ha ) && ( $ha[0] == 'h' ) ) {
 						$hl = '';
 					}
 					if ( ! empty( $ha ) || ! isset( $this->help_anchors[ $o ] ) ) {
-						$ht .= "<br /><a href='" . $hl . $ha . "' target='_blank'>" . __( "Click here for documentation on this setting", 'all-in-one-seo-pack' ) . "</a>";
+						$ht .= "<br /><a href='" . $hl . $ha . "' target='_blank'>" . __( 'Click here for documentation on this setting', 'all-in-one-seo-pack' ) . '</a>';
 					}
 					$default_options[ $o ]['help_text'] = $ht;
 				}
@@ -1464,16 +1454,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			}
 			$this->form = apply_filters( $prefix . 'set_form_on_enqueue', $this->form, $screen );
 			foreach ( $this->locations as $k => $v ) {
-				if ( $v['type'] === 'metabox' ) {
-					if ( isset( $v['display'] ) && ! empty( $v['display'] ) ) {
+				if ( $v['type'] === 'metabox' && isset( $v['display'] ) && ! empty( $v['display'] ) ) {
 						$enqueue_scripts = false;
 						$enqueue_scripts = ( ( ( $screen->base == 'toplevel_page_shopp-products' ) && in_array( 'shopp_product', $v['display'] ) ) ) || in_array( $screen->post_type, $v['display'] );
 						$enqueue_scripts = apply_filters( $prefix . 'enqueue_metabox_scripts', $enqueue_scripts, $screen, $v );
 						if ( $enqueue_scripts ) {
 							add_filter( 'aioseop_localize_script_data', Array( $this, 'localize_script_data' ) );
-							add_action( "admin_print_scripts", Array( $this, 'enqueue_scripts' ), 20 );
-							add_action( "admin_print_scripts", Array( $this, 'enqueue_styles' ), 20 );
-						}
+							add_action( 'admin_print_scripts', Array( $this, 'enqueue_scripts' ), 20 );
+							add_action( 'admin_print_scripts', Array( $this, 'enqueue_styles' ), 20 );
 					}
 				}
 			}
@@ -1567,8 +1555,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			if ( $this->strpos( $hookname, 'load-' ) === 0 ) {
 				$this->pagehook = $this->substr( $hookname, 5 );
 			}
-			add_action( "admin_print_scripts", Array( $this, 'enqueue_scripts' ) );
-			add_action( "admin_print_styles", Array( $this, 'enqueue_styles' ) );
+			add_action( 'admin_print_scripts', Array( $this, 'enqueue_scripts' ) );
+			add_action( 'admin_print_styles', Array( $this, 'enqueue_styles' ) );
 			add_filter( 'aioseop_localize_script_data', Array( $this, 'localize_script_data' ) );
 			add_action( $this->prefix . 'settings_header', Array( $this, 'display_tabs' ) );
 		}
@@ -1700,7 +1688,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 					add_action( 'save_post', array( $this, 'save_post_data' ) );
 					add_action( 'edit_page_form', array( $this, 'save_post_data' ) );
 					if ( isset( $v['display'] ) && ! empty( $v['display'] ) ) {
-						add_action( "admin_print_scripts", Array( $this, 'enqueue_metabox_scripts' ), 5 );
+						add_action( 'admin_print_scripts', Array( $this, 'enqueue_metabox_scripts' ), 5 );
 						if ( $this->tabbed_metaboxes ) {
 							add_filter( 'aioseop_add_post_metabox', Array( $this, 'filter_return_metaboxes' ) );
 						}
@@ -1729,7 +1717,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 									$title = $this->plugin_name . ' - ' . $title;
 								}
 								if ( ! empty( $v['help_link'] ) ) {
-									$title .= "<a class='aioseop_help_text_link aioseop_meta_box_help' target='_blank' href='" . $lopts['help_link'] . "'><span>" . __( 'Help', 'all-in-one-seo-pack' ) . "</span></a>";
+									$title .= "<a class='aioseop_help_text_link aioseop_meta_box_help' target='_blank' href='" . $lopts['help_link'] . "'><span>" . __( 'Help', 'all-in-one-seo-pack' ) . '</span></a>';
 								}
 								add_meta_box( $v['prefix'] . $k, $title, Array(
 									$this,
@@ -1812,7 +1800,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 							if ( is_string( $value ) ) {
 								$cmp = ! strcmp( $v, $value );
 							} else {
-								$cmp = ! strcmp( $v, "" );
+								$cmp = ! strcmp( $v, '' );
 							}
 							//	$cmp = !strcmp( (string)$v, (string)$value );
 						} else {
@@ -1858,7 +1846,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 					'text',
 					'submit',
 					'hidden'
-				) ) && ( is_string( $value ) )
+				) ) && is_string( $value )
 			) {
 				$value = esc_attr( $value );
 			}
@@ -1976,13 +1964,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			if ( is_array( $meta_args['args'] ) && ! empty( $meta_args['args']['default_options'] ) ) {
 				$defaults = $meta_args['args']['default_options'];
 			}
-			if ( ! empty( $meta_args['callback_args'] ) ) {
-				if ( ! empty( $meta_args['callback_args']['help_link'] ) ) {
+			if ( ! empty( $meta_args['callback_args'] ) && ! empty( $meta_args['callback_args']['help_link'] ) ) {
 					$help_link = $meta_args['callback_args']['help_link'];
-				}
 			}
 			if ( ! empty( $help_link ) ) {
-				echo "<a class='aioseop_help_text_link aioseop_meta_box_help' target='_blank' href='" . $help_link . "'><span>" . __( 'Help', 'all-in-one-seo-pack' ) . "</span></a>";
+				echo "<a class='aioseop_help_text_link aioseop_meta_box_help' target='_blank' href='" . $help_link . "'><span>" . __( 'Help', 'all-in-one-seo-pack' ) . '</span></a>';
 			}
 
 			if ( ! isset( $location_settings[ $prefix ] ) ) {
@@ -2064,16 +2050,16 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				}
 			}
 			if ( ! $container ) {
-				echo "</div>";
+				echo '</div>';
 			}
 		}
 
 		function sanitize_domain( $domain ) {
 			$domain = trim( $domain );
 			$domain = $this->strtolower( $domain );
-			if ( $this->strpos( $domain, "http://" ) === 0 ) {
+			if ( $this->strpos( $domain, 'http://' ) === 0 ) {
 				$domain = $this->substr( $domain, 7 );
-			} elseif ( $this->strpos( $domain, "https://" ) === 0 ) {
+			} elseif ( $this->strpos( $domain, 'https://' ) === 0 ) {
 				$domain = $this->substr( $domain, 8 );
 			}
 			$domain = untrailingslashit( $domain );
@@ -2149,7 +2135,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 					die ( __( 'Security Check - If you receive this in error, log out and back in to WordPress', 'all-in-one-seo-pack' ) );
 				}
 				if ( isset( $_POST['Submit_Default'] ) || isset( $_POST['Submit_All_Default'] ) ) {
-					$message = __( "Options Reset.", 'all-in-one-seo-pack' );
+					$message = __( 'Options Reset.', 'all-in-one-seo-pack' );
 					if ( isset( $_POST['Submit_All_Default'] ) ) {
 						$this->reset_options( $location, true );
 						do_action( 'aioseop_options_reset' );
@@ -2158,7 +2144,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 					}
 				}
 				if ( ! empty( $_POST['Submit'] ) ) {
-					$message         = __( "All in One SEO Options Updated.", 'all-in-one-seo-pack' );
+					$message         = __( 'All in One SEO Options Updated.', 'all-in-one-seo-pack' );
 					$default_options = $this->default_options( $location );
 					foreach ( $default_options as $k => $v ) {
 						if ( isset( $_POST[ $k ] ) ) {
@@ -2184,7 +2170,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				$location_info = $this->locations[ $location ];
 			}
 			$name = null;
-			if ( ( $location ) && ( isset( $location_info['name'] ) ) ) {
+			if ( $location && isset( $location_info['name'] ) ) {
 				$name = $location_info['name'];
 			}
 			if ( ! $name ) {
@@ -2259,9 +2245,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 								if ( ! isset( $lopts['tab'] ) || ( $this->current_tab == $lopts['tab'] ) ) {
 									$title = $lopts['name'];
 									if ( ! empty( $lopts['help_link'] ) ) {
-										$title .= "<a class='aioseop_help_text_link aioseop_meta_box_help' target='_blank' href='" . $lopts['help_link'] . "'><span>" . __( 'Help', 'all-in-one-seo-pack' ) . "</span></a>";
+										$title .= "<a class='aioseop_help_text_link aioseop_meta_box_help' target='_blank' href='" . $lopts['help_link'] . "'><span>" . __( 'Help', 'all-in-one-seo-pack' ) . '</span></a>';
 									}
-									add_meta_box( $this->get_prefix( $location ) . $l . "_metabox", $title, array(
+									add_meta_box( $this->get_prefix( $location ) . $l . '_metabox', $title, array(
 										$this,
 										'display_options'
 									),
@@ -2269,7 +2255,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 								}
 							}
 						} else {
-							add_meta_box( $this->get_prefix( $location ) . "metabox", $name, array(
+							add_meta_box( $this->get_prefix( $location ) . 'metabox', $name, array(
 								$this,
 								'display_options'
 							), "{$this->prefix}settings", 'advanced' );
