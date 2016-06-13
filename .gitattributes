@@ -10,4 +10,4 @@ phpunit.xml.dist export-ignore
 phpunit.xml export-ignore
 tests export-ignore
 bin export-ignore
-
+.scrutinizer.yml export-ignore
