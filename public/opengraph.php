@@ -62,6 +62,7 @@ if ( ! class_exists( 'AIOSEOP_Opengraph_Public' ) ) {
 		 *
 		 * @return mixed
 		 * @since 2.3.5
+		 * @since 2.3.5.1 Bail if < WordPress 4.4 for now.
 		 */
 		public static function twitter_url_to_user( $twitter_profile ) {
 
