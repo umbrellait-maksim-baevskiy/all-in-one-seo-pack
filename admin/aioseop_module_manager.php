@@ -6,7 +6,6 @@
  *
  * @package All-in-One-SEO-Pack
  * @since 2.0
- *
  */
 
 if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
@@ -24,7 +23,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 		/**
 		 * All_in_One_SEO_Pack_Module_Manager constructor.
 		 *
-		 * @param $mod
+		 * @param $mod Modules.
 		 */
 		function __construct( $mod ) {
 			// initialize module list
@@ -63,10 +62,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 		 */
 		function return_module( $class ) {
 			global $aiosp;
-			if ( $class === get_class( $aiosp ) ) {
+			if ( get_class( $aiosp ) === $class ) {
 				return $aiosp;
 			}
-			if ( $class === get_class( $this ) ) {
+			if ( get_class( $aiosp ) === $class ) {
 				return $this;
 			}
 			foreach ( $this->modules as $m ) {
