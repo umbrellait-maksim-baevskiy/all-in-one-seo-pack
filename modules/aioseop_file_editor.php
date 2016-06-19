@@ -95,13 +95,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 		function filter_submit( $submit, $location ) {
 			unset( $submit['Submit_Default'] );
 			$submit['Submit']['type'] = 'hidden';
-			if ( $this->current_tab === 'robots' ) {
+			if ( 'robots' === $this->current_tab ) {
 				$submit['Submit_File_Editor'] = array(
 					'type'  => 'submit',
 					'class' => 'button-primary',
 					'value' => __( 'Update robots.txt', 'all-in-one-seo-pack' ) . ' &raquo;',
 				);
-			} elseif ( $this->current_tab === 'htaccess' ) {
+			} elseif ( 'htaccess' === $this->current_tab  ) {
 				$submit['Submit_htaccess'] = array(
 					'type'  => 'submit',
 					'class' => 'button-primary',
@@ -120,9 +120,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 		 */
 		function filter_options( $options, $location ) {
 			$prefix = $this->get_prefix( $location );
-			if ( $this->current_tab === 'robots' ) {
+			if ( 'robots' === $this->current_tab ) {
 				$options = $this->load_files( $options, array( 'robotfile' => 'robots.txt' ), $prefix );
-			} elseif ( $this->current_tab === 'htaccess' ) {
+			} elseif ( 'htaccess' === $this->current_tab ) {
 				$options = $this->load_files( $options, array( 'htaccfile' => '.htaccess' ), $prefix );
 			}
 
@@ -135,9 +135,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 		 */
 		function do_file_editor( $options, $location ) {
 			$prefix = $this->get_prefix( $location );
-			if ( $this->current_tab === 'robots' && isset( $_POST['Submit_File_Editor'] ) && $_POST['Submit_File_Editor'] ) {
+			if ( 'robots' === $this->current_tab && isset( $_POST['Submit_File_Editor'] ) && $_POST['Submit_File_Editor'] ) {
 				$this->save_files( array( 'robotfile' => 'robots.txt' ), $prefix );
-			} elseif ( $this->current_tab === 'htaccess' && isset( $_POST['Submit_htaccess'] ) && $_POST['Submit_htaccess'] ) {
+			} elseif ( 'htaccess' === $this->current_tab && isset( $_POST['Submit_htaccess'] ) && $_POST['Submit_htaccess'] ) {
 				$this->save_files( array( 'htaccfile' => '.htaccess' ), $prefix );
 			}
 		}
