@@ -56,7 +56,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 				),
 			);
 
-
 			if ( AIOSEOPPRO ) {
 
 				$this->module_info['coming_soon']   = array(
@@ -68,7 +67,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 					'name'        => __( 'Video Sitemap', 'all-in-one-seo-pack' ),
 					'description' => __( 'Create and manage your Video Sitemap using this feature and submit your Video Sitemap to Google, Bing/Yahoo and Ask.com.', 'all-in-one-seo-pack' ),
 				);
-
 
 			} else {
 
