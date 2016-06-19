@@ -5,36 +5,38 @@
 
 require_once( AIOSEOP_PLUGIN_DIR . 'admin/aioseop_module_class.php' ); // Include the module base class.
 
+/**
+ * Class All_in_One_SEO_Pack
+ *
+ * The main class.
+ */
 class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
-//The main class.
 
-	/** The current version of the plugin. **/
+	// Current version of the plugin.
 	var $version = AIOSEOP_VERSION;
 
-	/** Max numbers of chars in auto-generated description */
+	// Max numbers of chars in auto-generated description.
 	var $maximum_description_length = 160;
 
-	/** Minimum number of chars an excerpt should be so that it can be used
-	 * as description. Touch only if you know what you're doing
-	 */
+	// Minimum number of chars an excerpt should be so that it can be used as description.
 	var $minimum_description_length = 1;
 
-	/** Whether output buffering is already being used during forced title rewrites. **/
+	// Whether output buffering is already being used during forced title rewrites.
 	var $ob_start_detected = false;
 
-	/** The start of the title text in the head section for forced title rewrites. **/
+	// The start of the title text in the head section for forced title rewrites.
 	var $title_start = - 1;
 
-	/** The end of the title text in the head section for forced title rewrites. **/
+	// The end of the title text in the head section for forced title rewrites.
 	var $title_end = - 1;
 
-	/** The title before rewriting */
+	// The title before rewriting.
 	var $orig_title = '';
 
-	/** Filename of log file. */
+	// Filename of log file.
 	var $log_file;
 
-	/** Flag whether there should be logging. */
+	// Flag whether there should be logging.
 	var $do_log;
 
 	var $token;
@@ -48,7 +50,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 	function __construct() {
 		global $aioseop_options;
-		$this->log_file = dirname( __FILE__ ) . '/all-in-one-seo-pack.log'; // PHP <5.3 compatibility, once we drop support we can use __DIR___
+		$this->log_file = dirname( __FILE__ ) . '/all-in-one-seo-pack.log'; // PHP <5.3 compatibility, once we drop support we can use __DIR___.
 
 		if ( ! empty( $aioseop_options ) && isset( $aioseop_options['aiosp_do_log'] ) && $aioseop_options['aiosp_do_log'] ) {
 			$this->do_log = true;
@@ -59,10 +61,10 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		$this->name      = sprintf( __( '%s Plugin Options', 'all-in-one-seo-pack' ), AIOSEOP_PLUGIN_NAME );
 		$this->menu_name = __( 'General Settings', 'all-in-one-seo-pack' );
 
-		$this->prefix       = 'aiosp_';                        // option prefix
+		$this->prefix       = 'aiosp_';                        // Option prefix.
 		$this->option_name  = 'aioseop_options';
 		$this->store_option = true;
-		$this->file         = __FILE__;                                // the current file
+		$this->file         = __FILE__;                                // The current file.
 		$blog_name          = esc_attr( get_bloginfo( 'name' ) );
 		parent::__construct();
 
