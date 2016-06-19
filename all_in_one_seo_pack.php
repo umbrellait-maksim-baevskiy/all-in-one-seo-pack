@@ -67,9 +67,8 @@ if ( ! defined( 'AIOSEOP_PLUGIN_DIR' ) ) {
 	define( 'AIOSEOP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 } elseif ( AIOSEOP_PLUGIN_DIR !== plugin_dir_path( __FILE__ ) ) {
 
-// This is not a great message.
-
 	/*
+	 This is not a great message.
 		add_action( 'admin_notices', create_function( '', 'echo "' . "<div class='error'>" . sprintf(
 					__( "%s detected a conflict; please deactivate the plugin located in %s.", 'all-in-one-seo-pack' ),
 					$aioseop_plugin_name, AIOSEOP_PLUGIN_DIR ) . "</div>" . '";' ) );
