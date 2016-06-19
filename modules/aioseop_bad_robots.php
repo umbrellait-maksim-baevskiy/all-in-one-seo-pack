@@ -4,6 +4,7 @@
  */
 
 if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
+
 	/**
 	 * Class All_in_One_SEO_Pack_Bad_Robots
 	 */
@@ -13,9 +14,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 		 * All_in_One_SEO_Pack_Bad_Robots constructor.
 		 */
 		function __construct() {
-			$this->name   = __( 'Bad Bot Blocker', 'all-in-one-seo-pack' );    // Human-readable name of the plugin
-			$this->prefix = 'aiosp_bad_robots_';                        // option prefix
-			$this->file   = __FILE__;                                    // the current file
+			$this->name   = __( 'Bad Bot Blocker', 'all-in-one-seo-pack' );    // Human-readable name of the plugin.
+			$this->prefix = 'aiosp_bad_robots_';                        // Option prefix.
+			$this->file   = __FILE__;                                    // The current file.
 			parent::__construct();
 
 			$help_text = Array(
@@ -41,7 +42,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 					'rows'     => 5,
 					'cols'     => 120,
 					'condshow' => Array( "{$this->prefix}edit_blocks" => 'on' ),
-					'default'  => join( "\n", $this->default_bad_bots() )
+					'default'  => join( "\n", $this->default_bad_bots() ),
 				),
 				'referlist'      => Array(
 					'name'     => __( 'Referer Blocklist', 'all-in-one-seo-pack' ),
@@ -52,7 +53,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 						"{$this->prefix}edit_blocks" => 'on',
 						"{$this->prefix}block_refer" => 'on',
 					),
-					'default'  => join( "\n", $this->default_bad_referers() )
+					'default'  => join( "\n", $this->default_bad_referers() ),
 				),
 				'blocked_log'    => Array(
 					'name'     => __( 'Log Of Blocked Bots', 'all-in-one-seo-pack' ),
@@ -64,8 +65,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 					'rows'     => 5,
 					'cols'     => 120,
 					'style'    => 'min-width:950px',
-					'condshow' => Array( "{$this->prefix}track_blocks" => 'on' )
-				)
+					'condshow' => Array( "{$this->prefix}track_blocks" => 'on' ),
+				),
 			);
 			$is_apache             = false;
 			if ( ! empty( $_SERVER['SERVER_SOFTWARE'] ) && stristr( $_SERVER['SERVER_SOFTWARE'], 'Apache' ) !== false ) {
@@ -84,7 +85,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 
 			add_filter( $this->prefix . 'display_options', Array( $this, 'filter_display_options' ) );
 
-			// load initial options / set defaults
+			// Load initial options / set defaults,
 			$this->update_options();
 
 			if ( $this->option_isset( 'edit_blocks' ) ) {
@@ -184,10 +185,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 
 
 		/**
+		 * Updates blocked message.
+		 *
 		 * @param string $msg
 		 */
 		function blocked_message( $msg ) {
-			/** Updates blocked log messages. **/
 			if ( empty( $this->options["{$this->prefix}blocked_log"] ) ) {
 				$this->options["{$this->prefix}blocked_log"] = '';
 			}
@@ -204,12 +206,16 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 
 
 		/**
+		 * Filter display options.
+		 *
+		 * Add in options for status display on settings page, sitemap rewriting on multisite.
+		 *
 		 * @param $options
 		 *
 		 * @return mixed
 		 */
 		function filter_display_options( $options ) {
-			/** Add in options for status display on settings page, sitemap rewriting on multisite. **/
+
 			if ( $this->option_isset( 'blocked_log' ) ) {
 				$options["{$this->prefix}blocked_log"] = '<pre>' . $options["{$this->prefix}blocked_log"] . '</pre>';
 			}
