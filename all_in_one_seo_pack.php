@@ -28,6 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /**
+ * All in One SEO Pack.
+ * The original WordPress SEO plugin.
+ *
  * @package All-in-One-SEO-Pack
  * @version 2.3.5.1
  */
@@ -41,11 +44,9 @@ if ( ! defined( 'AIOSEOP_VERSION' ) ) {
 global $aioseop_plugin_name;
 $aioseop_plugin_name = 'All in One SEO Pack';
 
-/**********
- *
- * All in One SEO Pack
- *
- *******/
+/**
+ * Do not edit below this.
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
@@ -61,13 +62,13 @@ if ( ! defined( 'AIOSEOP_PLUGIN_NAME' ) ) {
 	define( 'AIOSEOP_PLUGIN_NAME', $aioseop_plugin_name );
 }
 
-//register_activation_hook(__FILE__,'aioseop_activate_pl');
-
+// Do we need this? register_activation_hook(__FILE__,'aioseop_activate_pl');.
 if ( ! defined( 'AIOSEOP_PLUGIN_DIR' ) ) {
 	define( 'AIOSEOP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 } elseif ( AIOSEOP_PLUGIN_DIR !== plugin_dir_path( __FILE__ ) ) {
 
-//this is not a great message
+// This is not a great message.
+
 	/*
 		add_action( 'admin_notices', create_function( '', 'echo "' . "<div class='error'>" . sprintf(
 					__( "%s detected a conflict; please deactivate the plugin located in %s.", 'all-in-one-seo-pack' ),
