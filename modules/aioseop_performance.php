@@ -18,9 +18,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 			parent::__construct();
 
 			$this->help_text = array(
-				"memory_limit"   => __( "This setting allows you to raise your PHP memory limit to a reasonable value. Note: WordPress core and other WordPress plugins may also change the value of the memory limit.", 'all-in-one-seo-pack' ),
-				"execution_time" => __( "This setting allows you to raise your PHP execution time to a reasonable value.", 'all-in-one-seo-pack' ),
-				"force_rewrites" => __( "Use output buffering to ensure that the title gets rewritten. Enable this option if you run into issues with the title tag being set by your theme or another plugin.", 'all-in-one-seo-pack' ),
+				'memory_limit'   => __( 'This setting allows you to raise your PHP memory limit to a reasonable value. Note: WordPress core and other WordPress plugins may also change the value of the memory limit.', 'all-in-one-seo-pack' ),
+				'execution_time' => __( 'This setting allows you to raise your PHP execution time to a reasonable value.', 'all-in-one-seo-pack' ),
+				'force_rewrites' => __( 'Use output buffering to ensure that the title gets rewritten. Enable this option if you run into issues with the title tag being set by your theme or another plugin.', 'all-in-one-seo-pack' ),
 			);
 
 			$this->default_options = array(
@@ -29,7 +29,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 					'default'         => '256M',
 					'type'            => 'select',
 					'initial_options' => array(
-						0      => __( "Use the system default", 'all-in-one-seo-pack' ),
+						0      => __( 'Use the system default', 'all-in-one-seo-pack' ),
 						'32M'  => '32MB',
 						'64M'  => '64MB',
 						'128M' => '128MB',
@@ -41,7 +41,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 					'default'         => '',
 					'type'            => 'select',
 					'initial_options' => array(
-						''  => __( "Use the system default", 'all-in-one-seo-pack' ),
+						''  => __( 'Use the system default', 'all-in-one-seo-pack' ),
 						30  => '30s',
 						60  => '1m',
 						120 => '2m',
@@ -209,7 +209,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 				$memory_usage = __( 'N/A', 'all-in-one-seo-pack' );
 			}
 			if ( is_callable( 'exif_read_data' ) ) {
-				$exif = __( 'Yes', 'all-in-one-seo-pack' ) . " ( V" . $this->substr( phpversion( 'exif' ), 0, 4 ) . ")";
+				$exif = __( 'Yes', 'all-in-one-seo-pack' ) . ' ( V' . $this->substr( phpversion( 'exif' ), 0, 4 ) . ')';
 			} else {
 				$exif = __( 'No', 'all-in-one-seo-pack' );
 			}
@@ -248,7 +248,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 
 			$debug_info                   = array(
 				__( 'Operating System', 'all-in-one-seo-pack' )            => PHP_OS,
-				__( 'Server', 'all-in-one-seo-pack' )                      => $_SERVER["SERVER_SOFTWARE"],
+				__( 'Server', 'all-in-one-seo-pack' )                      => $_SERVER['SERVER_SOFTWARE'],
 				__( 'Memory usage', 'all-in-one-seo-pack' )                => $memory_usage,
 				__( 'MYSQL Version', 'all-in-one-seo-pack' )               => $sqlversion,
 				__( 'SQL Mode', 'all-in-one-seo-pack' )                    => $sql_mode,
@@ -282,8 +282,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 			$debug_info['Inactive Plugins'] = null;
 			$debug_info                     = array_merge( $debug_info, (array) $inactive_plugins );
 
-			$mail_text = __( "All in One SEO Pack Pro Debug Info", 'all-in-one-seo-pack' ) . "\r\n------------------\r\n\r\n";
-			$page_text = "";
+			$mail_text = __( 'All in One SEO Pack Pro Debug Info', 'all-in-one-seo-pack' ) . "\r\n------------------\r\n\r\n";
+			$page_text = '';
 			if ( ! empty( $debug_info ) ) {
 				foreach ( $debug_info as $name => $value ) {
 					if ( $value !== null ) {
@@ -300,13 +300,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 				if ( ! empty( $_REQUEST['sfwd_debug_submit'] ) || ! empty( $_REQUEST['sfwd_update_check'] ) ) {
 					$nonce = $_REQUEST['sfwd_debug_nonce'];
 					if ( ! wp_verify_nonce( $nonce, 'sfwd-debug-nonce' ) ) {
-						echo "<div class='sfwd_debug_error'>" . __( "Form submission error: verification check failed.", 'all-in-one-seo-pack' ) . "</div>";
+						echo "<div class='sfwd_debug_error'>" . __( 'Form submission error: verification check failed.', 'all-in-one-seo-pack' ) . '</div>';
 						break;
 					}
 					if ( ! empty( $_REQUEST['sfwd_update_check'] ) && $_REQUEST['sfwd_update_check'] ) {
 						global $aioseop_update_checker;
 						$aioseop_update_checker->checkForUpdates();
-						echo "<div class='sfwd_debug_mail_sent'>" . sprintf( __( "%s has checked for updates.", 'all-in-one-seo-pack' ), AIOSEOP_PLUGIN_NAME ) . "</div>";
+						echo "<div class='sfwd_debug_mail_sent'>" . sprintf( __( '%s has checked for updates.', 'all-in-one-seo-pack' ), AIOSEOP_PLUGIN_NAME ) . '</div>';
 						break;
 					}
 					$email = '';
@@ -314,19 +314,19 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 						$email = sanitize_email( $_REQUEST['sfwd_debug_send_email'] );
 					}
 					if ( $email ) {
-						if ( wp_mail( $email, sprintf( __( "SFWD Debug Mail From Site %s.", 'all-in-one-seo-pack' ), $siteurl ), $mail_text ) ) {
-							echo "<div class='sfwd_debug_mail_sent'>" . sprintf( __( "Sent to %s.", 'all-in-one-seo-pack' ), $email ) . "</div>";
+						if ( wp_mail( $email, sprintf( __( 'SFWD Debug Mail From Site %s.', 'all-in-one-seo-pack' ), $siteurl ), $mail_text ) ) {
+							echo "<div class='sfwd_debug_mail_sent'>" . sprintf( __( 'Sent to %s.', 'all-in-one-seo-pack' ), $email ) . '</div>';
 						} else {
-							echo "<div class='sfwd_debug_error'>" . sprintf( __( "Failed to send to %s.", 'all-in-one-seo-pack' ), $email ) . "</div>";
+							echo "<div class='sfwd_debug_error'>" . sprintf( __( 'Failed to send to %s.', 'all-in-one-seo-pack' ), $email ) . '</div>';
 						}
 					} else {
-						echo "<div class='sfwd_debug_error'>" . __( 'Error: please enter an e-mail address before submitting.', 'all-in-one-seo-pack' ) . "</div>";
+						echo "<div class='sfwd_debug_error'>" . __( 'Error: please enter an e-mail address before submitting.', 'all-in-one-seo-pack' ) . '</div>';
 					}
 				}
 			} while ( 0 ); // Control structure for use with break.
 			$nonce = wp_create_nonce( 'sfwd-debug-nonce' );
 			$buf   = "<ul class='sfwd_debug_settings'>\n{$page_text}\n</ul>\n<p>\n" .
-			         '<input name="sfwd_debug_send_email" type="text" value="" placeholder="' . __( "E-mail debug information", 'all-in-one-seo-pack' ) . '"><input name="sfwd_debug_nonce" type="hidden" value="' .
+			         '<input name="sfwd_debug_send_email" type="text" value="" placeholder="' . __( 'E-mail debug information', 'all-in-one-seo-pack' ) . '"><input name="sfwd_debug_nonce" type="hidden" value="' .
 			         $nonce . '"><input name="sfwd_debug_submit" type="submit" value="' . __( 'Submit', 'all-in-one-seo-pack' ) . '" class="button-primary">';
 
 			if ( AIOSEOPPRO ) {
