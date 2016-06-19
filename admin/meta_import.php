@@ -458,7 +458,7 @@ function aiosp_seometa_import() {
 			'Custom Doctitle'  => 'seo_title',
 			'META Description' => 'seo_description',
 			'META Keywords'    => 'seo_keywords',
-		)
+		),
 	);
 
 	/**
@@ -523,7 +523,7 @@ function aiosp_seometa_import() {
 			'nofollow'         => '_yoast_wpseo_meta-robots-nofollow',
 			'Canonical URI'    => '_yoast_wpseo_canonical',
 			'Redirect URI'     => '_yoast_wpseo_redirect',
-		)
+		),
 	);
 
 	/**
