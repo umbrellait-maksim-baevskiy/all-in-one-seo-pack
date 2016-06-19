@@ -222,10 +222,10 @@ if ( AIOSEOPPRO ) {
 
 
 if ( ! function_exists( 'aioseop_activate' ) ) {
+
 	function aioseop_activate() {
 
 		//Check if we just got activated.
-
 		global $aiosp_activation;
 		if ( AIOSEOPPRO ) {
 			global $aioseop_update_checker;
