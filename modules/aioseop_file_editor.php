@@ -25,12 +25,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 				$this->current_tab = $_REQUEST['tab'];
 			}
 
-			$help_text             = Array(
+			$help_text             = array(
 				'robotfile' => __( 'Robots.txt editor', 'all-in-one-seo-pack' ),
 				'htaccfile' => __( '.htaccess editor', 'all-in-one-seo-pack' ),
 			);
 			$this->default_options = array(
-				'robotfile' => Array(
+				'robotfile' => array(
 					'name'    => __( 'Edit Robots.txt', 'all-in-one-seo-pack' ),
 					'save'    => false,
 					'default' => '',
@@ -39,7 +39,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 					'rows'    => 25,
 					'label'   => 'top',
 				),
-				'htaccfile' => Array(
+				'htaccfile' => array(
 					'name'    => __( 'Edit .htaccess', 'all-in-one-seo-pack' ),
 					'save'    => false,
 					'default' => '',
@@ -55,20 +55,20 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 					$this->default_options[ $k ]['help_text'] = $v;
 				}
 			}
-			$this->tabs = Array(
-				'robots'   => Array( 'name' => __( 'robots.txt' ) ),
-				'htaccess' => Array( 'name' => __( '.htaccess' ) ),
+			$this->tabs = array(
+				'robots'   => array( 'name' => __( 'robots.txt' ) ),
+				'htaccess' => array( 'name' => __( '.htaccess' ) ),
 			);
 
-			$this->layout = Array(
-				'robots'   => Array(
+			$this->layout = array(
+				'robots'   => array(
 					'name'    => __( 'Edit robots.txt', 'all-in-one-seo-pack' ),
-					'options' => Array( 'robotfile' ),
+					'options' => array( 'robotfile' ),
 					'tab'     => 'robots',
 				),
-				'htaccess' => Array(
+				'htaccess' => array(
 					'name'    => __( 'Edit .htaccess', 'all-in-one-seo-pack' ),
-					'options' => Array( 'htaccfile' ),
+					'options' => array( 'htaccfile' ),
 					'tab'     => 'htaccess',
 				),
 			);
@@ -77,13 +77,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 		}
 
 		function settings_page_init() {
-			add_filter( $this->prefix . 'display_options', Array( $this, 'filter_options' ), 10, 2 );
-			add_filter( $this->prefix . 'submit_options', Array( $this, 'filter_submit' ), 10, 2 );
+			add_filter( $this->prefix . 'display_options', array( $this, 'filter_options' ), 10, 2 );
+			add_filter( $this->prefix . 'submit_options', array( $this, 'filter_submit' ), 10, 2 );
 		}
 
 		function add_page_hooks() {
 			parent::add_page_hooks();
-			add_action( $this->prefix . 'settings_update', Array( $this, 'do_file_editor' ), 10, 2 );
+			add_action( $this->prefix . 'settings_update', array( $this, 'do_file_editor' ), 10, 2 );
 		}
 
 		/**
@@ -96,13 +96,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 			unset( $submit['Submit_Default'] );
 			$submit['Submit']['type'] = 'hidden';
 			if ( $this->current_tab === 'robots' ) {
-				$submit['Submit_File_Editor'] = Array(
+				$submit['Submit_File_Editor'] = array(
 					'type'  => 'submit',
 					'class' => 'button-primary',
 					'value' => __( 'Update robots.txt', 'all-in-one-seo-pack' ) . ' &raquo;',
 				);
 			} elseif ( $this->current_tab === 'htaccess' ) {
-				$submit['Submit_htaccess'] = Array(
+				$submit['Submit_htaccess'] = array(
 					'type'  => 'submit',
 					'class' => 'button-primary',
 					'value' => __( 'Update .htaccess', 'all-in-one-seo-pack' ) . ' &raquo;',
@@ -121,9 +121,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 		function filter_options( $options, $location ) {
 			$prefix = $this->get_prefix( $location );
 			if ( $this->current_tab === 'robots' ) {
-				$options = $this->load_files( $options, Array( 'robotfile' => 'robots.txt' ), $prefix );
+				$options = $this->load_files( $options, array( 'robotfile' => 'robots.txt' ), $prefix );
 			} elseif ( $this->current_tab === 'htaccess' ) {
-				$options = $this->load_files( $options, Array( 'htaccfile' => '.htaccess' ), $prefix );
+				$options = $this->load_files( $options, array( 'htaccfile' => '.htaccess' ), $prefix );
 			}
 
 			return $options;
@@ -136,9 +136,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 		function do_file_editor( $options, $location ) {
 			$prefix = $this->get_prefix( $location );
 			if ( $this->current_tab === 'robots' && isset( $_POST['Submit_File_Editor'] ) && $_POST['Submit_File_Editor'] ) {
-				$this->save_files( Array( 'robotfile' => 'robots.txt' ), $prefix );
+				$this->save_files( array( 'robotfile' => 'robots.txt' ), $prefix );
 			} elseif ( $this->current_tab === 'htaccess' && isset( $_POST['Submit_htaccess'] ) && $_POST['Submit_htaccess'] ) {
-				$this->save_files( Array( 'htaccfile' => '.htaccess' ), $prefix );
+				$this->save_files( array( 'htaccfile' => '.htaccess' ), $prefix );
 			}
 		}
 	}
