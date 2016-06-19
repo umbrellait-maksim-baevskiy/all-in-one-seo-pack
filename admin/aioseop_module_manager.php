@@ -33,10 +33,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 				$this->modules[ $m ] = null;
 			}
 			$reset     = false;
-			$reset_all = ( isset( $_POST['Submit_All_Default'] ) && $_POST['Submit_All_Default'] !== '' );
-			$reset     = ( ( isset( $_POST['Submit_Default'] ) && $_POST['Submit_Default'] !== '' ) || $reset_all );
+			$reset_all = ( isset( $_POST['Submit_All_Default'] ) && '' !== $_POST['Submit_All_Default'] );
+			$reset     = ( ( isset( $_POST['Submit_Default'] ) && '' !== $_POST['Submit_Default'] ) || $reset_all );
 			$update    = ( isset( $_POST['action'] ) && $_POST['action']
-			               && ( ( isset( $_POST['Submit'] ) && $_POST['Submit'] !== '' ) || $reset )
+			               && ( ( isset( $_POST['Submit'] ) && '' !== $_POST['Submit'] ) || $reset )
 			);
 			if ( $update ) {
 				if ( $reset ) {
@@ -45,10 +45,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 				if ( $reset_all ) {
 					$this->settings_reset_all = true;
 				}
-				if ( $_POST['action'] === 'aiosp_update' ) {
+				if ( 'aiosp_update' === $_POST['action'] ) {
 					$this->settings_update = true;
 				}
-				if ( $_POST['action'] === 'aiosp_update_module' ) {
+				if ( 'aiosp_update_module' === $_POST['action'] ) {
 					$this->module_settings_update = true;
 				}
 			}
@@ -69,7 +69,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 				return $this;
 			}
 			foreach ( $this->modules as $m ) {
-				if ( is_object( $m ) && ( $class === get_class( $m ) ) ) {
+				if ( is_object( $m ) && ( get_class( $m ) === $class ) ) {
 					return $m;
 				}
 			}
@@ -148,7 +148,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 				return false;
 			}
 			$v = $this->modules[ $mod ];
-			if ( $v !== null ) {
+			if ( null !== $v ) {
 				return false;
 			}    // Already loaded.
 			if ( $mod == 'performance' && ! is_super_admin() ) {
