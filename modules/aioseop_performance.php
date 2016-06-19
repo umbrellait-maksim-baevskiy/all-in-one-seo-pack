@@ -1,19 +1,20 @@
 <?php
 /**
+ * The Performance class.
+ *
  * @package All-in-One-SEO-Pack
  */
-/**
- * The Performance class.
- */
+
 if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
+
 	class All_in_One_SEO_Pack_Performance extends All_in_One_SEO_Pack_Module {
 
 		protected $module_info = Array();
 
 		function __construct( $mod ) {
-			$this->name   = __( 'Performance', 'all-in-one-seo-pack' );        // Human-readable name of the plugin
-			$this->prefix = 'aiosp_performance_';                        // option prefix
-			$this->file   = __FILE__;                                    // the current file
+			$this->name   = __( 'Performance', 'all-in-one-seo-pack' );        // Human-readable name of the plugin.
+			$this->prefix = 'aiosp_performance_';                        // Option prefix.
+			$this->file   = __FILE__;                                    // The current file.
 			parent::__construct();
 
 			$this->help_text = Array(
@@ -322,7 +323,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 						echo "<div class='sfwd_debug_error'>" . __( 'Error: please enter an e-mail address before submitting.', 'all-in-one-seo-pack' ) . "</div>";
 					}
 				}
-			} while ( 0 ); // control structure for use with break
+			} while ( 0 ); // Control structure for use with break.
 			$nonce = wp_create_nonce( 'sfwd-debug-nonce' );
 			$buf   = "<ul class='sfwd_debug_settings'>\n{$page_text}\n</ul>\n<p>\n" .
 			         '<input name="sfwd_debug_send_email" type="text" value="" placeholder="' . __( "E-mail debug information", 'all-in-one-seo-pack' ) . '"><input name="sfwd_debug_nonce" type="hidden" value="' .
