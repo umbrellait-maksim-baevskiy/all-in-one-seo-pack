@@ -4,6 +4,8 @@ if ( class_exists( 'WPSEO_Import_Hooks' ) ) {
 
 	/**
 	 * Class WPSEO_Import_AIOSEO_Hooks
+	 *
+	 * @TODO Move this elsewhere.
 	 */
 	class WPSEO_Import_AIOSEO_Hooks extends WPSEO_Import_Hooks {
 
@@ -11,10 +13,10 @@ if ( class_exists( 'WPSEO_Import_Hooks' ) ) {
 
 		protected $deactivation_listener = 'deactivate_aioseo';
 
+		/**
+		 * Show notice the old plugin is installed and offer to import its data.
+		 */
 		public function show_import_settings_notice() {
-			//	$url = admin_url( 'tools.php?page=seodt' ) );
-			//make these save to the database and dismissible
-
 
 			$yoasturl = add_query_arg( array( '_wpnonce' => wp_create_nonce( 'wpseo-import' ) ), admin_url( 'admin.php?page=wpseo_tools&tool=import-export&import=1&importaioseo=1#top#import-seo' ) );
 			$aiourl   = add_query_arg( array( '_wpnonce' => wp_create_nonce( 'aiosp-import' ) ), admin_url( 'tools.php?page=aiosp_import' ) );
@@ -42,28 +44,35 @@ if ( class_exists( 'WPSEO_Import_Hooks' ) ) {
 	add_action( 'init', 'mi_aioseop_yst_detected_notice_dismissed' );
 }
 
+/**
+ * Deletes the stored dismissal of the notice.
+ *
+ * This should only happen after reactivating after being deactivated.
+ */
 function mi_aioseop_yst_detected_notice_dismissed() {
 	delete_user_meta( get_current_user_id(), 'aioseop_yst_detected_notice_dismissed' );
 }
 
 /**
- * Register the admin menu page
+ * Init for settings import class.
+ *
+ * At the moment we just register the admin menu page.
  */
-add_action( 'admin_menu', 'aiosp_seometa_settings_init' );
 function aiosp_seometa_settings_init() {
 	global $_aiosp_seometa_admin_pagehook;
 
-	// Add submenu page link
+	// TODO Put this in with the rest of the import/export stuff.
 	$_aiosp_seometa_admin_pagehook = add_submenu_page( 'tools.php', __( 'Import SEO Data', 'all-in-one-seo-pack' ), __( 'SEO Data Import', 'all-in-one-seo-pack' ), 'manage_options', 'aiosp_import', 'aiosp_seometa_admin' );
 }
+add_action( 'admin_menu', 'aiosp_seometa_settings_init' );
+
 
 /**
- * This function intercepts POST data from the form submission, and uses that
- * data to convert values in the postmeta table from one platform to another.
+ * Intercept POST data from the form submission.
+ *
+ * Use the intercepted data to convert values in the postmeta table from one platform to another.
  */
 function aiosp_seometa_action() {
-
-	//print_r($_REQUEST);
 
 	if ( empty( $_REQUEST['_wpnonce'] ) ) {
 		return;
@@ -81,7 +90,7 @@ function aiosp_seometa_action() {
 		return;
 	}
 
-	check_admin_referer( 'aiosp_nonce' ); // Verify nonce
+	check_admin_referer( 'aiosp_nonce' ); // Verify nonce. TODO We should make this better.
 
 	if ( ! empty( $_REQUEST['analyze'] ) ) {
 
@@ -96,7 +105,7 @@ function aiosp_seometa_action() {
 
 		printf( __( '<p>Analyzing records in a %s to %s conversion&hellip;', 'all-in-one-seo-pack' ), esc_html( $_POST['platform_old'] ), 'All in One SEO Pack' );
 		printf( '<p><b>%d</b> Compatible Records were identified</p>', $response->update );
-//		printf( '<p>%d Compatible Records will be ignored</p>', $response->ignore );
+		//	printf( '<p>%d Compatible Records will be ignored</p>', $response->ignore );
 
 		printf( '<p><b>%s</b></p>', __( 'Compatible data:', 'all-in-one-seo-pack' ) );
 		echo '<ol>';
@@ -204,21 +213,18 @@ function aiosp_seometa_admin() {
 	<?php
 }
 
-
-//////////////////FUNCTIONS//////////////////
-
 /**
- * This function converts $old meta_key entries in the postmeta table into $new entries.
+ * Convert old meta_key entries in the post meta table into new entries.
  *
- * It first checks to see what records for the $new meta_key already exist,
- * storing the corresponding post_id values in an array. When the conversion
- * happens, rows that contain a post_id in that array will be ignored, to
- * avoid duplicate $new meta_key entries.
+ * First check to see what records for $new already exist, storing the corresponding post_id values in an array.
+ * When the conversion happens, ignore rows that contain a post_id, to avoid duplicate entries.
  *
- * The $old entries will be left as-is if $delete_old is left false. If set
- * to true, the $old entries will be deleted, rather than retained.
  *
- * The function returns an object for error detection, and the number of affected rows.
+ * @param string $old Old meta_key entries.
+ * @param string $new New meta_key entries.
+ * @param bool $delete_old Whether to delete the old entries.
+ *
+ * @return stdClass Object for error detection, and the number of affected rows.
  */
 function aiosp_seometa_meta_key_convert( $old = '', $new = '', $delete_old = false ) {
 
@@ -234,17 +240,17 @@ function aiosp_seometa_meta_key_convert( $old = '', $new = '', $delete_old = fal
 		return $output;
 	}
 
-	// 	See which records we need to ignore, if any
+	// 	See which records we need to ignore, if any.
 	$exclude = $wpdb->get_results( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = %s", $new ) );
 
-	//	If no records to ignore, we'll do a basic UPDATE and DELETE
+	//	If no records to ignore, we'll do a basic UPDATE and DELETE.
 	if ( ! $exclude ) {
 
 		$output->updated = $wpdb->update( $wpdb->postmeta, array( 'meta_key' => $new ), array( 'meta_key' => $old ) );
 		$output->deleted = $delete_old ? $wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->postmeta WHERE meta_key = %s", $old ) ) : 0;
 		$output->ignored = 0;
 
-	} //	Else, do a more complex UPDATE and DELETE
+	} // Else, do a more complex UPDATE and DELETE.
 	else {
 
 		foreach ( (array) $exclude as $key => $value ) {
@@ -265,13 +271,15 @@ function aiosp_seometa_meta_key_convert( $old = '', $new = '', $delete_old = fal
 }
 
 /**
- * This function cycles through all compatible SEO entries of two platforms,
- * performs a aiosp_seometa_meta_key_convert() conversion for each key, and returns
- * the results as an object.
+ * Convert old to new postmeta.
  *
- * It first checks for compatible entries between the two platforms. When it
- * finds compatible entries, it loops through them and preforms the conversion
- * on each entry.
+ * Cycle through all compatible SEO entries of two platforms and aiosp_seometa_meta_key_convert conversion for each key.
+ *
+ * @param string $old_platform
+ * @param string $new_platform
+ * @param bool $delete_old
+ *
+ * @return stdClass Results object.
  */
 function aiosp_seometa_post_meta_convert( $old_platform = '', $new_platform = 'All in One SEO Pack', $delete_old = false ) {
 
@@ -293,24 +301,24 @@ function aiosp_seometa_post_meta_convert( $old_platform = '', $new_platform = 'A
 
 	foreach ( (array) $_aiosp_seometa_platforms[ $old_platform ] as $label => $meta_key ) {
 
-		// skip iterations where no $new analog exists
+		// Skip iterations where no $new analog exists.
 		if ( empty( $_aiosp_seometa_platforms[ $new_platform ][ $label ] ) ) {
 			continue;
 		}
 
-		// set $old and $new meta_key values
+		// Set $old and $new meta_key values.
 		$old = $_aiosp_seometa_platforms[ $old_platform ][ $label ];
 		$new = $_aiosp_seometa_platforms[ $new_platform ][ $label ];
 
-		// convert
+		// Convert.
 		$result = aiosp_seometa_meta_key_convert( $old, $new, $delete_old );
 
-		// error check
+		// Error check.
 		if ( is_wp_error( $result ) ) {
 			continue;
 		}
 
-		// update total updated/ignored count
+		// Update total updated/ignored count.
 		$output->updated += (int) $result->updated;
 		$output->ignored += (int) $result->ignored;
 
@@ -323,11 +331,17 @@ function aiosp_seometa_post_meta_convert( $old_platform = '', $new_platform = 'A
 }
 
 /**
- * This function analyzes two platforms to see what Compatible elements they share,
- * what data can be converted from one to the other, and which elements to ignore (future).
+ * Analyze two platforms to find shared and compatible elements.
+ *
+ * See what data can be converted from one to the other.
+ *
+ * @param string $old_platform
+ * @param string $new_platform
+ *
+ * @return stdClass
  */
 function aiosp_seometa_post_meta_analyze( $old_platform = '', $new_platform = 'All in One SEO Pack' ) {
-
+	// TODO Figure out which elements to ignore.
 	do_action( 'pre_aiosp_seometa_post_meta_analyze', $old_platform, $new_platform );
 
 	global $wpdb, $_aiosp_seometa_platforms;
@@ -346,32 +360,32 @@ function aiosp_seometa_post_meta_analyze( $old_platform = '', $new_platform = 'A
 
 	foreach ( (array) $_aiosp_seometa_platforms[ $old_platform ] as $label => $meta_key ) {
 
-		// skip iterations where no $new analog exists
+		// Skip iterations where no $new analog exists.
 		if ( empty( $_aiosp_seometa_platforms[ $new_platform ][ $label ] ) ) {
 			continue;
 		}
 
 		$elements[] = $label;
 
-		// see which records to ignore, if any
+		// See which records to ignore, if any.
 		$ignore = 0;
-		//		$ignore = $wpdb->get_results( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = %s", $meta_key ) );
+		//	$ignore = $wpdb->get_results( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = %s", $meta_key ) );
 
-		// see which records to update, if any
+		// See which records to update, if any.
 		$update = $wpdb->get_results( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = %s", $meta_key ) );
 
-		// count items in returned arrays
-		//		$ignore = count( (array)$ignore );
+		// Count items in returned arrays.
+		// $ignore = count( (array)$ignore );
 		$update = count( (array) $update );
 
-		// calculate update/ignore by comparison
-		//		$update = ( (int)$update > (int)$ignore ) ? ( (int)$update - (int)$ignore ) : 0;
+		// Calculate update/ignore by comparison.
+		// $update = ( (int)$update > (int)$ignore ) ? ( (int)$update - (int)$ignore ) : 0;
 
 		// update output numbers
 		$output->update += (int) $update;
 		$output->ignore += (int) $ignore;
 
-	} // endforeach
+	}
 
 	$output->elements = $elements;
 
@@ -380,9 +394,6 @@ function aiosp_seometa_post_meta_analyze( $old_platform = '', $new_platform = 'A
 	return $output;
 
 }
-
-
-////////////PLUGIN/////////
 
 
 //	define('aiosp_seometa_PLUGIN_DIR', dirname(__FILE__));
