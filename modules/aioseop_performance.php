@@ -98,10 +98,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 		}
 
 		function update_options_filter( $options, $location ) {
-			if ( $location == null ) {
-				if ( isset( $options[ $this->prefix . 'force_rewrites' ] ) ) {
+			if ( $location == null && isset( $options[ $this->prefix . 'force_rewrites' ] ) ) {
 					unset( $options[ $this->prefix . 'force_rewrites' ] );
-				}
 			}
 
 			return $options;
