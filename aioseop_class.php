@@ -971,7 +971,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					'support'            => Array(
 						'type'    => 'html',
 						'label'   => 'none',
-						'default' => '<a target="_blank" href="http://semperplugins.com/support/">'
+						'default' => '<a target="_blank" href="https://semperplugins.com/support/">'
 						             . __( 'Support Forum', 'all-in-one-seo-pack' ) . '</a>'
 					),
 					'snippet'            => Array(
