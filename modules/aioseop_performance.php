@@ -9,7 +9,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 
 	class All_in_One_SEO_Pack_Performance extends All_in_One_SEO_Pack_Module {
 
-		protected $module_info = Array();
+		protected $module_info = array();
 
 		function __construct( $mod ) {
 			$this->name   = __( 'Performance', 'all-in-one-seo-pack' );        // Human-readable name of the plugin.
@@ -17,18 +17,18 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 			$this->file   = __FILE__;                                    // The current file.
 			parent::__construct();
 
-			$this->help_text = Array(
+			$this->help_text = array(
 				"memory_limit"   => __( "This setting allows you to raise your PHP memory limit to a reasonable value. Note: WordPress core and other WordPress plugins may also change the value of the memory limit.", 'all-in-one-seo-pack' ),
 				"execution_time" => __( "This setting allows you to raise your PHP execution time to a reasonable value.", 'all-in-one-seo-pack' ),
 				"force_rewrites" => __( "Use output buffering to ensure that the title gets rewritten. Enable this option if you run into issues with the title tag being set by your theme or another plugin.", 'all-in-one-seo-pack' ),
 			);
 
 			$this->default_options = array(
-				'memory_limit'   => Array(
+				'memory_limit'   => array(
 					'name'            => __( 'Raise memory limit', 'all-in-one-seo-pack' ),
 					'default'         => '256M',
 					'type'            => 'select',
-					'initial_options' => Array(
+					'initial_options' => array(
 						0      => __( "Use the system default", 'all-in-one-seo-pack' ),
 						'32M'  => '32MB',
 						'64M'  => '64MB',
@@ -36,11 +36,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 						'256M' => '256MB',
 					),
 				),
-				'execution_time' => Array(
+				'execution_time' => array(
 					'name'            => __( 'Raise execution time', 'all-in-one-seo-pack' ),
 					'default'         => '',
 					'type'            => 'select',
-					'initial_options' => Array(
+					'initial_options' => array(
 						''  => __( "Use the system default", 'all-in-one-seo-pack' ),
 						30  => '30s',
 						60  => '1m',
@@ -51,7 +51,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 				),
 			);
 
-			$this->help_anchors = Array(
+			$this->help_anchors = array(
 				'memory_limit'   => '#raise-memory-limit',
 				'execution_time' => '#raise-execution-time',
 				'force_rewrites' => '#force-rewrites',
@@ -59,30 +59,30 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 
 			global $aiosp, $aioseop_options;
 			if ( aioseop_option_isset( 'aiosp_rewrite_titles' ) && $aioseop_options['aiosp_rewrite_titles'] ) {
-				$this->default_options['force_rewrites'] = Array(
+				$this->default_options['force_rewrites'] = array(
 					'name'            => __( 'Force Rewrites:', 'all-in-one-seo-pack' ),
 					'default'         => 1,
 					'type'            => 'radio',
-					'initial_options' => Array(
+					'initial_options' => array(
 						1 => __( 'Enabled', 'all-in-one-seo-pack' ),
 						0 => __( 'Disabled', 'all-in-one-seo-pack' ),
 					),
 				);
 			}
 
-			$this->layout = Array(
-				'default' => Array(
+			$this->layout = array(
+				'default' => array(
 					'name'      => $this->name,
 					'help_link' => 'http://semperplugins.com/documentation/performance-settings/',
 					'options'   => array_keys( $this->default_options ),
 				),
 			);
 
-			$system_status = Array(
-				'status' => Array( 'default' => '', 'type' => 'html', 'label' => 'none', 'save' => false ),
+			$system_status = array(
+				'status' => array( 'default' => '', 'type' => 'html', 'label' => 'none', 'save' => false ),
 			);
 
-			$this->layout['system_status'] = Array(
+			$this->layout['system_status'] = array(
 				'name'      => __( 'System Status', 'all-in-one-seo-pack' ),
 				'help_link' => 'http://semperplugins.com/documentation/performance-settings/',
 				'options'   => array_keys( $system_status ),
@@ -92,9 +92,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 
 			$this->add_help_text_links();
 
-			add_filter( $this->prefix . 'display_options', Array( $this, 'display_options_filter' ), 10, 2 );
-			add_filter( $this->prefix . 'update_options', Array( $this, 'update_options_filter' ), 10, 2 );
-			add_action( $this->prefix . 'settings_update', Array( $this, 'settings_update_action' ), 10, 2 );
+			add_filter( $this->prefix . 'display_options', array( $this, 'display_options_filter' ), 10, 2 );
+			add_filter( $this->prefix . 'update_options', array( $this, 'update_options_filter' ), 10, 2 );
+			add_action( $this->prefix . 'settings_update', array( $this, 'settings_update_action' ), 10, 2 );
 		}
 
 		function update_options_filter( $options, $location ) {
@@ -112,7 +112,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 				$options[ $this->prefix . 'force_rewrites' ] = 1;
 				global $aiosp;
 				if ( aioseop_option_isset( 'aiosp_rewrite_titles' ) ) {
-					$opts                                        = $aiosp->get_current_options( Array(), null );
+					$opts                                        = $aiosp->get_current_options( array(), null );
 					$options[ $this->prefix . 'force_rewrites' ] = $opts['aiosp_force_rewrites'];
 				}
 			}
@@ -126,7 +126,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 					$force_rewrites = $_POST[ $this->prefix . 'force_rewrites' ];
 					if ( ( $force_rewrites == 0 ) || ( $force_rewrites == 1 ) ) {
 						global $aiosp;
-						$opts                         = $aiosp->get_current_options( Array(), null );
+						$opts                         = $aiosp->get_current_options( array(), null );
 						$opts['aiosp_force_rewrites'] = $force_rewrites;
 						$aiosp->update_class_option( $opts );
 						wp_cache_flush();
@@ -246,7 +246,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 			$homeurl    = get_option( 'home' );
 			$db_version = get_option( 'db_version' );
 
-			$debug_info                   = Array(
+			$debug_info                   = array(
 				__( 'Operating System', 'all-in-one-seo-pack' )            => PHP_OS,
 				__( 'Server', 'all-in-one-seo-pack' )                      => $_SERVER["SERVER_SOFTWARE"],
 				__( 'Memory usage', 'all-in-one-seo-pack' )                => $memory_usage,
@@ -270,7 +270,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 				__( 'Active Theme', 'all-in-one-seo-pack' )                => $theme['Name'] . ' ' . $theme['Version'],
 			);
 			$debug_info['Active Plugins'] = null;
-			$active_plugins               = $inactive_plugins = Array();
+			$active_plugins               = $inactive_plugins = array();
 			$plugins                      = get_plugins();
 			foreach ( $plugins as $path => $plugin ) {
 				if ( is_plugin_active( $path ) ) {
