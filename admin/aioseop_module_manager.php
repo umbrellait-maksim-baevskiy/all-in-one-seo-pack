@@ -178,7 +178,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 					$feature_options = $this->modules['feature_manager']->default_options();
 				}
 				if ( $feature_options == null ) {
-					if ( $this->module_settings_update && wp_verify_nonce( $_POST['nonce-aioseop'], 'aioseop-nonce' ) && $this->settings_reset_all ) {
+					if ( $this->module_settings_update && $this->settings_reset_all && wp_verify_nonce( $_POST['nonce-aioseop'], 'aioseop-nonce' ) ) {
 						$feature_options = $this->modules['feature_manager']->default_options();
 					} else {
 						$feature_options = $this->modules['feature_manager']->get_current_options();
