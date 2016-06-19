@@ -130,7 +130,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 		}
 
 		/**
-		 * @param $options
+		 * @param $options This seems to be unused.
 		 * @param $location
 		 */
 		function do_file_editor( $options, $location ) {
