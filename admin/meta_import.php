@@ -81,7 +81,7 @@ function aiosp_seometa_action() {
 		return;
 	}
 
-	if ( $_REQUEST['platform_old'] === 'All in One SEO Pack' ) {
+	if ( 'All in One SEO Pack' === $_REQUEST['platform_old'] ) {
 		printf( '<div class="error"><p>%s</p></div>', __( 'Sorry, you can\'t do that. Please choose a platform and then click Analyze or Convert.' ) );
 
 		return;
