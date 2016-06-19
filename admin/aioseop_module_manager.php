@@ -104,12 +104,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 		 */
 		function do_load_module( $mod, $args = null ) {
 			// Module name is used for these automatic settings:
-			// The aiosp_enable_$module settings - whether each plugin is active or not
-			// The name of the .php file containing the module - aioseop_$module.php
-			// The name of the class - All_in_One_SEO_Pack_$Module
-			// The global $aioseop_$module
-			// $this->modules[$module]
-
+			// The aiosp_enable_$module settings - whether each plugin is active or not.
+			// The name of the .php file containing the module - aioseop_$module.php.
+			// The name of the class - All_in_One_SEO_Pack_$Module.
+			// The global $aioseop_$module.
+			// $this->modules[$module].
 
 			$mod_path = apply_filters( "aioseop_include_$mod", AIOSEOP_PLUGIN_DIR . "modules/aioseop_$mod.php" );
 			if ( ! empty( $mod_path ) ) {
