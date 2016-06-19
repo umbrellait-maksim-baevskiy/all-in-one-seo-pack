@@ -544,7 +544,7 @@ function aiosp_seometa_import() {
 	 * Include the other elements of the plugin.
 	 */
 	//	require_once( aiosp_seometa_PLUGIN_DIR . '/admin.php' );
-//		require_once( aiosp_seometa_PLUGIN_DIR . '/functions.php' );
+	// require_once( aiosp_seometa_PLUGIN_DIR . '/functions.php' );
 
 	/**
 	 * Init hook.
