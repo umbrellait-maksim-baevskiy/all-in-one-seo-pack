@@ -196,7 +196,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 			$this->options["{$this->prefix}blocked_log"] = date( 'Y-m-d H:i:s' ) . " {$msg}\n" . $this->options["{$this->prefix}blocked_log"];
 			if ( $this->strlen( $this->options["{$this->prefix}blocked_log"] ) > 4096 ) {
 				$end = $this->strrpos( $this->options["{$this->prefix}blocked_log"], "\n" );
-				if ( $end === false ) {
+				if ( false === $end ) {
 					$end = 4096;
 				}
 				$this->options["{$this->prefix}blocked_log"] = $this->substr( $this->options["{$this->prefix}blocked_log"], 0, $end );
