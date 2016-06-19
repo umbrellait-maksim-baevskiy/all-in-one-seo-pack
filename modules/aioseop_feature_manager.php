@@ -145,7 +145,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 		 */
 		function filter_submit( $submit ) {
 			$submit['Submit']['value'] = __( 'Update Features', 'all-in-one-seo-pack' ) . ' &raquo;';
-			$submit['Submit']['class'] .= " hidden";
+			$submit['Submit']['class'] .= ' hidden';
 			$submit['Submit_Default']['value'] = __( 'Reset Features', 'all-in-one-seo-pack' ) . ' &raquo;';
 
 			return $submit;
@@ -173,9 +173,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 
 			if ( $args['options']['save'] ) {
 				$name = "<h3>{$args['options']['name']}</h3>";
-				$checkbox .= '<input type="checkbox" onchange="jQuery(\'#' . $args["options"]["id"] . ' .aioseop_featured_image, #' . $args["options"]["id"] . ' .feature_button\').toggleClass(\'active\', this.checked);jQuery(\'input[name=Submit]\').trigger(\'click\');" style="display:none;" id="' . $args['name'] . '" name="' . $args['name'] . '"';
+				$checkbox .= '<input type="checkbox" onchange="jQuery(\'#' . $args['options']['id'] . ' .aioseop_featured_image, #' . $args['options']['id'] . ' .feature_button\').toggleClass(\'active\', this.checked);jQuery(\'input[name=Submit]\').trigger(\'click\');" style="display:none;" id="' . $args['name'] . '" name="' . $args['name'] . '"';
 				if ( $args['value'] ) {
-					$checkbox .= " CHECKED";
+					$checkbox .= ' CHECKED';
 				}
 				$checkbox .= '><span class="button-primary feature_button' . $class . '"></span>';
 			} else {
