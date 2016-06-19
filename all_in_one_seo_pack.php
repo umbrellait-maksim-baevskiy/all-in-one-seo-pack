@@ -315,7 +315,7 @@ if ( ! function_exists( 'aiosp_add_action_links' ) ) {
 			$action_links['proupgrade'] =
 				array(
 					'label' => __( 'Upgrade to Pro', 'all-in-one-seo-pack' ),
-					'url'   => 'http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/?loc=plugins'
+					'url'   => 'http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/?loc=plugins',
 
 				);
 		}
