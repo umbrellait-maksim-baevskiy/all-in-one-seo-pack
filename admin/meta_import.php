@@ -21,7 +21,6 @@ if ( class_exists( 'WPSEO_Import_Hooks' ) ) {
 			$yoasturl = add_query_arg( array( '_wpnonce' => wp_create_nonce( 'wpseo-import' ) ), admin_url( 'admin.php?page=wpseo_tools&tool=import-export&import=1&importaioseo=1#top#import-seo' ) );
 			$aiourl   = add_query_arg( array( '_wpnonce' => wp_create_nonce( 'aiosp-import' ) ), admin_url( 'tools.php?page=aiosp_import' ) );
 
-
 			$aioseop_yst_detected_notice_dismissed = get_user_meta( get_current_user_id(), 'aioseop_yst_detected_notice_dismissed', true );
 
 			if ( empty( $aioseop_yst_detected_notice_dismissed ) ) {
@@ -30,9 +29,7 @@ if ( class_exists( 'WPSEO_Import_Hooks' ) ) {
 
 			}
 
-
 			echo '<div class="error"><p>', sprintf( esc_html__( 'The plugin All-In-One-SEO has been detected. Do you want to %simport its settings%s?', 'wordpress-seo' ), sprintf( '<a href="%s">', esc_url( $yoasturl ) ), '</a>' ), '</p></div>';
-
 
 		}
 
