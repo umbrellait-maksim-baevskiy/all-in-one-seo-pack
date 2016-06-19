@@ -91,7 +91,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 			$mod[]                 = 'coming_soon';
 
 			foreach ( $mod as $m ) {
-				if ( $m === 'performance' && ! is_super_admin() ) {
+				if ( 'performance' === $m && ! is_super_admin() ) {
 					continue;
 				}
 				$this->default_options["enable_$m"] = array(
