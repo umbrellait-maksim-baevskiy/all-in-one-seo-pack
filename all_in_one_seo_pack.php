@@ -11,7 +11,7 @@ Domain Path: /i18n/
 */
 
 /*
-Copyright (C) 2007-2016 Michael Torbert, semperfiwebdesign.com (michael AT semperfiwebdesign DOT com)
+Copyright (C) 2007-2016 Michael Torbert, https://semperfiwebdesign.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
