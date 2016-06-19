@@ -81,7 +81,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 		 * @return array
 		 */
 		function get_loaded_module_list() {
-			$module_list = Array();
+			$module_list = array();
 			if ( ! empty( $this->modules ) ) {
 				foreach ( $this->modules as $k => $v ) {
 					if ( ! empty( $v ) ) {
@@ -94,7 +94,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 		}
 
 		/**
-		 * @param $mod
+		 * @param $mod Module.
 		 * @param null $args
 		 *
 		 * @return bool
@@ -125,12 +125,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 				), 1001 + $module_class->menu_order() );
 			}
 			if ( is_admin() ) {
-				add_action( 'aioseop_modules_add_menus', Array(
+				add_action( 'aioseop_modules_add_menus', array(
 					$module_class,
 					'add_menu',
 				), $module_class->menu_order() );
-				add_action( 'aiosoep_options_reset', Array( $module_class, 'reset_options' ) );
-				add_filter( 'aioseop_export_settings', Array( $module_class, 'settings_export' ) );
+				add_action( 'aiosoep_options_reset', array( $module_class, 'reset_options' ) );
+				add_filter( 'aioseop_export_settings', array( $module_class, 'settings_export' ) );
 			}
 
 			return true;
