@@ -220,12 +220,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 				$xml = __( 'No', 'all-in-one-seo-pack' );
 			}
 
-			if ( function_exists( 'wp_get_theme' ) ) {
-				$theme = wp_get_theme();
-			} else {
-				$theme = get_theme( get_current_theme() );
-			}
-
+			$theme = wp_get_theme();
 
 			if ( function_exists( 'is_multisite' ) ) {
 				if ( is_multisite() ) {
