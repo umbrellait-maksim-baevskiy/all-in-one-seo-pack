@@ -129,8 +129,6 @@ function aiosp_seometa_action() {
 	printf( '<p><b>%d</b> Records were updated</p>', isset( $result->updated ) ? $result->updated : 0 );
 	printf( '<p><b>%d</b> Records were ignored</p>', isset( $result->ignored ) ? $result->ignored : 0 );
 
-	return;
-
 }
 
 /**
