@@ -1,6 +1,10 @@
 <?php
 
 if ( class_exists( 'WPSEO_Import_Hooks' ) ) {
+
+	/**
+	 * Class WPSEO_Import_AIOSEO_Hooks
+	 */
 	class WPSEO_Import_AIOSEO_Hooks extends WPSEO_Import_Hooks {
 
 		protected $plugin_file = 'all-in-one-seo-pack/all_in_one_seo_pack.php';
