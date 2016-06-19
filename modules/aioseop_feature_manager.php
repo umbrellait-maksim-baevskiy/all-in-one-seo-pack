@@ -1,11 +1,12 @@
 <?php
 /**
+ * The Feature Manager class.
+ *
  * @package All-in-One-SEO-Pack
  */
-/**
- * The Feature Manager class.
- */
+
 if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
+
 	class All_in_One_SEO_Pack_Feature_Manager extends All_in_One_SEO_Pack_Module {
 
 		protected $module_info = Array();
@@ -71,13 +72,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 
 			}
 
-			// Set up default settings fields
-			// name			- Human-readable name of the setting
-			// help_text	- Inline documentation for the setting
-			// type			- Type of field; this defaults to checkbox; currently supported types are checkbox, text, select, multiselect
-			// default		- Default value of the field
-			// initial_options - Initial option list used for selects and multiselects
-			// Other supported options: class, id, style -- allows you to set these HTML attributes on the field
+			// Set up default settings fields.
+			// Name			- Human-readable name of the setting.
+			// Help_text	- Inline documentation for the setting.
+			// Type			- Type of field; this defaults to checkbox; currently supported types are checkbox, text, select, multiselect.
+			// Default		- Default value of the field.
+			// Initial_options - Initial option list used for selects and multiselects.
+			// Other supported options: class, id, style -- allows you to set these HTML attributes on the field.
 
 			$this->default_options = array();
 			$this->module_info     = apply_filters( 'aioseop_module_info', $this->module_info );
@@ -114,7 +115,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 					'options'   => array_keys( $this->default_options ),
 				),
 			);
-			// load initial options / set defaults
+			// Load initial options / set defaults.
 			$this->update_options();
 			if ( is_admin() ) {
 				add_filter( $this->prefix . 'output_option', Array( $this, 'display_option_div' ), 10, 2 );
