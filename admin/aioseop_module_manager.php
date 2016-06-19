@@ -1,11 +1,19 @@
 <?php
 /**
- * @package All-in-One-SEO-Pack
- */
-/**
  * The Module Manager.
+ *
+ * Mostly we're activating and deactivating modules/features.
+ *
+ * @package All-in-One-SEO-Pack
+ * @since 2.0
+ *
  */
+
 if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
+
+	/**
+	 * Class All_in_One_SEO_Pack_Module_Manager
+	 */
 	class All_in_One_SEO_Pack_Module_Manager {
 		protected $modules = array();
 		protected $settings_update = false;
@@ -13,8 +21,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 		protected $settings_reset_all = false;
 		protected $module_settings_update = false;
 
-		// initialize module list
+		/**
+		 * All_in_One_SEO_Pack_Module_Manager constructor.
+		 *
+		 * @param $mod
+		 */
 		function __construct( $mod ) {
+			// initialize module list
+
 			$this->modules['feature_manager'] = null;
 			foreach ( $mod as $m ) {
 				$this->modules[ $m ] = null;
@@ -42,6 +56,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 			$this->do_load_module( 'feature_manager', $mod );
 		}
 
+		/**
+		 * @param $class
+		 *
+		 * @return $this|bool|mixed
+		 */
 		function return_module( $class ) {
 			global $aiosp;
 			if ( $class === get_class( $aiosp ) ) {
@@ -59,6 +78,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 			return false;
 		}
 
+		/**
+		 * @return array
+		 */
 		function get_loaded_module_list() {
 			$module_list = Array();
 			if ( ! empty( $this->modules ) ) {
@@ -72,13 +94,21 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 			return $module_list;
 		}
 
-		// Module name is used for these automatic settings:
-		// The aiosp_enable_$module settings - whether each plugin is active or not
-		// The name of the .php file containing the module - aioseop_$module.php
-		// The name of the class - All_in_One_SEO_Pack_$Module
-		// The global $aioseop_$module
-		// $this->modules[$module]
+		/**
+		 * @param $mod
+		 * @param null $args
+		 *
+		 * @return bool
+		 */
 		function do_load_module( $mod, $args = null ) {
+			// Module name is used for these automatic settings:
+			// The aiosp_enable_$module settings - whether each plugin is active or not
+			// The name of the .php file containing the module - aioseop_$module.php
+			// The name of the class - All_in_One_SEO_Pack_$Module
+			// The global $aioseop_$module
+			// $this->modules[$module]
+
+
 			$mod_path = apply_filters( "aioseop_include_$mod", AIOSEOP_PLUGIN_DIR . "modules/aioseop_$mod.php" );
 			if ( ! empty( $mod_path ) ) {
 				require_once( $mod_path );
@@ -107,6 +137,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 			return true;
 		}
 
+		/**
+		 * @param $mod
+		 *
+		 * @return bool
+		 */
 		function load_module( $mod ) {
 			static $feature_options = null;
 			static $feature_prefix = null;
@@ -116,7 +151,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 			$v = $this->modules[ $mod ];
 			if ( $v !== null ) {
 				return false;
-			}    // already loaded
+			}    // Already loaded.
 			if ( $mod == 'performance' && ! is_super_admin() ) {
 				return false;
 			}
