@@ -1,9 +1,9 @@
 <?php
-/**
- * @package All-in-One-SEO-Pack
- */
+
 /**
  * The File Editor class.
+ *
+ * @package All-in-One-SEO-Pack
  */
 if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 
