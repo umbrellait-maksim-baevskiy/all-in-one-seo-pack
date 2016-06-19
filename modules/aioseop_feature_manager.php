@@ -7,10 +7,18 @@
 
 if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 
+	/**
+	 * Class All_in_One_SEO_Pack_Feature_Manager
+	 */
 	class All_in_One_SEO_Pack_Feature_Manager extends All_in_One_SEO_Pack_Module {
 
 		protected $module_info = Array();
 
+		/**
+		 * All_in_One_SEO_Pack_Feature_Manager constructor.
+		 *
+		 * @param $mod
+		 */
 		function __construct( $mod ) {
 			$this->name   = __( 'Feature Manager', 'all-in-one-seo-pack' );        // Human-readable name of the plugin
 			$this->prefix = 'aiosp_feature_manager_';                        // option prefix
@@ -123,10 +131,18 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 			}
 		}
 
+		/**
+		 * @return int
+		 */
 		function menu_order() {
 			return 20;
 		}
 
+		/**
+		 * @param $submit
+		 *
+		 * @return mixed
+		 */
 		function filter_submit( $submit ) {
 			$submit['Submit']['value'] = __( 'Update Features', 'all-in-one-seo-pack' ) . ' &raquo;';
 			$submit['Submit']['class'] .= " hidden";
@@ -135,6 +151,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 			return $submit;
 		}
 
+		/**
+		 * @param $buf
+		 * @param $args
+		 *
+		 * @return string
+		 */
 		function display_option_div( $buf, $args ) {
 			$name = $img = $desc = $checkbox = $class = '';
 			if ( isset( $args['options']['help_text'] ) && ! empty( $args['options']['help_text'] ) ) {
