@@ -20,9 +20,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 		 * @param $mod
 		 */
 		function __construct( $mod ) {
-			$this->name   = __( 'Feature Manager', 'all-in-one-seo-pack' );        // Human-readable name of the plugin
-			$this->prefix = 'aiosp_feature_manager_';                        // option prefix
-			$this->file   = __FILE__;                                    // the current file
+			$this->name   = __( 'Feature Manager', 'all-in-one-seo-pack' );        // Human-readable name of the plugin.
+			$this->prefix = 'aiosp_feature_manager_';                        // Option prefix.
+			$this->file   = __FILE__;                                    // The current file.
 			parent::__construct();
 			$this->module_info = array(
 				'sitemap'           => array(
