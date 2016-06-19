@@ -23,10 +23,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 		/**
 		 * All_in_One_SEO_Pack_Module_Manager constructor.
 		 *
+		 * Initialize module list.
+		 *
 		 * @param $mod Modules.
 		 */
 		function __construct( $mod ) {
-			// initialize module list
 
 			$this->modules['feature_manager'] = null;
 			foreach ( $mod as $m ) {
@@ -56,6 +57,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 		}
 
 		/**
+		 * Return module.
+		 *
 		 * @param $class
 		 *
 		 * @return $this|bool|mixed
