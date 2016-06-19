@@ -27,7 +27,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 
 			$help_text             = Array(
 				'robotfile' => __( 'Robots.txt editor', 'all-in-one-seo-pack' ),
-				'htaccfile' => __( '.htaccess editor', 'all-in-one-seo-pack' )
+				'htaccfile' => __( '.htaccess editor', 'all-in-one-seo-pack' ),
 			);
 			$this->default_options = array(
 				'robotfile' => Array(
@@ -37,7 +37,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 					'type'    => 'textarea',
 					'cols'    => 70,
 					'rows'    => 25,
-					'label'   => 'top'
+					'label'   => 'top',
 				),
 				'htaccfile' => Array(
 					'name'    => __( 'Edit .htaccess', 'all-in-one-seo-pack' ),
@@ -46,8 +46,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 					'type'    => 'textarea',
 					'cols'    => 70,
 					'rows'    => 25,
-					'label'   => 'top'
-				)
+					'label'   => 'top',
+				),
 			);
 
 			if ( ! empty( $help_text ) ) {
@@ -57,20 +57,20 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 			}
 			$this->tabs = Array(
 				'robots'   => Array( 'name' => __( 'robots.txt' ) ),
-				'htaccess' => Array( 'name' => __( '.htaccess' ) )
+				'htaccess' => Array( 'name' => __( '.htaccess' ) ),
 			);
 
 			$this->layout = Array(
 				'robots'   => Array(
 					'name'    => __( 'Edit robots.txt', 'all-in-one-seo-pack' ),
 					'options' => Array( 'robotfile' ),
-					'tab'     => 'robots'
+					'tab'     => 'robots',
 				),
 				'htaccess' => Array(
 					'name'    => __( 'Edit .htaccess', 'all-in-one-seo-pack' ),
 					'options' => Array( 'htaccfile' ),
-					'tab'     => 'htaccess'
-				)
+					'tab'     => 'htaccess',
+				),
 			);
 
 			$this->update_options();            // load initial options / set defaults
@@ -99,13 +99,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_File_Editor' ) ) {
 				$submit['Submit_File_Editor'] = Array(
 					'type'  => 'submit',
 					'class' => 'button-primary',
-					'value' => __( 'Update robots.txt', 'all-in-one-seo-pack' ) . ' &raquo;'
+					'value' => __( 'Update robots.txt', 'all-in-one-seo-pack' ) . ' &raquo;',
 				);
 			} elseif ( $this->current_tab === 'htaccess' ) {
 				$submit['Submit_htaccess'] = Array(
 					'type'  => 'submit',
 					'class' => 'button-primary',
-					'value' => __( 'Update .htaccess', 'all-in-one-seo-pack' ) . ' &raquo;'
+					'value' => __( 'Update .htaccess', 'all-in-one-seo-pack' ) . ' &raquo;',
 				);
 			}
 
