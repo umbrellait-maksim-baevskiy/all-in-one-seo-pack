@@ -151,10 +151,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 			if ( null !== $v ) {
 				return false;
 			}    // Already loaded.
-			if ( $mod == 'performance' && ! is_super_admin() ) {
+			if ( 'performance' == $mod && ! is_super_admin() ) {
 				return false;
 			}
-			if ( ( $mod == 'file_editor' || $mod == 'robots' )
+			if ( ( 'file_editor' == $mod || 'robots' == $mod )
 			     && ( ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT )
 			          || ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS )
 			          || ! is_super_admin() )
@@ -163,7 +163,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 			}
 			$mod_enable = false;
 			$fm_page    = ( $this->module_settings_update && wp_verify_nonce( $_POST['nonce-aioseop'], 'aioseop-nonce' ) &&
-			                isset( $_REQUEST['page'] ) && $_REQUEST['page'] == trailingslashit( AIOSEOP_PLUGIN_DIRNAME ) . 'modules/aioseop_feature_manager.php' );
+			                isset( $_REQUEST['page'] ) && trailingslashit( AIOSEOP_PLUGIN_DIRNAME ) . 'modules/aioseop_feature_manager.php' ==$_REQUEST['page'] );
 			if ( $fm_page && ! $this->settings_reset ) {
 				if ( isset( $_POST["aiosp_feature_manager_enable_$mod"] ) ) {
 					$mod_enable = $_POST["aiosp_feature_manager_enable_$mod"];
@@ -171,13 +171,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 					$mod_enable = false;
 				}
 			} else {
-				if ( $feature_prefix == null ) {
+				if ( null == $feature_prefix ) {
 					$feature_prefix = $this->modules['feature_manager']->get_prefix();
 				}
 				if ( $fm_page && $this->settings_reset ) {
 					$feature_options = $this->modules['feature_manager']->default_options();
 				}
-				if ( $feature_options == null ) {
+				if ( null == $feature_options ) {
 					if ( $this->module_settings_update && $this->settings_reset_all && wp_verify_nonce( $_POST['nonce-aioseop'], 'aioseop-nonce' ) ) {
 						$feature_options = $this->modules['feature_manager']->default_options();
 					} else {
