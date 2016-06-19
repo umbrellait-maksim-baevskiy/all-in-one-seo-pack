@@ -19,7 +19,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 			$this->help_text = Array(
 				"memory_limit"   => __( "This setting allows you to raise your PHP memory limit to a reasonable value. Note: WordPress core and other WordPress plugins may also change the value of the memory limit.", 'all-in-one-seo-pack' ),
 				"execution_time" => __( "This setting allows you to raise your PHP execution time to a reasonable value.", 'all-in-one-seo-pack' ),
-				"force_rewrites" => __( "Use output buffering to ensure that the title gets rewritten. Enable this option if you run into issues with the title tag being set by your theme or another plugin.", 'all-in-one-seo-pack' )
+				"force_rewrites" => __( "Use output buffering to ensure that the title gets rewritten. Enable this option if you run into issues with the title tag being set by your theme or another plugin.", 'all-in-one-seo-pack' ),
 			);
 
 			$this->default_options = array(
@@ -32,27 +32,28 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 						'32M'  => '32MB',
 						'64M'  => '64MB',
 						'128M' => '128MB',
-						'256M' => '256MB'
-					)
+						'256M' => '256MB',
+					),
 				),
 				'execution_time' => Array(
 					'name'            => __( 'Raise execution time', 'all-in-one-seo-pack' ),
 					'default'         => '',
 					'type'            => 'select',
-					'initial_options' => Array( ''  => __( "Use the system default", 'all-in-one-seo-pack' ),
-					                            30  => '30s',
-					                            60  => '1m',
-					                            120 => '2m',
-					                            300 => '5m',
-					                            0   => __( 'No limit', 'all-in-one-seo-pack' )
-					)
-				)
+					'initial_options' => Array(
+						''  => __( "Use the system default", 'all-in-one-seo-pack' ),
+						30  => '30s',
+						60  => '1m',
+						120 => '2m',
+						300 => '5m',
+						0   => __( 'No limit', 'all-in-one-seo-pack' ),
+					),
+				),
 			);
 
 			$this->help_anchors = Array(
 				'memory_limit'   => '#raise-memory-limit',
 				'execution_time' => '#raise-execution-time',
-				'force_rewrites' => '#force-rewrites'
+				'force_rewrites' => '#force-rewrites',
 			);
 
 			global $aiosp, $aioseop_options;
@@ -63,8 +64,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 					'type'            => 'radio',
 					'initial_options' => Array(
 						1 => __( 'Enabled', 'all-in-one-seo-pack' ),
-						0 => __( 'Disabled', 'all-in-one-seo-pack' )
-					)
+						0 => __( 'Disabled', 'all-in-one-seo-pack' ),
+					),
 				);
 			}
 
@@ -72,8 +73,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 				'default' => Array(
 					'name'      => $this->name,
 					'help_link' => 'http://semperplugins.com/documentation/performance-settings/',
-					'options'   => array_keys( $this->default_options )
-				)
+					'options'   => array_keys( $this->default_options ),
+				),
 			);
 
 			$system_status = Array(
@@ -83,7 +84,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 			$this->layout['system_status'] = Array(
 				'name'      => __( 'System Status', 'all-in-one-seo-pack' ),
 				'help_link' => 'http://semperplugins.com/documentation/performance-settings/',
-				'options'   => array_keys( $system_status )
+				'options'   => array_keys( $system_status ),
 			);
 
 			$this->default_options = array_merge( $this->default_options, $system_status );
@@ -265,7 +266,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 				__( 'WordPress Version', 'all-in-one-seo-pack' )           => $wp_version,
 				__( 'WordPress DB Version', 'all-in-one-seo-pack' )        => $db_version,
 				__( 'Multisite', 'all-in-one-seo-pack' )                   => $ms,
-				__( 'Active Theme', 'all-in-one-seo-pack' )                => $theme['Name'] . ' ' . $theme['Version']
+				__( 'Active Theme', 'all-in-one-seo-pack' )                => $theme['Name'] . ' ' . $theme['Version'],
 			);
 			$debug_info['Active Plugins'] = null;
 			$active_plugins               = $inactive_plugins = Array();
