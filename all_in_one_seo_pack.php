@@ -45,7 +45,7 @@ global $aioseop_plugin_name;
 $aioseop_plugin_name = 'All in One SEO Pack';
 
 /**
- * Do not edit below this.
+ * DO NOT EDIT BELOW THIS LINE.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
