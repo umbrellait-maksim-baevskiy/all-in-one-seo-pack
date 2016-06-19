@@ -119,8 +119,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 		}
 
 		function settings_update_action( $options, $location ) {
-			if ( $location == null ) {
-				if ( isset( $_POST[ $this->prefix . 'force_rewrites' ] ) ) {
+			if ( $location == null && isset( $_POST[ $this->prefix . 'force_rewrites' ] ) ) {
 					$force_rewrites = $_POST[ $this->prefix . 'force_rewrites' ];
 					if ( ( $force_rewrites == 0 ) || ( $force_rewrites == 1 ) ) {
 						global $aiosp;
@@ -129,7 +128,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 						$aiosp->update_class_option( $opts );
 						wp_cache_flush();
 					}
-				}
 			}
 		}
 
