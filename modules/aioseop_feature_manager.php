@@ -18,33 +18,33 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 			$this->module_info = Array(
 				'sitemap'           => Array(
 					'name'        => __( 'XML Sitemaps', 'all-in-one-seo-pack' ),
-					'description' => __( 'Create and manage your XML Sitemaps using this feature and submit your XML Sitemap to Google, Bing/Yahoo and Ask.com.', 'all-in-one-seo-pack' )
+					'description' => __( 'Create and manage your XML Sitemaps using this feature and submit your XML Sitemap to Google, Bing/Yahoo and Ask.com.', 'all-in-one-seo-pack' ),
 				),
 				'opengraph'         => Array(
 					'name'        => __( 'Social Meta', 'all-in-one-seo-pack' ),
-					'description' => __( 'Activate this feature to add Social Meta data to your site to deliver closer integration between your website/blog and Facebook, Twitter, and Google+.', 'all-in-one-seo-pack' )
+					'description' => __( 'Activate this feature to add Social Meta data to your site to deliver closer integration between your website/blog and Facebook, Twitter, and Google+.', 'all-in-one-seo-pack' ),
 				),
 				'robots'            => Array(
 					'name'        => __( 'Robots.txt', 'all-in-one-seo-pack' ),
-					'description' => __( 'Generate and validate your robots.txt file to guide search engines through your site.', 'all-in-one-seo-pack' )
+					'description' => __( 'Generate and validate your robots.txt file to guide search engines through your site.', 'all-in-one-seo-pack' ),
 				),
 				'file_editor'       => Array(
 					'name'        => __( 'File Editor', 'all-in-one-seo-pack' ),
-					'description' => __( 'Edit your robots.txt file and your .htaccess file to fine-tune your site.', 'all-in-one-seo-pack' )
+					'description' => __( 'Edit your robots.txt file and your .htaccess file to fine-tune your site.', 'all-in-one-seo-pack' ),
 				),
 				'importer_exporter' => Array(
 					'name'        => __( 'Importer & Exporter', 'all-in-one-seo-pack' ),
-					'description' => __( 'Exports and imports your All in One SEO Pack plugin settings.', 'all-in-one-seo-pack' )
+					'description' => __( 'Exports and imports your All in One SEO Pack plugin settings.', 'all-in-one-seo-pack' ),
 				),
 				'bad_robots'        => Array(
 					'name'        => __( 'Bad Bot Blocker', 'all-in-one-seo-pack' ),
-					'description' => __( 'Stop badly behaving bots from slowing down your website.', 'all-in-one-seo-pack' )
+					'description' => __( 'Stop badly behaving bots from slowing down your website.', 'all-in-one-seo-pack' ),
 				),
 				'performance'       => Array(
 					'name'        => __( 'Performance', 'all-in-one-seo-pack' ),
 					'description' => __( 'Optimize performance related to SEO and check your system status.', 'all-in-one-seo-pack' ),
-					'default'     => 'on'
-				)
+					'default'     => 'on',
+				),
 			);
 
 
@@ -53,11 +53,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 				$this->module_info['coming_soon']   = Array(
 					'name'        => __( 'Coming Soon...', 'all-in-one-seo-pack' ),
 					'description' => __( 'Image SEO', 'all-in-one-seo-pack' ),
-					'save'        => false
+					'save'        => false,
 				);
 				$this->module_info['video_sitemap'] = Array(
 					'name'        => __( 'Video Sitemap', 'all-in-one-seo-pack' ),
-					'description' => __( 'Create and manage your Video Sitemap using this feature and submit your Video Sitemap to Google, Bing/Yahoo and Ask.com.', 'all-in-one-seo-pack' )
+					'description' => __( 'Create and manage your Video Sitemap using this feature and submit your Video Sitemap to Google, Bing/Yahoo and Ask.com.', 'all-in-one-seo-pack' ),
 				);
 
 
@@ -66,7 +66,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 				$this->module_info['coming_soon'] = Array(
 					'name'        => __( 'Video Sitemap', 'all-in-one-seo-pack' ),
 					'description' => __( 'Pro Version Only', 'all-in-one-seo-pack' ),
-					'save'        => false
+					'save'        => false,
 				);
 
 			}
@@ -93,7 +93,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 					'type'      => 'custom',
 					'class'     => 'aioseop_feature',
 					'id'        => "aioseop_$m",
-					'save'      => true
+					'save'      => true,
 				);
 
 				if ( ! empty( $this->module_info[ $m ]['image'] ) ) {
@@ -111,8 +111,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 				'default' => Array(
 					'name'      => $this->name,
 					'help_link' => 'http://semperplugins.com/documentation/feature-manager/',
-					'options'   => array_keys( $this->default_options )
-				)
+					'options'   => array_keys( $this->default_options ),
+				),
 			);
 			// load initial options / set defaults
 			$this->update_options();
