@@ -178,7 +178,7 @@ function aiosp_seometa_admin() {
 
 			printf( '<optgroup label="%s">', __( 'Plugins', 'all-in-one-seo-pack' ) );
 			foreach ( $_aiosp_seometa_plugins as $platform => $data ) {
-				if ( $platform !== 'All in One SEO Pack' ) {
+				if ( 'All in One SEO Pack' !== $platform ) {
 					printf( '<option value="%s" %s>%s</option>', $platform, selected( $platform, $platform_old, 0 ), $platform );
 				}
 			}
@@ -189,7 +189,6 @@ function aiosp_seometa_admin() {
 				printf( '<option value="%s" %s>%s</option>', $platform, selected( $platform, $platform_old, 0 ), $platform );
 			}
 			printf( '</optgroup>' );
-
 
 			echo '</select>' . "\n\n";
 
