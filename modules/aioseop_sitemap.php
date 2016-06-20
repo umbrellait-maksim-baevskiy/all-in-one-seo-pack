@@ -678,6 +678,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( isset( $options[ $this->prefix . 'addl_pages' ][0] ) ) {
 				unset( $options[ $this->prefix . 'addl_pages' ][0] );
 			}
+			// TODO Refactor all these... use a nonce, dump the incoming _Post into an array and use that.
 			if ( ! empty( $_POST[ $this->prefix . 'addl_url' ] ) ) {
 				foreach ( array( 'addl_url', 'addl_prio', 'addl_freq', 'addl_mod' ) as $field ) {
 					if ( ! empty( $_POST[ $this->prefix . $field ] ) ) {
