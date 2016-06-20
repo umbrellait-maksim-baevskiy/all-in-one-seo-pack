@@ -2741,10 +2741,10 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		}
 		if ( ! empty( $link ) ) {
 			global $aioseop_options;
-			if ( ! empty( $aioseop_options['aiosp_can_set_protocol'] ) && ( $aioseop_options['aiosp_can_set_protocol'] != 'auto' ) ) {
-				if ( $aioseop_options['aiosp_can_set_protocol'] == 'http' ) {
+			if ( ! empty( $aioseop_options['aiosp_can_set_protocol'] ) && ( 'auto' !== $aioseop_options['aiosp_can_set_protocol'] ) ) {
+				if ( 'http' === $aioseop_options['aiosp_can_set_protocol'] ) {
 					$link = preg_replace( '/^https:/i', 'http:', $link );
-				} elseif ( $aioseop_options['aiosp_can_set_protocol'] == 'https' ) {
+				} elseif ( 'https' === $aioseop_options['aiosp_can_set_protocol'] ) {
 					$link = preg_replace( '/^http:/i', 'https:', $link );
 				}
 			}
@@ -2766,7 +2766,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			$page_name = $wp_rewrite->pagination_base;
 		}
 		if ( ! empty( $page ) && $page > 1 ) {
-			if ( get_query_var( 'page' ) == $page ) {
+			if ( $page == get_query_var( 'page' ) ) {
 				$link = trailingslashit( $link ) . "$page";
 			} else {
 				$link = trailingslashit( $link ) . trailingslashit( $page_name ) . $page;
@@ -2838,7 +2838,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			foreach ( $post_arr as $p ) {
 				if ( $p ) {
 					$id = $p->ID;
-					if ( $postcount == 1 || ! empty( $aioseop_options['aiosp_dynamic_postspage_keywords'] ) ) {
+					if ( 1 == $postcount || ! empty( $aioseop_options['aiosp_dynamic_postspage_keywords'] ) ) {
 						// Custom field keywords.
 						$keywords_i = null;
 						$keywords_i = stripslashes( $this->internationalize( get_post_meta( $id, '_aioseop_keywords', true ) ) );
@@ -3008,7 +3008,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		wp_enqueue_style( 'wp-pointer' );
 		$this->add_admin_pointers();
 
-
 		wp_enqueue_style( 'aiosp_admin_style', AIOSEOP_PLUGIN_URL . 'css/aiosp_admin.css' );
 		?>
 		<script>
@@ -3043,19 +3042,17 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					var admin_pointer;
 					var admin_index;
 					<?php
-						foreach( $this->pointers as $k => $p )
-						{if ( ! empty( $p['pointer_scope'] ) && ( $p['pointer_scope'] == 'global' ) ) {
+					foreach ( $this->pointers as $k => $p )
+						{if ( ! empty( $p['pointer_scope'] ) && ( 'global' === $p['pointer_scope'] ) ) {
 						?>admin_index = "<?php echo esc_attr( $k ); ?>";
 					admin_pointer = <?php echo json_encode( $p ); ?>;
 					aioseop_show_pointer(admin_index, admin_pointer);
 					<?php
-					}}
-					?>
+					}
+					}	?>
 				});
 			}
-			<?php
-			}
-			?>
+			<?php	}	?>
 		</script>
 		<?php
 	}
