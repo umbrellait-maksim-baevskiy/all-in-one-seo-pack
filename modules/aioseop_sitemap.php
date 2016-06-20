@@ -657,13 +657,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( ! is_array( $options[ $this->prefix . 'addl_pages' ] ) ) {
 				$options[ $this->prefix . 'addl_pages' ] = wp_specialchars_decode( stripslashes_deep( $options[ $this->prefix . 'addl_pages' ] ), ENT_QUOTES );
 				$decoded                                 = json_decode( $options[ $this->prefix . 'addl_pages' ] );
-				if ( $decoded === null ) {
+				if ( null === $decoded ) {
 					$decoded = maybe_unserialize( $options[ $this->prefix . 'addl_pages' ] );
 				}
 				if ( ! is_array( $decoded ) ) {
 					$decoded = (Array) $decoded;
 				}
-				if ( $decoded === null ) {
+				if ( null === $decoded ) {
 					$decoded = $options[ $this->prefix . 'addl_pages' ];
 				}
 				$options[ $this->prefix . 'addl_pages' ] = $decoded;
