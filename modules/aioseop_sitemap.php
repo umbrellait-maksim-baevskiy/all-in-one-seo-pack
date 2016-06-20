@@ -52,7 +52,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				"addl_freq"       => __( 'The frequency of the page.', 'all-in-one-seo-pack' ),
 				"addl_mod"        => __( 'Last modified date of the page.', 'all-in-one-seo-pack' ),
 				"excl_categories" => __( "Entries from these categories will be excluded from the sitemap.", 'all-in-one-seo-pack' ),
-				"excl_pages"      => __( "Use page slugs or page IDs, seperated by commas, to exclude pages from the sitemap.", 'all-in-one-seo-pack' )
+				"excl_pages"      => __( "Use page slugs or page IDs, seperated by commas, to exclude pages from the sitemap.", 'all-in-one-seo-pack' ),
 			);
 
 			$this->help_anchors = Array(
@@ -80,7 +80,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					'name'     => __( 'Filename Prefix', 'all-in-one-seo-pack' ),
 					'default'  => 'sitemap',
 					'type'     => 'text',
-					'sanitize' => 'filename'
+					'sanitize' => 'filename',
 				),
 				'google'     => Array( 'name' => __( 'Notify Google', 'all-in-one-seo-pack' ) ),
 				'bing'       => Array( 'name' => __( 'Notify Bing', 'all-in-one-seo-pack' ) ),
@@ -91,49 +91,49 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						0         => __( 'No Schedule', 'all-in-one-seo-pack' ),
 						'daily'   => __( 'Daily', 'all-in-one-seo-pack' ),
 						'weekly'  => __( 'Weekly', 'all-in-one-seo-pack' ),
-						'monthly' => __( 'Monthly', 'all-in-one-seo-pack' )
+						'monthly' => __( 'Monthly', 'all-in-one-seo-pack' ),
 					),
-					'default'         => 0
+					'default'         => 0,
 				),
 				'indexes'    => Array( 'name' => __( 'Enable Sitemap Indexes', 'all-in-one-seo-pack' ) ),
 				'paginate'   => Array(
 					'name'     => __( 'Paginate Sitemap Indexes', 'all-in-one-seo-pack' ),
-					'condshow' => Array( "{$this->prefix}indexes" => 'on' )
+					'condshow' => Array( "{$this->prefix}indexes" => 'on' ),
 				),
 				'max_posts'  => Array(
 					'name'     => __( 'Maximum Posts Per Sitemap', 'all-in-one-seo-pack' ),
 					'type'     => 'text',
 					'default'  => 50000,
-					'condshow' => Array( "{$this->prefix}indexes" => 'on', "{$this->prefix}paginate" => 'on' )
+					'condshow' => Array( "{$this->prefix}indexes" => 'on', "{$this->prefix}paginate" => 'on' ),
 				),
 				'posttypes'  => Array(
 					'name'    => __( 'Post Types', 'all-in-one-seo-pack' ),
 					'type'    => 'multicheckbox',
-					'default' => 'all'
+					'default' => 'all',
 				),
 				'taxonomies' => Array(
 					'name'    => __( 'Taxonomies', 'all-in-one-seo-pack' ),
 					'type'    => 'multicheckbox',
-					'default' => 'all'
+					'default' => 'all',
 				),
 				'archive'    => Array( 'name' => __( 'Include Date Archive Pages', 'all-in-one-seo-pack' ) ),
 				'author'     => Array( 'name' => __( 'Include Author Pages', 'all-in-one-seo-pack' ) ),
 				'gzipped'    => Array(
 					'name'    => __( 'Create Compressed Sitemap', 'all-in-one-seo-pack' ),
-					'default' => 'On'
+					'default' => 'On',
 				),
 				'robots'     => Array(
 					'name'    => __( 'Link From Virtual Robots.txt', 'all-in-one-seo-pack' ),
-					'default' => 'On'
+					'default' => 'On',
 				),
 				'rewrite'    => Array(
 					'name'    => __( 'Dynamically Generate Sitemap', 'all-in-one-seo-pack' ),
-					'default' => 'On'
+					'default' => 'On',
 				),
 				'noindex'    => Array(
 					'name'     => __( 'Noindex Sitemap file', 'all-in-one-seo-pack' ),
-					'condshow' => Array( "{$this->prefix}rewrite" => true )
-				)
+					'condshow' => Array( "{$this->prefix}rewrite" => true ),
+				),
 			);
 
 			$status_options = Array(
@@ -147,21 +147,21 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					'label'    => 'none',
 					'rows'     => 5,
 					'cols'     => 120,
-					'style'    => 'min-width:950px'
-				)
+					'style'    => 'min-width:950px',
+				),
 			);
 
 			$this->layout = Array(
 				'status'  => Array(
 					'name'      => __( 'Sitemap Status', 'all-in-one-seo-pack' ),
 					'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/',
-					'options'   => array_keys( $status_options )
+					'options'   => array_keys( $status_options ),
 				),
 				'default' => Array(
 					'name'      => $this->name,
 					'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/',
-					'options'   => array_keys( $this->default_options )
-				)
+					'options'   => array_keys( $this->default_options ),
+				),
 			);
 
 			$prio = Array();
@@ -184,7 +184,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			foreach (
 				Array(
 					'prio' => __( 'priority', 'all-in-one-seo-pack' ),
-					'freq' => __( 'frequency', 'all-in-one-seo-pack' )
+					'freq' => __( 'frequency', 'all-in-one-seo-pack' ),
 				) as $k => $v
 			) {
 				$s  = "{$k}_options";
@@ -195,7 +195,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						'post'       => __( 'posts', 'all-in-one-seo-pack' ),
 						'taxonomies' => __( 'taxonomies', 'all-in-one-seo-pack' ),
 						'archive'    => __( 'archive pages', 'all-in-one-seo-pack' ),
-						'author'     => __( 'author pages', 'all-in-one-seo-pack' )
+						'author'     => __( 'author pages', 'all-in-one-seo-pack' ),
 					) as $opt => $val
 				) {
 					$arr = $$s;
@@ -210,7 +210,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						'help_text'       => sprintf( __( "Manually set the %s of your %s.", 'all-in-one-seo-pack' ), $v, $val ),
 						'type'            => 'select',
 						'initial_options' => $iopts,
-						'default'         => 'no'
+						'default'         => 'no',
 					);
 					if ( ( $opt == 'archive' ) || ( $opt == 'author' ) ) {
 						$arr[ $k . '_' . $opt ]['condshow'] = Array( $this->prefix . $opt => 'on' );
@@ -224,38 +224,38 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					'default' => '<div>' . __( 'Enter information below for any additional links for your sitemap not already managed through WordPress.', 'all-in-one-seo-pack' ) . '</div><br />',
 					'type'    => 'html',
 					'label'   => 'none',
-					'save'    => false
+					'save'    => false,
 				),
 				'addl_url'          => Array(
 					'name'  => __( 'Page URL', 'all-in-one-seo-pack' ),
 					'type'  => 'text',
 					'label' => 'top',
-					'save'  => false
+					'save'  => false,
 				),
 				'addl_prio'         => Array(
 					'name'            => __( 'Page Priority', 'all-in-one-seo-pack' ),
 					'type'            => 'select',
 					'initial_options' => $prio,
 					'label'           => 'top',
-					'save'            => false
+					'save'            => false,
 				),
 				'addl_freq'         => Array(
 					'name'            => __( 'Page Frequency', 'all-in-one-seo-pack' ),
 					'type'            => 'select',
 					'initial_options' => $freq,
 					'label'           => 'top',
-					'save'            => false
+					'save'            => false,
 				),
 				'addl_mod'          => Array(
 					'name'  => __( 'Last Modified', 'all-in-one-seo-pack' ),
 					'type'  => 'text',
 					'label' => 'top',
-					'save'  => false
+					'save'  => false,
 				),
 				'addl_pages'        => Array(
 					'name' => __( 'Additional Pages', 'all-in-one-seo-pack' ),
 					'type' => 'custom',
-					'save' => true
+					'save' => true,
 				),
 				'Submit'            => Array(
 					'type'  => 'submit',
@@ -264,41 +264,41 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					'style' => 'margin-left: 20px;',
 					'label' => 'none',
 					'save'  => false,
-					'value' => 1
-				)
+					'value' => 1,
+				),
 			);
 
 			$excl_options = Array(
 				'excl_categories' => Array(
 					'name'            => __( 'Excluded Categories', 'all-in-one-seo-pack' ),
 					'type'            => 'multicheckbox',
-					'initial_options' => ''
+					'initial_options' => '',
 				),
-				'excl_pages'      => Array( 'name' => __( 'Excluded Pages', 'all-in-one-seo-pack' ), 'type' => 'text' )
+				'excl_pages'      => Array( 'name' => __( 'Excluded Pages', 'all-in-one-seo-pack' ), 'type' => 'text' ),
 			);
 
 			$this->layout['addl_pages'] = Array(
 				'name'      => __( 'Additional Pages', 'all-in-one-seo-pack' ),
 				'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/#additional-pages',
-				'options'   => array_keys( $addl_options )
+				'options'   => array_keys( $addl_options ),
 			);
 
 			$this->layout['excl_pages'] = Array(
 				'name'      => __( 'Excluded Items', 'all-in-one-seo-pack' ),
 				'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/#excluded-items',
-				'options'   => array_keys( $excl_options )
+				'options'   => array_keys( $excl_options ),
 			);
 
 			$this->layout['priorities'] = Array(
 				'name'      => __( 'Priorities', 'all-in-one-seo-pack' ),
 				'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/#priorities-and-frequencies',
-				'options'   => array_keys( $prio_options )
+				'options'   => array_keys( $prio_options ),
 			);
 
 			$this->layout['frequencies'] = Array(
 				'name'      => __( 'Frequencies', 'all-in-one-seo-pack' ),
 				'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/#priorities-and-frequencies',
-				'options'   => array_keys( $freq_options )
+				'options'   => array_keys( $freq_options ),
 			);
 
 			$this->default_options = array_merge( $status_options, $this->default_options, $addl_options, $excl_options, $prio_options, $freq_options );
@@ -319,11 +319,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		function add_cron_schedules( $schedules ) {
 			$schedules['weekly']  = array(
 				'interval' => 604800, // 1 week in seconds
-				'display'  => __( 'Once Weekly', 'all-in-one-seo-pack' )
+				'display'  => __( 'Once Weekly', 'all-in-one-seo-pack' ),
 			);
 			$schedules['monthly'] = array(
 				'interval' => 2629740, // 1 month in seconds
-				'display'  => __( 'Once Monthly', 'all-in-one-seo-pack' )
+				'display'  => __( 'Once Monthly', 'all-in-one-seo-pack' ),
 			);
 
 			return $schedules;
@@ -433,8 +433,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						'type'            => 'select',
 						'initial_options' => $this->prio,
 						'default'         => 'no',
-						'condshow'        => Array( "{$this->prefix}prio_post" => 'sel' )
-					)
+						'condshow'        => Array( "{$this->prefix}prio_post" => 'sel' ),
+					),
 				) );
 				$this->layout['priorities']['options'][]  = $key;
 				$key                                      = 'freq_post_' . $k;
@@ -445,8 +445,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						'type'            => 'select',
 						'initial_options' => $this->freq,
 						'default'         => 'no',
-						'condshow'        => Array( "{$this->prefix}freq_post" => 'sel' )
-					)
+						'condshow'        => Array( "{$this->prefix}freq_post" => 'sel' ),
+					),
 				) );
 				$this->layout['frequencies']['options'][] = $key;
 			}
@@ -459,8 +459,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						'type'            => 'select',
 						'initial_options' => $this->prio,
 						'default'         => 'no',
-						'condshow'        => Array( "{$this->prefix}prio_taxonomies" => 'sel' )
-					)
+						'condshow'        => Array( "{$this->prefix}prio_taxonomies" => 'sel' ),
+					),
 				) );
 				$this->layout['priorities']['options'][]  = $key;
 				$key                                      = 'freq_taxonomies_' . $k;
@@ -471,8 +471,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						'type'            => 'select',
 						'initial_options' => $this->freq,
 						'default'         => 'no',
-						'condshow'        => Array( "{$this->prefix}freq_taxonomies" => 'sel' )
-					)
+						'condshow'        => Array( "{$this->prefix}freq_taxonomies" => 'sel' ),
+					),
 				) );
 				$this->layout['frequencies']['options'][] = $key;
 			}
@@ -871,13 +871,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$sitemap_rules_normal = array(
 				$this->options["{$this->prefix}filename"] . '.xml'            => "index.php?{$this->prefix}path=root",
 				$this->options["{$this->prefix}filename"] . '_(.+)_(\d+).xml' => 'index.php?' . $this->prefix . 'path=$matches[1]&' . $this->prefix . 'page=$matches[2]',
-				$this->options["{$this->prefix}filename"] . '_(.+).xml'       => 'index.php?' . $this->prefix . 'path=$matches[1]'
+				$this->options["{$this->prefix}filename"] . '_(.+).xml'       => 'index.php?' . $this->prefix . 'path=$matches[1]',
 			);
 			if ( $this->options["{$this->prefix}gzipped"] ) {
 				$sitemap_rules_gzipped = array(
 					$this->options["{$this->prefix}filename"] . '.xml.gz'            => "index.php?{$this->prefix}gzipped=1&{$this->prefix}path=root.gz",
 					$this->options["{$this->prefix}filename"] . '_(.+)_(\d+).xml.gz' => 'index.php?' . $this->prefix . 'path=$matches[1].gz&' . $this->prefix . 'page=$matches[2]',
-					$this->options["{$this->prefix}filename"] . '_(.+).xml.gz'       => 'index.php?' . $this->prefix . 'path=$matches[1].gz'
+					$this->options["{$this->prefix}filename"] . '_(.+).xml.gz'       => 'index.php?' . $this->prefix . 'path=$matches[1].gz',
 				);
 			}
 			$sitemap_rules = $sitemap_rules_gzipped + $sitemap_rules_normal;
@@ -1037,7 +1037,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		function do_notify() {
 			$notify_url = Array(
 				'google' => 'http://www.google.com/webmasters/sitemaps/ping?sitemap=',
-				'bing'   => 'http://www.bing.com/webmaster/ping.aspx?siteMap='
+				'bing'   => 'http://www.bing.com/webmaster/ping.aspx?siteMap=',
 			);
 
 			$url = $this->get_sitemap_url();
@@ -1176,7 +1176,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				'post'       => '0.7',
 				'archive'    => '0.5',
 				'author'     => '0.3',
-				'taxonomies' => '0.3'
+				'taxonomies' => '0.3',
 			);
 			static $cache = Array();
 
@@ -1192,7 +1192,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				'post'       => 'weekly',
 				'archive'    => 'monthly',
 				'author'     => 'weekly',
-				'taxonomies' => 'monthly'
+				'taxonomies' => 'monthly',
 			);
 			static $cache = Array();
 
@@ -1223,7 +1223,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$freq        = $this->get_default_frequency( 'post' );
 				$post_counts = $this->get_all_post_counts( Array(
 					'post_type'   => $options["{$this->prefix}posttypes"],
-					'post_status' => 'publish'
+					'post_status' => 'publish',
 				) );
 				if ( ! is_array( $post_counts ) && is_array( $options["{$this->prefix}posttypes"] ) && count( $options["{$this->prefix}posttypes"] ) == 1 ) {
 					$post_counts = Array( $options["{$this->prefix}posttypes"][0] => $post_counts );
@@ -1239,21 +1239,21 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 								$files[] = Array(
 									'loc'        => $url_base . $prefix . '_' . $sm . '_' . ( $count ++ ) . $suffix,
 									'priority'   => $prio,
-									'changefreq' => $freq
+									'changefreq' => $freq,
 								);
 							}
 						} else {
 							$files[] = Array(
 								'loc'        => $url_base . $prefix . '_' . $sm . $suffix,
 								'priority'   => $prio,
-								'changefreq' => $freq
+								'changefreq' => $freq,
 							);
 						}
 					} else {
 						$files[] = Array(
 							'loc'        => $url_base . $prefix . '_' . $sm . $suffix,
 							'priority'   => $prio,
-							'changefreq' => $freq
+							'changefreq' => $freq,
 						);
 					}
 				}
@@ -1262,14 +1262,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$files[] = Array(
 					'loc'        => $url_base . $prefix . '_archive' . $suffix,
 					'priority'   => $this->get_default_priority( 'archive' ),
-					'changefreq' => $this->get_default_frequency( 'archive' )
+					'changefreq' => $this->get_default_frequency( 'archive' ),
 				);
 			}
 			if ( $this->option_isset( 'author' ) ) {
 				$files[] = Array(
 					'loc'        => $url_base . $prefix . '_author' . $suffix,
 					'priority'   => $this->get_default_priority( 'author' ),
-					'changefreq' => $this->get_default_frequency( 'author' )
+					'changefreq' => $this->get_default_frequency( 'author' ),
 				);
 			}
 
@@ -1284,21 +1284,21 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 									$files[] = Array(
 										'loc'        => $url_base . $prefix . '_' . $sm . '_' . ( $count ++ ) . $suffix,
 										'priority'   => $this->get_default_priority( 'taxonomies' ),
-										'changefreq' => $this->get_default_frequency( 'taxonomies' )
+										'changefreq' => $this->get_default_frequency( 'taxonomies' ),
 									);
 								}
 							} else {
 								$files[] = Array(
 									'loc'        => $url_base . $prefix . '_' . $sm . $suffix,
 									'priority'   => $this->get_default_priority( 'taxonomies' ),
-									'changefreq' => $this->get_default_frequency( 'taxonomies' )
+									'changefreq' => $this->get_default_frequency( 'taxonomies' ),
 								);
 							}
 						} else {
 							$files[] = Array(
 								'loc'        => $url_base . $prefix . '_' . $sm . $suffix,
 								'priority'   => $this->get_default_priority( 'taxonomies' ),
-								'changefreq' => $this->get_default_frequency( 'taxonomies' )
+								'changefreq' => $this->get_default_frequency( 'taxonomies' ),
 							);
 						}
 					}
@@ -1308,7 +1308,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$files[] = Array(
 					'loc'        => $csm,
 					'priority'   => $this->get_default_priority( 'sitemap' ),
-					'changefreq' => $this->get_default_frequency( 'sitemap' )
+					'changefreq' => $this->get_default_frequency( 'sitemap' ),
 				);
 			}
 
@@ -1375,7 +1375,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( ! empty( $options["{$this->prefix}posttypes"] ) ) {
 				$post_counts = $this->get_all_post_counts( Array(
 					'post_type'   => $options["{$this->prefix}posttypes"],
-					'post_status' => 'publish'
+					'post_status' => 'publish',
 				) );
 				foreach ( $options["{$this->prefix}posttypes"] as $posttype ) {
 					if ( $post_counts[ $posttype ] === 0 ) {
@@ -1420,7 +1420,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$home           = Array(
 				'loc'        => get_home_url(),
 				'priority'   => $this->get_default_priority( 'homepage' ),
-				'changefreq' => $this->get_default_frequency( 'homepage' )
+				'changefreq' => $this->get_default_frequency( 'homepage' ),
 			);
 			$posts          = get_option( 'page_for_posts' );
 			$this->paginate = false;
@@ -1432,7 +1432,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					$posts = Array(
 						'loc'        => $posts,
 						'priority'   => $this->get_default_priority( 'blog' ),
-						'changefreq' => $this->get_default_frequency( 'blog' )
+						'changefreq' => $this->get_default_frequency( 'blog' ),
 					);
 				}
 			}
@@ -1772,7 +1772,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						'loc'        => $this->unparse_url( $url ),
 						'lastmod'    => $mod,
 						'changefreq' => $freq,
-						'priority'   => $prio
+						'priority'   => $prio,
 					);
 				}
 			}
@@ -1787,7 +1787,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$home  = Array(
 				'loc'        => get_home_url(),
 				'priority'   => $this->get_default_priority( 'homepage' ),
-				'changefreq' => $this->get_default_frequency( 'homepage' )
+				'changefreq' => $this->get_default_frequency( 'homepage' ),
 			);
 			$posts = get_option( 'page_for_posts' );
 			if ( $posts ) {
@@ -1798,7 +1798,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					$posts = Array(
 						'loc'        => $posts,
 						'priority'   => $this->get_default_priority( 'blog' ),
-						'changefreq' => $this->get_default_frequency( 'blog' )
+						'changefreq' => $this->get_default_frequency( 'blog' ),
 					);
 				}
 			} else {
@@ -1856,7 +1856,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				'daily'   => 7,
 				'weekly'  => 30,
 				'monthly' => 210,
-				'yearly'  => null
+				'yearly'  => null,
 			);
 			$interval   = 1.0;
 			$prev_days  = 0;
@@ -1901,7 +1901,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( ! empty( $archives ) ) {
 				return $this->get_prio_from_posts( $archives, $this->get_default_priority( 'archive', true ), $this->get_default_frequency( 'archive', true ), Array(
 					$this,
-					'get_archive_link_from_post'
+					'get_archive_link_from_post',
 				) );
 			}
 
@@ -1938,7 +1938,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 			return $this->get_prio_from_posts( $authors, $this->get_default_priority( 'author', true ), $this->get_default_frequency( 'author', true ), Array(
 				$this,
-				'get_author_link_from_post'
+				'get_author_link_from_post',
 			) );
 		}
 
@@ -1984,7 +1984,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$args = Array(
 				'prio_override' => $prio_override,
 				'freq_override' => $freq_override,
-				'linkfunc'      => $linkfunc
+				'linkfunc'      => $linkfunc,
 			);
 			if ( ( $prio_override ) && ( $freq_override ) ) {
 				$stats = 0;
@@ -2281,7 +2281,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				'meta_compare'  => '',
 				'meta_query'    => '',
 				'cache_results' => false,
-				'no_found_rows' => true
+				'no_found_rows' => true,
 			);
 			if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
 				$defaults['suppress_filters'] = false;
