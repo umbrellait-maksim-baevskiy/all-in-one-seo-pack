@@ -375,7 +375,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$this->update_options();
 			if ( ! empty( $this->options["{$this->prefix}indexes"] ) && ! empty( $this->options["{$this->prefix}paginate"] ) ) {
 				$this->paginate = true;
-				if ( ( $this->options["{$this->prefix}max_posts"] ) && ( $this->options["{$this->prefix}max_posts"] > 0 ) && ( $this->options["{$this->prefix}max_posts"] < 50000 ) ) {
+				if ( $this->options["{$this->prefix}max_posts"] && ( $this->options["{$this->prefix}max_posts"] > 0 ) && ( $this->options["{$this->prefix}max_posts"] < 50000 ) ) {
 					$this->max_posts = $this->options["{$this->prefix}max_posts"];
 				}
 			}
@@ -611,7 +611,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 			if ( ! get_option( 'blog_public' ) ) {
 				global $wp_version;
-				if ( ( version_compare( $wp_version, '3.5.0', '>=' ) ) || ( function_exists( 'set_url_scheme' ) ) ) {
+				if ( version_compare( $wp_version, '3.5.0', '>=' ) || function_exists( 'set_url_scheme' ) ) {
 					$privacy_link = '<a href="options-reading.php">' . __( 'Reading Settings', 'all-in-one-seo-pack' ) . '</a>';
 				} else {
 					$privacy_link = '<a href="options-privacy.php">' . __( 'Privacy Settings', 'all-in-one-seo-pack' ) . '</a>';
@@ -1089,7 +1089,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 */
 		function sitemap_output_hook( $query ) {
 			$page = 0;
-			if ( ( $this->options["{$this->prefix}rewrite"] ) ) {
+			if ( $this->options["{$this->prefix}rewrite"] ) {
 				if ( ! empty( $query->query_vars["{$this->prefix}path"] ) ) {
 					if ( ! empty( $query->query_vars["{$this->prefix}page"] ) ) {
 						$page = $query->query_vars["{$this->prefix}page"] - 1;
@@ -1243,7 +1243,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		function do_sitemaps( $message = '' ) {
 			if ( ! empty( $this->options["{$this->prefix}indexes"] ) && ! empty( $this->options["{$this->prefix}paginate"] ) ) {
 				$this->paginate = true;
-				if ( ( $this->options["{$this->prefix}max_posts"] ) && ( $this->options["{$this->prefix}max_posts"] > 0 ) && ( $this->options["{$this->prefix}max_posts"] < 50000 ) ) {
+				if ( $this->options["{$this->prefix}max_posts"] && ( $this->options["{$this->prefix}max_posts"] > 0 ) && ( $this->options["{$this->prefix}max_posts"] < 50000 ) ) {
 					$this->max_posts = $this->options["{$this->prefix}max_posts"];
 				} else {
 					$this->max_posts = 50000;
@@ -1346,7 +1346,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( ! empty( $defaults[ $item ] ) ) {
 				$field = $this->prefix . $prefix . $item;
 				if ( $this->option_isset( $prefix . $item ) && $this->options[ $field ] != 'no' ) {
-					if ( ( $this->options[ $field ] == 'sel' ) && ! empty( $type ) && ( isset( $this->options[ $this->prefix . $prefix . $item . '_' . $type ] ) ) ) {
+					if ( ( $this->options[ $field ] == 'sel' ) && ! empty( $type ) && isset( $this->options[ $this->prefix . $prefix . $item . '_' . $type ] ) ) {
 						if ( $this->options[ $this->prefix . $prefix . $item . '_' . $type ] == 'no' ) {
 							return false;
 						}
@@ -1933,12 +1933,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				foreach ( $terms as $term ) {
 					$pr_info        = array();
 					$pr_info['loc'] = $this->get_term_link( $term, $term->taxonomy );
-					if ( ( $this->options[ $this->prefix . 'prio_taxonomies' ] == 'sel' ) && ( isset( $this->options[ $this->prefix . 'prio_taxonomies_' . $term->taxonomy ] ) ) && ( $this->options[ $this->prefix . 'prio_taxonomies_' . $term->taxonomy ] != 'no' ) ) {
+					if ( ( $this->options[ $this->prefix . 'prio_taxonomies' ] == 'sel' ) && isset( $this->options[ $this->prefix . 'prio_taxonomies_' . $term->taxonomy ] ) && ( $this->options[ $this->prefix . 'prio_taxonomies_' . $term->taxonomy ] != 'no' ) ) {
 						$pr_info['priority'] = $this->options[ $this->prefix . 'prio_taxonomies_' . $term->taxonomy ];
 					} else {
 						$pr_info['priority'] = $def_prio;
 					}
-					if ( ( $this->options[ $this->prefix . 'freq_taxonomies' ] == 'sel' ) && ( isset( $this->options[ $this->prefix . 'freq_taxonomies_' . $term->taxonomy ] ) ) && ( $this->options[ $this->prefix . 'freq_taxonomies_' . $term->taxonomy ] != 'no' ) ) {
+					if ( ( $this->options[ $this->prefix . 'freq_taxonomies' ] == 'sel' ) && isset( $this->options[ $this->prefix . 'freq_taxonomies_' . $term->taxonomy ] ) && ( $this->options[ $this->prefix . 'freq_taxonomies_' . $term->taxonomy ] != 'no' ) ) {
 						$pr_info['changefreq'] = $this->options[ $this->prefix . 'freq_taxonomies_' . $term->taxonomy ];
 					} else {
 						$pr_info['changefreq'] = $def_freq;
@@ -2181,7 +2181,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$cur_time = time();
 			}
 			$time = $cur_time - mysql2date( 'U', $date );
-			if ( ! empty( $stats ) && isset( $stats['max'] ) && ( $stats['max'] ) ) {
+			if ( ! empty( $stats ) && isset( $stats['max'] ) && $stats['max'] ) {
 				$minadj = $time >> 3;
 				$maxadj = $time >> 1;
 				$avg    = $stats['count'] / $stats['total'];
@@ -2374,7 +2374,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				'freq_override' => $freq_override,
 				'linkfunc'      => $linkfunc,
 			);
-			if ( ( $prio_override ) && ( $freq_override ) ) {
+			if ( $prio_override && $freq_override ) {
 				$stats = 0;
 			} else {
 				$stats = $this->get_comment_count_stats( $posts );
@@ -2397,7 +2397,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					} else {
 						$date = 0;
 					}
-					if ( ( $prio_override ) && ( $freq_override ) ) {
+					if ( $prio_override && $freq_override ) {
 						$pr_info = array( 'lastmod' => $date, 'changefreq' => null, 'priority' => null );
 					} else {
 						if ( empty( $post->comment_count ) ) {
@@ -2416,12 +2416,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					if ( $freq_override ) {
 						$pr_info['changefreq'] = $freq_override;
 					}
-					if ( ( $this->options[ $this->prefix . 'prio_post' ] == 'sel' ) && ( isset( $this->options[ $this->prefix . 'prio_post_' . $post->post_type ] ) ) ) {
+					if ( ( $this->options[ $this->prefix . 'prio_post' ] == 'sel' ) && isset( $this->options[ $this->prefix . 'prio_post_' . $post->post_type ] ) ) {
 						if ( ( $this->options[ $this->prefix . 'prio_post_' . $post->post_type ] != 'no' ) && ( $this->options[ $this->prefix . 'prio_post_' . $post->post_type ] != 'sel' ) ) {
 							$pr_info['priority'] = $this->options[ $this->prefix . 'prio_post_' . $post->post_type ];
 						}
 					}
-					if ( ( $this->options[ $this->prefix . 'freq_post' ] == 'sel' ) && ( isset( $this->options[ $this->prefix . 'freq_post_' . $post->post_type ] ) ) ) {
+					if ( ( $this->options[ $this->prefix . 'freq_post' ] == 'sel' ) && isset( $this->options[ $this->prefix . 'freq_post_' . $post->post_type ] ) ) {
 						if ( ( $this->options[ $this->prefix . 'freq_post_' . $post->post_type ] != 'no' ) && ( $this->options[ $this->prefix . 'freq_post_' . $post->post_type ] != 'sel' ) ) {
 							$pr_info['changefreq'] = $this->options[ $this->prefix . 'freq_post_' . $post->post_type ];
 						}
