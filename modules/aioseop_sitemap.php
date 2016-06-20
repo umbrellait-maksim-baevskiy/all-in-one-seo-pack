@@ -412,7 +412,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * @return string
 		 */
 		function display_custom_options( $buf, $args ) {
-			if ( $args['name'] == "{$this->prefix}addl_pages" ) {
+			if ( "{$this->prefix}addl_pages" === $args['name'] ) {
 				$buf .= "<div id='{$this->prefix}addl_pages'>";
 				if ( ! empty( $args['value'] ) ) {
 					$buf .= "<table class='aioseop_table' cellpadding=0 cellspacing=0>\n";
