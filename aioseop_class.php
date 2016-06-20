@@ -1462,7 +1462,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	function get_queried_object() {
 		static $p = null;
 		global $wp_query, $post;
-		if ( $p !== null ) {
+		if ( null !== $p ) {
 			return $p;
 		}
 		if ( is_object( $post ) ) {
@@ -1486,8 +1486,8 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 * @return array
 	 */
 	function get_current_options( $opts = array(), $location = null, $defaults = null, $post = null ) {
-		if ( ( $location === 'aiosp' ) && ( $this->locations[ $location ]['type'] == 'metabox' ) ) {
-			if ( $post == null ) {
+		if ( ( 'aiosp' === $location) && ( 'metabox' == $this->locations[ $location ]['type'] ) ) {
+			if ( null === $post ) {
 				global $post;
 			}
 			$post_id = $post;
@@ -1591,7 +1591,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			$title = $this->apply_cf_fields( $title );
 		}
 
-		if ( $title === false ) {
+		if ( false === $title ) {
 			$title = $this->get_original_title();
 		}
 
@@ -1662,7 +1662,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					$title = $this->internationalize( $this->get_original_title( '', false ) );
 				}
 
-
 				$title = $this->apply_page_title_format( $title, $post );
 				$title = $this->paged_title( $title );
 				$title = apply_filters( 'aioseop_title_page', $title );
@@ -1673,7 +1672,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 			return $this->paged_title( $title ); //this is returned for woo
 		} else if ( is_attachment() ) {
-			if ( $post === null ) {
+			if ( null === $post ) {
 				return false;
 			}
 			$title = get_post_meta( $post->ID, '_aioseop_title', true );
@@ -1690,7 +1689,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 			return $title;
 		} else if ( is_page() || $this->is_static_posts_page() || ( is_home() && ! $this->is_static_posts_page() ) ) {
-			if ( $post === null ) {
+			if ( null === $post ) {
 				return false;
 			}
 			if ( $this->is_static_front_page() && ( $home_title = $this->internationalize( $aioseop_options['aiosp_home_title'] ) ) ) {
@@ -1746,7 +1745,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			return $title;
 		} else if ( is_single() ) {
 			// We're not in the loop :(.
-			if ( $post === null ) {
+			if ( null === $post ) {
 				return false;
 			}
 			$categories = $this->get_all_categories();
@@ -1938,7 +1937,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		global $aioseop_options;
 		if ( ! empty( $aioseop_options['aiosp_use_original_title'] ) ) {
 			$has_filter = has_filter( 'wp_title', array( $this, 'wp_title' ) );
-			if ( $has_filter !== false ) {
+			if ( false !== $has_filter ) {
 				remove_filter( 'wp_title', array( $this, 'wp_title' ), $has_filter );
 			}
 			if ( current_theme_supports( 'title-tag' ) ) {
@@ -1947,7 +1946,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				$seplocation = 'right';
 			}
 			$title = wp_title( $sep, $echo, $seplocation );
-			if ( $has_filter !== false ) {
+			if (  false !== $has_filter ) {
 				add_filter( 'wp_title', array( $this, 'wp_title' ), $has_filter );
 			}
 			if ( $title && ( $title = trim( $title ) ) ) {
