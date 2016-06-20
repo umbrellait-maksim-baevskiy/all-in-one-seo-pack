@@ -3,10 +3,10 @@
  * @package All-in-One-SEO-Pack
  */
 
-/**
- * Load the module manager.
- */
 if ( ! function_exists( 'aioseop_load_modules' ) ) {
+	/**
+	 * Load the module manager.
+	 */
 	function aioseop_load_modules() {
 		global $aioseop_modules, $aioseop_module_list;
 		require_once( AIOSEOP_PLUGIN_DIR . 'admin/aioseop_module_manager.php' );
@@ -16,6 +16,9 @@ if ( ! function_exists( 'aioseop_load_modules' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_get_options' ) ) {
+	/**
+	 * @return mixed|void
+	 */
 	function aioseop_get_options() {
 		global $aioseop_options;
 		$aioseop_options = get_option( 'aioseop_options' );
@@ -25,21 +28,22 @@ if ( ! function_exists( 'aioseop_get_options' ) ) {
 	}
 }
 
-/**
- * Check if settings need to be updated / migrated from old version.
- */
 if ( ! function_exists( 'aioseop_update_settings_check' ) ) {
-
+	/**
+	 * Check if settings need to be updated / migrated from old version.
+	 *
+	 * @TODO See when this is from and if we can move it elsewhere... our new db updates/upgrades class?
+	 */
 	function aioseop_update_settings_check() {
 		global $aioseop_options;
 		if ( isset( $_POST['aioseop_migrate_options'] ) || empty( $aioseop_options ) ) {
 			aioseop_mrt_mkarry();
 		}
-		// WPML has now attached to filters, read settings again so they can be translated
+		// WPML has now attached to filters, read settings again so they can be translated.
 		aioseop_get_options();
 		$update_options = false;
 		if ( ! empty( $aioseop_options ) ) {
-			if ( ! empty( $aioseop_options['aiosp_archive_noindex'] ) ) { // migrate setting for noindex archives
+			if ( ! empty( $aioseop_options['aiosp_archive_noindex'] ) ) { // Migrate setting for noindex archives.
 				$aioseop_options['aiosp_archive_date_noindex'] = $aioseop_options['aiosp_archive_author_noindex'] = $aioseop_options['aiosp_archive_noindex'];
 				unset( $aioseop_options['aiosp_archive_noindex'] );
 				$update_options = true;
@@ -60,10 +64,12 @@ if ( ! function_exists( 'aioseop_update_settings_check' ) ) {
 	}
 }
 
-/**
- * Initialize settings to defaults.
- */
 if ( ! function_exists( 'aioseop_mrt_mkarry' ) ) {
+	/**
+	 * Initialize settings to defaults.
+	 *
+	 * @TODO Should also move.
+	 */
 	function aioseop_mrt_mkarry() {
 		global $aiosp;
 		global $aioseop_options;
@@ -86,6 +92,9 @@ if ( ! function_exists( 'aioseop_mrt_mkarry' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_activate_pl' ) ) {
+	/**
+	 * @TODO see if this still gets used.
+	 */
 	function aioseop_activate_pl() {
 		if ( $aioseop_options = get_option( 'aioseop_options' ) ) {
 			$aioseop_options['aiosp_enabled'] = '0';
@@ -100,12 +109,26 @@ if ( ! function_exists( 'aioseop_activate_pl' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_get_version' ) ) {
+	/**
+	 * Returns the version.
+	 *
+	 * I'm not sure why we have BOTH a function and a constant for this. -mrt
+	 *
+	 * @return string
+	 */
 	function aioseop_get_version() {
 		return AIOSEOP_VERSION;
 	}
 }
 
 if ( ! function_exists( 'aioseop_option_isset' ) ) {
+	/**
+	 * Checks if an option isset.
+	 *
+	 * @param $option
+	 *
+	 * @return bool
+	 */
 	function aioseop_option_isset( $option ) {
 		global $aioseop_options;
 
@@ -114,6 +137,11 @@ if ( ! function_exists( 'aioseop_option_isset' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_addmycolumns' ) ) {
+	/**
+	 * Adds posttype columns.
+	 *
+	 * @TODO We should see if this is still being used, and move it either way.
+	 */
 	function aioseop_addmycolumns() {
 		global $aioseop_options, $pagenow;
 		$aiosp_posttypecolumns = Array();
@@ -149,6 +177,12 @@ if ( ! function_exists( 'aioseop_addmycolumns' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_mrt_pcolumns' ) ) {
+
+	/**
+	 * @param $aioseopc
+	 *
+	 * @return mixed
+	 */
 	function aioseop_mrt_pcolumns( $aioseopc ) {
 		global $aioseop_options;
 		$aioseopc['seotitle'] = __( 'SEO Title', 'all-in-one-seo-pack' );
@@ -162,6 +196,7 @@ if ( ! function_exists( 'aioseop_mrt_pcolumns' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_admin_head' ) ) {
+
 	function aioseop_admin_head() {
 		echo '<script type="text/javascript" src="' . AIOSEOP_PLUGIN_URL . 'js/quickedit_functions.js" ></script>';
 		?>
@@ -240,6 +275,7 @@ if ( ! function_exists( 'aioseop_admin_head' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_handle_ignore_notice' ) ) {
+
 	function aioseop_handle_ignore_notice() {
 
 		if ( ! empty( $_GET ) ) {
@@ -257,6 +293,14 @@ if ( ! function_exists( 'aioseop_handle_ignore_notice' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_output_notice' ) ) {
+
+	/**
+	 * @param $message
+	 * @param string $id
+	 * @param string $class
+	 *
+	 * @return bool
+	 */
 	function aioseop_output_notice( $message, $id = '', $class = 'updated fade' ) {
 		$class = 'aioseop_notice ' . $class;
 		if ( ! empty( $class ) ) {
@@ -273,6 +317,14 @@ if ( ! function_exists( 'aioseop_output_notice' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_output_dismissable_notice' ) ) {
+
+	/**
+	 * @param $message
+	 * @param string $id
+	 * @param string $class
+	 *
+	 * @return bool
+	 */
 	function aioseop_output_dismissable_notice( $message, $id = '', $class = 'updated fade' ) {
 		global $current_user;
 		if ( ! empty( $current_user ) ) {
@@ -295,6 +347,7 @@ if ( ! function_exists( 'aioseop_output_dismissable_notice' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_ajax_save_meta' ) ) {
+
 	function aioseop_ajax_save_meta() {
 		if ( ! empty( $_POST['_inline_edit'] ) && ( $_POST['_inline_edit'] != 'undefined' ) ) {
 			check_ajax_referer( 'inlineeditnonce', '_inline_edit' );
@@ -331,6 +384,7 @@ if ( ! function_exists( 'aioseop_ajax_save_meta' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_ajax_init' ) ) {
+
 	function aioseop_ajax_init() {
 		if ( ! empty( $_POST ) && ! empty( $_POST['settings'] ) && ( ! empty( $_POST['nonce-aioseop'] ) || ( ! empty( $_POST['nonce-aioseop-edit'] ) ) ) && ! empty( $_POST['options'] ) ) {
 			$_POST    = stripslashes_deep( $_POST );
@@ -348,6 +402,13 @@ if ( ! function_exists( 'aioseop_ajax_init' ) ) {
 	}
 }
 
+/**
+ * @param $return
+ * @param $url
+ * @param $attr
+ *
+ * @return mixed
+ */
 function aioseop_embed_handler_html( $return, $url, $attr ) {
 	return AIO_ProGeneral::aioseop_embed_handler_html();
 }
@@ -357,6 +418,7 @@ function aioseop_ajax_update_oembed() {
 }
 
 if ( ! function_exists( 'aioseop_ajax_save_url' ) ) {
+
 	function aioseop_ajax_save_url() {
 		aioseop_ajax_init();
 		$options = Array();
@@ -396,6 +458,7 @@ if ( ! function_exists( 'aioseop_ajax_save_url' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_ajax_delete_url' ) ) {
+
 	function aioseop_ajax_delete_url() {
 		aioseop_ajax_init();
 		$options         = Array();
@@ -531,6 +594,7 @@ if ( ! function_exists( 'aioseop_ajax_scan_header' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_ajax_save_settings' ) ) {
+
 	function aioseop_ajax_save_settings() {
 		aioseop_ajax_init();
 		$options = Array();
@@ -560,6 +624,7 @@ if ( ! function_exists( 'aioseop_ajax_save_settings' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_ajax_get_menu_links' ) ) {
+
 	function aioseop_ajax_get_menu_links() {
 		aioseop_ajax_init();
 		$options = Array();
@@ -629,6 +694,11 @@ if ( ! function_exists( 'aioseop_ajax_get_menu_links' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_mrt_pccolumn' ) ) {
+
+	/**
+	 * @param $aioseopcn
+	 * @param $aioseoppi
+	 */
 	function aioseop_mrt_pccolumn( $aioseopcn, $aioseoppi ) {
 		$id     = $aioseoppi;
 		$target = null;
@@ -669,6 +739,14 @@ if ( ! function_exists( 'aioseop_mrt_pccolumn' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_unprotect_meta' ) ) {
+
+	/**
+	 * @param $protected
+	 * @param $meta_key
+	 * @param $meta_type
+	 *
+	 * @return bool
+	 */
 	function aioseop_unprotect_meta( $protected, $meta_key, $meta_type ) {
 		if ( isset( $meta_key ) && ( substr( $meta_key, 0, 9 ) === '_aioseop_' ) ) {
 			return false;
@@ -679,6 +757,12 @@ if ( ! function_exists( 'aioseop_unprotect_meta' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_mrt_exclude_this_page' ) ) {
+
+	/**
+	 * @param null $url
+	 *
+	 * @return bool
+	 */
 	function aioseop_mrt_exclude_this_page( $url = null ) {
 		static $excluded = false;
 		if ( $excluded === false ) {
@@ -727,6 +811,12 @@ if ( ! function_exists( 'aioseop_mrt_exclude_this_page' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_get_pages_start' ) ) {
+
+	/**
+	 * @param $excludes
+	 *
+	 * @return mixed
+	 */
 	function aioseop_get_pages_start( $excludes ) {
 		global $aioseop_get_pages_start;
 		$aioseop_get_pages_start = 1;
@@ -736,6 +826,12 @@ if ( ! function_exists( 'aioseop_get_pages_start' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_get_pages' ) ) {
+
+	/**
+	 * @param $pages
+	 *
+	 * @return mixed
+	 */
 	function aioseop_get_pages( $pages ) {
 		global $aioseop_get_pages_start;
 		if ( ! $aioseop_get_pages_start ) {
@@ -756,6 +852,14 @@ if ( ! function_exists( 'aioseop_get_pages' ) ) {
 
 // The following two functions are GPLed from Sarah G's Page Menu Editor, http://wordpress.org/extend/plugins/page-menu-editor/.
 if ( ! function_exists( 'aioseop_list_pages' ) ) {
+	/**
+	 * Adds stuff to the HTML in list_pages.
+	 * @TODO See if we still use, or even want, these functions.
+	 *
+	 * @param $content
+	 *
+	 * @return mixed
+	 */
 	function aioseop_list_pages( $content ) {
 		global $wp_version;
 		$matches = array();
@@ -776,6 +880,12 @@ if ( ! function_exists( 'aioseop_list_pages' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_filter_callback' ) ) {
+
+	/**
+	 * @param $matches
+	 *
+	 * @return string
+	 */
 	function aioseop_filter_callback( $matches ) {
 		if ( $matches[1] && ! empty( $matches[1] ) ) {
 			$postID = $matches[1];
@@ -796,6 +906,12 @@ if ( ! function_exists( 'aioseop_filter_callback' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_add_contactmethods' ) ) {
+
+	/**
+	 * @param $contactmethods
+	 *
+	 * @return mixed
+	 */
 	function aioseop_add_contactmethods( $contactmethods ) {
 		global $aioseop_options, $aioseop_modules;
 		if ( empty( $aioseop_options['aiosp_google_disable_profile'] ) ) {
@@ -818,6 +934,7 @@ if ( ! function_exists( 'aioseop_add_contactmethods' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_localize_script_data' ) ) {
+
 	function aioseop_localize_script_data() {
 		static $loaded = 0;
 		if ( ! $loaded ) {
@@ -828,10 +945,16 @@ if ( ! function_exists( 'aioseop_localize_script_data' ) ) {
 	}
 }
 
-/***
- * Utility function for inserting elements into associative arrays by key
- */
 if ( ! function_exists( 'aioseop_array_insert_after' ) ) {
+	/**
+	 * Utility function for inserting elements into associative arrays by key.
+	 *
+	 * @param $arr
+	 * @param $insertKey
+	 * @param $newValues
+	 *
+	 * @return array
+	 */
 	function aioseop_array_insert_after( $arr, $insertKey, $newValues ) {
 		$keys        = array_keys( $arr );
 		$vals        = array_values( $arr );
@@ -847,10 +970,13 @@ if ( ! function_exists( 'aioseop_array_insert_after' ) ) {
 	}
 }
 
-/***
- * JSON support for PHP < 5.2
- */
 if ( ! function_exists( 'aioseop_load_json_services' ) ) {
+	/**
+	 * JSON support for PHP < 5.2.
+	 *
+	 * @TODO Do we really need to support < PHP 5.2 with the following functions??
+	 * @return null|Services_JSON
+	 */
 	function aioseop_load_json_services() {
 		static $services_json = null;
 		if ( $services_json ) {
@@ -868,6 +994,12 @@ if ( ! function_exists( 'aioseop_load_json_services' ) ) {
 }
 
 if ( ! function_exists( 'json_encode' ) ) {
+
+	/**
+	 * @param $arg
+	 *
+	 * @return mixed
+	 */
 	function json_encode( $arg ) {
 		$services_json = aioseop_load_json_services();
 
@@ -876,6 +1008,12 @@ if ( ! function_exists( 'json_encode' ) ) {
 }
 
 if ( ! function_exists( 'json_decode' ) ) {
+
+	/**
+	 * @param $arg
+	 *
+	 * @return mixed
+	 */
 	function json_decode( $arg ) {
 		$services_json = aioseop_load_json_services();
 
@@ -883,10 +1021,15 @@ if ( ! function_exists( 'json_decode' ) ) {
 	}
 }
 
-/***
- * fnmatch() doesn't exist on Windows pre PHP 5.3
- */
 if ( ! function_exists( 'fnmatch' ) ) {
+	/**
+	 * Support for fnmatch() doesn't exist on Windows pre PHP 5.3.
+	 *
+	 * @param $pattern
+	 * @param $string
+	 *
+	 * @return int
+	 */
 	function fnmatch( $pattern, $string ) {
 		return preg_match( '#^' . strtr( preg_quote( $pattern, '#' ), array(
 				'\*' => '.*',
@@ -895,17 +1038,37 @@ if ( ! function_exists( 'fnmatch' ) ) {
 	}
 }
 
-/***
- * parse_ini_string() doesn't exist pre PHP 5.3
- */
 if ( ! function_exists( 'parse_ini_string' ) ) {
+	/**
+	 * Parse_ini_string() doesn't exist pre PHP 5.3.
+	 *
+	 * @param $string
+	 * @param $process_sections
+	 *
+	 * @return array|bool
+	 */
 	function parse_ini_string( $string, $process_sections ) {
-		if ( ! class_exists( 'parse_ini_filter' ) ) {
-			/* Define our filter class */
 
+		if ( ! class_exists( 'parse_ini_filter' ) ) {
+
+			/**
+			 * Class parse_ini_filter
+			 *
+			 * Define our filter class.
+			 */
 			class parse_ini_filter extends php_user_filter {
 				static $buf = '';
 
+				/**
+				 * The actual filter for parsing.
+				 *
+				 * @param $in
+				 * @param $out
+				 * @param $consumed
+				 * @param $closing
+				 *
+				 * @return int
+				 */
 				function filter( $in, $out, &$consumed, $closing ) {
 					$bucket = stream_bucket_new( fopen( 'php://memory', 'wb' ), self::$buf );
 					stream_bucket_append( $out, $bucket );
@@ -914,7 +1077,7 @@ if ( ! function_exists( 'parse_ini_string' ) ) {
 				}
 			}
 
-			/* Register our filter with PHP */
+			// Register our filter with PHP.
 			if ( ! stream_filter_register( 'parse_ini', 'parse_ini_filter' ) ) {
 				return false;
 			}
@@ -928,17 +1091,14 @@ if ( ! function_exists( 'parse_ini_string' ) ) {
 function aioseop_update_user_visibilitynotice() {
 
 	update_user_meta( get_current_user_id(), 'aioseop_visibility_notice_dismissed', true );
-
 }
 
 function aioseop_update_yst_detected_notice() {
 
 	update_user_meta( get_current_user_id(), 'aioseop_yst_detected_notice_dismissed', true );
-
 }
 
 function aioseop_woo_upgrade_notice_dismissed() {
 
 	update_user_meta( get_current_user_id(), 'aioseop_woo_upgrade_notice_dismissed', true );
-
 }
