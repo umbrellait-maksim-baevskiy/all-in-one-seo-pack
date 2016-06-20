@@ -1390,7 +1390,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		} else if ( is_object( $term ) ) {
 			if ( 'category' === $_GET['taxonomy'] ) {
 				query_posts( array( 'cat' => $_GET['tag_ID'] ) );
-			} else if ( $_GET['taxonomy'] === 'post_tag' ) {
+			} else if ( 'post_tag' === $_GET['taxonomy'] ) {
 				query_posts( array( 'tag' => $term->slug ) );
 			} else {
 				query_posts( array(
