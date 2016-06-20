@@ -36,7 +36,7 @@ if ( ! function_exists( 'aioseop_update_settings_check' ) ) {
 	 */
 	function aioseop_update_settings_check() {
 		global $aioseop_options;
-		if ( isset( $_POST['aioseop_migrate_options'] ) || empty( $aioseop_options ) ) {
+		if ( empty( $aioseop_options ) || isset( $_POST['aioseop_migrate_options'] ) ) {
 			aioseop_mrt_mkarry();
 		}
 		// WPML has now attached to filters, read settings again so they can be translated.
