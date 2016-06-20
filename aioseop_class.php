@@ -48,6 +48,9 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	var $meta_opts = false;
 	var $is_front_page = null;
 
+	/**
+	 * All_in_One_SEO_Pack constructor.
+	 */
 	function __construct() {
 		global $aioseop_options;
 		$this->log_file = dirname( __FILE__ ) . '/all-in-one-seo-pack.log'; // PHP <5.3 compatibility, once we drop support we can use __DIR___.
@@ -1307,6 +1310,9 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 //good candidate for pro dir
 
+	/**
+	 * @return array
+	 */
 	function get_page_snippet_info() {
 		static $info = Array();
 		if ( ! empty( $info ) ) {
@@ -1444,6 +1450,9 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return $info;
 	}
 
+	/**
+	 * @return null|object|WP_Post
+	 */
 	function get_queried_object() {
 		static $p = null;
 		global $wp_query, $post;
@@ -1533,6 +1542,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		}
 	}
 
+	/**
+	 * @param $in
+	 *
+	 * @return mixed|void
+	 */
 	function internationalize( $in ) {
 		if ( function_exists( 'langswitch_filter_langs_with_message' ) ) {
 			$in = langswitch_filter_langs_with_message( $in );
@@ -1575,8 +1589,12 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return apply_filters( 'aioseop_title', $title );
 	}
 
-	/*
+	/**
 	 * Gets the title that will be used by AIOSEOP for title rewrites or returns false.
+	 *
+	 * @param $post
+	 *
+	 * @return bool|string
 	 */
 	function get_aioseop_title( $post ) {
 		global $aioseop_options;
@@ -1985,6 +2003,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return trim( $title );
 	}
 
+	/**
+	 * @param $s
+	 *
+	 * @return string
+	 */
 	function capitalize( $s ) {
 		$s      = trim( $s );
 		$tokens = explode( ' ', $s );
@@ -2017,6 +2040,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return $request;
 	}
 
+	/**
+	 * @param $title
+	 * @param null $p
+	 * @param string $title_format
+	 *
+	 * @return string
+	 */
 	function apply_page_title_format( $title, $p = null, $title_format = '' ) {
 		global $aioseop_options;
 		if ( $p === null ) {
@@ -2031,6 +2061,15 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return $this->title_placeholder_helper( $title, $post, 'page', $title_format );
 	}
 
+	/**
+	 * @param $title
+	 * @param $post
+	 * @param string $type
+	 * @param string $title_format
+	 * @param string $category
+	 *
+	 * @return string
+	 */
 	function title_placeholder_helper( $title, $post, $type = 'post', $title_format = '', $category = '' ) {
 		if ( ! empty( $post ) ) {
 			$authordata = get_userdata( $post->post_author );
@@ -2084,6 +2123,12 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return $title;
 	}
 
+	/**
+	 * @param $id
+	 * @param $taxonomy
+	 *
+	 * @return array
+	 */
 	function get_all_terms( $id, $taxonomy ) {
 		$keywords = Array();
 		$terms    = get_the_terms( $id, $taxonomy );
@@ -2096,6 +2141,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return $keywords;
 	}
 
+	/**
+	 * @param $title
+	 *
+	 * @return string
+	 */
 	function paged_title( $title ) {
 		// The page number if paged.
 		global $paged;
@@ -2119,12 +2169,22 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return $title;
 	}
 
+	/**
+	 * @param $message
+	 */
 	function log( $message ) {
 		if ( $this->do_log ) {
 			@error_log( date( 'Y-m-d H:i:s' ) . ' ' . $message . "\n", 3, $this->log_file );
 		}
 	}
 
+	/**
+	 * @param $title
+	 * @param string $category
+	 * @param null $p
+	 *
+	 * @return string
+	 */
 	function apply_post_title_format( $title, $category = '', $p = null ) {
 		if ( $p === null ) {
 			global $post;
@@ -2136,6 +2196,12 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return $this->title_placeholder_helper( $title, $post, 'post', $title_format, $category );
 	}
 
+	/**
+	 * @param string $title_type
+	 * @param null $p
+	 *
+	 * @return bool|string
+	 */
 	function get_post_title_format( $title_type = 'post', $p = null ) {
 		global $aioseop_options;
 		if ( ( $title_type != 'post' ) && ( $title_type != 'archive' ) ) {
@@ -2162,6 +2228,12 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return $title_format;
 	}
 
+	/**
+	 * @param array $post_types
+	 * @param null $post
+	 *
+	 * @return bool
+	 */
 	function is_singular( $post_types = Array(), $post = null ) {
 		if ( ! empty( $post_types ) && is_object( $post ) ) {
 			return in_array( $post->post_type, (array) $post_types );
@@ -2170,6 +2242,9 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		}
 	}
 
+	/**
+	 * @return bool|null
+	 */
 	function is_static_posts_page() {
 		static $is_posts_page = null;
 		if ( $is_posts_page !== null ) {
@@ -2181,6 +2256,9 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return $is_posts_page;
 	}
 
+	/**
+	 * @return bool|null
+	 */
 	function is_static_front_page() {
 		if ( isset( $this->is_front_page ) && $this->is_front_page !== null ) {
 			return $this->is_front_page;
@@ -2191,6 +2269,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return $this->is_front_page;
 	}
 
+	/**
+	 * @param int $id
+	 *
+	 * @return array
+	 */
 	function get_all_categories( $id = 0 ) {
 		$keywords   = Array();
 		$categories = get_the_category( $id );
@@ -2203,6 +2286,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return $keywords;
 	}
 
+	/**
+	 * @param string $tax
+	 *
+	 * @return string
+	 */
 	function get_tax_title( $tax = '' ) {
 		if ( AIOSEOPPRO ) {
 			if ( empty( $this->meta_opts ) ) {
@@ -2224,6 +2312,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 	// Handle prev / next links.
 
+	/**
+	 * @param $tax
+	 *
+	 * @return mixed|void
+	 */
 	function get_tax_name( $tax ) {
 		global $aioseop_options;
 		if ( AIOSEOPPRO ) {
@@ -2244,6 +2337,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return $this->internationalize( $name );
 	}
 
+	/**
+	 * @param $tax
+	 *
+	 * @return mixed|void
+	 */
 	function get_tax_desc( $tax ) {
 		if ( AIOSEOPPRO ) {
 			$opts = $this->meta_opts;
@@ -2260,6 +2358,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return $this->internationalize( $desc );
 	}
 
+	/**
+	 * @param $category_name
+	 * @param $category_description
+	 * @param string $tax
+	 *
+	 * @return string
+	 */
 	function apply_tax_title_format( $category_name, $category_description, $tax = '' ) {
 		if ( empty( $tax ) ) {
 			$tax = get_query_var( 'taxonomy' );
