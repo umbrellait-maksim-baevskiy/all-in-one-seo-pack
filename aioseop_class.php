@@ -1218,7 +1218,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 * @return string
 	 */
 	function custom_output_option( $buf, $args ) {
-		if ( $args['name'] == 'aiosp_snippet' ) {
+		if ( $args['name'] === 'aiosp_snippet' ) {
 			$args['options']['type']   = 'html';
 			$args['options']['nowrap'] = false;
 			$args['options']['save']   = false;
@@ -1344,9 +1344,9 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			if ( empty( $post->post_modified_gmt ) ) {
 				$wp_query = new WP_Query( array( 'p' => $post_id, 'post_type' => $post->post_type ) );
 			}
-			if ( $post->post_type == 'page' ) {
+			if ( $post->post_type === 'page' ) {
 				$wp_query->is_page = true;
-			} elseif ( $post->post_type == 'attachment' ) {
+			} elseif ( $post->post_type === 'attachment' ) {
 				$wp_query->is_attachment = true;
 			} else {
 				$wp_query->is_single = true;
@@ -1354,7 +1354,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			if ( empty( $this->is_front_page ) ) {
 				$this->is_front_page = false;
 			}
-			if ( get_option( 'show_on_front' ) == 'page' ) {
+			if ( get_option( 'show_on_front' ) === 'page' ) {
 				if ( is_page() && $post->ID == get_option( 'page_on_front' ) ) {
 					$this->is_front_page = true;
 				} elseif ( $post->ID == get_option( 'page_for_posts' ) ) {
