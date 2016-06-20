@@ -404,7 +404,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Custom settings.
 		 *
-		 * Displays boxes for add pages to sitemap option.
+		 * Displays boxes for add pages to sitemap option. Requires WordPress 4.1.
 		 *
 		 * @param $buf
 		 * @param $args
@@ -427,7 +427,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 			$args['options']['type'] = 'hidden';
 			if ( ! empty( $args['value'] ) ) {
-				$args['value'] = json_encode( $args['value'] );
+				$args['value'] = wp_json_encode( $args['value'] );
 			} else {
 				$args['options']['type'] = 'html';
 			}
