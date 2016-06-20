@@ -29,11 +29,10 @@ if ( ! function_exists( 'aioseop_get_options' ) ) {
  * Check if settings need to be updated / migrated from old version.
  */
 if ( ! function_exists( 'aioseop_update_settings_check' ) ) {
+
 	function aioseop_update_settings_check() {
 		global $aioseop_options;
-		if ( ( isset( $_POST['aioseop_migrate_options'] ) ) ||
-		     ( empty( $aioseop_options ) )
-		) {
+		if ( isset( $_POST['aioseop_migrate_options'] ) || empty( $aioseop_options ) ) {
 			aioseop_mrt_mkarry();
 		}
 		// WPML has now attached to filters, read settings again so they can be translated
@@ -110,7 +109,7 @@ if ( ! function_exists( 'aioseop_option_isset' ) ) {
 	function aioseop_option_isset( $option ) {
 		global $aioseop_options;
 
-		return ( ( isset( $aioseop_options[ $option ] ) ) && $aioseop_options[ $option ] );
+		return ( isset( $aioseop_options[ $option ] ) && $aioseop_options[ $option ] );
 	}
 }
 
@@ -410,7 +409,7 @@ if ( ! function_exists( 'aioseop_ajax_delete_url' ) ) {
 		$_POST['Submit']   = 'ajax';
 		$module->add_page_hooks();
 		$_POST = (Array) $module->get_current_options( $_POST, null );
-		if ( ! empty( $_POST['aiosp_sitemap_addl_pages'] ) && ( is_object( $_POST['aiosp_sitemap_addl_pages'] ) ) ) {
+		if ( ! empty( $_POST['aiosp_sitemap_addl_pages'] ) && is_object( $_POST['aiosp_sitemap_addl_pages'] ) ) {
 			$_POST['aiosp_sitemap_addl_pages'] = (Array) $_POST['aiosp_sitemap_addl_pages'];
 		}
 		if ( ! empty( $_POST['aiosp_sitemap_addl_pages'] ) && ( ! empty( $_POST['aiosp_sitemap_addl_pages'][ $options ] ) ) ) {
@@ -716,7 +715,7 @@ if ( ! function_exists( 'aioseop_mrt_exclude_this_page' ) ) {
 			}
 			if ( ! empty( $url ) ) {
 				foreach ( $excluded as $exedd ) {
-					if ( ( $exedd ) && ( stripos( $url, $exedd ) !== false ) ) {
+					if ( $exedd && ( stripos( $url, $exedd ) !== false ) ) {
 						return true;
 					}
 				}
