@@ -2240,7 +2240,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$archives = array();
 			if ( is_array( $posts ) ) {
 				foreach ( $posts as $p ) {
-					if ( $p->post_type != 'post' ) {
+					if ( $p->post_type !== 'post' ) {
 						continue;
 					}
 					$date = date( 'Y-m', mysql2date( 'U', $p->post_date ) );
@@ -2271,7 +2271,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * @return bool|string
 		 */
 		function get_archive_link_from_post( $post ) {
-			if ( $post->post_type != 'post' ) {
+			if ( $post->post_type !== 'post' ) {
 				return false;
 			}
 			$date = mysql2date( 'U', $post->post_date );
@@ -2290,7 +2290,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$authors = array();
 			if ( is_array( $posts ) ) {
 				foreach ( $posts as $p ) {
-					if ( $p->post_type != 'post' ) {
+					if ( $p->post_type !== 'post' ) {
 						continue;
 					}
 					if ( empty( $authors[ $p->post_author ] ) ) {
@@ -2383,7 +2383,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				foreach ( $posts as $post ) {
 					$url          = '';
 					$post->filter = 'sample';
-					if ( $linkfunc == 'get_permalink' ) {
+					if ( $linkfunc === 'get_permalink' ) {
 						$url = $this->get_permalink( $post );
 					} else {
 						$url = call_user_func( $linkfunc, $post );
@@ -2416,13 +2416,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					if ( $freq_override ) {
 						$pr_info['changefreq'] = $freq_override;
 					}
-					if ( ( $this->options[ $this->prefix . 'prio_post' ] == 'sel' ) && isset( $this->options[ $this->prefix . 'prio_post_' . $post->post_type ] ) ) {
-						if ( ( $this->options[ $this->prefix . 'prio_post_' . $post->post_type ] != 'no' ) && ( $this->options[ $this->prefix . 'prio_post_' . $post->post_type ] != 'sel' ) ) {
+					if ( ( $this->options[ $this->prefix . 'prio_post' ] === 'sel' ) && isset( $this->options[ $this->prefix . 'prio_post_' . $post->post_type ] ) ) {
+						if ( ( $this->options[ $this->prefix . 'prio_post_' . $post->post_type ] != 'no' ) && ( $this->options[ $this->prefix . 'prio_post_' . $post->post_type ] !== 'sel' ) ) {
 							$pr_info['priority'] = $this->options[ $this->prefix . 'prio_post_' . $post->post_type ];
 						}
 					}
 					if ( ( $this->options[ $this->prefix . 'freq_post' ] == 'sel' ) && isset( $this->options[ $this->prefix . 'freq_post_' . $post->post_type ] ) ) {
-						if ( ( $this->options[ $this->prefix . 'freq_post_' . $post->post_type ] != 'no' ) && ( $this->options[ $this->prefix . 'freq_post_' . $post->post_type ] != 'sel' ) ) {
+						if ( ( $this->options[ $this->prefix . 'freq_post_' . $post->post_type ] != 'no' ) && ( $this->options[ $this->prefix . 'freq_post_' . $post->post_type ] !== 'sel' ) ) {
 							$pr_info['changefreq'] = $this->options[ $this->prefix . 'freq_post_' . $post->post_type ];
 						}
 					}
@@ -2523,7 +2523,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( $this->paginate ) {
 				$page_query = array( 'offset' => $page * $this->max_posts );
 			}
-			if ( ( $status == 'publish' ) && ( $include == 'attachment' ) ) {
+			if ( ( $status === 'publish' ) && ( $include === 'attachment' ) ) {
 				$status = 'inherit';
 			}
 			if ( is_array( $include ) && ( ( $pos = array_search( 'attachment', $include ) ) !== false ) ) {
@@ -2697,7 +2697,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						if ( empty( $count ) ) {
 							$post_counts[ $post_type ] = 0;
 						} else {
-							if ( $post_type == 'attachment' ) {
+							if ( $post_type === 'attachment' ) {
 								$post_counts[ $post_type ] = $count['inherit'];
 							} else {
 								$post_counts[ $post_type ] = $count[ $status ];
