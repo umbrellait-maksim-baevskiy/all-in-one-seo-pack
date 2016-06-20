@@ -359,8 +359,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 */
 		function daily_update() {
 			$last_run = get_option( $this->prefix . 'cron_last_run' );
-			if ( empty( $last_run ) || ( time() - $last_run > 23.5 * 60 * 60 ) ) // Sanity check.
-			{
+			if ( empty( $last_run ) || ( time() - $last_run > 23.5 * 60 * 60 ) ) {
+				// Sanity check.
 				$this->do_sitemaps( __( 'Daily scheduled sitemap check has finished.', 'all-in-one-seo-pack' ) );
 			}
 			$last_run = time();
