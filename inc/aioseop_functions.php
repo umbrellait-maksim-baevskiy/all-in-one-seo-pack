@@ -53,7 +53,7 @@ if ( ! function_exists( 'aioseop_update_settings_check' ) ) {
 				unset( $aioseop_options['aiosp_archive_title_format'] );
 				$update_options = true;
 			}
-			if ( ! empty( $aioseop_options['aiosp_archive_title_format'] ) && ( $aioseop_options['aiosp_archive_title_format'] == '%date% | %blog_title%' ) ) {
+			if ( ! empty( $aioseop_options['aiosp_archive_title_format'] ) && ( $aioseop_options['aiosp_archive_title_format'] === '%date% | %blog_title%' ) ) {
 				$aioseop_options['aiosp_archive_title_format'] = '%archive_title% | %blog_title%';
 				$update_options                                = true;
 			}
@@ -148,7 +148,7 @@ if ( ! function_exists( 'aioseop_addmycolumns' ) ) {
 		if ( ! empty( $aioseop_options ) && ! empty( $aioseop_options['aiosp_posttypecolumns'] ) ) {
 			$aiosp_posttypecolumns = $aioseop_options['aiosp_posttypecolumns'];
 		}
-		if ( ! empty( $pagenow ) && ( $pagenow == 'upload.php' ) ) {
+		if ( ! empty( $pagenow ) && ( $pagenow === 'upload.php' ) ) {
 			$post_type = 'attachment';
 		} elseif ( ! isset( $_REQUEST['post_type'] ) ) {
 			$post_type = 'post';
@@ -158,14 +158,14 @@ if ( ! function_exists( 'aioseop_addmycolumns' ) ) {
 
 		if ( is_array( $aiosp_posttypecolumns ) && in_array( $post_type, $aiosp_posttypecolumns ) ) {
 			add_action( 'admin_head', 'aioseop_admin_head' );
-			if ( $post_type == 'page' ) {
+			if ( $post_type === 'page' ) {
 				add_filter( 'manage_pages_columns', 'aioseop_mrt_pcolumns' );
-			} elseif ( $post_type == 'attachment' ) {
+			} elseif ( $post_type === 'attachment' ) {
 				add_filter( 'manage_media_columns', 'aioseop_mrt_pcolumns' );
 			} else {
 				add_filter( 'manage_posts_columns', 'aioseop_mrt_pcolumns' );
 			}
-			if ( $post_type == 'attachment' ) {
+			if ( $post_type === 'attachment' ) {
 				add_action( 'manage_media_custom_column', 'aioseop_mrt_pccolumn', 10, 2 );
 			} elseif ( is_post_type_hierarchical( $post_type ) ) {
 				add_action( 'manage_pages_custom_column', 'aioseop_mrt_pccolumn', 10, 2 );
@@ -349,7 +349,7 @@ if ( ! function_exists( 'aioseop_output_dismissable_notice' ) ) {
 if ( ! function_exists( 'aioseop_ajax_save_meta' ) ) {
 
 	function aioseop_ajax_save_meta() {
-		if ( ! empty( $_POST['_inline_edit'] ) && ( $_POST['_inline_edit'] != 'undefined' ) ) {
+		if ( ! empty( $_POST['_inline_edit'] ) && ( $_POST['_inline_edit'] !== 'undefined' ) ) {
 			check_ajax_referer( 'inlineeditnonce', '_inline_edit' );
 		}
 		$post_id  = intval( $_POST['post_id'] );
@@ -430,9 +430,9 @@ if ( ! function_exists( 'aioseop_ajax_save_url' ) ) {
 		global $aiosp, $aioseop_modules;
 		aioseop_load_modules();
 		$aiosp->admin_menu();
-		if ( ! empty( $_POST['settings'] ) && ( $_POST['settings'] == 'video_sitemap_addl_pages' ) ) {
+		if ( ! empty( $_POST['settings'] ) && ( $_POST['settings'] === 'video_sitemap_addl_pages' ) ) {
 			$module = $aioseop_modules->return_module( 'All_in_One_SEO_Pack_Video_Sitemap' );
-		} elseif ( ! empty( $_POST['settings'] ) && ( $_POST['settings'] == 'news_sitemap_addl_pages' ) ) {
+		} elseif ( ! empty( $_POST['settings'] ) && ( $_POST['settings'] === 'news_sitemap_addl_pages' ) ) {
 			$module = $aioseop_modules->return_module( 'All_in_One_SEO_Pack_News_Sitemap' );
 		} else {
 			$module = $aioseop_modules->return_module( 'All_in_One_SEO_Pack_Sitemap' );
@@ -680,7 +680,7 @@ if ( ! function_exists( 'aioseop_ajax_get_menu_links' ) ) {
 		$output = '<ul>';
 		if ( ! empty( $links ) ) {
 			foreach ( $links as $k => $v ) {
-				if ( $k == 'Feature Manager' ) {
+				if ( $k === 'Feature Manager' ) {
 					$current = ' class="current"';
 				} else {
 					$current = '';
@@ -702,13 +702,13 @@ if ( ! function_exists( 'aioseop_mrt_pccolumn' ) ) {
 	function aioseop_mrt_pccolumn( $aioseopcn, $aioseoppi ) {
 		$id     = $aioseoppi;
 		$target = null;
-		if ( $aioseopcn == 'seotitle' ) {
+		if ( $aioseopcn === 'seotitle' ) {
 			$target = 'title';
 		}
-		if ( $aioseopcn == 'seokeywords' ) {
+		if ( $aioseopcn === 'seokeywords' ) {
 			$target = 'keywords';
 		}
-		if ( $aioseopcn == 'seodesc' ) {
+		if ( $aioseopcn === 'seodesc' ) {
 			$target = 'description';
 		}
 		if ( ! $target ) {
