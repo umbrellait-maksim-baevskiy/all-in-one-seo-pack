@@ -648,7 +648,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				'type'     => 'text',
 				'condshow' => array( 'aiosp_google_author_advanced' => 'on', 'aiosp_google_enable_publisher' => 'on' ),
 			),
-//			"google_connect"=>array( 'name' => __( 'Connect With Google Analytics', 'all-in-one-seo-pack' ), ),
+			// "google_connect"=>array( 'name' => __( 'Connect With Google Analytics', 'all-in-one-seo-pack' ), ),
 			'google_analytics_id'         => array(
 				'name'        => __( 'Google Analytics ID:', 'all-in-one-seo-pack' ),
 				'default'     => null,
