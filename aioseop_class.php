@@ -1478,6 +1478,14 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return $p;
 	}
 
+	/**
+	 * @param array $opts
+	 * @param null $location
+	 * @param null $defaults
+	 * @param null $post
+	 *
+	 * @return array
+	 */
 	function get_current_options( $opts = array(), $location = null, $defaults = null, $post = null ) {
 		if ( ( $location === 'aiosp' ) && ( $this->locations[ $location ]['type'] == 'metabox' ) ) {
 			if ( $post == null ) {
