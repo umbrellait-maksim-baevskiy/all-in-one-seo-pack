@@ -173,7 +173,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 			$prio = array();
 			for ( $i = 0; $i <= 10; $i ++ ) {
-				$str          = sprintf( "%0.1f", $i / 10.0 );
+				$str          = sprintf( '%0.1f', $i / 10.0 );
 				$prio[ $str ] = $str;
 			}
 			$arr_no         = array( 'no' => __( 'Do Not Override', 'all-in-one-seo-pack' ) );
@@ -812,7 +812,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 							}
 							$count = 0;
 							do {
-								$ren_to = $ren_file . '._' . sprintf( "%03d", $count ) . '.old';
+								$ren_to = $ren_file . '._' . sprintf( '%03d', $count ) . '.old';
 								$count ++;
 							} while ( $this->file_exists( $ren_to ) && ( $count < 1000 ) );
 							if ( $count >= 1000 ) {
@@ -1079,7 +1079,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			} else {
 				$sitemap_type = __( 'static', 'all-in-one-seo-pack ' ) . " $sitemap_type";
 			}
-			$this->debug_message( sprintf( " %01.2f MB memory used generating the %s sitemap in %01.3f seconds, %01.2f MB total memory used.", $sitemap_memory_usage, $sitemap_type, $time, $end_memory_usage ) );
+			$this->debug_message( sprintf( ' %01.2f MB memory used generating the %s sitemap in %01.3f seconds, %01.2f MB total memory used.', $sitemap_memory_usage, $sitemap_type, $time, $end_memory_usage ) );
 		}
 
 		/**
@@ -2428,7 +2428,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					}
 					$pr_info['loc'] = $url;
 					if ( is_float( $pr_info['priority'] ) ) {
-						$pr_info['priority'] = sprintf( "%0.1F", $pr_info['priority'] );
+						$pr_info['priority'] = sprintf( '%0.1F', $pr_info['priority'] );
 					}
 					$pr_info = apply_filters( $this->prefix . 'prio_item_filter', $pr_info, $post, $args );
 					if ( ! empty( $pr_info ) ) {
