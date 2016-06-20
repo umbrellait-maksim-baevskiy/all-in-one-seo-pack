@@ -1343,9 +1343,9 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			if ( empty( $post->post_modified_gmt ) ) {
 				$wp_query = new WP_Query( array( 'p' => $post_id, 'post_type' => $post->post_type ) );
 			}
-			if ( $post->post_type === 'page' ) {
+			if ( 'page' === $post->post_type ) {
 				$wp_query->is_page = true;
-			} elseif ( $post->post_type === 'attachment' ) {
+			} elseif ( 'attachment' === $post->post_type ) {
 				$wp_query->is_attachment = true;
 			} else {
 				$wp_query->is_single = true;
@@ -1353,7 +1353,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			if ( empty( $this->is_front_page ) ) {
 				$this->is_front_page = false;
 			}
-			if ( get_option( 'show_on_front' ) === 'page' ) {
+			if ( 'page' === get_option( 'show_on_front' ) ) {
 				if ( is_page() && $post->ID == get_option( 'page_on_front' ) ) {
 					$this->is_front_page = true;
 				} elseif ( $post->ID == get_option( 'page_for_posts' ) ) {
@@ -1388,9 +1388,9 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				$category = $categories[0];
 			}
 		} else if ( is_object( $term ) ) {
-			if ( $_GET['taxonomy'] == 'category' ) {
+			if ( 'category' === $_GET['taxonomy'] ) {
 				query_posts( array( 'cat' => $_GET['tag_ID'] ) );
-			} else if ( $_GET['taxonomy'] == 'post_tag' ) {
+			} else if ( $_GET['taxonomy'] === 'post_tag' ) {
 				query_posts( array( 'tag' => $term->slug ) );
 			} else {
 				query_posts( array(
