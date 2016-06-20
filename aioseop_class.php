@@ -2549,7 +2549,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 */
 	function get_aioseop_description( $post = null ) {
 		global $aioseop_options;
-		if ( $post === null ) {
+		if ( null === $post ) {
 			$post = $GLOBALS['post'];
 		}
 		$blog_page   = aiosp_common::get_blog_page();
@@ -2597,7 +2597,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		}
 
 		// Internal whitespace trim.
-		$description = preg_replace( "/\s\s+/u", ' ', $description );
+		$description = preg_replace( '/\s\s+/u', ' ', $description );
 
 		return $description;
 	}
@@ -2635,7 +2635,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		if ( $max < $len ) {
 			if ( function_exists( 'mb_strrpos' ) ) {
 				$pos = mb_strrpos( $text2, ' ', - ( $len - $max ) );
-				if ( $pos === false ) {
+				if ( false === $pos ) {
 					$pos = $max;
 				}
 				if ( $pos > $this->minimum_description_length ) {
@@ -2644,7 +2644,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					$max = $this->minimum_description_length;
 				}
 			} else {
-				while ( $text2[ $max ] != ' ' && $max > $this->minimum_description_length ) {
+				while ( ' ' != $text2[ $max ] && $max > $this->minimum_description_length ) {
 					$max --;
 				}
 			}
@@ -2699,7 +2699,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			$link = get_permalink( $post->ID );
 		} elseif ( $query->is_author && $haspost ) {
 			$author = get_userdata( get_query_var( 'author' ) );
-			if ( $author === false ) {
+			if ( false === $author ) {
 				return false;
 			}
 			$link = get_author_posts_url( $author->ID, $author->user_nicename );
