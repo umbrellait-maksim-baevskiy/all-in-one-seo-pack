@@ -1,5 +1,9 @@
 <?php
 /**
+ * General functions file.
+ *
+ * We'll eventually move these to a better place, and figure out ones not being used anymore.
+ * 
  * @package All-in-One-SEO-Pack
  */
 
