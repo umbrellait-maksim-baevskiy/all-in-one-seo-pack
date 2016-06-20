@@ -1251,18 +1251,18 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				$title_format = str_replace( '%page_title%', $replace_title, $title_format );
 			}
 			if ( $w->is_category || $w->is_tag || $w->is_tax ) {
-					if ( AIOSEOPPRO && ! empty( $_GET ) && ! empty( $_GET['taxonomy'] ) && ! empty( $_GET['tag_ID'] ) && function_exists( 'wp_get_split_terms' ) ) {
-						$term_id   = intval( $_GET['tag_ID'] );
-						$was_split = get_term_meta( $term_id, '_aioseop_term_was_split', true );
-						if ( ! $was_split ) {
-							$split_terms = wp_get_split_terms( $term_id, $_GET['taxonomy'] );
-							if ( ! empty( $split_terms ) ) {
-								foreach ( $split_terms as $new_tax => $new_term ) {
-									$this->split_shared_term( $term_id, $new_term );
-								}
+				if ( AIOSEOPPRO && ! empty( $_GET ) && ! empty( $_GET['taxonomy'] ) && ! empty( $_GET['tag_ID'] ) && function_exists( 'wp_get_split_terms' ) ) {
+					$term_id   = intval( $_GET['tag_ID'] );
+					$was_split = get_term_meta( $term_id, '_aioseop_term_was_split', true );
+					if ( ! $was_split ) {
+						$split_terms = wp_get_split_terms( $term_id, $_GET['taxonomy'] );
+						if ( ! empty( $split_terms ) ) {
+							foreach ( $split_terms as $new_tax => $new_term ) {
+								$this->split_shared_term( $term_id, $new_term );
 							}
 						}
 					}
+				}
 				if ( strpos( $title_format, '%category_title%' ) !== false ) {
 					$title_format = str_replace( '%category_title%', $replace_title, $title_format );
 				}
