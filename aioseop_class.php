@@ -1055,7 +1055,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'default'   => array(
 				'name'      => __( 'General Settings', 'all-in-one-seo-pack' ),
 				'help_link' => 'https://semperplugins.com/documentation/general-settings/',
-				'options'   => array() // This is set below, to the remaining options -- pdb.
+				'options'   => array(), // This is set below, to the remaining options -- pdb.
 			),
 			'home'      => array(
 				'name'      => __( 'Home Page Settings', 'all-in-one-seo-pack' ),
