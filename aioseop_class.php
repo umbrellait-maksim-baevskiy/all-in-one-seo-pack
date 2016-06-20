@@ -1208,7 +1208,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		}
 	}
 
-//good candidate for pro dir
+	//good candidate for pro dir
 
 	/**
 	 * Use custom callback for outputting snippet
@@ -1219,7 +1219,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 * @return string
 	 */
 	function custom_output_option( $buf, $args ) {
-		if ( $args['name'] === 'aiosp_snippet' ) {
+		if ( 'aiosp_snippet' === $args['name'] ) {
 			$args['options']['type']   = 'html';
 			$args['options']['nowrap'] = false;
 			$args['options']['save']   = false;
