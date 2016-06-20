@@ -1,11 +1,15 @@
 <?php
 /**
+ * Sitemap class.
+ *
  * @package All-in-One-SEO-Pack
  */
-/**
- * The Sitemap class.
- */
+
 if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
+
+	/**
+	 * Class All_in_One_SEO_Pack_Sitemap
+	 */
 	class All_in_One_SEO_Pack_Sitemap extends All_in_One_SEO_Pack_Module {
 		var $cache_struct = null;
 		var $cache_home = null;
@@ -19,11 +23,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		var $freq_sel;
 		var $extra_sitemaps;
 
+		/**
+		 * All_in_One_SEO_Pack_Sitemap constructor.
+		 */
 		function __construct() {
-			if ( get_class( $this ) === 'All_in_One_SEO_Pack_Sitemap' ) { // Set this up only when instantiated as this class
-				$this->name           = __( 'XML Sitemap', 'all-in-one-seo-pack' ); // Human-readable name of the plugin
-				$this->prefix         = 'aiosp_sitemap_';                          // option prefix
-				$this->file           = __FILE__;                                      // the current file
+			if ( get_class( $this ) === 'All_in_One_SEO_Pack_Sitemap' ) { // Set this up only when instantiated as this class.
+				$this->name           = __( 'XML Sitemap', 'all-in-one-seo-pack' ); // Human-readable name of the plugin.
+				$this->prefix         = 'aiosp_sitemap_';                          // Option prefix.
+				$this->file           = __FILE__;                                      // The current file.
 				$this->extra_sitemaps = Array();
 				$this->extra_sitemaps = apply_filters( $this->prefix . 'extra', $this->extra_sitemaps );
 			}
@@ -314,21 +321,32 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			add_action( $this->prefix . 'daily_update_cron', Array( $this, 'daily_update' ) );
 		}
 
-		// Add new intervals of a week and a month
-		// See http://codex.wordpress.org/Plugin_API/Filter_Reference/cron_schedules
+		/**
+		 * Add cron schedules.
+		 *
+		 * Add new intervals of a week and a month.
+		 *
+		 * @link http://codex.wordpress.org/Plugin_API/Filter_Reference/cron_schedules
+		 * @param $schedules
+		 *
+		 * @return mixed
+		 */
 		function add_cron_schedules( $schedules ) {
 			$schedules['weekly']  = array(
-				'interval' => 604800, // 1 week in seconds
+				'interval' => 604800, // 1 week in seconds.
 				'display'  => __( 'Once Weekly', 'all-in-one-seo-pack' ),
 			);
 			$schedules['monthly'] = array(
-				'interval' => 2629740, // 1 month in seconds
+				'interval' => 2629740, // 1 month in seconds.
 				'display'  => __( 'Once Monthly', 'all-in-one-seo-pack' ),
 			);
 
 			return $schedules;
 		}
 
+		/**
+		 * Cron update.
+		 */
 		function cron_update() {
 			add_filter( 'cron_schedules', Array( $this, 'add_cron_schedules' ) );
 			if ( ! wp_next_scheduled( $this->prefix . 'daily_update_cron' ) ) {
@@ -336,9 +354,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
+		/**
+		 * Daily update.
+		 */
 		function daily_update() {
 			$last_run = get_option( $this->prefix . 'cron_last_run' );
-			if ( empty( $last_run ) || ( time() - $last_run > 23.5 * 60 * 60 ) ) // sanity check
+			if ( empty( $last_run ) || ( time() - $last_run > 23.5 * 60 * 60 ) ) // Sanity check.
 			{
 				$this->do_sitemaps( __( "Daily scheduled sitemap check has finished.", 'all-in-one-seo-pack' ) );
 			}
@@ -346,9 +367,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			update_option( $this->prefix . 'cron_last_run', $last_run );
 		}
 
-		/** Initialize options, after constructor **/
+		/**
+		 * Initialize options, after constructor.
+		 */
 		function load_sitemap_options() {
-			// load initial options / set defaults
+			// Load initial options / set defaults.
 			$this->update_options();
 			if ( ! empty( $this->options["{$this->prefix}indexes"] ) && ! empty( $this->options["{$this->prefix}paginate"] ) ) {
 				$this->paginate = true;
@@ -378,7 +401,16 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
-		/** Custom settings - displays boxes for add pages to sitemap option. **/
+		/**
+		 * Custom settings.
+		 *
+		 * Displays boxes for add pages to sitemap option.
+		 *
+		 * @param $buf
+		 * @param $args
+		 *
+		 * @return string
+		 */
 		function display_custom_options( $buf, $args ) {
 			if ( $args['name'] == "{$this->prefix}addl_pages" ) {
 				$buf .= "<div id='{$this->prefix}addl_pages'>";
@@ -408,7 +440,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $buf;
 		}
 
-		/** Add post type details for settings once post types have been registered. **/
+		/**
+		 * Add post type details for settings once post types have been registered.
+		 */
 		function add_post_types() {
 			$post_type_titles = $this->get_post_type_titles( Array( 'public' => true ) );
 			$taxonomy_titles  = $this->get_taxonomy_titles( Array( 'public' => true ) );
@@ -479,7 +513,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$this->update_options();
 		}
 
-		/** Set up settings, checking for sitemap conflicts, on settings page. **/
+		/**
+		 * Set up settings, checking for sitemap conflicts, on settings page.
+		 */
 		function add_page_hooks() {
 			$this->flush_rules_hook();
 			$this->add_post_types();
@@ -488,14 +524,30 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			add_filter( "{$this->prefix}submit_options", Array( $this, 'filter_submit' ) );
 		}
 
-		/** Change submit button to read "Update Sitemap". **/
+		/**
+		 * Filter submit button.
+		 *
+		 * Change settings page submit button to read "Update Sitemap".
+		 *
+		 * @param $submit
+		 *
+		 * @return mixed
+		 */
 		function filter_submit( $submit ) {
 			$submit['Submit']['value'] = __( 'Update Sitemap', 'all-in-one-seo-pack' ) . ' &raquo;';
 
 			return $submit;
 		}
 
-		/** Disable writing sitemaps to the filesystem for multisite. **/
+		/**
+		 * Updates post data.
+		 *
+		 * Disable writing sitemaps to the filesystem for multisite.
+		 *
+		 * @param $options
+		 *
+		 * @return mixed
+		 */
 		function update_post_data( $options ) {
 			if ( is_multisite() ) {
 				$options[ $this->prefix . 'rewrite' ]['disabled'] = 'disabled';
@@ -504,6 +556,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $options;
 		}
 
+		/**
+		 * @param $url
+		 *
+		 * @return bool
+		 */
 		function get_rewrite_url( $url ) {
 			global $wp_rewrite;
 			$url = parse_url( esc_url( $url ), PHP_URL_PATH );
@@ -520,7 +577,15 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return false;
 		}
 
-		/** Add in options for status display on settings page, sitemap rewriting on multisite. **/
+		/**
+		 * Filter display options.
+		 *
+		 * Add in options for status display on settings page, sitemap rewriting on multisite.
+		 *
+		 * @param $options
+		 *
+		 * @return mixed
+		 */
 		function filter_display_options( $options ) {
 			if ( is_multisite() ) {
 				$options[ $this->prefix . 'rewrite' ] = 'On';
@@ -561,7 +626,15 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $options;
 		}
 
-		/** Handle 'all' option for post types / taxonomies, further sanitization of filename, rewrites on for multisite, setting up addl pages option. **/
+		/**
+		 * Filter options.
+		 *
+		 * Handle 'all' option for post types / taxonomies, further sanitization of filename, rewrites on for multisite, setting up addl pages option.
+		 *
+		 * @param $options
+		 *
+		 * @return mixed
+		 */
 		function filter_options( $options ) {
 			if ( ! isset( $this->default_options['posttypes']['initial_options'] ) ) {
 				$this->add_post_types();
@@ -626,7 +699,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $options;
 		}
 
-		/** Get sitemap urls of child blogs, if any. **/
+		/**
+		 * Get sitemap urls of child blogs, if any.
+		 *
+		 * @return mixed|void
+		 */
 		function get_child_sitemap_urls() {
 			$siteurls = Array();
 			$blogs    = $this->get_child_blogs();
@@ -668,7 +745,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return apply_filters( $this->prefix . 'child_urls', $siteurls );
 		}
 
-		/** Scan for sitemaps on filesystem. **/
+		/**
+		 * Scan for sitemaps on filesystem.
+		 *
+		 * @return array
+		 */
 		function scan_match_files() {
 			$scan1 = $scan2 = '';
 			$files = Array();
@@ -700,7 +781,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
-		/** Handle deleting / renaming of conflicting sitemap files. **/
+		/**
+		 * Scan for sitemaps.
+		 *
+		 * Handle deleting / renaming of conflicting sitemap files.
+		 */
 		function do_sitemap_scan() {
 			$msg = '';
 			if ( ! empty( $this->options["{$this->prefix}rewrite"] ) && ( get_option( 'permalink_structure' ) == '' ) ) {
@@ -752,7 +837,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
-		/** Do the scan, return the results. **/
+		/**
+		 * Do the scan, return the results.
+		 *
+		 * @return string
+		 */
 		function scan_sitemaps() {
 			$msg   = '';
 			$files = $this->scan_match_files();
@@ -763,7 +852,16 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $msg;
 		}
 
-		/** Get the list of potentially conflicting sitemap files. **/
+		/**
+		 * Get problem files.
+		 *
+		 * Get the list of potentially conflicting sitemap files.
+		 *
+		 * @param $files
+		 * @param $msg
+		 *
+		 * @return array
+		 */
 		function get_problem_files( $files, &$msg ) {
 			$problem_files = Array();
 			$use_wpfs      = true;
@@ -784,7 +882,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						$compressed = true;
 					}
 					if ( $use_wpfs ) {
-						if ( $compressed ) {  // inefficient but necessary
+						if ( $compressed ) {  // Inefficient but necessary.
 							$file = $this->load_file( $fn );
 							if ( ! empty( $file ) ) {
 								$file = gzuncompress( $file, 4096 );
@@ -818,7 +916,15 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $problem_files;
 		}
 
-		/** Display the warning and the form for conflicting sitemap files. **/
+		/**
+		 * Display sitemap warning.
+		 *
+		 * Display the warning and the form for conflicting sitemap files.
+		 *
+		 * @param $files
+		 *
+		 * @return string
+		 */
 		function sitemap_warning( $files ) {
 			$msg           = '';
 			$conflict      = false;
@@ -839,7 +945,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $msg;
 		}
 
-		/** Updates debug log messages. **/
+		/**
+		 * Updates debug log messages.
+		 *
+		 * @param $msg
+		 */
 		function debug_message( $msg ) {
 			if ( empty( $this->options["{$this->prefix}debug"] ) ) {
 				$this->options["{$this->prefix}debug"] = '';
@@ -855,7 +965,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$this->update_class_option( $this->options );
 		}
 
-		/** Set up hooks for rewrite rules for dynamic sitemap generation. **/
+		/**
+		 * Set up hooks for rewrite rules for dynamic sitemap generation.
+		 */
 		function setup_rewrites() {
 			add_action( 'rewrite_rules_array', Array( $this, 'rewrite_hook' ) );
 			add_filter( 'query_vars', Array( $this, 'query_var_hook' ) );
@@ -865,7 +977,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
-		/** Build and return our rewrite rules. **/
+		/**
+		 * Build and return our rewrite rules.
+		 *
+		 * @return array
+		 */
 		function get_rewrite_rules() {
 			$sitemap_rules_normal = $sitemap_rules_gzipped = Array();
 			$sitemap_rules_normal = array(
@@ -885,7 +1001,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $sitemap_rules;
 		}
 
-		/** Add in our rewrite rules. **/
+		/**
+		 * Add in our rewrite rules.
+		 *
+		 * @param $rules
+		 *
+		 * @return array
+		 */
 		function rewrite_hook( $rules ) {
 			$sitemap_rules = $this->get_rewrite_rules();
 			if ( ! empty( $sitemap_rules ) ) {
@@ -895,7 +1017,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $rules;
 		}
 
-		/** Flush rewrite rules when necessary. **/
+		/**
+		 * Flush rewrite rules when necessary.
+		 */
 		function flush_rules_hook() {
 			global $wp_rewrite;
 			$sitemap_rules = $this->get_rewrite_rules( $wp_rewrite );
@@ -909,7 +1033,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
-		/** Add our query variable for sitemap generation. **/
+		/**
+		 * Add our query variable for sitemap generation.
+		 *
+		 * @param $vars
+		 *
+		 * @return array
+		 */
 		function query_var_hook( $vars ) {
 			$vars[] = "{$this->prefix}path";
 			if ( $this->paginate ) {
@@ -919,13 +1049,22 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $vars;
 		}
 
-		/** Start timing and get initial memory usage for debug info. **/
+		/**
+		 * Start timing and get initial memory usage for debug info.
+		 */
 		function log_start() {
 			$this->start_memory_usage = memory_get_peak_usage();
 			timer_start();
 		}
 
-		/** Stop timing and log memory usage for debug info. **/
+
+		/**
+		 * Stop timing and log memory usage for debug info.
+		 *
+		 * @param string $sitemap_type
+		 * @param bool $compressed
+		 * @param bool $dynamic
+		 */
 		function log_stats( $sitemap_type = 'root', $compressed = false, $dynamic = true ) {
 			$time                 = timer_stop();
 			$end_memory_usage     = memory_get_peak_usage();
@@ -943,7 +1082,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$this->debug_message( sprintf( " %01.2f MB memory used generating the %s sitemap in %01.3f seconds, %01.2f MB total memory used.", $sitemap_memory_usage, $sitemap_type, $time, $end_memory_usage ) );
 		}
 
-		/** Handle outputting of dynamic sitemaps, logging. **/
+		/**
+		 * Handle outputting of dynamic sitemaps, logging.
+		 *
+		 * @param $query
+		 */
 		function sitemap_output_hook( $query ) {
 			$page = 0;
 			if ( ( $this->options["{$this->prefix}rewrite"] ) ) {
@@ -981,6 +1124,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
+		/**
+		 * Get sitemap data.
+		 *
+		 * @param $sitemap_type
+		 * @param int $page
+		 *
+		 * @return mixed|void
+		 */
 		function get_sitemap_data( $sitemap_type, $page = 0 ) {
 			$sitemap_data = Array();
 			if ( $this->options["{$this->prefix}indexes"] ) {
@@ -1016,14 +1167,25 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return apply_filters( $this->prefix . 'data', $sitemap_data, $sitemap_type, $page, $this->options );
 		}
 
-		/** Output sitemaps dynamically based on rewrite rules. **/
+		/**
+		 * Rewrite sitemap.
+		 *
+		 * Output sitemaps dynamically based on rewrite rules.
+		 *
+		 * @param $sitemap_type
+		 * @param int $page
+		 */
 		function do_rewrite_sitemap( $sitemap_type, $page = 0 ) {
 			$this->add_post_types();
 			$comment = __( "dynamically", 'all-in-one-seo-pack' );
 			echo $this->do_build_sitemap( $sitemap_type, $page, '', $comment );
 		}
 
-		/** Build a url to the sitemap. **/
+		/**
+		 * Build a url to the sitemap.
+		 *
+		 * @return string
+		 */
 		function get_sitemap_url() {
 			$url = get_home_url() . '/' . $this->options["{$this->prefix}filename"] . '.xml';
 			if ( $this->options["{$this->prefix}gzipped"] ) {
@@ -1033,7 +1195,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $url;
 		}
 
-		/** Notify search engines, do logging. **/
+		/**
+		 * Notify search engines, do logging.
+		 */
 		function do_notify() {
 			$notify_url = Array(
 				'google' => 'http://www.google.com/webmasters/sitemaps/ping?sitemap=',
@@ -1061,13 +1225,21 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
-		/** Add Sitemap parameter to virtual robots.txt file. **/
+		/**
+		 * Add Sitemap parameter to virtual robots.txt file.
+		 */
 		function do_robots() {
 			$url = $this->get_sitemap_url();
 			echo "\nSitemap: $url\n";
 		}
 
-		/** Build static sitemaps on submit if rewrite rules are not in use, do logging. **/
+		/**
+		 * Build static sitemaps.
+		 *
+		 * Build static sitemaps on submit if rewrite rules are not in use, do logging.
+		 *
+		 * @param string $message
+		 */
 		function do_sitemaps( $message = '' ) {
 			if ( ! empty( $this->options["{$this->prefix}indexes"] ) && ! empty( $this->options["{$this->prefix}paginate"] ) ) {
 				$this->paginate = true;
@@ -1101,6 +1273,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
+		/**
+		 * Add mime type.
+		 *
+		 * @param $mime
+		 *
+		 * @return mixed
+		 */
 		function add_xml_mime_type( $mime ) {
 			if ( ! empty( $mime ) ) {
 				$mime['xml'] = 'text/xml';
@@ -1109,7 +1288,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $mime;
 		}
 
-		/** Write sitemaps (compressed or otherwise) to the filesystem. **/
+		/**
+		 * Write multiple sitemaps.
+		 *
+		 * Write sitemaps (compressed or otherwise) to the filesystem.
+		 *
+		 * @param $filename
+		 * @param $contents
+		 */
 		function write_sitemaps( $filename, $contents ) {
 			$this->write_sitemap( $filename . ".xml", $contents );
 			if ( $this->options["{$this->prefix}gzipped"] ) {
@@ -1117,7 +1303,17 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
-		/** Write a single sitemap to the filesystem, handle compression. **/
+		/**
+		 * Write single sitemap.
+		 *
+		 * Write a single sitemap to the filesystem, handle compression.
+		 *
+		 * @param $filename
+		 * @param $contents
+		 * @param bool $gzip
+		 *
+		 * @return bool
+		 */
 		function write_sitemap( $filename, $contents, $gzip = false ) {
 			if ( $gzip ) {
 				$contents = gzencode( $contents );
@@ -1129,7 +1325,20 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $this->save_file( $filename, $contents );
 		}
 
-		/*** Helper function for handling default values ***/
+		/**
+		 * Gets the default values.
+		 *
+		 * Helper function for handling default values.
+		 *
+		 * @param $defaults
+		 * @param $prefix
+		 * @param $cache
+		 * @param $item
+		 * @param bool $nodefaults
+		 * @param string $type
+		 *
+		 * @return bool
+		 */
 		function get_default_values( $defaults, $prefix, &$cache, $item, $nodefaults = false, $type = '' ) {
 			if ( ! empty( $cache[ $item . $type ] ) ) {
 				return $cache[ $item . $type ];
@@ -1167,7 +1376,15 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return false;
 		}
 
-		/** Get priority settings for sitemap entries. **/
+		/**
+		 * Get priority settings for sitemap entries.
+		 *
+		 * @param $item
+		 * @param bool $nodefaults
+		 * @param string $type
+		 *
+		 * @return bool
+		 */
 		function get_default_priority( $item, $nodefaults = false, $type = '' ) {
 			$defaults = Array(
 				'homepage'   => '1.0',
@@ -1183,7 +1400,15 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $this->get_default_values( $defaults, 'prio_', $cache, $item, $nodefaults, $type );
 		}
 
-		/** Get frequency settings for sitemap entries. **/
+		/**
+		 * Get frequency settings for sitemap entries.
+		 *
+		 * @param $item
+		 * @param bool $nodefaults
+		 * @param string $type
+		 *
+		 * @return bool
+		 */
 		function get_default_frequency( $item, $nodefaults = false, $type = '' ) {
 			$defaults = Array(
 				'homepage'   => 'always',
@@ -1199,7 +1424,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $this->get_default_values( $defaults, 'freq_', $cache, $item, $nodefaults, $type );
 		}
 
-		/** Build an index of sitemaps used. **/
+		/**
+		 * Build an index of sitemaps used.
+		 *
+		 * @return array
+		 */
 		function get_sitemap_index_filenames() {
 			$files   = Array();
 			$options = $this->options;
@@ -1315,6 +1544,16 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $files;
 		}
 
+		/**
+		 * Build the sitemap.
+		 *
+		 * @param $sitemap_type
+		 * @param int $page
+		 * @param string $filename
+		 * @param string $comment
+		 *
+		 * @return string
+		 */
 		function do_build_sitemap( $sitemap_type, $page = 0, $filename = '', $comment = '' ) {
 			if ( empty( $filename ) ) {
 				if ( $sitemap_type == 'root' ) {
@@ -1334,6 +1573,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
+		/**
+		 * Write the sitemap.
+		 *
+		 * @param $sitemap_type
+		 * @param int $page
+		 * @param string $filename
+		 * @param string $comment
+		 */
 		function do_write_sitemap( $sitemap_type, $page = 0, $filename = '', $comment = '' ) {
 			if ( empty( $filename ) ) {
 				if ( $sitemap_type == 'root' ) {
@@ -1348,7 +1595,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$this->write_sitemaps( $filename, $this->do_build_sitemap( $sitemap_type, $page, $filename, $comment ) );
 		}
 
-		/** Build all the indexes. **/
+		/**
+		 * Build all the indexes.
+		 */
 		function do_indexed_sitemaps() {
 			$this->start_memory_usage = memory_get_peak_usage();
 			$options                  = $this->options;
@@ -1416,6 +1665,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$this->log_stats( 'indexed', $options["{$this->prefix}gzipped"], false );
 		}
 
+		/**
+		 * Get simple sitemap.
+		 *
+		 * @return array
+		 */
 		function get_simple_sitemap() {
 			$home           = Array(
 				'loc'        => get_home_url(),
@@ -1489,7 +1743,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $prio;
 		}
 
-		/** Build a single, stand-alone sitemap without indexes. **/
+		/**
+		 * Build a single, stand-alone sitemap without indexes.
+		 *
+		 * @param string $comment
+		 *
+		 * @return string
+		 */
 		function do_simple_sitemap( $comment = '' ) {
 			$sitemap_data = $this->get_simple_sitemap();
 			$sitemap_data = apply_filters( $this->prefix . 'data', $sitemap_data, 'root', 0, $this->options );
@@ -1497,7 +1757,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $this->build_sitemap( $sitemap_data, $comment );
 		}
 
-		/** Output the XML for a sitemap. **/
+		/**
+		 * Output the XML for a sitemap.
+		 *
+		 * @param $urls
+		 * @param string $comment
+		 *
+		 * @return null
+		 */
 		function output_sitemap( $urls, $comment = '' ) {
 			$max_items = 50000;
 			if ( ! is_array( $urls ) ) {
@@ -1581,7 +1848,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			echo '</urlset>';
 		}
 
-		/** Output the XML for a sitemap index. **/
+		/**
+		 * Output the XML for a sitemap index.
+		 *
+		 * @param $urls
+		 * @param string $comment
+		 *
+		 * @return null
+		 */
 		function output_sitemap_index( $urls, $comment = '' ) {
 			$max_items = 50000;
 			if ( ! is_array( $urls ) ) {
@@ -1614,7 +1888,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			echo '</sitemapindex>';
 		}
 
-		/** Return an XML sitemap index as a string. **/
+		/**
+		 * Return an XML sitemap index as a string.
+		 *
+		 * @param $urls
+		 * @param string $comment
+		 *
+		 * @return string
+		 */
 		function build_sitemap_index( $urls, $comment = '' ) {
 			ob_start();
 			$this->output_sitemap_index( $urls, $comment );
@@ -1622,7 +1903,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return ob_get_clean();
 		}
 
-		/** Return an XML sitemap as a string. **/
+		/**
+		 * Return an XML sitemap as a string.
+		 *
+		 * @param $urls
+		 * @param string $comment
+		 *
+		 * @return string
+		 */
 		function build_sitemap( $urls, $comment = '' ) {
 			ob_start();
 			$this->output_sitemap( $urls, $comment );
@@ -1630,7 +1918,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return ob_get_clean();
 		}
 
-		/** Return sitemap data for an array of terms. **/
+		/**
+		 * Return sitemap data for an array of terms.
+		 *
+		 * @param $terms
+		 *
+		 * @return array
+		 */
 		function get_term_priority_data( $terms ) {
 			$prio = Array();
 			if ( is_array( $terms ) ) {
@@ -1656,7 +1950,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $prio;
 		}
 
-		/** Return a list of permalinks for an array of terms. **/
+		/**
+		 * Return a list of permalinks for an array of terms.
+		 *
+		 * @param $terms
+		 *
+		 * @return array
+		 */
 		function get_term_permalinks( $terms ) {
 			$links = Array();
 			if ( is_array( $terms ) ) {
@@ -1669,7 +1969,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $links;
 		}
 
-		/** Return permalinks for archives. **/
+		/**
+		 * Return permalinks for archives.
+		 *
+		 * @param $posts
+		 *
+		 * @return array
+		 */
 		function get_archive_permalinks( $posts ) {
 			$links    = Array();
 			$archives = Array();
@@ -1689,7 +1995,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $links;
 		}
 
-		/** Return permalinks for authors. **/
+		/**
+		 * Return permalinks for authors.
+		 *
+		 * @param $posts
+		 *
+		 * @return array
+		 */
 		function get_author_permalinks( $posts ) {
 			$links   = Array();
 			$authors = Array();
@@ -1706,7 +2018,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $links;
 		}
 
-		/** Return permalinks for posts. **/
+		/**
+		 * Return permalinks for posts.
+		 *
+		 * @param $posts
+		 *
+		 * @return array
+		 */
 		function get_post_permalinks( $posts ) {
 			$links = Array();
 			if ( is_array( $posts ) ) {
@@ -1720,7 +2038,17 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $links;
 		}
 
-		/** Convert back from parse_url -- props to thomas at gielfeldt dot com, http://www.php.net/manual/en/function.parse-url.php#106731 **/
+		/**
+		 * Convert back from parse_url.
+		 *
+		 * Props to thomas at gielfeldt dot com.
+		 *
+		 * @link http://www.php.net/manual/en/function.parse-url.php#106731
+		 *
+		 * @param $parsed_url
+		 *
+		 * @return string
+		 */
 		function unparse_url( $parsed_url ) {
 			$scheme = isset( $parsed_url['scheme'] ) ? $parsed_url['scheme'] . '://' : '';
 			$host   = isset( $parsed_url['host'] ) ? $parsed_url['host'] : '';
@@ -1738,7 +2066,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return "$scheme$user$pass$host$port$path$query$fragment";
 		}
 
-		/** Return data for user entered additional pages. **/
+		/**
+		 * Gets additional pages.
+		 *
+		 * Return data for user entered additional pages.
+		 *
+		 * @return array|mixed|void
+		 */
 		function get_addl_pages_only() {
 			$pages = Array();
 			if ( ! empty( $this->options[ $this->prefix . 'addl_pages' ] ) ) {
@@ -1781,7 +2115,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $pages;
 		}
 
-		/** Return data for user entered additional pages and extra pages. **/
+		/**
+		 * Return data for user entered additional pages and extra pages.
+		 *
+		 * @return array|mixed|void
+		 */
 		function get_addl_pages() {
 			$home  = Array();
 			$home  = Array(
@@ -1816,7 +2154,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $pages;
 		}
 
-		/** Return links for user entered additional pages. **/
+		/**
+		 * Return links for user entered additional pages.
+		 *
+		 * @return array
+		 */
 		function get_addl_page_links() {
 			if ( ! empty( $this->options[ $this->prefix . 'addl_pages' ] ) ) {
 				return array_keys( $this->options[ $this->prefix . 'addl_pages' ] );
@@ -1825,7 +2167,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return Array();
 		}
 
-		/** Scores posts based on date and relative comment count, if any. **/
+		/**
+		 * Scores posts based on date and relative comment count, if any.
+		 *
+		 * @param $date
+		 * @param int $stats
+		 *
+		 * @return array
+		 */
 		function get_prio_calc( $date, $stats = 0 ) {
 			static $cur_time = null;
 			if ( $cur_time === null ) {
@@ -1880,7 +2229,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return Array( 'lastmod' => $date, 'changefreq' => $changefreq, 'priority' => $prio );
 		}
 
-		/** Generate sitemap priority data for archives from an array of posts. **/
+		/**
+		 * Generate sitemap priority data for archives from an array of posts.
+		 *
+		 * @param $posts
+		 *
+		 * @return array
+		 */
 		function get_archive_prio_from_posts( $posts ) {
 			$archives = Array();
 			if ( is_array( $posts ) ) {
@@ -1908,7 +2263,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $archives;
 		}
 
-		/** Return an archive link from a post. **/
+		/**
+		 * Return an archive link from a post.
+		 *
+		 * @param $post
+		 *
+		 * @return bool|string
+		 */
 		function get_archive_link_from_post( $post ) {
 			if ( $post->post_type != 'post' ) {
 				return false;
@@ -1918,7 +2279,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return get_month_link( date( 'Y', $date ), date( 'm', $date ) );
 		}
 
-		/** Generate sitemap priority data for authors from an array of posts. **/
+		/**
+		 * Generate sitemap priority data for authors from an array of posts.
+		 *
+		 * @param $posts
+		 *
+		 * @return array
+		 */
 		function get_author_prio_from_posts( $posts ) {
 			$authors = Array();
 			if ( is_array( $posts ) ) {
@@ -1942,12 +2309,24 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			) );
 		}
 
-		/** Return an author link from a post. **/
+		/**
+		 * Return an author link from a post.
+		 *
+		 * @param $post
+		 *
+		 * @return string
+		 */
 		function get_author_link_from_post( $post ) {
 			return get_author_posts_url( $post->post_author );
 		}
 
-		/** Return comment statistics on an array of posts. **/
+		/**
+		 * Return comment statistics on an array of posts.
+		 *
+		 * @param $posts
+		 *
+		 * @return array|int
+		 */
 		function get_comment_count_stats( $posts ) {
 			$count = 0;
 			$total = 0.0;
@@ -1978,7 +2357,16 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
-		/** Generate sitemap priority data from an array of posts. **/
+		/**
+		 * Generate sitemap priority data from an array of posts.
+		 *
+		 * @param $posts
+		 * @param bool $prio_override
+		 * @param bool $freq_override
+		 * @param string $linkfunc
+		 *
+		 * @return array
+		 */
 		function get_prio_from_posts( $posts, $prio_override = false, $freq_override = false, $linkfunc = 'get_permalink' ) {
 			$prio = Array();
 			$args = Array(
@@ -2052,7 +2440,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $prio;
 		}
 
-		/** Return excluded categories for taxonomy queries. **/
+		/**
+		 * Return excluded categories for taxonomy queries.
+		 *
+		 * @param int $page
+		 *
+		 * @return array
+		 */
 		function get_tax_args( $page = 0 ) {
 			$args = Array();
 			if ( $this->option_isset( 'excl_categories' ) ) {
@@ -2067,7 +2461,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $args;
 		}
 
-		/** Return excluded categories and pages for post queries. **/
+		/**
+		 * Return excluded categories and pages for post queries.
+		 *
+		 * @param $args
+		 *
+		 * @return mixed
+		 */
 		function set_post_args( $args ) {
 			if ( $this->option_isset( 'excl_categories' ) ) {
 				$cats = Array();
@@ -2083,7 +2483,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $args;
 		}
 
-		/** Return sitemap data for archives. **/
+		/**
+		 * Return sitemap data for archives.
+		 *
+		 * @return array
+		 */
 		function get_archive_prio_data() {
 			$args  = Array( 'numberposts' => 50000, 'post_type' => 'post' );
 			$args  = $this->set_post_args( $args );
@@ -2092,7 +2496,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $this->get_archive_prio_from_posts( $posts );
 		}
 
-		/** Return sitemap data for authors. **/
+		/**
+		 * Return sitemap data for authors.
+		 *
+		 * @return array
+		 */
 		function get_author_prio_data() {
 			$args  = Array( 'numberposts' => 50000, 'post_type' => 'post' );
 			$args  = $this->set_post_args( $args );
@@ -2101,7 +2509,15 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $this->get_author_prio_from_posts( $posts );
 		}
 
-		/** Return sitemap data for posts. **/
+		/**
+		 * Return sitemap data for posts.
+		 *
+		 * @param string $include
+		 * @param string $status
+		 * @param int $page
+		 *
+		 * @return array
+		 */
 		function get_all_post_priority_data( $include = 'any', $status = 'publish', $page = 0 ) {
 			$posts = $page_query = Array();
 			if ( $this->paginate ) {
@@ -2124,7 +2540,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $this->get_prio_from_posts( $posts, $this->get_default_priority( 'post', true ), $this->get_default_frequency( 'post', true ) );
 		}
 
-		/** Return a list of all permalinks. **/
+		/**
+		 * Return a list of all permalinks.
+		 *
+		 * @param string $include
+		 * @param string $status
+		 *
+		 * @return array
+		 */
 		function get_all_permalinks( $include = 'any', $status = 'publish' ) {
 			$args  = Array( 'post_type' => $include, 'post_status' => $status );
 			$args  = $this->set_post_args( $args );
@@ -2140,17 +2563,31 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $links;
 		}
 
-		/** Static memory cache for permalink_structure option. **/
+		/**
+		 * Static memory cache for permalink_structure option.
+		 *
+		 * @param $pre
+		 *
+		 * @return null
+		 */
 		function cache_structure( $pre ) {
 			return $this->cache_struct;
 		}
 
-		/** Static memory cache for home option. **/
+		/**
+		 * Static memory cache for home option.
+		 *
+		 * @param $pre
+		 *
+		 * @return null
+		 */
 		function cache_home( $pre ) {
 			return $this->cache_home;
 		}
 
-		/** Cache permalink_structure and home for repeated sitemap queries. **/
+		/**
+		 * Cache permalink_structure and home for repeated sitemap queries.
+		 */
 		function cache_options() {
 			static $start = true;
 			if ( $start ) {
@@ -2166,7 +2603,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
-		/** Call get_term_link with caching in place. **/
+		/**
+		 * Call get_term_link with caching in place.
+		 *
+		 * @param $term
+		 * @param string $taxonomy
+		 *
+		 * @return string|WP_Error
+		 */
 		function get_term_link( $term, $taxonomy = '' ) {
 			static $start = true;
 			if ( $start ) {
@@ -2177,7 +2621,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return get_term_link( $term, $taxonomy );
 		}
 
-		/** Call get_permalink with caching in place. **/
+		/**
+		 * Call get_permalink with caching in place.
+		 *
+		 * @param $post
+		 *
+		 * @return false|string
+		 */
 		function get_permalink( $post ) {
 			static $start = true;
 			if ( $start ) {
@@ -2188,7 +2638,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return get_permalink( $post );
 		}
 
-		/** Return term counts using wp_count_terms(). **/
+		/**
+		 * Return term counts using wp_count_terms().
+		 *
+		 * @param $args
+		 *
+		 * @return array|int|mixed|null|void|WP_Error
+		 */
 		function get_all_term_counts( $args ) {
 			$term_counts = null;
 			if ( ! empty( $args ) && ! empty( $args['taxonomy'] ) ) {
@@ -2211,7 +2667,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $term_counts;
 		}
 
-		/** Return post counts using wp_count_posts(). **/
+		/**
+		 * Return post counts using wp_count_posts().
+		 *
+		 * @param $args
+		 *
+		 * @return mixed|null|void
+		 */
 		function get_all_post_counts( $args ) {
 			$post_counts = null;
 			$status      = 'inherit';
@@ -2249,6 +2711,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $post_counts;
 		}
 
+		/**
+		 * Get total post count.
+		 *
+		 * @param $args
+		 *
+		 * @return int|mixed|null|void
+		 */
 		function get_total_post_count( $args ) {
 			$total  = 0;
 			$counts = $this->get_all_post_counts( $args );
@@ -2265,7 +2734,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $total;
 		}
 
-		/** Return post data using get_posts(). **/
+		/**
+		 * Return post data using get_posts().
+		 *
+		 * @param $args
+		 *
+		 * @return array|mixed|void
+		 */
 		function get_all_post_type_data( $args ) {
 			$defaults = array(
 				'numberposts'   => $this->max_posts,
@@ -2319,7 +2794,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( ! empty( $q->posts ) ) {
 				$args['exclude'] = array_merge( $args['exclude'], $q->posts );
 			}
-			// }
 
 			$posts = get_posts( apply_filters( $this->prefix . 'post_query', $args ) );
 			if ( ! empty( $exclude_slugs ) ) {
