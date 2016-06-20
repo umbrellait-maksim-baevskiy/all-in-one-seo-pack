@@ -788,7 +788,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 */
 		function do_sitemap_scan() {
 			$msg = '';
-			if ( ! empty( $this->options["{$this->prefix}rewrite"] ) && ( get_option( 'permalink_structure' ) == '' ) ) {
+			if ( ! empty( $this->options["{$this->prefix}rewrite"] ) && ( get_option( 'permalink_structure' ) === '' ) ) {
 				$msg = '<p>' . __( 'Warning: dynamic sitemap generation must have permalinks enabled.', 'all-in-one-seo-pack' ) . '</p>';
 			}
 			if ( ! empty( $_POST['aioseop_sitemap_rename_files'] ) || ! empty( $_POST['aioseop_sitemap_delete_files'] ) ) {
@@ -869,7 +869,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( ! is_object( $wpfs ) ) {
 				$use_wpfs = false;
 			} else {
-				if ( $wpfs->method == 'direct' ) {
+				if ( $wpfs->method === 'direct' ) {
 					$use_wpfs = false;
 				}
 			}
@@ -878,7 +878,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				if ( $this->is_file( $f ) ) {
 					$fn         = $f;
 					$compressed = false;
-					if ( $this->substr( $f, - 3 ) == '.gz' ) {
+					if ( $this->substr( $f, - 3 ) === '.gz' ) {
 						$compressed = true;
 					}
 					if ( $use_wpfs ) {
@@ -1346,11 +1346,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( ! empty( $defaults[ $item ] ) ) {
 				$field = $this->prefix . $prefix . $item;
 				if ( $this->option_isset( $prefix . $item ) && $this->options[ $field ] != 'no' ) {
-					if ( ( $this->options[ $field ] == 'sel' ) && ! empty( $type ) && isset( $this->options[ $this->prefix . $prefix . $item . '_' . $type ] ) ) {
+					if ( ( $this->options[ $field ] === 'sel' ) && ! empty( $type ) && isset( $this->options[ $this->prefix . $prefix . $item . '_' . $type ] ) ) {
 						if ( $this->options[ $this->prefix . $prefix . $item . '_' . $type ] == 'no' ) {
 							return false;
 						}
-						if ( $this->options[ $this->prefix . $prefix . $item . '_' . $type ] == 'sel' ) {
+						if ( $this->options[ $this->prefix . $prefix . $item . '_' . $type ] === 'sel' ) {
 							return false;
 						}
 						$cache[ $item . $type ] = $this->options[ $this->prefix . $prefix . $item . '_' . $type ];
@@ -1358,7 +1358,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						if ( $this->options[ $field ] == 'no' ) {
 							return false;
 						}
-						if ( $this->options[ $field ] == 'sel' ) {
+						if ( $this->options[ $field ] === 'sel' ) {
 							return false;
 						}
 						$cache[ $item . $type ] = $this->options[ $field ];
@@ -1556,7 +1556,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 */
 		function do_build_sitemap( $sitemap_type, $page = 0, $filename = '', $comment = '' ) {
 			if ( empty( $filename ) ) {
-				if ( $sitemap_type == 'root' ) {
+				if ( $sitemap_type === 'root' ) {
 					$filename = $this->options["{$this->prefix}filename"];
 				} else {
 					$filename = $this->options["{$this->prefix}filename"] . '_' . $sitemap_type;
@@ -1566,7 +1566,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$comment = __( "file '%s' statically", 'all-in-one-seo-pack' );
 			}
 			$sitemap_data = $this->get_sitemap_data( $sitemap_type, $page );
-			if ( ( $sitemap_type == 'root' ) && ! empty( $this->options["{$this->prefix}indexes"] ) ) {
+			if ( ( $sitemap_type === 'root' ) && ! empty( $this->options["{$this->prefix}indexes"] ) ) {
 				return $this->build_sitemap_index( $sitemap_data, sprintf( $comment, $filename ) );
 			} else {
 				return $this->build_sitemap( $sitemap_data, sprintf( $comment, $filename ) );
@@ -1583,7 +1583,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 */
 		function do_write_sitemap( $sitemap_type, $page = 0, $filename = '', $comment = '' ) {
 			if ( empty( $filename ) ) {
-				if ( $sitemap_type == 'root' ) {
+				if ( $sitemap_type === 'root' ) {
 					$filename = $this->options["{$this->prefix}filename"];
 				} else {
 					$filename = $this->options["{$this->prefix}filename"] . '_' . $sitemap_type;
@@ -1706,7 +1706,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$prio = array_merge( $prio, $this->get_author_prio_data() );
 			}
 			foreach ( $prio as $k => $p ) {
-				if ( untrailingslashit( $p['loc'] ) == untrailingslashit( $home['loc'] ) ) {
+				if ( untrailingslashit( $p['loc'] ) === untrailingslashit( $home['loc'] ) ) {
 					$prio[ $k ]['priority'] = '1.0';
 					$home                   = null;
 					break;
@@ -1714,7 +1714,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 			if ( ( $posts != null ) && isset( $posts['loc'] ) ) {
 				foreach ( $prio as $k => $p ) {
-					if ( $p['loc'] == $posts['loc'] ) {
+					if ( $p['loc'] === $posts['loc'] ) {
 						$prio[ $k ]['priority']   = $this->get_default_priority( 'blog' );
 						$prio[ $k ]['changefreq'] = $this->get_default_frequency( 'blog' );
 						$posts                    = null;
@@ -1779,7 +1779,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$current_host = $_SERVER['SERVER_NAME'];
 			}
 
-			if ( ! empty( $current_host ) && ( $current_host != $plugin_url['host'] ) ) {
+			if ( ! empty( $current_host ) && ( $current_host !== $plugin_url['host'] ) ) {
 				$plugin_url['host'] = $current_host;
 			}
 
@@ -1804,7 +1804,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				if ( is_array( $url ) ) {
 					foreach ( $url as $k => $v ) {
 						if ( ! empty( $v ) ) {
-							if ( $k == 'loc' ) {
+							if ( $k === 'loc' ) {
 								$v = esc_url( $v );
 							}
 							if ( is_array( $v ) ) {
@@ -1870,9 +1870,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				echo "\t<sitemap>\r\n";
 				if ( is_array( $url ) ) {
 					foreach ( $url as $k => $v ) {
-						if ( $k == 'loc' ) {
+						if ( $k === 'loc' ) {
 							echo "\t\t<$k>" . esc_url( $v ) . "</$k>\r\n";
-						} elseif ( $k == 'lastmod' ) {
+						} elseif ( $k === 'lastmod' ) {
 							echo "\t\t<$k>$v</$k>\r\n";
 						}
 					}
@@ -1933,12 +1933,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				foreach ( $terms as $term ) {
 					$pr_info        = array();
 					$pr_info['loc'] = $this->get_term_link( $term, $term->taxonomy );
-					if ( ( $this->options[ $this->prefix . 'prio_taxonomies' ] == 'sel' ) && isset( $this->options[ $this->prefix . 'prio_taxonomies_' . $term->taxonomy ] ) && ( $this->options[ $this->prefix . 'prio_taxonomies_' . $term->taxonomy ] != 'no' ) ) {
+					if ( ( $this->options[ $this->prefix . 'prio_taxonomies' ] === 'sel' ) && isset( $this->options[ $this->prefix . 'prio_taxonomies_' . $term->taxonomy ] ) && ( $this->options[ $this->prefix . 'prio_taxonomies_' . $term->taxonomy ] != 'no' ) ) {
 						$pr_info['priority'] = $this->options[ $this->prefix . 'prio_taxonomies_' . $term->taxonomy ];
 					} else {
 						$pr_info['priority'] = $def_prio;
 					}
-					if ( ( $this->options[ $this->prefix . 'freq_taxonomies' ] == 'sel' ) && isset( $this->options[ $this->prefix . 'freq_taxonomies_' . $term->taxonomy ] ) && ( $this->options[ $this->prefix . 'freq_taxonomies_' . $term->taxonomy ] != 'no' ) ) {
+					if ( ( $this->options[ $this->prefix . 'freq_taxonomies' ] === 'sel' ) && isset( $this->options[ $this->prefix . 'freq_taxonomies_' . $term->taxonomy ] ) && ( $this->options[ $this->prefix . 'freq_taxonomies_' . $term->taxonomy ] != 'no' ) ) {
 						$pr_info['changefreq'] = $this->options[ $this->prefix . 'freq_taxonomies_' . $term->taxonomy ];
 					} else {
 						$pr_info['changefreq'] = $def_freq;
