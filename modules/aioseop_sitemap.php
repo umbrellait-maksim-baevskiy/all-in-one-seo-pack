@@ -1026,7 +1026,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( ! empty( $sitemap_rules ) ) {
 				$rules = get_option( 'rewrite_rules' );
 				$rule  = key( $sitemap_rules );
-				if ( ! isset( $rules[ $rule ] ) || ( $rules[ $rule ] != $sitemap_rules[ $rule ] ) ) {
+				if ( ! isset( $rules[ $rule ] ) || ( $rules[ $rule ] !== $sitemap_rules[ $rule ] ) ) {
 					$wp_rewrite->flush_rules();
 					set_transient( "{$this->prefix}rules_flushed", true, 43200 );
 				}
