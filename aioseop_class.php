@@ -1529,7 +1529,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 						$meta = get_post_meta( $post_id, '_aioseop_' . $f, true );
 					}
 					if ( 'title' === $f || 'description' === $f ) {
-						$get_opts[ $field ] = htmlspecialchars( ( $meta ) );
+						$get_opts[ $field ] = htmlspecialchars( $meta );
 					} else {
 						$get_opts[ $field ] = htmlspecialchars( stripslashes( $meta ) );
 					}
@@ -1537,7 +1537,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					$field = "aiosp_$f";
 					$meta  = get_post_meta( $post_id, '_aioseop_' . $f, true );
 					if ( 'title' === $f || 'description' === $f ) {
-						$get_opts[ $field ] = htmlspecialchars( ( $meta ) );
+						$get_opts[ $field ] = htmlspecialchars( $meta );
 					} else {
 						$get_opts[ $field ] = htmlspecialchars( stripslashes( $meta ) );
 					}
@@ -1691,7 +1691,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			if ( $post === null ) {
 				return false;
 			}
-			if ( ( $this->is_static_front_page() ) && ( $home_title = $this->internationalize( $aioseop_options['aiosp_home_title'] ) ) ) {
+			if ( $this->is_static_front_page() && ( $home_title = $this->internationalize( $aioseop_options['aiosp_home_title'] ) ) ) {
 				if ( ! empty( $aioseop_options['aiosp_home_page_title_format'] ) ) {
 					$home_title = $this->apply_page_title_format( $home_title, $post, $aioseop_options['aiosp_home_page_title_format'] );
 				}
@@ -2487,10 +2487,10 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			// $description = $this->get_post_description( $post );
 			// $description = $this->apply_cf_fields( $description );
 			if ( ! ( woocommerce_get_page_id( 'shop' ) == get_option( 'page_on_front' ) ) ) {
-				$description = trim( ( $this->internationalize( get_post_meta( $post->ID, '_aioseop_description', true ) ) ) );
+				$description = trim( $this->internationalize( get_post_meta( $post->ID, '_aioseop_description', true ) ) );
 			} else if ( woocommerce_get_page_id( 'shop' ) == get_option( 'page_on_front' ) && ! empty( $aioseop_options['aiosp_use_static_home_info'] ) ) {
 				// $description = $this->get_aioseop_description( $post );
-				$description = trim( ( $this->internationalize( get_post_meta( $post->ID, '_aioseop_description', true ) ) ) );
+				$description = trim( $this->internationalize( get_post_meta( $post->ID, '_aioseop_description', true ) ) );
 			} else if ( woocommerce_get_page_id( 'shop' ) == get_option( 'page_on_front' ) && empty( $aioseop_options['aiosp_use_static_home_info'] ) ) {
 				$description = $this->get_aioseop_description( $post );
 			}
@@ -2554,7 +2554,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		$blog_page   = aiosp_common::get_blog_page();
 		$description = '';
 		if ( is_front_page() && empty( $aioseop_options['aiosp_use_static_home_info'] ) ) {
-			$description = trim( ( $this->internationalize( $aioseop_options['aiosp_home_description'] ) ) );
+			$description = trim( $this->internationalize( $aioseop_options['aiosp_home_description'] ) );
 		} elseif ( ! empty( $blog_page ) ) {
 			$description = $this->get_post_description( $blog_page );
 		}
@@ -2577,7 +2577,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		if ( ! $this->show_page_description() ) {
 			return '';
 		}
-		$description = trim( ( $this->internationalize( get_post_meta( $post->ID, '_aioseop_description', true ) ) ) );
+		$description = trim( $this->internationalize( get_post_meta( $post->ID, '_aioseop_description', true ) ) );
 		if ( ! empty( $post ) && post_password_required( $post ) ) {
 			return $description;
 		}
@@ -2611,7 +2611,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		$text = preg_replace( '|\[(.+?)\](.+?\[/\\1\])?|s', '', $text );
 		$text = wp_strip_all_tags( $text );
 
-		return trim( ( $text ) );
+		return trim( $text );
 	}
 
 	/**
@@ -2685,7 +2685,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				default:
 					return false;
 			}
-		} elseif ( ( $query->is_home && ( get_option( 'show_on_front' ) == 'page' ) && ( $pageid = get_option( 'page_for_posts' ) ) ) ) {
+		} elseif ( $query->is_home && ( get_option( 'show_on_front' ) == 'page' ) && ( $pageid = get_option( 'page_for_posts' ) ) ) {
 			$link = get_permalink( $pageid );
 		} elseif ( is_front_page() || ( $query->is_home && ( get_option( 'show_on_front' ) != 'page' || ! get_option( 'page_for_posts' ) ) ) ) {
 			if ( function_exists( 'icl_get_home_url' ) ) {
@@ -2784,7 +2784,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		global $aioseop_keywords;
 		global $post;
 		$opts = $this->meta_opts;
-		if ( ( ( is_front_page() && $aioseop_options['aiosp_home_keywords'] && ! $this->is_static_posts_page() ) || $this->is_static_front_page() ) ) {
+		if ( ( is_front_page() && $aioseop_options['aiosp_home_keywords'] && ! $this->is_static_posts_page() ) || $this->is_static_front_page() ) {
 			if ( ! empty( $aioseop_options['aiosp_use_static_home_info'] ) ) {
 				$keywords = $this->get_all_keywords();
 			} else {
@@ -3350,7 +3350,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			$prefix = $this->get_prefix( $location ) . $location . '_';
 			if ( ! empty( $post ) ) {
 				$post_type = get_post_type( $post );
-				if ( ! empty( $this->options['aiosp_cpostnoindex'] ) && ( in_array( $post_type, $this->options['aiosp_cpostnoindex'] ) ) ) {
+				if ( ! empty( $this->options['aiosp_cpostnoindex'] ) && in_array( $post_type, $this->options['aiosp_cpostnoindex'] ) ) {
 					$settings["{$prefix}noindex"]['type']            = 'select';
 					$settings["{$prefix}noindex"]['initial_options'] = array(
 						''    => __( 'Default - noindex', 'all-in-one-seo-pack' ),
@@ -3358,7 +3358,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 						'on'  => __( 'noindex', 'all-in-one-seo-pack' ),
 					);
 				}
-				if ( ! empty( $this->options['aiosp_cpostnofollow'] ) && ( in_array( $post_type, $this->options['aiosp_cpostnofollow'] ) ) ) {
+				if ( ! empty( $this->options['aiosp_cpostnofollow'] ) && in_array( $post_type, $this->options['aiosp_cpostnofollow'] ) ) {
 					$settings["{$prefix}nofollow"]['type']            = 'select';
 					$settings["{$prefix}nofollow"]['initial_options'] = array(
 						''    => __( 'Default - nofollow', 'all-in-one-seo-pack' ),
@@ -3366,7 +3366,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 						'on'  => __( 'nofollow', 'all-in-one-seo-pack' ),
 					);
 				}
-				if ( ! empty( $this->options['aiosp_cpostnoodp'] ) && ( in_array( $post_type, $this->options['aiosp_cpostnoodp'] ) ) ) {
+				if ( ! empty( $this->options['aiosp_cpostnoodp'] ) && in_array( $post_type, $this->options['aiosp_cpostnoodp'] ) ) {
 					$settings["{$prefix}noodp"]['type']            = 'select';
 					$settings["{$prefix}noodp"]['initial_options'] = array(
 						''    => __( 'Default - noodp', 'all-in-one-seo-pack' ),
@@ -3374,7 +3374,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 						'on'  => __( 'noodp', 'all-in-one-seo-pack' ),
 					);
 				}
-				if ( ! empty( $this->options['aiosp_cpostnoydir'] ) && ( in_array( $post_type, $this->options['aiosp_cpostnoydir'] ) ) ) {
+				if ( ! empty( $this->options['aiosp_cpostnoydir'] ) && in_array( $post_type, $this->options['aiosp_cpostnoydir'] ) ) {
 					$settings["{$prefix}noydir"]['type']            = 'select';
 					$settings["{$prefix}noydir"]['initial_options'] = array(
 						''    => __( 'Default - noydir', 'all-in-one-seo-pack' ),
@@ -3411,7 +3411,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			} elseif ( ! empty( $current["{$prefix}togglekeywords"] ) ) {
 				unset( $settings["{$prefix}keywords"] );
 			}
-			if ( empty( $this->options['aiosp_can'] ) || ( empty( $this->options['aiosp_customize_canonical_links'] ) ) ) {
+			if ( empty( $this->options['aiosp_can'] ) || empty( $this->options['aiosp_customize_canonical_links'] ) ) {
 				unset( $settings["{$prefix}custom_link"] );
 			}
 		}
@@ -3445,10 +3445,10 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			if ( isset( $options["{$prefix}rewrite_titles"] ) && ( ! empty( $options["{$prefix}rewrite_titles"] ) ) ) {
 				$options["{$prefix}rewrite_titles"] = 1;
 			}
-			if ( ( isset( $options["{$prefix}enablecpost"] ) ) && ( $options["{$prefix}enablecpost"] === '' ) ) {
+			if ( isset( $options["{$prefix}enablecpost"] ) && ( $options["{$prefix}enablecpost"] === '' ) ) {
 				$options["{$prefix}enablecpost"] = 0;
 			}
-			if ( ( isset( $options["{$prefix}use_original_title"] ) ) && ( $options["{$prefix}use_original_title"] === '' ) ) {
+			if ( isset( $options["{$prefix}use_original_title"] ) && ( $options["{$prefix}use_original_title"] === '' ) ) {
 				$options["{$prefix}use_original_title"] = 0;
 			}
 		}
@@ -4034,7 +4034,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		     || ( is_tax() && in_array( get_query_var( 'taxonomy' ), $tax_noindex ) )
 		) {
 			$noindex = 'noindex';
-		} elseif ( ( is_single() || is_page() || $this->is_static_posts_page() || is_attachment() || is_category() || is_tag() || is_tax() || ( $page > 1 ) ) ) {
+		} elseif ( is_single() || is_page() || $this->is_static_posts_page() || is_attachment() || is_category() || is_tag() || is_tax() || ( $page > 1 ) ) {
 			$post_type = get_post_type();
 			if ( ! empty( $opts ) ) {
 				$aiosp_noindex  = htmlspecialchars( stripslashes( $opts['aiosp_noindex'] ) );
@@ -4046,22 +4046,22 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			     || ! empty( $aioseop_options['aiosp_cpostnofollow'] ) || ! empty( $aioseop_options['aiosp_cpostnoodp'] ) || ! empty( $aioseop_options['aiosp_cpostnoydir'] )
 			     || ! empty( $aioseop_options['aiosp_paginated_noindex'] ) || ! empty( $aioseop_options['aiosp_paginated_nofollow'] )
 			) {
-				if ( ( $aiosp_noindex == 'on' ) || ( ( ! empty( $aioseop_options['aiosp_paginated_noindex'] ) ) && ( ( $page > 1 ) ) ) ||
-				     ( ( $aiosp_noindex == '' ) && ( ! empty( $aioseop_options['aiosp_cpostnoindex'] ) ) && ( in_array( $post_type, $aioseop_options['aiosp_cpostnoindex'] ) ) )
+				if ( ( $aiosp_noindex == 'on' ) || ( ( ! empty( $aioseop_options['aiosp_paginated_noindex'] ) ) && $page > 1 ) ||
+				     ( ( $aiosp_noindex == '' ) && ( ! empty( $aioseop_options['aiosp_cpostnoindex'] ) ) && in_array( $post_type, $aioseop_options['aiosp_cpostnoindex'] ) )
 				) {
 					$noindex = 'noindex';
 				}
-				if ( ( $aiosp_nofollow == 'on' ) || ( ( ! empty( $aioseop_options['aiosp_paginated_nofollow'] ) ) && ( ( $page > 1 ) ) ) ||
-				     ( ( $aiosp_nofollow == '' ) && ( ! empty( $aioseop_options['aiosp_cpostnofollow'] ) ) && ( in_array( $post_type, $aioseop_options['aiosp_cpostnofollow'] ) ) )
+				if ( ( $aiosp_nofollow == 'on' ) || ( ( ! empty( $aioseop_options['aiosp_paginated_nofollow'] ) ) && $page > 1 ) ||
+				     ( ( $aiosp_nofollow == '' ) && ( ! empty( $aioseop_options['aiosp_cpostnofollow'] ) ) && in_array( $post_type, $aioseop_options['aiosp_cpostnofollow'] ) )
 				) {
 					$nofollow = 'nofollow';
 				}
-				if ( ( $aiosp_noodp == 'on' ) || ( empty( $aiosp_noodp ) && ( ! empty( $aioseop_options['aiosp_cpostnoodp'] ) && ( in_array( $post_type, $aioseop_options['aiosp_cpostnoodp'] ) ) ) ) ) {
+				if ( ( $aiosp_noodp == 'on' ) || ( empty( $aiosp_noodp ) && ( ! empty( $aioseop_options['aiosp_cpostnoodp'] ) && in_array( $post_type, $aioseop_options['aiosp_cpostnoodp'] ) ) ) ) {
 					$aiosp_noodp = true;
 				} else {
 					$aiosp_noodp = false;
 				}
-				if ( ( $aiosp_noydir == 'on' ) || ( empty( $aiosp_noydir ) && ( ! empty( $aioseop_options['aiosp_cpostnoydir'] ) && ( in_array( $post_type, $aioseop_options['aiosp_cpostnoydir'] ) ) ) ) ) {
+				if ( ( $aiosp_noydir == 'on' ) || ( empty( $aiosp_noydir ) && ( ! empty( $aioseop_options['aiosp_cpostnoydir'] ) && in_array( $post_type, $aioseop_options['aiosp_cpostnoydir'] ) ) ) ) {
 					$aiosp_noydir = true;
 				} else {
 					$aiosp_noydir = false;
@@ -4157,7 +4157,7 @@ EOF;
 			$googleplus = $aioseop_options['aiosp_google_publisher'];
 		}
 
-		if ( ( is_front_page() ) && ( $page < 2 ) ) {
+		if ( is_front_page() && ( $page < 2 ) ) {
 			if ( ! empty( $aioseop_options['aiosp_google_publisher'] ) ) {
 				$publisher = $aioseop_options['aiosp_google_publisher'];
 			}
@@ -4866,7 +4866,7 @@ EOF;
 		}
 
 		$donated = false;
-		if ( ( isset( $_POST ) ) && ( isset( $_POST['module'] ) ) && ( isset( $_POST['nonce-aioseop'] ) ) && ( $_POST['module'] == 'All_in_One_SEO_Pack' ) && ( wp_verify_nonce( $_POST['nonce-aioseop'], 'aioseop-nonce' ) ) ) {
+		if ( isset( $_POST ) && isset( $_POST['module'] ) && isset( $_POST['nonce-aioseop'] ) && ( $_POST['module'] == 'All_in_One_SEO_Pack' ) && wp_verify_nonce( $_POST['nonce-aioseop'], 'aioseop-nonce' ) ) {
 			if ( isset( $_POST['aiosp_donate'] ) ) {
 				$donated = $_POST['aiosp_donate'];
 			}
@@ -4876,7 +4876,7 @@ EOF;
 				} else {
 					$custom_menu_order = false;
 				}
-			} else if ( ( isset( $_POST['Submit_Default'] ) ) || ( ( isset( $_POST['Submit_All_Default'] ) ) ) ) {
+			} else if ( isset( $_POST['Submit_Default'] ) || isset( $_POST['Submit_All_Default'] ) ) {
 				$custom_menu_order = true;
 			}
 		} else {
