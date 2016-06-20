@@ -1,5 +1,9 @@
 <?php
 /**
+ * All in One SEO Pack Main Class file.
+ *
+ * Main class file, to be broken up later.
+ *
  * @package All-in-One-SEO-Pack
  */
 
