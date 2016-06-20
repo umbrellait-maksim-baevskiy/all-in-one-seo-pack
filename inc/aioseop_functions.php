@@ -308,7 +308,7 @@ if ( ! function_exists( 'aioseop_ajax_save_meta' ) ) {
 		if ( in_array( $target, Array(
 				'title',
 				'description',
-				'keywords'
+				'keywords',
 			) ) && current_user_can( 'edit_post', $post_id )
 		) {
 			update_post_meta( $post_id, '_aioseop_' . $target, esc_attr( $new_meta ) );
@@ -388,7 +388,7 @@ if ( ! function_exists( 'aioseop_ajax_save_url' ) ) {
 			'type'  => 'custom',
 			'save'  => true,
 			'value' => $options[ $prefix . 'addl_pages' ],
-			'attr'  => ''
+			'attr'  => '',
 		) );
 		$output  = str_replace( "'", "\'", $output );
 		$output  = str_replace( "\n", '\n', $output );
@@ -427,7 +427,7 @@ if ( ! function_exists( 'aioseop_ajax_delete_url' ) ) {
 				'type'  => 'custom',
 				'save'  => true,
 				'value' => $options['aiosp_sitemap_addl_pages'],
-				'attr'  => ''
+				'attr'  => '',
 			) );
 			$output  = str_replace( "'", "\'", $output );
 			$output  = str_replace( "\n", '\n', $output );
@@ -463,7 +463,7 @@ if ( ! function_exists( 'aioseop_ajax_scan_header' ) ) {
 		$metatags = Array(
 			'facebook' => Array( 'name' => 'property', 'value' => 'content' ),
 			'twitter'  => Array( 'name' => 'name', 'value' => 'value' ),
-			'google+'  => Array( 'name' => 'itemprop', 'value' => 'content' )
+			'google+'  => Array( 'name' => 'itemprop', 'value' => 'content' ),
 		);
 		$metadata = Array(
 			'facebook' => Array(
@@ -473,20 +473,20 @@ if ( ! function_exists( 'aioseop_ajax_scan_header' ) ) {
 				'thumbnail'   => 'og:image',
 				'sitename'    => 'og:site_name',
 				'key'         => 'fb:admins',
-				'description' => 'og:description'
+				'description' => 'og:description',
 			),
 			'google+'  => Array(
 				'thumbnail'   => 'image',
 				'title'       => 'name',
-				'description' => 'description'
+				'description' => 'description',
 			),
 			'twitter'  => Array(
 				'card'        => 'twitter:card',
 				'url'         => 'twitter:url',
 				'title'       => 'twitter:title',
 				'description' => 'twitter:description',
-				'thumbnail'   => 'twitter:image'
-			)
+				'thumbnail'   => 'twitter:image',
+			),
 		);
 		if ( ! empty( $output ) && ! empty( $output['head'] ) && ! empty( $output['head']['meta'] ) ) {
 			foreach ( $output['head']['meta'] as $v ) {
@@ -517,7 +517,7 @@ if ( ! function_exists( 'aioseop_ajax_scan_header' ) ) {
 				Array(
 					'https://developers.facebook.com/tools/debug',
 					'http://www.google.com/webmasters/tools/richsnippets',
-					'https://dev.twitter.com/docs/cards/validation/validator'
+					'https://dev.twitter.com/docs/cards/validation/validator',
 				) as $link
 			) {
 				$meta .= "<a href='{$link}' target='_blank'>{$link}</a><br />";
@@ -891,7 +891,7 @@ if ( ! function_exists( 'fnmatch' ) ) {
 	function fnmatch( $pattern, $string ) {
 		return preg_match( "#^" . strtr( preg_quote( $pattern, '#' ), array(
 				'\*' => '.*',
-				'\?' => '.'
+				'\?' => '.',
 			) ) . "$#i", $string );
 	}
 }
