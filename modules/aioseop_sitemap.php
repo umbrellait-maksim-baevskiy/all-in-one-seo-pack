@@ -206,7 +206,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					) as $opt => $val
 				) {
 					$arr = $$s;
-					if ( ( $opt == 'post' ) || ( $opt == 'taxonomies' ) ) {
+					if ( ( $opt === 'post' ) || ( $opt === 'taxonomies' ) ) {
 						$iopts = $this->{"{$k}_sel"};
 					} else {
 						$iopts = $this->$k;
@@ -219,7 +219,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						'initial_options' => $iopts,
 						'default'         => 'no',
 					);
-					if ( ( $opt == 'archive' ) || ( $opt == 'author' ) ) {
+					if ( ( $opt === 'archive' ) || ( $opt === 'author' ) ) {
 						$arr[ $k . '_' . $opt ]['condshow'] = array( $this->prefix . $opt => 'on' );
 					}
 					$$s = $arr;
