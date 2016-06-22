@@ -1365,7 +1365,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 			if ( ! empty( $defaults[ $item ] ) ) {
 				$field = $this->prefix . $prefix . $item;
-				if ( 'no' != $this->option_isset( $prefix . $item ) && $this->options[ $field ] ) {
+				if ( $this->option_isset( $prefix . $item ) && 'no' != $this->options[ $field ] ) {
 					if ( ( 'sel' === $this->options[ $field ] ) && ! empty( $type ) && isset( $this->options[ $this->prefix . $prefix . $item . '_' . $type ] ) ) {
 						if ( 'no' == $this->options[ $this->prefix . $prefix . $item . '_' . $type ] ) {
 							return false;
