@@ -1091,6 +1091,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		function sitemap_output_hook( $query ) {
 			$page = 0;
 			if ( $this->options["{$this->prefix}rewrite"] ) {
+
+				// Make dynamic sitemap.
 				if ( ! empty( $query->query_vars["{$this->prefix}path"] ) ) {
 					if ( ! empty( $query->query_vars["{$this->prefix}page"] ) ) {
 						$page = $query->query_vars["{$this->prefix}page"] - 1;
@@ -1122,7 +1124,24 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					$this->log_stats( $sitemap_type, $gzipped );
 					exit();
 				}
+
+				// Make dynamic xsl file.
+				if ( preg_match( '#(/sitemap\.xsl)$#i', $_SERVER['REQUEST_URI'] ) ){
+					$blog_charset = get_option( 'blog_charset' );
+					header( "Content-Type: text/xml; charset=$blog_charset", true );
+					include_once( AIOSEOP_PLUGIN_DIR . '/inc/sitemap-xsl.php');
+					exit();
+				}
 			}
+		}
+
+		// Not using this at the moment.
+		function load_sitemap_xsl(){
+			$blog_charset = get_option( 'blog_charset' );
+
+			header( "Content-Type: text/xml; charset=$blog_charset", true );
+
+			echo "there are things here";
 		}
 
 		/**
@@ -1787,7 +1806,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			//unset( $plugin_url['scheme'] );
 			$plugin_path = $this->unparse_url( $plugin_url );
 
-			$xml_header = '<?xml-stylesheet type="text/xsl" href="' . AIOSEOP_PLUGIN_URL . 'sitemap.xsl"?>' . "\r\n"
+			$xml_header = '<?xml-stylesheet type="text/xsl" href="' . home_url( '/sitemap.xsl' ) . '"?>' . "\r\n"
 			              . '<urlset ';
 			$namespaces = apply_filters( $this->prefix . 'xml_namespace', array( 'xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9' ) );
 			if ( ! empty( $namespaces ) ) {
