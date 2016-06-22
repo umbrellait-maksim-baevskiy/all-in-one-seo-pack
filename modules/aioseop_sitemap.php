@@ -319,6 +319,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			add_filter( $this->prefix . 'update_options', array( $this, 'filter_options' ) );
 			add_filter( $this->prefix . 'output_option', array( $this, 'display_custom_options' ), 10, 2 );
 			add_action( $this->prefix . 'daily_update_cron', array( $this, 'daily_update' ) );
+			add_action( 'init', array( $this, 'make_dynamic_xsl') );
 		}
 
 		/**
@@ -1125,13 +1126,16 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					exit();
 				}
 
-				// Make dynamic xsl file.
-				if ( preg_match( '#(/sitemap\.xsl)$#i', $_SERVER['REQUEST_URI'] ) ){
-					$blog_charset = get_option( 'blog_charset' );
-					header( "Content-Type: text/xml; charset=$blog_charset", true );
-					include_once( AIOSEOP_PLUGIN_DIR . '/inc/sitemap-xsl.php');
-					exit();
-				}
+			}
+		}
+
+		function make_dynamic_xsl(){
+			// Make dynamic xsl file.
+			if ( preg_match( '#(/sitemap\.xsl)$#i', $_SERVER['REQUEST_URI'] ) ){
+				$blog_charset = get_option( 'blog_charset' );
+				header( "Content-Type: text/xml; charset=$blog_charset", true );
+				include_once( AIOSEOP_PLUGIN_DIR . '/inc/sitemap-xsl.php');
+				exit();
 			}
 		}
 
