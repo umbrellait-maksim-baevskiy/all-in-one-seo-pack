@@ -1135,7 +1135,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
-		// Not using this at the moment.
 		function load_sitemap_xsl(){
 			$blog_charset = get_option( 'blog_charset' );
 
@@ -1883,7 +1882,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 			echo '<?xml version="1.0" encoding="UTF-8"?>' . "\r\n\r\n";
 			echo '<!-- ' . sprintf( $this->comment_string, $comment, AIOSEOP_VERSION, date( 'D, d M Y H:i:s e' ) ) . " -->\r\n";
-			echo '<?xml-stylesheet type="text/xsl" href="' . AIOSEOP_PLUGIN_URL . 'sitemap.xsl"?>' . "\r\n";
+			echo '<?xml-stylesheet type="text/xsl" href="' . home_url( '/sitemap.xsl' ) . '"?>' . "\r\n";
 			echo '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\r\n";
 			$count = 0;
 			foreach ( $urls as $url ) {
