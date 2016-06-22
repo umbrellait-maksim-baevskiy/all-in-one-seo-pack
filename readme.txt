@@ -14,9 +14,9 @@ The most downloaded plugin for WordPress (almost 30 million downloads). Use All 
 
 **All in One SEO Pack** Optimizes your WordPress blog for SEO (**Search Engine Optimization**).
 
-**[Upgrade to Pro Version](http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/)**
+**[Upgrade to Pro Version](http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/?loc=readme_utpv)**
 
-[Premium Support](http://semperplugins.com/support/)
+[Premium Support](http://semperplugins.com/support/?loc=readme_ps)
 
 First created in 2007, see why AIOSEO is the most downloaded plugin for WordPress.
 
