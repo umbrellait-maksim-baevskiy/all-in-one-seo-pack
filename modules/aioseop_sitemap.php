@@ -1781,6 +1781,21 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		}
 
 		/**
+		 * Gets the sitemap URL.
+		 *
+		 * Has a filter for using something other than the dynamically generated one.
+		 * Using the filter you need the full path to the custom xsl file.
+		 *
+		 * @see https://semperplugins.com/documentation/aioseop_sitemap_xsl_url/
+		 *
+		 * @since 2.3.6
+		 */
+		function get_sitemap_xsl(){
+
+			return esc_url ( apply_filters( 'aioseop_sitemap_xsl_url', home_url( '/sitemap.xsl' ) ) );
+		}
+
+		/**
 		 * Output the XML for a sitemap.
 		 *
 		 * @param $urls
@@ -1809,7 +1824,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			//unset( $plugin_url['scheme'] );
 			$plugin_path = $this->unparse_url( $plugin_url );
 
-			$xml_header = '<?xml-stylesheet type="text/xsl" href="' . home_url( '/sitemap.xsl' ) . '"?>' . "\r\n"
+			// Using the filter you need the full path to the custom xsl file.
+			$xsl_url = $this->get_sitemap_xsl();
+
+			$xml_header = '<?xml-stylesheet type="text/xsl" href="' . $xsl_url . '"?>' . "\r\n"
 			              . '<urlset ';
 			$namespaces = apply_filters( $this->prefix . 'xml_namespace', array( 'xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9' ) );
 			if ( ! empty( $namespaces ) ) {
@@ -1886,7 +1904,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 			echo '<?xml version="1.0" encoding="UTF-8"?>' . "\r\n\r\n";
 			echo '<!-- ' . sprintf( $this->comment_string, $comment, AIOSEOP_VERSION, date( 'D, d M Y H:i:s e' ) ) . " -->\r\n";
-			echo '<?xml-stylesheet type="text/xsl" href="' . home_url( '/sitemap.xsl' ) . '"?>' . "\r\n";
+			$xsl_url = $this->get_sitemap_xsl();
+			echo '<?xml-stylesheet type="text/xsl" href="' . $xsl_url . '"?>' . "\r\n";
 			echo '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\r\n";
 			$count = 0;
 			foreach ( $urls as $url ) {
