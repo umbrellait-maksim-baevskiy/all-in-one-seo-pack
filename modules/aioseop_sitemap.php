@@ -319,14 +319,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			add_filter( $this->prefix . 'update_options', array( $this, 'filter_options' ) );
 			add_filter( $this->prefix . 'output_option', array( $this, 'display_custom_options' ), 10, 2 );
 			add_action( $this->prefix . 'daily_update_cron', array( $this, 'daily_update' ) );
-			add_action( 'init', array( $this, 'make_dynamic_xsl') );
-			add_action( 'transition_post_status', array( $this, 'update_sitemap_from_posts'), 10, 3);
+			add_action( 'init', array( $this, 'make_dynamic_xsl' ) );
+			add_action( 'transition_post_status', array( $this, 'update_sitemap_from_posts' ), 10, 3 );
 		}
 
 		function update_sitemap_from_posts( $new_status, $old_status, $post ) {
-
-			// TODO if dynamic, delete transient (we currently don't do transients)
-
 
 			if ( $this->option_isset( 'rewrite' ) ) {
 				// TODO if dynamic, delete transient (we currently don't do transients)
