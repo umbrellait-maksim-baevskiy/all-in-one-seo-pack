@@ -1133,9 +1133,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						header( "Content-Type: text/xml; charset=$blog_charset", true );
 					}
 
-						
-						header( 'X-Robots-Tag: noindex', true );
-					}
+					// Always follow and noindex the sitemap.
+					header( 'X-Robots-Tag: noindex, follow', true );
+
 					if ( $gzipped ) {
 						ob_start();
 					}
