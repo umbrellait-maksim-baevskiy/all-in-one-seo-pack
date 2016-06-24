@@ -52,7 +52,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				'gzipped'         => __( 'Create a compressed sitemap file in .xml.gz format.', 'all-in-one-seo-pack' ),
 				'robots'          => __( 'Places a link to your Sitemap.xml into your virtual Robots.txt file.', 'all-in-one-seo-pack' ),
 				'rewrite'         => __( 'Places a link to the sitemap file in your virtual Robots.txt file which WordPress creates.', 'all-in-one-seo-pack' ),
-				'noindex'         => __( 'Tells search engines not to index the sitemap file itself.', 'all-in-one-seo-pack' ),
 				'debug'           => __( 'Use rewrites to generate your sitemap on the fly. NOTE: This is required for WordPress Multisite.', 'all-in-one-seo-pack' ),
 				'addl_url'        => __( 'URL to the page.', 'all-in-one-seo-pack' ),
 				'addl_prio'       => __( 'The priority of the page.', 'all-in-one-seo-pack' ),
@@ -136,10 +135,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				'rewrite'    => array(
 					'name'    => __( 'Dynamically Generate Sitemap', 'all-in-one-seo-pack' ),
 					'default' => 'On',
-				),
-				'noindex'    => array(
-					'name'     => __( 'Noindex Sitemap file', 'all-in-one-seo-pack' ),
-					'condshow' => array( "{$this->prefix}rewrite" => true ),
 				),
 			);
 
@@ -1137,7 +1132,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						$gzipped = false;
 						header( "Content-Type: text/xml; charset=$blog_charset", true );
 					}
-					if ( $this->options["{$this->prefix}noindex"] ) {
+
+						
 						header( 'X-Robots-Tag: noindex', true );
 					}
 					if ( $gzipped ) {
