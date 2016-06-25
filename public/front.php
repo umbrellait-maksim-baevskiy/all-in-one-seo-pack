@@ -9,11 +9,16 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Front' ) ) {
 
 		function __construct() {
 
-			add_action( 'template_redirect', array( $this, 'noindex_rss' ) );
+			add_action( 'template_redirect', array( $this, 'noindex_follow_rss' ) );
 
 		}
 
-		public function noindex_rss(){
+		/**
+		 * Noindex and follow RSS feeds.
+		 *
+		 * @Since 2.3.6
+		 */
+		public function noindex_follow_rss(){
 			if ( is_feed() && headers_sent() === false ) {
 				header( 'X-Robots-Tag: noindex, follow', true );
 			}
