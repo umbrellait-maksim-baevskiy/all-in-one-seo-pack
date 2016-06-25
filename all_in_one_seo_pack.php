@@ -58,6 +58,19 @@ if ( AIOSEOPPRO ) {
 
 }
 
+function aiosp_add_cap(){
+	/*
+	 TODO we should put this into an install script. We just need to make sure it runs soon enough and we need to make
+	 sure people updating from previous versions have access to it.
+	*/
+
+	$role = get_role( 'administrator' );
+	if ( is_object( $role ) ) {
+		$role->add_cap( 'aiosp_manage_seo' );
+	}
+}
+add_action( 'plugins_loaded', 'aiosp_add_cap' );
+
 if ( ! defined( 'AIOSEOP_PLUGIN_NAME' ) ) {
 	define( 'AIOSEOP_PLUGIN_NAME', $aioseop_plugin_name );
 }
