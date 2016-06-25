@@ -382,6 +382,7 @@ if ( ! function_exists( 'aioseop_init_class' ) ) {
 		require_once( AIOSEOP_PLUGIN_DIR . 'inc/translations.php' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'public/opengraph.php' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'inc/compatability/compat-init.php');
+		require_once( AIOSEOP_PLUGIN_DIR . 'public/front.php' );
 
 		if ( AIOSEOPPRO ) {
 			require_once( AIOSEOP_PLUGIN_DIR . 'pro/functions_general.php' );

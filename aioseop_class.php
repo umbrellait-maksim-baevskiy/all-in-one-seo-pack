@@ -3613,7 +3613,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	function add_hooks() {
 		global $aioseop_options, $aioseop_update_checker;
 
-		// MOVED TO MAIN PLUGIN FILE IN ORDER TO FIRE SOONER
+		// MOVED TO MAIN PLUGIN FILE IN ORDER TO FIRE SOONS
 		//$role = get_role( 'administrator' );
 		//if ( is_object( $role ) ) {
 		//	$role->add_cap( 'aiosp_manage_seo' );
