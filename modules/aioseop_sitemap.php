@@ -2148,6 +2148,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					if ( empty( $url['host'] ) ) {
 						$url['host'] = $siteurl['host'];
 					}
+					if ( !empty( $url['path'] && substr( $url['path'], 0, 1) !== '/' ) ){
+						$url['path'] = '/' . $url['path'];
+					}
 					$freq = $prio = $mod = '';
 					if ( ! empty( $v['mod'] ) ) {
 						$mod = $v['mod'];
