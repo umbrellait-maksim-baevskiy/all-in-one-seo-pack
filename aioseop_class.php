@@ -2868,7 +2868,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 						}
 					}
 
-					if ( $aioseop_options['aiosp_use_categories'] && ! is_page() ) {
+					if ( isset( $aioseop_options['aiosp_use_categories'] ) && $aioseop_options['aiosp_use_categories'] && ! is_page() ) {
 						$keywords = array_merge( $keywords, $this->get_all_categories( $id ) );
 					}
 				}
