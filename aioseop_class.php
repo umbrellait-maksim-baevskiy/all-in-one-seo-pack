@@ -4288,6 +4288,10 @@ EOF;
 
 		global $aioseop_options;
 
+		if( ! isset( $aioseop_options['aiosp_can_set_protocol'] ) ){
+			return $url; // Just send the url back if there's nothing there.
+		}
+
 		if ( $aioseop_options['aiosp_can_set_protocol'] == 'http' ) {
 			$url = preg_replace( '/^https:/i', 'http:', $url );
 		}
