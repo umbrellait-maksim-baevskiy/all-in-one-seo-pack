@@ -1112,10 +1112,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 */
 		function sitemap_output_hook( $query ) {
 			$page = 0;
-			if ( $this->options["{$this->prefix}rewrite"] ) {
+			if ( $this->options["{$this->prefix}rewrite"] && ! empty( $query->query_vars["{$this->prefix}path"] ) ) {
 
 				// Make dynamic sitemap.
-				if ( ! empty( $query->query_vars["{$this->prefix}path"] ) ) {
+
 					if ( ! empty( $query->query_vars["{$this->prefix}page"] ) ) {
 						$page = $query->query_vars["{$this->prefix}page"] - 1;
 					}
@@ -1146,7 +1146,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					}
 					$this->log_stats( $sitemap_type, $gzipped );
 					exit();
-				}
+
 
 			}
 		}
