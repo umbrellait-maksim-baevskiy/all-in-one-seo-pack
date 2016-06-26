@@ -2741,7 +2741,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		}
 		if ( ! empty( $link ) ) {
 			global $aioseop_options;
-			if ( ! empty( $aioseop_options['aiosp_can_set_protocol'] ) && ( 'auto' !== $aioseop_options['aiosp_can_set_protocol'] ) ) {
+			if ( isset( $aioseop_options['aiosp_can_set_protocol'] ) && ! empty( $aioseop_options['aiosp_can_set_protocol'] ) && ( 'auto' !== $aioseop_options['aiosp_can_set_protocol'] ) ) {
 				if ( 'http' === $aioseop_options['aiosp_can_set_protocol'] ) {
 					$link = preg_replace( '/^https:/i', 'http:', $link );
 				} elseif ( 'https' === $aioseop_options['aiosp_can_set_protocol'] ) {
