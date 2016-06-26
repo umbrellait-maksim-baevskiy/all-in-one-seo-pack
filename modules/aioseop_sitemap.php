@@ -214,7 +214,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						'initial_options' => $iopts,
 						'default'         => 'no',
 					);
-					if ( ( 'archive' === $opt) || ( 'author' === $opt ) ) {
+					if ( ( 'archive' === $opt ) || ( 'author' === $opt ) ) {
 						$arr[ $k . '_' . $opt ]['condshow'] = array( $this->prefix . $opt => 'on' );
 					}
 					$$s = $arr;
@@ -348,6 +348,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * Add new intervals of a week and a month.
 		 *
 		 * @link http://codex.wordpress.org/Plugin_API/Filter_Reference/cron_schedules
+		 *
 		 * @param $schedules
 		 *
 		 * @return mixed
@@ -1150,17 +1151,17 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
-		function make_dynamic_xsl(){
+		function make_dynamic_xsl() {
 			// Make dynamic xsl file.
-			if ( preg_match( '#(/sitemap\.xsl)$#i', $_SERVER['REQUEST_URI'] ) ){
+			if ( preg_match( '#(/sitemap\.xsl)$#i', $_SERVER['REQUEST_URI'] ) ) {
 				$blog_charset = get_option( 'blog_charset' );
 				header( "Content-Type: text/xml; charset=$blog_charset", true );
-				include_once( AIOSEOP_PLUGIN_DIR . '/inc/sitemap-xsl.php');
+				include_once( AIOSEOP_PLUGIN_DIR . '/inc/sitemap-xsl.php' );
 				exit();
 			}
 		}
 
-		function load_sitemap_xsl(){
+		function load_sitemap_xsl() {
 			$blog_charset = get_option( 'blog_charset' );
 
 			header( "Content-Type: text/xml; charset=$blog_charset", true );
@@ -1811,9 +1812,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 *
 		 * @since 2.3.6
 		 */
-		function get_sitemap_xsl(){
+		function get_sitemap_xsl() {
 
-			return esc_url ( apply_filters( 'aioseop_sitemap_xsl_url', home_url( '/sitemap.xsl' ) ) );
+			return esc_url( apply_filters( 'aioseop_sitemap_xsl_url', home_url( '/sitemap.xsl' ) ) );
 		}
 
 		/**
@@ -2492,7 +2493,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 							$pr_info['changefreq'] = $this->options[ $this->prefix . 'freq_post_' . $post->post_type ];
 						}
 					}
-					$pr_info = array('loc' => $url) + $pr_info; // Prepend loc to the array.
+					$pr_info = array( 'loc' => $url ) + $pr_info; // Prepend loc to the array.
 					if ( is_float( $pr_info['priority'] ) ) {
 						$pr_info['priority'] = sprintf( '%0.1F', $pr_info['priority'] );
 					}
