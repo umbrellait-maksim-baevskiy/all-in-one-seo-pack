@@ -1161,14 +1161,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
-		function load_sitemap_xsl() {
-			$blog_charset = get_option( 'blog_charset' );
-
-			header( "Content-Type: text/xml; charset=$blog_charset", true );
-
-			echo "there are things here";
-		}
-
 		/**
 		 * Get sitemap data.
 		 *
