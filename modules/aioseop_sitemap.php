@@ -1116,36 +1116,36 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 				// Make dynamic sitemap.
 
-					if ( ! empty( $query->query_vars["{$this->prefix}page"] ) ) {
-						$page = $query->query_vars["{$this->prefix}page"] - 1;
-					}
-					$this->start_memory_usage = memory_get_peak_usage();
-					$sitemap_type             = $query->query_vars["{$this->prefix}path"];
-					$gzipped                  = false;
-					if ( $this->substr( $sitemap_type, - 3 ) === '.gz' ) {
-						$gzipped      = true;
-						$sitemap_type = $this->substr( $sitemap_type, 0, - 3 );
-					}
-					$blog_charset = get_option( 'blog_charset' );
-					if ( $this->options["{$this->prefix}gzipped"] && $gzipped ) {
-						header( "Content-Type: application/x-gzip; charset=$blog_charset", true );
-					} else {
-						$gzipped = false;
-						header( "Content-Type: text/xml; charset=$blog_charset", true );
-					}
+				if ( ! empty( $query->query_vars["{$this->prefix}page"] ) ) {
+					$page = $query->query_vars["{$this->prefix}page"] - 1;
+				}
+				$this->start_memory_usage = memory_get_peak_usage();
+				$sitemap_type             = $query->query_vars["{$this->prefix}path"];
+				$gzipped                  = false;
+				if ( $this->substr( $sitemap_type, - 3 ) === '.gz' ) {
+					$gzipped      = true;
+					$sitemap_type = $this->substr( $sitemap_type, 0, - 3 );
+				}
+				$blog_charset = get_option( 'blog_charset' );
+				if ( $this->options["{$this->prefix}gzipped"] && $gzipped ) {
+					header( "Content-Type: application/x-gzip; charset=$blog_charset", true );
+				} else {
+					$gzipped = false;
+					header( "Content-Type: text/xml; charset=$blog_charset", true );
+				}
 
-					// Always follow and noindex the sitemap.
-					header( 'X-Robots-Tag: noindex, follow', true );
+				// Always follow and noindex the sitemap.
+				header( 'X-Robots-Tag: noindex, follow', true );
 
-					if ( $gzipped ) {
-						ob_start();
-					}
-					$this->do_rewrite_sitemap( $sitemap_type, $page );
-					if ( $gzipped ) {
-						echo gzencode( ob_get_clean() );
-					}
-					$this->log_stats( $sitemap_type, $gzipped );
-					exit();
+				if ( $gzipped ) {
+					ob_start();
+				}
+				$this->do_rewrite_sitemap( $sitemap_type, $page );
+				if ( $gzipped ) {
+					echo gzencode( ob_get_clean() );
+				}
+				$this->log_stats( $sitemap_type, $gzipped );
+				exit();
 
 
 			}
