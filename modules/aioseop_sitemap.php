@@ -318,6 +318,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			add_action( 'transition_post_status', array( $this, 'update_sitemap_from_posts' ), 10, 3 );
 		}
 
+		/**
+		 * Update sitemap from posts.
+		 * @param $new_status
+		 * @param $old_status
+		 * @param $post
+		 */
 		function update_sitemap_from_posts( $new_status, $old_status, $post ) {
 
 			if ( $this->option_isset( 'rewrite' ) ) {
