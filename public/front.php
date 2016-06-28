@@ -19,7 +19,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Front' ) ) {
 		/**
 		 * All_in_One_SEO_Pack_Front constructor.
 		 */
-		function __construct() {
+		public function __construct() {
 
 			add_action( 'template_redirect', array( $this, 'noindex_follow_rss' ) );
 
