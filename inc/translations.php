@@ -50,6 +50,7 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 		 * Fetch locale data from WP.
 		 *
 		 * @since 2.3.5
+		 * @since 2.3.6 Return FALSE on WP_Error object.
 		 *
 		 * @return mixed
 		 */
@@ -146,6 +147,7 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 		/**
 		 *
 		 * @since 2.3.5
+		 * @since 2.3.6 Return FALSE on WP_Error object in get_locale_data().
 		 *
 		 */
 		private function init() {
