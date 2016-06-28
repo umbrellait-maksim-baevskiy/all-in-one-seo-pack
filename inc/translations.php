@@ -56,6 +56,10 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 		private function get_locale_data() {
 			$response = wp_remote_get( $this->url );
 
+			if(is_wp_error($response)){
+				return FALSE;
+			}
+
 			return $response['body'];
 		}
 
@@ -147,6 +151,10 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 		private function init() {
 
 			$json = $this->get_locale_data();
+
+			if( $json === FALSE ){
+				return FALSE;
+			}
 
 			$translation_data = json_decode( $json );
 
