@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Initiates compatibility code with other plugins/themes
+ *
+ * Eventually we'll have subclasses for each.
+ *
+ * @package All-in-One-SEO-Pack
+ * @since 2.3.6
+ */
+
 if ( ! class_exists( 'All_in_One_SEO_Pack_Compatibility' ) ) {
 
 	/**
@@ -37,6 +46,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Compatibility' ) ) {
 		 * Remove Jetpack's sitemap.
 		 *
 		 * @param $modules
+		 *
 		 * @since 2.3.6
 		 * @return mixed
 		 */

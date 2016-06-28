@@ -2,7 +2,7 @@
 /**
  * Class for public facing code
  *
- * @package WordPress
+ * @package All-in-One-SEO-Pack
  * @since 2.3.6
  */
 
