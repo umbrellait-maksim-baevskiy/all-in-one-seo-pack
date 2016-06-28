@@ -183,7 +183,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 				$args['attr'] .= " id='{$args['options']['id']}'";
 			}
 
-			return $buf . "<div {$args['attr']}><label for='{$args['name']}'></label><div id='free-flag'>FREE</div>{$name}{$img}{$desc}{$checkbox}</div>";
+			return $buf . "<div {$args['attr']}><label for='{$args['name']}'><div id='free-flag'>FREE</div>{$name}{$img}{$desc}{$checkbox}</label></div>";
 		}
 	}
 }
