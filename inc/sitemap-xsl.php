@@ -4,8 +4,11 @@
  *
  * Dynamically generates the XML Sitemap's XSL file.
  *
+ * @package All-in-One-SEO-Pack
+ *
  * @since 2.3.6
  */
+
 echo '<?xml version="1.0" encoding="UTF-8"?>';
 ?>
 <xsl:stylesheet version="2.0"
