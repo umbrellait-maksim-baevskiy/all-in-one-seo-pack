@@ -1,12 +1,24 @@
 <?php
+/**
+ * Class for public facing code
+ *
+ * @package WordPress
+ * @since 2.3.6
+ */
+
 
 if ( ! class_exists( 'All_in_One_SEO_Pack_Front' ) ) {
 
 	/**
 	 * Class All_in_One_SEO_Pack_Front
+	 *
+	 * @since 2.3.6
 	 */
 	class All_in_One_SEO_Pack_Front {
 
+		/**
+		 * All_in_One_SEO_Pack_Front constructor.
+		 */
 		function __construct() {
 
 			add_action( 'template_redirect', array( $this, 'noindex_follow_rss' ) );
@@ -18,7 +30,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Front' ) ) {
 		 *
 		 * @Since 2.3.6
 		 */
-		public function noindex_follow_rss(){
+		public function noindex_follow_rss() {
 			if ( is_feed() && headers_sent() === false ) {
 				header( 'X-Robots-Tag: noindex, follow', true );
 			}
