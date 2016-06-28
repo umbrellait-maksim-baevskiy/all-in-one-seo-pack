@@ -5108,7 +5108,6 @@ EOF;
 							</a>
 						<?php } ?>
 					</div>
-					// Headway Themes.
 					<div class="aioseop_advert headwaythemes">
 						<div>
 							<h3>Drag and Drop WordPress Design</h3>
