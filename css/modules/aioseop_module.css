@@ -1189,6 +1189,19 @@ div.aioseop_notice a.aioseop_dismiss_link {
     color: #5F5F5F;
 }
 
+/* Fix for Chrome */
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+    
+    .aioseop_header_tabs li a.aioseop_header_tab {
+		padding-bottom: 0;
+    }
+}
+
+/* Fix for Safari */
+_:-webkit-full-screen:not(:root:root), .aioseop_header_tabs li a.aioseop_header_tab { 
+	padding-bottom: 2px; 
+}
+
 .aioseop_header_tabs li:first-child a.aioseop_header_tab {
     border-left: solid 1px #CCC;
     margin-left: 5px;
