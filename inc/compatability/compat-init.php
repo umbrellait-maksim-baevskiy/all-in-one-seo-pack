@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Initiates compatibility code with other plugins/themes
  *
@@ -45,13 +44,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Compatibility' ) ) {
 		/**
 		 * Remove Jetpack's sitemap.
 		 *
-		 * @param $modules
+		 * @param array $modules All the Jetpack modules.
 		 *
 		 * @since 2.3.6
 		 * @return mixed
 		 */
 		public function remove_jetpack_sitemap( $modules ) {
-			// Remove Jetpack's sitemap
+			// Remove Jetpack's sitemap.
 			unset( $modules['sitemaps'] );
 
 			return $modules;
