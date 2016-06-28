@@ -323,6 +323,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 		/**
 		 * Update sitemap from posts.
+
 		 * @param $new_status
 		 * @param $old_status
 		 * @param $post
@@ -773,7 +774,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					}
 				}
 			}
-			$siteurls = apply_filters( $this->prefix . 'sitemap_urls', $siteurls ); // legacy
+			$siteurls = apply_filters( $this->prefix . 'sitemap_urls', $siteurls ); // Legacy.
 			return apply_filters( $this->prefix . 'child_urls', $siteurls );
 		}
 
@@ -1844,7 +1845,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$plugin_url['host'] = $current_host;
 			}
 
-			//unset( $plugin_url['scheme'] );
+			// Code unset( $plugin_url['scheme'] );.
 			$plugin_path = $this->unparse_url( $plugin_url );
 
 			// Using the filter you need the full path to the custom xsl file.
