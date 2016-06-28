@@ -17,7 +17,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 		/**
 		 * All_in_One_SEO_Pack_Feature_Manager constructor.
 		 *
-		 * @param $mod
+		 * @param $mod Module.
 		 */
 		function __construct( $mod ) {
 			$this->name   = __( 'Feature Manager', 'all-in-one-seo-pack' );        // Human-readable name of the plugin.
@@ -130,6 +130,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 		}
 
 		/**
+		 * Determines the menu order.
+		 *
 		 * @return int
 		 */
 		function menu_order() {
