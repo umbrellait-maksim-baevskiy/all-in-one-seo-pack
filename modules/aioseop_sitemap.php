@@ -310,6 +310,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 			$this->add_help_text_links();
 
+			add_action( 'after_doing_aioseop_updates', array( $this, 'do_sitemaps') ); // Update static sitemap when AIOSEOP is upgrade to new version.
 			add_action( 'init', array( $this, 'load_sitemap_options' ) );
 			add_action( $this->prefix . 'settings_update', array( $this, 'do_sitemaps' ) );
 			add_filter( $this->prefix . 'display_settings', array( $this, 'update_post_data' ) );

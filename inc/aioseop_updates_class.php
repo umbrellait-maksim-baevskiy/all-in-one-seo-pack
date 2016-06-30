@@ -47,8 +47,9 @@ class aioseop_updates {
 		if ( version_compare( $last_active_version, AIOSEOP_VERSION, '<' ) ) {
 
 			// Upgrades based on previous version
+			do_action('before_doing_aioseop_updates');
 			$this->do_version_updates( $last_active_version );
-
+			do_action('after_doing_aioseop_updates');
 			// If we're running Pro, let the Pro updater set the version.
 			if ( ! AIOSEOPPRO ) {
 
