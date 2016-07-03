@@ -12,7 +12,7 @@
  * @package All-in-One-SEO-Pack.
  * @version 1.0.0
  */
-class aioseop_updates {
+class AIOSEOP_Updates {
 
 	/**
 	 * Constructor
