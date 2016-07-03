@@ -54,9 +54,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Compatibility' ) ) {
 
 			global $aioseop_options;
 			// Check if AIOSEOP's sitemap exists.
-			if(isset($aioseop_options['modules']['aiosp_feature_manager_options']['aiosp_feature_manager_enable_sitemap']) && $aioseop_options['modules']['aiosp_feature_manager_options']['aiosp_feature_manager_enable_sitemap'] === 'on' ){
+			if ( isset( $aioseop_options['modules']['aiosp_feature_manager_options']['aiosp_feature_manager_enable_sitemap'] ) && $aioseop_options['modules']['aiosp_feature_manager_options']['aiosp_feature_manager_enable_sitemap'] === 'on' ) {
 				unset( $modules['sitemaps'] ); // Remove Jetpack's sitemap.
 			}
+
 			return $modules;
 		}
 
