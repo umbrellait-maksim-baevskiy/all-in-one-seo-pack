@@ -16,6 +16,7 @@ class AIOSEOP_Updates {
 
 	/**
 	 * Constructor
+	 *
 	 * @since 1.0.0
 	 */
 	function __construct() {
@@ -23,6 +24,7 @@ class AIOSEOP_Updates {
 
 	/**
 	 * Updates version.
+	 *
 	 * @since 1.0.0
 	 * @global $aiosp , $aioseop_options.
 	 * @return null
@@ -37,7 +39,7 @@ class AIOSEOP_Updates {
 			}
 		}
 
-		// Last known running plugin version
+		// Last known running plugin version.
 		$last_active_version = '0.0';
 		if ( isset( $aioseop_options['last_active_version'] ) ) {
 			$last_active_version = $aioseop_options['last_active_version'];
@@ -46,14 +48,14 @@ class AIOSEOP_Updates {
 		// Compares version to see which one is the newer.
 		if ( version_compare( $last_active_version, AIOSEOP_VERSION, '<' ) ) {
 
-			// Upgrades based on previous version
+			// Upgrades based on previous version.
 			do_action( 'before_doing_aioseop_updates' );
 			$this->do_version_updates( $last_active_version );
 			do_action( 'after_doing_aioseop_updates' );
 			// If we're running Pro, let the Pro updater set the version.
 			if ( ! AIOSEOPPRO ) {
 
-				// Save the current plugin version as the new last_active_version
+				// Save the current plugin version as the new last_active_version.
 				$aioseop_options['last_active_version'] = AIOSEOP_VERSION;
 				$aiosp->update_class_option( $aioseop_options );
 			}
@@ -102,7 +104,7 @@ class AIOSEOP_Updates {
 	function bad_bots_201603() {
 		global $aiosp, $aioseop_options;
 
-		// Remove 'DOC' from bad bots list to avoid false positives
+		// Remove 'DOC' from bad bots list to avoid false positives.
 		if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] ) ) {
 			$list                                                                                 = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
 			$list                                                                                 = str_replace( array(
@@ -211,6 +213,4 @@ class AIOSEOP_Updates {
 		}
 		*/
 	}
-
-
 }
