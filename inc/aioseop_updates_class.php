@@ -34,7 +34,7 @@ class AIOSEOP_Updates {
 		if ( empty( $aioseop_options ) ) {
 			$aioseop_options = get_option( $aioseop_options );
 			if ( empty( $aioseop_options ) ) {
-				// something's wrong. bail.
+				// Something's wrong. bail.
 				return;
 			}
 		}
