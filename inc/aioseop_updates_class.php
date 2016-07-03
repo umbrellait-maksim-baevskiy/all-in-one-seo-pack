@@ -39,17 +39,17 @@ class AIOSEOP_Updates {
 
 		// Last known running plugin version
 		$last_active_version = '0.0';
-		if( isset( $aioseop_options['last_active_version'] ) ){
-			$last_active_version = $aioseop_options['last_active_version'] ;
+		if ( isset( $aioseop_options['last_active_version'] ) ) {
+			$last_active_version = $aioseop_options['last_active_version'];
 		}
 
 		// Compares version to see which one is the newer.
 		if ( version_compare( $last_active_version, AIOSEOP_VERSION, '<' ) ) {
 
 			// Upgrades based on previous version
-			do_action('before_doing_aioseop_updates');
+			do_action( 'before_doing_aioseop_updates' );
 			$this->do_version_updates( $last_active_version );
-			do_action('after_doing_aioseop_updates');
+			do_action( 'after_doing_aioseop_updates' );
 			// If we're running Pro, let the Pro updater set the version.
 			if ( ! AIOSEOPPRO ) {
 
@@ -107,7 +107,7 @@ class AIOSEOP_Updates {
 			$list                                                                                 = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
 			$list                                                                                 = str_replace( array(
 				"DOC\r\n",
-				"DOC\n"
+				"DOC\n",
 			), '', $list );
 			$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
 			update_option( 'aioseop_options', $aioseop_options );
@@ -156,7 +156,7 @@ class AIOSEOP_Updates {
 			$list                                                                                 = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
 			$list                                                                                 = str_replace( array(
 				"yandex\r\n",
-				"yandex\n"
+				"yandex\n",
 			), '', $list );
 			$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
 			update_option( 'aioseop_options', $aioseop_options );
