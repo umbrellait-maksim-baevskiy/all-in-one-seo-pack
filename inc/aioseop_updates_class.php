@@ -6,6 +6,7 @@
  * Handles detection of new plugin version updates, migration of old settings,
  * new WP core feature support, etc.
  * AIOSEOP Updates class.
+
  * @author Michael Torbert.
  * @author Semper Fi Web Design.
  * @copyright http://semperplugins.com
@@ -100,6 +101,7 @@ class AIOSEOP_Updates {
 	/**
 	 * Removes overzealous 'DOC' entry which is causing false-positive bad
 	 * bot blocking.
+
 	 * @since 2.3.3
 	 * @global $aiosp , $aioseop_options.
 	 */
@@ -183,6 +185,7 @@ class AIOSEOP_Updates {
 
 	/**
 	 * Updates features.
+
 	 * @since 1.0.0
 	 * @return null
 	 *
