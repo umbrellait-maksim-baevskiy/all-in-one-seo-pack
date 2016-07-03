@@ -783,6 +783,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * Gets the home path.
 		 *
 		 * If we're in wp-admin, use the WordPress function, otherwise we user our own version here.
+		 * This only applies to static sitemaps.
 		 *
 		 * @since 2.3.6.1
 		 *
