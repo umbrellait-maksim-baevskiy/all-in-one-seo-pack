@@ -6,10 +6,7 @@
  * Handles detection of new plugin version updates, migration of old settings,
  * new WP core feature support, etc.
  * AIOSEOP Updates class.
-
- * @author Michael Torbert.
- * @author Semper Fi Web Design.
- * @copyright http://semperplugins.com
+ * 
  * @package All-in-One-SEO-Pack.
  * @version 1.0.0
  */
