@@ -34,7 +34,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Compatibility' ) ) {
 		 * @since 2.3.6
 		 */
 		public function load_compatibility_hooks() {
-			// We'll use this until we set up out classes.
+			// We'll use this until we set up our classes.
 			if ( class_exists( 'jetpack' ) ) {
 
 				add_filter( 'jetpack_get_available_modules', array( $this, 'remove_jetpack_sitemap' ) );
