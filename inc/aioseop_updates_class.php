@@ -71,7 +71,9 @@ class AIOSEOP_Updates {
 
 	/**
 	 * Updates version.
+	 *
 	 * TODO: the compare here should be extracted into a function
+	 *
 	 * @since 1.0.0
 	 * @global $aioseop_options .
 	 *
@@ -138,16 +140,20 @@ class AIOSEOP_Updates {
 		}
 	}
 
-	// Functions for specific version milestones
+	/*
+	 * Functions for specific version milestones.
+	 */
 
 	/**
 	 * Remove 'yandex' entry. This is a major Russian search engine, and no longer needs to be blocked.
+	 *
 	 * @since 2.3.4.1
 	 * @global $aiosp , $aioseop_options.
 	 */
 	function bad_bots_remove_yandex_201604() {
 		global $aiosp, $aioseop_options;
-		// Remove 'yandex' from bad bots list to avoid false positives
+
+		// Remove 'yandex' from bad bots list to avoid false positives.
 		if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] ) ) {
 			$list                                                                                 = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
 			$list                                                                                 = str_replace( array(
@@ -179,6 +185,10 @@ class AIOSEOP_Updates {
 	 * Updates features.
 	 * @since 1.0.0
 	 * @return null
+	 *
+	 * if ( ! ( isset( $aioseop_options['version_feature_flags']['FEATURE_NAME'] ) &&
+	 * $aioseop_options['version_feature_flags']['FEATURE_NAME'] === 'yes' ) ) {
+	 * $this->some_feature_update_method(); // sets flag to 'yes' on completion.
 	 */
 	public function do_feature_updates() {
 		global $aioseop_options;
@@ -198,13 +208,5 @@ class AIOSEOP_Updates {
 				apply_filters( 'aioseop_update_check_time', 3600 * 6 )
 			);
 		}
-
-
-		/*
-		if ( ! ( isset( $aioseop_options['version_feature_flags']['FEATURE_NAME'] ) &&
-		 $aioseop_options['version_feature_flags']['FEATURE_NAME'] === 'yes' ) ) {
-	   		$this->some_feature_update_method(); // sets flag to 'yes' on completion.
-		}
-		*/
 	}
 }
