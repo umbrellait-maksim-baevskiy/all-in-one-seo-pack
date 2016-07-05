@@ -780,6 +780,36 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		}
 
 		/**
+		 * Gets the home path.
+		 *
+		 * If we're in wp-admin, use the WordPress function, otherwise we user our own version here.
+		 * This only applies to static sitemaps.
+		 *
+		 * @since 2.3.6.1
+		 *
+		 * @return mixed|string
+		 */
+		function get_home_path() {
+
+			if ( function_exists( 'get_home_path' ) ) {
+				return get_home_path();
+			}
+
+			$home    = set_url_scheme( get_option( 'home' ), 'http' );
+			$siteurl = set_url_scheme( get_option( 'siteurl' ), 'http' );
+			if ( ! empty( $home ) && 0 !== strcasecmp( $home, $siteurl ) ) {
+				$wp_path_rel_to_home = str_ireplace( $home, '', $siteurl ); /* $siteurl - $home */
+				$pos                 = strripos( str_replace( '\\', '/', $_SERVER['SCRIPT_FILENAME'] ), trailingslashit( $wp_path_rel_to_home ) );
+				$home_path           = substr( $_SERVER['SCRIPT_FILENAME'], 0, $pos );
+				$home_path           = trailingslashit( $home_path );
+			} else {
+				$home_path = ABSPATH;
+			}
+
+			return str_replace( '\\', '/', $home_path );
+		}
+
+		/**
 		 * Scan for sitemaps on filesystem.
 		 *
 		 * @return array
@@ -1367,7 +1397,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$contents = gzencode( $contents );
 			}
 			add_filter( 'upload_mimes', array( $this, 'add_xml_mime_type' ) );
-			$filename = get_home_path() . sanitize_file_name( $filename );
+			$filename = $this->get_home_path() . sanitize_file_name( $filename );
 			remove_filter( 'upload_mimes', array( $this, 'add_xml_mime_type' ) );
 
 			return $this->save_file( $filename, $contents );

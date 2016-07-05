@@ -34,9 +34,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Compatibility' ) ) {
 		 * @since 2.3.6
 		 */
 		public function load_compatibility_hooks() {
-			// We'll use this until we set up out classes.
+			// We'll use this until we set up our classes.
 			if ( class_exists( 'jetpack' ) ) {
-
 				add_filter( 'jetpack_get_available_modules', array( $this, 'remove_jetpack_sitemap' ) );
 			}
 		}
@@ -47,14 +46,19 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Compatibility' ) ) {
 		 * @param array $modules All the Jetpack modules.
 		 *
 		 * @since 2.3.6
-		 * @return mixed
+		 * @since 2.3.6.1 Make sure we only disable Jetpack's sitemap if they're using ours.
+		 *
+		 * @return array
 		 */
 		public function remove_jetpack_sitemap( $modules ) {
-			// Remove Jetpack's sitemap.
-			unset( $modules['sitemaps'] );
+
+			global $aioseop_options;
+			// Check if AIOSEOP's sitemap exists.
+			if ( isset( $aioseop_options['modules']['aiosp_feature_manager_options']['aiosp_feature_manager_enable_sitemap'] ) && $aioseop_options['modules']['aiosp_feature_manager_options']['aiosp_feature_manager_enable_sitemap'] === 'on' ) {
+				unset( $modules['sitemaps'] ); // Remove Jetpack's sitemap.
+			}
 
 			return $modules;
-
 		}
 
 		/**
