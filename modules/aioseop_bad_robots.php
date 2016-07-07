@@ -98,17 +98,63 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 			if ( $this->option_isset( 'block_bots' ) ) {
 				if ( ! $this->allow_bot() ) {
 					status_header( 503 );
-					$ip         = $_SERVER['REMOTE_ADDR'];
-					$user_agent = $_SERVER['HTTP_USER_AGENT'];
+					$ip         = $this->validate_ip( $_SERVER['REMOTE_ADDR'] );
+					$user_agent = $this->sanitize_server_vars( $_SERVER['HTTP_USER_AGENT'] );
 					$this->blocked_message( sprintf( __( 'Blocked bot with IP %s -- matched user agent %s found in blocklist.', 'all-in-one-seo-pack' ), $ip, $user_agent ) );
 					exit();
 				} elseif ( $this->option_isset( 'block_refer' ) && $this->is_bad_referer() ) {
 					status_header( 503 );
-					$ip      = $_SERVER['REMOTE_ADDR'];
-					$referer = $_SERVER['HTTP_REFERER'];
+					$ip      = $this->validate_ip( $_SERVER['REMOTE_ADDR'] );
+					$referer = $this->sanitize_server_vars( $_SERVER['HTTP_REFERER'] );
 					$this->blocked_message( sprintf( __( 'Blocked bot with IP %s -- matched referer %s found in blocklist.', 'all-in-one-seo-pack' ), $ip, $referer ) );
 				}
 			}
+		}
+
+		/**
+		 * Validate IP.
+		 *
+		 * @param $ip
+		 *
+		 * @since 2.3.6.2
+		 *
+		 * @return string
+		 */
+		function validate_ip( $ip ) {
+
+			if ( filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) {
+				// Valid IPV4.
+				return $ip;
+			}
+
+			if ( filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) ) {
+				// Valid IPV6.
+				return $ip;
+			}
+
+			// Doesn't seem to be a valid IP.
+			return 'invalid IP submitted';
+
+		}
+
+		/**
+		 * Sanitize server vars like http_user_agent remote_addr.
+		 *
+		 * @param $server_var
+		 *
+		 * @since 2.3.6.2
+		 *
+		 * @return string
+		 */
+		function sanitize_server_vars( $server_var ) {
+
+			if ( preg_match( '/\<(\?php|script)/', $server_var ) ) {
+				return 'Looks like you have an XSS attempt';
+			}
+
+			$server_var = strip_tags( $server_var );
+
+			return $server_var;
 		}
 
 		function generate_htaccess_blocklist() {
