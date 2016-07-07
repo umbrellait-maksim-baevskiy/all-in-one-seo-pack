@@ -116,7 +116,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 		 *
 		 * @param $ip
 		 *
-		 * @since 2.3.6.2
+		 * @since 2.3.7
 		 *
 		 * @return string
 		 */
@@ -142,7 +142,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 		 *
 		 * @param $server_var
 		 *
-		 * @since 2.3.6.2
+		 * @since 2.3.7
 		 *
 		 * @return string
 		 */
