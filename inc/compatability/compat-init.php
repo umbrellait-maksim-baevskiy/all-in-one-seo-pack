@@ -56,19 +56,19 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Compatibility' ) ) {
 		 * @return string
 		 */
 		function filter_jetpack_site_verification_output( $ver_tag ) {
-
+echo "HERE $ver_tag  HERE";
 			global $aioseop_options;
 
-			if ( isset( $aioseop_options['aiosp_pinterest_verify'] ) && ! empty( $aioseop_options['aiosp_pinterest_verify'] ) && strpos( $ver_tag, 'pinterest' ) ) {
+			if ( isset( $aioseop_options['aiosp_pinterest_verify'] ) && ! empty( $aioseop_options['aiosp_pinterest_verify'] ) && strpos( $ver_tag, 'p:domain_verify' ) ) {
 				return '';
 
 			}
 
-			if ( isset( $aioseop_options['aiosp_google_verify'] ) && ! empty( $aioseop_options['aiosp_google_verify'] ) && strpos( $ver_tag, 'google' ) ) {
+			if ( isset( $aioseop_options['aiosp_google_verify'] ) && ! empty( $aioseop_options['aiosp_google_verify'] ) && strpos( $ver_tag, 'google-site-verification' ) ) {
 				return '';
 			}
 
-			if ( isset( $aioseop_options['aiosp_bing_verify'] ) && ! empty( $aioseop_options['aiosp_bing_verify'] ) && strpos( $ver_tag, 'bing' ) ) {
+			if ( isset( $aioseop_options['aiosp_bing_verify'] ) && ! empty( $aioseop_options['aiosp_bing_verify'] ) && strpos( $ver_tag, 'msvalidate.01' ) ) {
 				return '';
 			}
 
