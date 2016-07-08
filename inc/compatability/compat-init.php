@@ -37,7 +37,43 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Compatibility' ) ) {
 			// We'll use this until we set up our classes.
 			if ( class_exists( 'jetpack' ) ) {
 				add_filter( 'jetpack_get_available_modules', array( $this, 'remove_jetpack_sitemap' ) );
+				add_filter( 'jetpack_site_verification_output', array(
+					$this,
+					'filter_jetpack_site_verification_output',
+				), 10, 1 );
 			}
+		}
+
+		/**
+		 * Filter Jetpack's site verification.
+		 *
+		 * If we have a value for a particular verification, use ours.
+		 *
+		 * @param $ver_tag
+		 *
+		 * @since 2.3.7
+		 *
+		 * @return string
+		 */
+		function filter_jetpack_site_verification_output( $ver_tag ) {
+
+			global $aioseop_options;
+
+			if ( isset( $aioseop_options['aiosp_pinterest_verify'] ) && ! empty( $aioseop_options['aiosp_pinterest_verify'] ) && strpos( $ver_tag, 'p:domain_verify' ) ) {
+				return '';
+
+			}
+
+			if ( isset( $aioseop_options['aiosp_google_verify'] ) && ! empty( $aioseop_options['aiosp_google_verify'] ) && strpos( $ver_tag, 'google-site-verification' ) ) {
+				return '';
+			}
+
+			if ( isset( $aioseop_options['aiosp_bing_verify'] ) && ! empty( $aioseop_options['aiosp_bing_verify'] ) && strpos( $ver_tag, 'msvalidate.01' ) ) {
+				return '';
+			}
+
+			return $ver_tag;
+
 		}
 
 		/**

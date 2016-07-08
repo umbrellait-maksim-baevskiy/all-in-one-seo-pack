@@ -207,7 +207,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'ga_enhanced_ecommerce'       => __( 'This enables support for the Enhanced Ecommerce in Google Analytics.', 'all-in-one-seo-pack' ),
 			'cpostnoindex'                => __( 'Set the default NOINDEX setting for each Post Type.', 'all-in-one-seo-pack' ),
 			'cpostnofollow'               => __( 'Set the default NOFOLLOW setting for each Post Type.', 'all-in-one-seo-pack' ),
-			
+
 			'category_noindex'            => __( 'Check this to ask search engines not to index Category Archives. Useful for avoiding duplicate content.', 'all-in-one-seo-pack' ),
 			'archive_date_noindex'        => __( 'Check this to ask search engines not to index Date Archives. Useful for avoiding duplicate content.', 'all-in-one-seo-pack' ),
 			'archive_author_noindex'      => __( 'Check this to ask search engines not to index Author Archives. Useful for avoiding duplicate content.', 'all-in-one-seo-pack' ),
@@ -4470,6 +4470,7 @@ EOF;
 			$analytics = ob_get_clean();
 		}
 		echo apply_filters( 'aiosp_google_analytics', $analytics );
+		do_action( 'after_aiosp_google_analytics' );
 	}
 
 	/**
