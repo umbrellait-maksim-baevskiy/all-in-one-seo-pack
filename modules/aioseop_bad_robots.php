@@ -137,26 +137,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 
 		}
 
-		/**
-		 * Sanitize server vars like http_user_agent remote_addr.
-		 *
-		 * @param $server_var
-		 *
-		 * @since 2.3.7
-		 *
-		 * @return string
-		 */
-		function sanitize_server_vars( $server_var ) {
-
-			if ( preg_match( '/\<(\?php|script)/', $server_var ) ) {
-				return 'Looks like you have an XSS attempt';
-			}
-
-			$server_var = strip_tags( $server_var );
-
-			return $server_var;
-		}
-
 		function generate_htaccess_blocklist() {
 			if ( ! $this->option_isset( 'htaccess_rules' ) ) {
 
