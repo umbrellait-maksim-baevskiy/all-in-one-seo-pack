@@ -1896,6 +1896,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				case 'html':
 					$buf .= $value;
 					break;
+				case 'esc_html':
+					$buf .= "<pre>" . esc_html( $value ) . "</pre>\n";
+					break;
 				default:
 					$buf .= "<input name='$name' type='{$options['type']}' $attr value='$value'>\n";
 			}

@@ -58,7 +58,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 				'blocked_log'    => array(
 					'name'     => __( 'Log Of Blocked Bots', 'all-in-one-seo-pack' ),
 					'default'  => __( 'No requests yet.', 'all-in-one-seo-pack' ),
-					'type'     => 'html',
+					'type'     => 'esc_html',
 					'disabled' => 'disabled',
 					'save'     => false,
 					'label'    => 'top',
@@ -99,13 +99,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 				if ( ! $this->allow_bot() ) {
 					status_header( 503 );
 					$ip         = $this->validate_ip( $_SERVER['REMOTE_ADDR'] );
-					$user_agent = $this->sanitize_server_vars( $_SERVER['HTTP_USER_AGENT'] );
+					$user_agent = $_SERVER['HTTP_USER_AGENT'];
 					$this->blocked_message( sprintf( __( 'Blocked bot with IP %s -- matched user agent %s found in blocklist.', 'all-in-one-seo-pack' ), $ip, $user_agent ) );
 					exit();
 				} elseif ( $this->option_isset( 'block_refer' ) && $this->is_bad_referer() ) {
 					status_header( 503 );
 					$ip      = $this->validate_ip( $_SERVER['REMOTE_ADDR'] );
-					$referer = $this->sanitize_server_vars( $_SERVER['HTTP_REFERER'] );
+					$referer = $_SERVER['HTTP_REFERER'];
 					$this->blocked_message( sprintf( __( 'Blocked bot with IP %s -- matched referer %s found in blocklist.', 'all-in-one-seo-pack' ), $ip, $referer ) );
 				}
 			}
@@ -263,7 +263,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 		function filter_display_options( $options ) {
 
 			if ( $this->option_isset( 'blocked_log' ) ) {
-				$options["{$this->prefix}blocked_log"] = '<pre>' . $options["{$this->prefix}blocked_log"] . '</pre>';
+				if ( preg_match( '/\<(\?php|script)/', $options["{$this->prefix}blocked_log"] ) ) {
+					$options["{$this->prefix}blocked_log"] = "Probable XSS attempt detected!\n" . $options["{$this->prefix}blocked_log"];
+				}
 			}
 
 			return $options;
