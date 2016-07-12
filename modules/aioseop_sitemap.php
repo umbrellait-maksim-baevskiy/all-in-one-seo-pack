@@ -65,10 +65,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				'filename'        => '#filename-prefix',
 				'google'          => '#notify-google-bing',
 				'bing'            => '#notify-google-bing',
-				'daily_cron'	  => '#schedule-updates',
+				'daily_cron'      => '#schedule-updates',
 				'indexes'         => '#enable-sitemap-indexes',
-				'paginate'		  => '#enable-sitemap-indexes',
-				'max_posts'		  => '#enable-sitemap-indexes',
+				'paginate'        => '#enable-sitemap-indexes',
+				'max_posts'       => '#enable-sitemap-indexes',
 				'posttypes'       => '#post-types-and-taxonomies',
 				'taxonomies'      => '#post-types-and-taxonomies',
 				'archive'         => '#include-archive-pages',
@@ -310,7 +310,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 			$this->add_help_text_links();
 
-			add_action( 'after_doing_aioseop_updates', array( $this, 'do_sitemaps') ); // Update static sitemap when AIOSEOP is upgrade to new version.
+			add_action( 'after_doing_aioseop_updates', array(
+				$this,
+				'do_sitemaps',
+			) ); // Update static sitemap when AIOSEOP is upgrade to new version.
 			add_action( 'init', array( $this, 'load_sitemap_options' ) );
 			add_action( $this->prefix . 'settings_update', array( $this, 'do_sitemaps' ) );
 			add_filter( $this->prefix . 'display_settings', array( $this, 'update_post_data' ) );
@@ -324,7 +327,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 		/**
 		 * Update sitemap from posts.
-
+		 *
 		 * @param $new_status
 		 * @param $old_status
 		 * @param $post
@@ -653,7 +656,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						'all-in-one-seo-pack' ), $privacy_link );
 			}
 			if ( $this->option_isset( 'debug' ) ) {
-				$debug_msg = esc_html( $options["{$this->prefix}debug"] );
+				$debug_msg                       = esc_html( $options["{$this->prefix}debug"] );
 				$options["{$this->prefix}debug"] = '<pre>' . $debug_msg . '</pre>';
 			}
 
@@ -1136,7 +1139,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$sitemap_memory_usage = $end_memory_usage - $this->start_memory_usage;
 			$end_memory_usage     = $end_memory_usage / 1024.0 / 1024.0;
 			$sitemap_memory_usage = $sitemap_memory_usage / 1024.0 / 1024.0;
-			$sitemap_type = __( 'static', 'all-in-one-seo-pack ' );
+			$sitemap_type         = __( 'static', 'all-in-one-seo-pack ' );
 			if ( $compressed ) {
 				$sitemap_type = __( 'compressed', 'all-in-one-seo-pack' );
 			}
@@ -1841,7 +1844,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * Has a filter for using something other than the dynamically generated one.
 		 * Using the filter you need the full path to the custom xsl file.
 		 *
-		 * @see https://semperplugins.com/documentation/aioseop_sitemap_xsl_url/
+		 * @see   https://semperplugins.com/documentation/aioseop_sitemap_xsl_url/
 		 *
 		 * @since 2.3.6
 		 */
