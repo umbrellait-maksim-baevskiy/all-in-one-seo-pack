@@ -5,7 +5,7 @@
  * Eventually we'll have subclasses for each.
  *
  * @package All-in-One-SEO-Pack
- * @since 2.3.6
+ * @since   2.3.6
  */
 
 if ( ! class_exists( 'All_in_One_SEO_Pack_Compatibility' ) ) {
