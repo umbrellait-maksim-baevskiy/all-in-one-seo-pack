@@ -335,7 +335,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		function update_sitemap_from_posts( $new_status, $old_status, $post ) {
 
 			if ( $this->option_isset( 'rewrite' ) ) {
-				// TODO if dynamic, delete transient (we currently don't do transients)
+				// TODO if dynamic, delete transient (we currently don't do transients).
 				return;
 			}
 
@@ -652,8 +652,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				} else {
 					$privacy_link = '<a href="options-privacy.php">' . __( 'Privacy Settings', 'all-in-one-seo-pack' ) . '</a>';
 				}
-				$options[ $this->prefix . 'link' ] .= '<p class="aioseop_error_notice">' . sprintf( __( 'Warning: your privacy settings are configured to ask search engines to not index your site; you can change this under %s for your blog.',
-						'all-in-one-seo-pack' ), $privacy_link );
+				$options[ $this->prefix . 'link' ] .= '<p class="aioseop_error_notice">' . sprintf( __( 'Warning: your privacy settings are configured to ask search engines to not index your site; you can change this under %s for your blog.', 'all-in-one-seo-pack' ), $privacy_link );
 			}
 			if ( $this->option_isset( 'debug' ) ) {
 				$debug_msg                       = esc_html( $options["{$this->prefix}debug"] );
@@ -1130,8 +1129,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * Stop timing and log memory usage for debug info.
 		 *
 		 * @param string $sitemap_type
-		 * @param bool $compressed
-		 * @param bool $dynamic
+		 * @param bool   $compressed
+		 * @param bool   $dynamic
 		 */
 		function log_stats( $sitemap_type = 'static', $compressed = false, $dynamic = true ) {
 			$time                 = timer_stop();
@@ -1195,6 +1194,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 		}
 
+		/**
+		 * Make dynamic xsl.
+		 */
 		function make_dynamic_xsl() {
 			// Make dynamic xsl file.
 			if ( preg_match( '#(/sitemap\.xsl)$#i', $_SERVER['REQUEST_URI'] ) ) {
@@ -1208,7 +1210,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Get sitemap data.
 		 *
-		 * @param $sitemap_type
+		 * @param     $sitemap_type
 		 * @param int $page
 		 *
 		 * @return mixed|void
@@ -1253,7 +1255,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 *
 		 * Output sitemaps dynamically based on rewrite rules.
 		 *
-		 * @param $sitemap_type
+		 * @param     $sitemap_type
 		 * @param int $page
 		 */
 		function do_rewrite_sitemap( $sitemap_type, $page = 0 ) {
@@ -1389,8 +1391,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 *
 		 * Write a single sitemap to the filesystem, handle compression.
 		 *
-		 * @param $filename
-		 * @param $contents
+		 * @param      $filename
+		 * @param      $contents
 		 * @param bool $gzip
 		 *
 		 * @return bool
@@ -1411,11 +1413,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 *
 		 * Helper function for handling default values.
 		 *
-		 * @param $defaults
-		 * @param $prefix
-		 * @param $cache
-		 * @param $item
-		 * @param bool $nodefaults
+		 * @param        $defaults
+		 * @param        $prefix
+		 * @param        $cache
+		 * @param        $item
+		 * @param bool   $nodefaults
 		 * @param string $type
 		 *
 		 * @return bool
@@ -1460,8 +1462,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Get priority settings for sitemap entries.
 		 *
-		 * @param $item
-		 * @param bool $nodefaults
+		 * @param        $item
+		 * @param bool   $nodefaults
 		 * @param string $type
 		 *
 		 * @return bool
@@ -1484,8 +1486,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Get frequency settings for sitemap entries.
 		 *
-		 * @param $item
-		 * @param bool $nodefaults
+		 * @param        $item
+		 * @param bool   $nodefaults
 		 * @param string $type
 		 *
 		 * @return bool
@@ -1628,8 +1630,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Build the sitemap.
 		 *
-		 * @param $sitemap_type
-		 * @param int $page
+		 * @param        $sitemap_type
+		 * @param int    $page
 		 * @param string $filename
 		 * @param string $comment
 		 *
@@ -1657,8 +1659,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Write the sitemap.
 		 *
-		 * @param $sitemap_type
-		 * @param int $page
+		 * @param        $sitemap_type
+		 * @param int    $page
 		 * @param string $filename
 		 * @param string $comment
 		 */
@@ -1856,7 +1858,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Output the XML for a sitemap.
 		 *
-		 * @param $urls
+		 * @param        $urls
 		 * @param string $comment
 		 *
 		 * @return null
@@ -1950,7 +1952,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Output the XML for a sitemap index.
 		 *
-		 * @param $urls
+		 * @param        $urls
 		 * @param string $comment
 		 *
 		 * @return null
@@ -1991,7 +1993,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Return an XML sitemap index as a string.
 		 *
-		 * @param $urls
+		 * @param        $urls
 		 * @param string $comment
 		 *
 		 * @return string
@@ -2006,7 +2008,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Return an XML sitemap as a string.
 		 *
-		 * @param $urls
+		 * @param        $urls
 		 * @param string $comment
 		 *
 		 * @return string
@@ -2273,7 +2275,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Scores posts based on date and relative comment count, if any.
 		 *
-		 * @param $date
+		 * @param     $date
 		 * @param int $stats
 		 *
 		 * @return array
@@ -2463,9 +2465,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Generate sitemap priority data from an array of posts.
 		 *
-		 * @param $posts
-		 * @param bool $prio_override
-		 * @param bool $freq_override
+		 * @param        $posts
+		 * @param bool   $prio_override
+		 * @param bool   $freq_override
 		 * @param string $linkfunc
 		 *
 		 * @return array
@@ -2617,7 +2619,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 *
 		 * @param string $include
 		 * @param string $status
-		 * @param int $page
+		 * @param int    $page
 		 *
 		 * @return array
 		 */
@@ -2709,7 +2711,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Call get_term_link with caching in place.
 		 *
-		 * @param $term
+		 * @param        $term
 		 * @param string $taxonomy
 		 *
 		 * @return string|WP_Error
