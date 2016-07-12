@@ -1129,19 +1129,18 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * @param bool $compressed
 		 * @param bool $dynamic
 		 */
-		function log_stats( $sitemap_type = 'root', $compressed = false, $dynamic = true ) {
+		function log_stats( $sitemap_type = 'static', $compressed = false, $dynamic = true ) {
 			$time                 = timer_stop();
 			$end_memory_usage     = memory_get_peak_usage();
 			$sitemap_memory_usage = $end_memory_usage - $this->start_memory_usage;
 			$end_memory_usage     = $end_memory_usage / 1024.0 / 1024.0;
 			$sitemap_memory_usage = $sitemap_memory_usage / 1024.0 / 1024.0;
+			$sitemap_type = __( 'static', 'all-in-one-seo-pack ' );
 			if ( $compressed ) {
-				$sitemap_type = __( 'compressed', 'all-in-one-seo-pack' ) . " $sitemap_type";
+				$sitemap_type = __( 'compressed', 'all-in-one-seo-pack' );
 			}
 			if ( $dynamic ) {
-				$sitemap_type = __( 'dynamic', 'all-in-one-seo-pack ' ) . " $sitemap_type";
-			} else {
-				$sitemap_type = __( 'static', 'all-in-one-seo-pack ' ) . " $sitemap_type";
+				$sitemap_type = __( 'dynamic', 'all-in-one-seo-pack ' );
 			}
 			$this->debug_message( sprintf( ' %01.2f MB memory used generating the %s sitemap in %01.3f seconds, %01.2f MB total memory used.', $sitemap_memory_usage, $sitemap_type, $time, $end_memory_usage ) );
 		}
