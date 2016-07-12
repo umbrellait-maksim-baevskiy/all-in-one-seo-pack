@@ -653,7 +653,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						'all-in-one-seo-pack' ), $privacy_link );
 			}
 			if ( $this->option_isset( 'debug' ) ) {
-				$options["{$this->prefix}debug"] = '<pre>' . $options["{$this->prefix}debug"] . '</pre>';
+				$debug_msg = esc_html( $options["{$this->prefix}debug"] );
+				$options["{$this->prefix}debug"] = '<pre>' . $debug_msg . '</pre>';
 			}
 
 			return $options;
