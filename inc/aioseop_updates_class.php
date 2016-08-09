@@ -63,13 +63,12 @@ class AIOSEOP_Updates {
 		$this->do_feature_updates();
 	}
 
-
 	/**
 	 * Updates version.
 	 *
 	 * TODO: the compare here should be extracted into a function
 	 *
-	 * @global $aioseop_options .
+	 * @global       $aioseop_options .
 	 *
 	 * @param String $old_version
 	 */
@@ -94,7 +93,7 @@ class AIOSEOP_Updates {
 	/**
 	 * Removes overzealous 'DOC' entry which is causing false-positive bad
 	 * bot blocking.
-
+	 *
 	 * @since 2.3.3
 	 * @global $aiosp , $aioseop_options.
 	 */
@@ -178,6 +177,7 @@ class AIOSEOP_Updates {
 
 	/**
 	 * Updates features.
+	 *
 	 * @return null
 	 *
 	 * if ( ! ( isset( $aioseop_options['version_feature_flags']['FEATURE_NAME'] ) &&
