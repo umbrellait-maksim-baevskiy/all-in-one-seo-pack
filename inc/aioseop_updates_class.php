@@ -88,6 +88,13 @@ class AIOSEOP_Updates {
 			$this->bad_bots_remove_yandex_201604();
 		}
 
+		if (
+			( ! AIOSEOPPRO && version_compare( $old_version, '2.3.8', '<' ) ) ||
+			( AIOSEOPPRO && version_compare( $old_version, '2.4.8', '<' ) )
+		) {
+			$this->bad_bots_remove_seznambot_201608();
+		}
+
 	}
 
 	/**
@@ -153,6 +160,43 @@ class AIOSEOP_Updates {
 			$list                                                                                 = str_replace( array(
 				"yandex\r\n",
 				"yandex\n",
+			), '', $list );
+			$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
+			update_option( 'aioseop_options', $aioseop_options );
+			$aiosp->update_class_option( $aioseop_options );
+
+			if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ) && 'on' === $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ) {
+
+				if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
+					require_once( AIOSEOP_PLUGIN_DIR . 'admin/aioseop_module_class.php' );
+					require_once( AIOSEOP_PLUGIN_DIR . 'modules/aioseop_bad_robots.php' );
+				}
+
+				$aiosp_reset_htaccess = new All_in_One_SEO_Pack_Bad_Robots;
+				$aiosp_reset_htaccess->generate_htaccess_blocklist();
+			}
+
+			if ( ! isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] ) && extract_from_markers( get_home_path() . '.htaccess', 'Bad Bot Blocker' ) ) {
+				insert_with_markers( get_home_path() . '.htaccess', 'Bad Bot Blocker', '' );
+			}
+		}
+	}
+
+	/**
+	 * Remove 'SeznamBot' entry.
+	 *
+	 * @since 2.3.8
+	 * @global $aiosp , $aioseop_options.
+	 */
+	function bad_bots_remove_seznambot_201608() {
+		global $aiosp, $aioseop_options;
+
+		// Remove 'SeznamBot' from bad bots list to avoid false positives.
+		if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] ) ) {
+			$list                                                                                 = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
+			$list                                                                                 = str_replace( array(
+				"SeznamBot\r\n",
+				"SeznamBot\n",
 			), '', $list );
 			$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
 			update_option( 'aioseop_options', $aioseop_options );
