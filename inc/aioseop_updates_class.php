@@ -89,8 +89,8 @@ class AIOSEOP_Updates {
 		}
 
 		if (
-			( ! AIOSEOPPRO && version_compare( $old_version, '2.3.8', '<' ) ) ||
-			( AIOSEOPPRO && version_compare( $old_version, '2.4.8', '<' ) )
+			( ! AIOSEOPPRO && version_compare( $old_version, '2.3.9', '<' ) ) ||
+			( AIOSEOPPRO && version_compare( $old_version, '2.4.9', '<' ) )
 		) {
 			$this->bad_bots_remove_seznambot_201608();
 		}
