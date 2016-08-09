@@ -8,14 +8,12 @@
  * AIOSEOP Updates class.
  *
  * @package All-in-One-SEO-Pack.
- * @version 1.0.0
  */
 class AIOSEOP_Updates {
 
 	/**
 	 * Constructor
 	 *
-	 * @since 1.0.0
 	 */
 	function __construct() {
 	}
@@ -23,7 +21,6 @@ class AIOSEOP_Updates {
 	/**
 	 * Updates version.
 	 *
-	 * @since 1.0.0
 	 * @global $aiosp , $aioseop_options.
 	 * @return null
 	 */
