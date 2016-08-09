@@ -69,7 +69,6 @@ class AIOSEOP_Updates {
 	 *
 	 * TODO: the compare here should be extracted into a function
 	 *
-	 * @since 1.0.0
 	 * @global $aioseop_options .
 	 *
 	 * @param String $old_version
