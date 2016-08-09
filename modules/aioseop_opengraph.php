@@ -111,6 +111,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				"twitter_site"           => __( "Enter the Twitter username associated with your website here.", 'all-in-one-seo-pack' ),
 				"twitter_creator"        => __( "Allows your authors to be identified by their Twitter usernames as content creators on the Twitter cards for their posts.", 'all-in-one-seo-pack' ),
 				"twitter_domain"         => __( "Enter the name of your website here.", 'all-in-one-seo-pack' ),
+				"customimg_twitter"              => __( "This option lets you upload an image to use as the Twitter image for this Page or Post.", 'all-in-one-seo-pack' ),
 				"gen_tags"               => __( "Automatically generate article tags for Facebook type article when not provided.", 'all-in-one-seo-pack' ),
 				"gen_keywords"           => __( "Use keywords in generated article tags.", 'all-in-one-seo-pack' ),
 				"gen_categories"         => __( "Use catergories in generated article tags.", 'all-in-one-seo-pack' ),
@@ -340,6 +341,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					'type'    => 'text',
 					'default' => ''
 				),
+				'customimg_twitter'              => Array(
+					'name' => __( 'Custom Twitter Image', 'all-in-one-seo-pack' ),
+					'type' => 'image'
+				),
 				'gen_tags'               => Array( 'name' => __( 'Automatically Generate Article Tags', 'all-in-one-seo-pack' ) ),
 				'gen_keywords'           => Array(
 					'name'     => __( 'Use Keywords In Article Tags', 'all-in-one-seo-pack' ),
@@ -512,7 +517,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 						'facebook_debug',
 						'section',
 						'tag',
-						'setcard'
+						'setcard',
+						'customimg_twitter',
 					),
 					'display'   => $display,
 					'prefix'    => 'aioseop_opengraph_'
@@ -1069,6 +1075,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				$creator = AIOSEOP_Opengraph_Public::prepare_twitter_username( $creator );
 			}
 
+			$twitter_thumbnail = $thumbnail; // Default Twitter image if custom isn't set.
+
+			if ( isset( $metabox['aioseop_opengraph_settings_customimg_twitter'] ) && ! empty( $metabox['aioseop_opengraph_settings_customimg_twitter'] ) ) {
+				// Set Twitter image from custom.
+				$twitter_thumbnail = $metabox['aioseop_opengraph_settings_customimg_twitter'];
+			}
+
 			$meta = Array(
 				'facebook' => Array(
 					'title'          => 'og:title',
@@ -1098,7 +1111,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					'domain'      => 'twitter:domain',
 					'title'       => 'twitter:title',
 					'description' => 'twitter:description',
-					'thumbnail'   => 'twitter:image',
+					'twitter_thumbnail'   => 'twitter:image',
 				),
 			);
 
@@ -1273,6 +1286,12 @@ END;
 			if ( ! empty( $options ) && ! empty( $options['aioseop_opengraph_settings_customimg'] ) ) {
 				$img[ $options['aioseop_opengraph_settings_customimg'] ] = 'customimg';
 			}
+
+			if ( ! empty( $options ) && ! empty( $options['aioseop_opengraph_settings_customimg'] ) ) {
+				$img[ $options['aioseop_opengraph_settings_customimg'] ] = 'customimg';
+				$img[ $options['aioseop_opengraph_settings_customimg_twitter'] ] = 'customimg_twitter';
+			}
+
 			if ( $author_img = $this->get_the_image_by_author( $p ) ) {
 				$image["author"] = $author_img;
 			}
