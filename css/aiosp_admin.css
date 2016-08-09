@@ -78,10 +78,16 @@
 .proupgrade a {
     font-weight: 900;
     color: #d54e10;
-    font-size: 110%;
+    font-size: 105%;
 }
 
 li#wp-admin-bar-aioseop-pro-upgrade a.ab-item {
+    font-weight: 900;
+    color: #d54e10 !important;
+    font-size: 110%;
+}
+
+#aio-pro-update{
     font-weight: 900;
     color: #d54e10 !important;
     font-size: 110%;
