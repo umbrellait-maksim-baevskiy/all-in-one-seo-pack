@@ -6,7 +6,7 @@
  * Handles detection of new plugin version updates, migration of old settings,
  * new WP core feature support, etc.
  * AIOSEOP Updates class.
- * 
+ *
  * @package All-in-One-SEO-Pack.
  * @version 1.0.0
  */
@@ -182,8 +182,6 @@ class AIOSEOP_Updates {
 
 	/**
 	 * Updates features.
-
-	 * @since 1.0.0
 	 * @return null
 	 *
 	 * if ( ! ( isset( $aioseop_options['version_feature_flags']['FEATURE_NAME'] ) &&
