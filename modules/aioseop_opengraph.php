@@ -502,7 +502,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				'settings'  => Array(
 					'name'      => __( 'Social Settings', 'all-in-one-seo-pack' ),
 					'type'      => 'metabox',
-					'help_link' => 'http://semperplugins.com/documentation/social-meta-module/#pagepost_settings',
+					'help_link' => 'https://semperplugins.com/documentation/social-meta-settings-individual-pagepost-settings/',
 					'options'   => Array(
 						'title',
 						'desc',

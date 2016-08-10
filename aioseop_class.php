@@ -319,7 +319,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'hide_paginated_descriptions' => '#remove-descriptions-for-paginated-pages',
 			'dont_truncate_descriptions'  => '#never-shorten-long-descriptions',
 			'unprotect_meta'              => '#unprotect-post-meta-fields',
-			'redirect_attachement_parent' => '#redirect_attachement_parent',
+			'redirect_attachement_parent' => '#redirect-attachments-to-post-parent',
 			'ex_pages'                    => '#exclude-pages',
 			'post_meta_tags'              => '#additional-post-headers',
 			'page_meta_tags'              => '#additional-page-headers',
