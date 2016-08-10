@@ -386,9 +386,7 @@ if ( ! function_exists( 'aioseop_init_class' ) ) {
 		require_once( AIOSEOP_PLUGIN_DIR . 'public/front.php' );
 
 		if ( AIOSEOPPRO ) {
-			require_once( AIOSEOP_PLUGIN_DIR . 'pro/functions_general.php' );
-			require_once( AIOSEOP_PLUGIN_DIR . 'pro/functions_class.php' );
-			require_once( AIOSEOP_PLUGIN_DIR . 'pro/aioseop_pro_updates_class.php' );
+			require_once( AIOSEOP_PLUGIN_DIR . 'pro/class-aio-pro-init.php' ); // Loads pro files and other pro init stuff.
 		}
 		aiosp_seometa_import(); // call importer functions... this should be moved somewhere better
 
