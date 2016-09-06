@@ -7,7 +7,7 @@ if ( ! class_exists( 'aioseop_google_analytics' ) ) {
 	class aioseop_google_analytics extends All_in_One_SEO_Pack_Module {
 		// TODO Rather than extending the module base class, we should find a better way for the shared functions like moving them to our common functions class.
 
-		private $aiosp_ga_use_universal_analytics = TRUE;
+		private $aiosp_ga_use_universal_analytics = true;
 
 		function __construct() {
 
@@ -17,16 +17,16 @@ if ( ! class_exists( 'aioseop_google_analytics' ) ) {
 
 		}
 
-		function filter_universal(){
-			$aiosp_ga_use_universal_analytics = $this->aiosp_ga_use_universal_analytics;
-			$this->aiosp_ga_use_universal_analytics = apply_filters('aiosp_ga_use_universal_analytics', $aiosp_ga_use_universal_analytics);
+		function filter_universal() {
+			$aiosp_ga_use_universal_analytics       = $this->aiosp_ga_use_universal_analytics;
+			$this->aiosp_ga_use_universal_analytics = apply_filters( 'aiosp_ga_use_universal_analytics', $aiosp_ga_use_universal_analytics );
 		}
 
 		function google_analytics() {
 			global $aioseop_options;
 			$analytics = '';
 			if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && ! empty( $aioseop_options['aiosp_ga_exclude_users'] ) ) {
-				if ( is_user_logged_in() ) {
+				if (  ) {
 					global $current_user;
 					if ( empty( $current_user ) ) {
 						wp_get_current_user();
@@ -228,7 +228,7 @@ if ( ! class_exists( 'aioseop_google_analytics' ) ) {
 					}
 				}
 				if ( ! empty( $js_options ) ) {
-					$js_options = join( ',', $js_options );
+					$js_options = implode( ',', $js_options );
 					$js_options = ', { ' . $js_options . ' } ';
 				} else {
 					$js_options = '';
