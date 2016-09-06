@@ -4,16 +4,22 @@ if ( ! class_exists( 'aioseop_google_analytics' ) ) {
 
 	require_once( AIOSEOP_PLUGIN_DIR . 'admin/aioseop_module_class.php' ); // Include the module base class.
 
-
 	class aioseop_google_analytics extends All_in_One_SEO_Pack_Module {
-
 		// TODO Rather than extending the module base class, we should find a better way for the shared functions like moving them to our common functions class.
 
+		private $aiosp_ga_use_universal_analytics = TRUE;
+
 		function __construct() {
-			//google_analytics();
+
+			$this->filter_universal();
 
 			$this->google_analytics();
 
+		}
+
+		function filter_universal(){
+			$aiosp_ga_use_universal_analytics = $this->aiosp_ga_use_universal_analytics;
+			$this->aiosp_ga_use_universal_analytics = apply_filters('aiosp_ga_use_universal_analytics', $aiosp_ga_use_universal_analytics);
 		}
 
 		function google_analytics() {
@@ -87,10 +93,10 @@ if ( ! class_exists( 'aioseop_google_analytics' ) ) {
 				if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && $aioseop_options['aiosp_ga_track_outbound_links'] ) { ?>
 					<script type="text/javascript">
 						function recordOutboundLink(link, category, action) {
-							<?php if ( ! empty( $aioseop_options['aiosp_ga_use_universal_analytics'] ) ) { ?>
+							<?php if ( $this->aiosp_ga_use_universal_analytics ) { ?>
 							ga('send', 'event', category, action);
 							<?php }
-							if ( empty( $aioseop_options['aiosp_ga_use_universal_analytics'] ) ) {    ?>
+							if ( ! $this->aiosp_ga_use_universal_analytics ) {    ?>
 							_gat._getTrackerByName()._trackEvent(category, action);
 							<?php } ?>
 							if (link.target == '_blank') return true;
@@ -156,7 +162,7 @@ if ( ! class_exists( 'aioseop_google_analytics' ) ) {
 		function universal_analytics() {
 			global $aioseop_options;
 			$analytics = '';
-			if ( ! empty( $aioseop_options['aiosp_ga_use_universal_analytics'] ) ) {
+			if ( $this->aiosp_ga_use_universal_analytics ) {
 				$allow_linker = $cookie_domain = $domain = $addl_domains = $domain_list = '';
 				if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) ) {
 					$cookie_domain = $this->get_analytics_domain();
