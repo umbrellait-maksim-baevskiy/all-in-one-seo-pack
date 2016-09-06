@@ -25,8 +25,7 @@ if ( ! class_exists( 'aioseop_google_analytics' ) ) {
 		function google_analytics() {
 			global $aioseop_options;
 			$analytics = '';
-			if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && ! empty( $aioseop_options['aiosp_ga_exclude_users'] ) ) {
-				if (  ) {
+			if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && ! empty( $aioseop_options['aiosp_ga_exclude_users'] ) && is_user_logged_in() ) {
 					global $current_user;
 					if ( empty( $current_user ) ) {
 						wp_get_current_user();
@@ -37,7 +36,6 @@ if ( ! class_exists( 'aioseop_google_analytics' ) ) {
 							return;
 						}
 					}
-				}
 			}
 			if ( ! empty( $aioseop_options['aiosp_google_analytics_id'] ) ) {
 				ob_start();
