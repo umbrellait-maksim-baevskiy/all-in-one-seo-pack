@@ -384,6 +384,7 @@ if ( ! function_exists( 'aioseop_init_class' ) ) {
 		require_once( AIOSEOP_PLUGIN_DIR . 'public/opengraph.php' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'inc/compatability/compat-init.php');
 		require_once( AIOSEOP_PLUGIN_DIR . 'public/front.php' );
+		require_once( AIOSEOP_PLUGIN_DIR . 'public/google-analytics.php' );
 
 		if ( AIOSEOPPRO ) {
 			require_once( AIOSEOP_PLUGIN_DIR . 'pro/class-aio-pro-init.php' ); // Loads pro files and other pro init stuff.
