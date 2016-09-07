@@ -2364,8 +2364,9 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			$name = single_term_title( '', false );
 		}
 		// Apparently we're already ucwordsing this elsewhere, and doing it a second time messes it up... why aren't we just doing this at the end?
-		//		if ( ( $tax == 'category' ) && ( !empty( $aioseop_options['aiosp_cap_cats'] ) ) )
-		//				$name = $this->ucwords( $name );
+				if ( ( $tax == 'category' ) && ( !empty( $aioseop_options['aiosp_cap_cats'] ) ) ){
+					$name = $this->ucwords( $name );
+				}
 
 		return $this->internationalize( $name );
 	}
