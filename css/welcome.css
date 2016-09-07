@@ -80,6 +80,20 @@ section:first-child {
     margin-right: 25px;
 }
 
+.welcome-panel-column p.aioseop-message {
+	width: 70%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.welcome-panel-column p.call-to-action {
+	display: inline-block;
+	width: 25%;
+	vertical-align: top;
+	margin-left: 3%;
+	margin-top: 13px;
+}
+
 .welcome-panel li {
     margin-bottom: 12px;
 }

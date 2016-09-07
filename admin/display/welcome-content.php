@@ -5,9 +5,14 @@
 	<div class="welcome-panel-content">
 		<div class="welcome-panel-column-container">
 			<div class="welcome-panel-column">
-				<h3><?php echo esc_html( __( 'Contact Form 7 Needs Your Support', 'contact-form-7' ) ); ?></h3>
-				<p class="message"><?php echo esc_html( __( "It is hard to continue development and support for this plugin without contributions from users like you. If you enjoy using Contact Form 7 and find it useful, please consider making a donation.", 'contact-form-7' ) ); ?></p>
-				<p><?php echo wpcf7_link( __( 'http://contactform7.com/donate/', 'contact-form-7' ), __( 'Donate', 'contact-form-7' ), array( 'class' => 'button button-primary' ) ); ?></p>
+				<h3><?php echo esc_html( __( 'Support All in One SEO Pack', 'contact-form-7' ) ); ?></h3>
+				<p class="message"><?php echo esc_html( __( "There are may ways you can help support All in One SEO Pack.", 'contact-form-7' ) ); ?></p>
+				<p class="message aioseop-message"><?php echo esc_html( __( "If you enjoy using our plugin and find it useful, please consider making a donation.", 'contact-form-7' ) ); ?></p>
+				<p class="call-to-action"><?php echo wpcf7_link( __( 'http://contactform7.com/donate/', 'contact-form-7' ), __( 'Donate', 'contact-form-7' ), array( 'class' => 'button button-primary' ) ); ?></p>
+				<p class="message aioseop-message"><?php echo esc_html( __( "You can sign up to help translate All in One SEO Pack into your language.", 'contact-form-7' ) ); ?></p>
+				<p class="call-to-action"><?php echo wpcf7_link( __( 'https://translate.wordpress.org/projects/wp-plugins/all-in-one-seo-pack', 'contact-form-7' ), __( 'Sign Up', 'contact-form-7' ), array( 'class' => 'button button-primary' ) ); ?></p>
+				<p class="message aioseop-message"><?php echo esc_html( __( "Or you can register to become a beta tester and help test new features.", 'contact-form-7' ) ); ?></p>
+				<p class="call-to-action"><?php echo wpcf7_link( __( 'https://semperplugins.com/contact/', 'contact-form-7' ), __( 'Register', 'contact-form-7' ), array( 'class' => 'button button-primary' ) ); ?></p>
 			</div>
 
 			<div class="welcome-panel-column">
