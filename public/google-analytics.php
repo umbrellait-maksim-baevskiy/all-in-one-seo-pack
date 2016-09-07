@@ -161,7 +161,7 @@ if ( ! class_exists( 'aioseop_google_analytics' ) ) {
 			global $aioseop_options;
 			$analytics = '';
 			if ( $this->aiosp_ga_use_universal_analytics ) {
-				$cookie_domain = $domain = $addl_domains = $domain_list = '';
+				$allow_linker = $cookie_domain = $domain = $addl_domains = $domain_list = '';
 				if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) ) {
 					$cookie_domain = $this->get_analytics_domain();
 				}
@@ -173,6 +173,7 @@ if ( ! class_exists( 'aioseop_google_analytics' ) ) {
 					$domain = ", 'auto'";
 				}
 				if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && ! empty( $aioseop_options['aiosp_ga_multi_domain'] ) ) {
+					$allow_linker = "'allowLinker': true";
 					if ( ! empty( $aioseop_options['aiosp_ga_addl_domains'] ) ) {
 						$addl_domains = trim( $aioseop_options['aiosp_ga_addl_domains'] );
 						$addl_domains = preg_split( '/[\s,]+/', $addl_domains );
