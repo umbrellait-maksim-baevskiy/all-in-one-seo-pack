@@ -18,20 +18,22 @@
 			<div class="welcome-panel-column">
 				<h3><?php echo esc_html( __( 'Get Started', 'contact-form-7' ) ); ?></h3>
 				<ul>
-					<li><?php echo wpcf7_link( __( 'http://contactform7.com/getting-started-with-contact-form-7/', 'contact-form-7' ), __( 'Getting Started with Contact Form 7', 'contact-form-7' ) ); ?></li>
-					<li><?php echo wpcf7_link( __( 'http://contactform7.com/admin-screen/', 'contact-form-7' ), __( 'Admin Screen', 'contact-form-7' ) ); ?></li>
-					<li><?php echo wpcf7_link( __( 'http://contactform7.com/tag-syntax/', 'contact-form-7' ), __( 'How Tags Work', 'contact-form-7' ) ); ?></li>
-					<li><?php echo wpcf7_link( __( 'http://contactform7.com/setting-up-mail/', 'contact-form-7' ), __( 'Setting Up Mail', 'contact-form-7' ) ); ?></li>
+					<li><?php echo wpcf7_link( __( 'https://semperplugins.com/documentation/quick-start-guide/', 'contact-form-7' ), __( 'Beginners Guide for All in One SEO Pack', 'contact-form-7' ) ); ?></li>
+					<li><?php echo wpcf7_link( __( 'https://semperplugins.com/documentation/beginners-guide-to-xml-sitemaps/', 'contact-form-7' ), __( 'Beginners Guide for XML Sitemap module', 'contact-form-7' ) ); ?></li>
+					<li><?php echo wpcf7_link( __( 'https://semperplugins.com/documentation/beginners-guide-to-social-meta/', 'contact-form-7' ), __( 'Beginners Guide for Social Meta module', 'contact-form-7' ) ); ?></li>
+					<li><?php echo wpcf7_link( __( 'https://semperplugins.com/documentation/top-tips-for-good-on-page-seo/', 'contact-form-7' ), __( 'Tips for good on-page SEO', 'contact-form-7' ) ); ?></li>
+					<li><?php echo wpcf7_link( __( 'https://semperplugins.com/documentation/quality-guidelines-for-seo-titles-and-descriptions/', 'contact-form-7' ), __( 'Quality guidelines for SEO titles and descriptions', 'contact-form-7' ) ); ?></li>
+					<li><?php echo wpcf7_link( __( 'https://semperplugins.com/documentation/quality-guidelines-for-seo-titles-and-descriptions/', 'contact-form-7' ), __( 'Submit an XML Sitemap to Google', 'contact-form-7' ) ); ?></li>
+					<li><?php echo wpcf7_link( __( 'https://semperplugins.com/documentation/setting-up-google-analytics/', 'contact-form-7' ), __( 'Set up Google Analytics', 'contact-form-7' ) ); ?></li>
 				</ul>
 			</div>
 
 			<div class="welcome-panel-column">
 				<h3><?php echo esc_html( __( 'Did You Know?', 'contact-form-7' ) ); ?></h3>
 				<ul>
-					<li><?php echo wpcf7_link( __( 'http://contactform7.com/spam-filtering-with-akismet/', 'contact-form-7' ), __( 'Spam Filtering with Akismet', 'contact-form-7' ) ); ?></li>
-					<li><?php echo wpcf7_link( __( 'http://contactform7.com/save-submitted-messages-with-flamingo/', 'contact-form-7' ), __( 'Save Messages with Flamingo', 'contact-form-7' ) ); ?></li>
-					<li><?php echo wpcf7_link( __( 'http://contactform7.com/selectable-recipient-with-pipes/', 'contact-form-7' ), __( 'Selectable Recipient with Pipes', 'contact-form-7' ) ); ?></li>
-					<li><?php echo wpcf7_link( __( 'http://contactform7.com/tracking-form-submissions-with-google-analytics/', 'contact-form-7' ), __( 'Tracking with Google Analytics', 'contact-form-7' ) ); ?></li>
+					<li><?php echo wpcf7_link( __( 'https://semperplugins.com/documentation/', 'contact-form-7' ), __( 'We have complete documentation on every setting and feature', 'contact-form-7' ) ); ?></li>
+					<li><?php echo wpcf7_link( __( 'https://semperplugins.com/videos/', 'contact-form-7' ), __( 'You can get access to video tutorials about SEO with the Pro version', 'contact-form-7' ) ); ?></li>
+					<li><?php echo wpcf7_link( __( 'https://semperplugins.com/all-in-one-seo-pack-pro-version/?loc=aio_welcome', 'contact-form-7' ), __( 'You can control SEO on categories, tags and custom taxonomies with the Pro version', 'contact-form-7' ) ); ?></li>
 				</ul>
 			</div>
 		</div>
