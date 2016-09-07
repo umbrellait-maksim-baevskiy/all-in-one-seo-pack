@@ -8,7 +8,7 @@
 				<h3><?php echo esc_html( __( 'Support All in One SEO Pack', 'contact-form-7' ) ); ?></h3>
 				<p class="message"><?php echo esc_html( __( "There are may ways you can help support All in One SEO Pack.", 'contact-form-7' ) ); ?></p>
 				<p class="message aioseop-message"><?php echo esc_html( __( "Upgrade to our All in One SEO Pack Pro plugin to get access to priority support and premium features.", 'contact-form-7' ) ); ?></p>
-				<p class="call-to-action"><?php echo wpcf7_link( __( 'https://semperplugins.com/all-in-one-seo-pack-pro-version/?loc=aio_welcome', 'contact-form-7' ), __( 'Donate', 'contact-form-7' ), array( 'class' => 'button button-primary button-orange' ) ); ?></p>
+				<p class="call-to-action"><?php echo wpcf7_link( __( 'https://semperplugins.com/all-in-one-seo-pack-pro-version/?loc=aio_welcome', 'contact-form-7' ), __( 'Upgrade', 'contact-form-7' ), array( 'class' => 'button button-primary button-orange' ) ); ?></p>
 				<p class="message aioseop-message"><?php echo esc_html( __( "You can sign up to help translate All in One SEO Pack into your language.", 'contact-form-7' ) ); ?></p>
 				<p class="call-to-action"><?php echo wpcf7_link( __( 'https://translate.wordpress.org/projects/wp-plugins/all-in-one-seo-pack', 'contact-form-7' ), __( 'Sign Up', 'contact-form-7' ), array( 'class' => 'button button-primary' ) ); ?></p>
 				<p class="message aioseop-message"><?php echo esc_html( __( "Or you can register to become a beta tester and help test new features.", 'contact-form-7' ) ); ?></p>
