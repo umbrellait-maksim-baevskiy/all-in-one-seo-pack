@@ -4511,12 +4511,15 @@ EOF;
 				if ( ! empty( $blog_page ) ) {
 					$post = $blog_page;
 				}
-				$wp_admin_bar->add_menu( array(
-					'id'     => 'aiosp_edit_' . $post->ID,
-					'parent' => AIOSEOP_PLUGIN_DIRNAME,
-					'title'  => __( 'Edit SEO', 'all-in-one-seo-pack' ),
-					'href'   => get_edit_post_link( $post->ID ) . '#aiosp',
-				) );
+				if( ! is_front_page() && ! is_home() ) {
+					// Don't show if we're on the home page and the home page is the latest posts.
+					$wp_admin_bar->add_menu( array(
+						'id'     => 'aiosp_edit_' . $post->ID,
+						'parent' => AIOSEOP_PLUGIN_DIRNAME,
+						'title'  => __( 'Edit SEO', 'all-in-one-seo-pack' ),
+						'href'   => get_edit_post_link( $post->ID ) . '#aiosp',
+					) );
+				}
 			}
 		}
 	}
