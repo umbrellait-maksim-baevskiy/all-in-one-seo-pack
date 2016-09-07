@@ -19,7 +19,7 @@ if ( ! class_exists( 'aioseop_google_analytics' ) ) {
 
 		function filter_universal() {
 			$aiosp_ga_use_universal_analytics       = $this->aiosp_ga_use_universal_analytics;
-			$this->aiosp_ga_use_universal_analytics = apply_filters( 'aiosp_ga_use_universal_analytics', $aiosp_ga_use_universal_analytics );
+			$this->aiosp_ga_use_universal_analytics = apply_filters( 'aiosp_universal_analytics', $aiosp_ga_use_universal_analytics );
 		}
 
 		function google_analytics() {
