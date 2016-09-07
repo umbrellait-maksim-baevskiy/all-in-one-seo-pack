@@ -1,0 +1,91 @@
+h2.nav-tab-wrapper {
+    margin:22px 0 0 0;
+}
+
+#sections {
+    padding:22px;
+    background: #fff;
+    border:1px solid #ccc;
+    border-top:0px;
+}
+
+section {
+    display:none;
+}
+
+section:first-child {
+    display:block;
+}
+
+
+.no-js h2.nav-tab-wrapper {
+    display:none;
+}
+
+.no-js #sections {
+    border-top:1px solid #ccc;
+    margin-top:22px;
+}
+
+.no-js section {
+    border-top: 1px dashed #aaa;
+    margin-top:22px;
+    padding-top:22px;
+}
+
+.no-js section:first-child {
+    margin:0px;
+    padding:0px;
+    border:0px;
+}
+
+.nav-tab-active {
+    background-color:white;
+}
+
+
+
+/* Welcome Panel */
+
+.welcome-panel-close{
+    display: none;
+}
+.welcome-panel .welcome-widgets-menus:before,
+.welcome-panel .welcome-comments:before,
+.welcome-panel .welcome-learn-more:before{
+    content: '';
+}
+.welcome-panel .welcome-widgets-menus{
+    background: url(/path/to/icon) 0 50% no-repeat;
+}
+.welcome-panel .welcome-comments{
+    background: url(/path/to/icon) 0 50% no-repeat;
+}
+.welcome-panel .welcome-learn-more{
+    background: url(/path/to/icon) 0 50% no-repeat;
+}
+
+/*
+ * Welcome Panel
+ */
+.welcome-panel h3 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 2.1em;
+    margin: 1.33em 0 0;
+}
+
+.welcome-panel p.message {
+    line-height: 1.4em;
+    margin-right: 25px;
+}
+
+.welcome-panel li {
+    margin-bottom: 12px;
+}
+
+.welcome-panel-close {
+    z-index: 2;
+}
+
+
