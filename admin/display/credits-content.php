@@ -35,7 +35,7 @@
 	</li>
 </ul>
 
-<h3 class="wp-people-group">&#x1f31f;<?php _e( 'Recent Rockstars', 'all-in-one-seo-pack' ); ?>&#x1f31f;</h3>
+<h3 class="wp-people-group">&#x1f31f;<?php _e( 'Recent Rockstar Contributors', 'all-in-one-seo-pack' ); ?>&#x1f31f;</h3>
 	<ul class="wp-people-group " id="wp-people-group-rockstars">
 	<li class="wp-person" id="wp-person-dougalcampbell">
 		<a class="web" target="_blank" href="https://profiles.wordpress.org/dougal/"><img alt="" class="gravatar" src="https://www.gravatar.com/avatar/81717a172b6918071fbea1a52483294b?s=60">
