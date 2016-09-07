@@ -3790,7 +3790,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			$description = apply_filters( 'aioseop_description_full', $this->apply_description_format( $description, $post ) );
 			$desc_attr   = '';
 			if ( ! empty( $aioseop_options['aiosp_schema_markup'] ) ) {
-				$desc_attr = 'itemprop="description"';
+				$desc_attr = '';
 			}
 			$desc_attr = apply_filters( 'aioseop_description_attributes', $desc_attr );
 			$meta_string .= sprintf( "<meta name=\"description\" %s content=\"%s\" />\n", $desc_attr, $description );
