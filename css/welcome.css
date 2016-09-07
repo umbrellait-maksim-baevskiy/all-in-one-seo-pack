@@ -88,4 +88,21 @@ section:first-child {
     z-index: 2;
 }
 
+.welcome-panel-column {
+    width: 30%;
+    margin-right: 3%;
+    display: inline-block;
+    vertical-align: top;
+}
 
+.welcome-panel-column:last-child {
+	margin-right: 0;
+}
+
+@media screen and (max-width: 850px) {
+	.welcome-panel-column {
+		width: 100%;
+		margin-right: 0;
+		display: block;
+	}
+}
