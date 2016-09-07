@@ -4507,11 +4507,12 @@ EOF;
 
 			$aioseop_admin_menu = 1;
 			if ( ! is_admin() && ! empty( $post ) ) {
+
 				$blog_page = aiosp_common::get_blog_page( $post );
 				if ( ! empty( $blog_page ) ) {
 					$post = $blog_page;
 				}
-				if( ! is_front_page() && ! is_home() ) {
+				if( ! is_home() || ( ! is_front_page() && ! is_home() ) ) {
 					// Don't show if we're on the home page and the home page is the latest posts.
 					$wp_admin_bar->add_menu( array(
 						'id'     => 'aiosp_edit_' . $post->ID,
