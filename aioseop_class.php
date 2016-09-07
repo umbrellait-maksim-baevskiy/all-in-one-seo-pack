@@ -4860,30 +4860,12 @@ EOF;
 				</script>
 				<?php if ( ! AIOSEOPPRO ) { ?>
 					<div class="aioseop_advert aioseop_nopad_all">
-						<?php $adid = mt_rand( 21, 23 );
-
-						if ( $adid == 23 ) { ?>
-							<div
-								style="height: 220px; background-image: url('https://www.wincher.com/Content/Images/plugin/wp/banner30.jpg')">
-								<form style="position: relative; top: 170px; left: 40px;"
-								      action="https://www.wincher.com/FastReg" method="post" target="_blank">
-									<input type="hidden" name="adreferer" value="banner<?php echo $adid; ?>"/>
-									<input type="hidden" name="referer" value="all-in-one-seo-pack"/>
-									<input type="text" name="email" placeholder="Email"
-									       style="padding-left: 7px; height: 30px; width: 290px; border: solid 1px #DDD;"/>
-									<input type="submit" name="sub" value="Sign up!"
-									       style="height: 30px; width: 90px; background-color: #42DA76; color: #FFF; font-weight: bold; border:none; margin-left:5px;"/>
-								</form>
-							</div>
-							<?
-						} else {
-							?>
+						<?php $adid = mt_rand( 21, 22 ); ?>
 							<a href="https://www.wincher.com/?referer=all-in-one-seo-pack&adreferer=banner<?php echo $adid; ?>"
 							   target="_blank">
 								<div class=wincherad id=wincher<?php echo $adid; ?>>
 								</div>
 							</a>
-						<?php } ?>
 					</div>
 					<div class="aioseop_advert headwaythemes">
 						<div>
