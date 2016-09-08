@@ -5,7 +5,7 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 	class aioseop_welcome {
 		function __construct() {
 
-			if ( AIOSEOPPRO {
+			if ( AIOSEOPPRO ) {
 				return;
 			}
 
@@ -42,7 +42,7 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 
 		function init() {
 
-			if ( AIOSEOPPRO {
+			if ( AIOSEOPPRO ) {
 				return;
 			}
 
@@ -50,7 +50,7 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 				return;
 			}
 
-			if ( ! current_user_can( 'manage_options' ) ){
+			if ( ! current_user_can( 'manage_options' ) ) {
 				return;
 			}
 
