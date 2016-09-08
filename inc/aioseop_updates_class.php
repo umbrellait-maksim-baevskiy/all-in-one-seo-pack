@@ -71,7 +71,7 @@ class AIOSEOP_Updates {
 	}
 
 	function aioseop_welcome(){
-		if( get_transient( '_aioseop_activation_redirect') ){
+		if ( get_transient( '_aioseop_activation_redirect' ) ) {
 			$aioseop_welcome = new aioseop_welcome();
 			delete_transient( '_aioseop_activation_redirect' );
 			$aioseop_welcome->init();
