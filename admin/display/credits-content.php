@@ -58,7 +58,7 @@
 	</li>
 </ul>
 
-<h3 class="wp-people-group"><?php printf( esc_html__( 'Translators Contributors and Translation Editors', 'all-in-one-seo-pack' ), '1.2' ); ?></h3>
+<h3 class="wp-people-group dashicons-before dashicons-translation"><?php printf( esc_html__( 'Translators Contributors and Translation Editors', 'all-in-one-seo-pack' ), '1.2' ); ?></h3>
 <p class="wp-credits-list">
 	<a href="https://profiles.wordpress.org/pierrelannoy/" target="_blank">Pierre Lannoy</a>,
 	<a href="https://profiles.wordpress.org/sonjanyc/" target="_blank">Sonja Leix</a>,
