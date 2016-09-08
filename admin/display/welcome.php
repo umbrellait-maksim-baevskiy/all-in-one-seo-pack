@@ -16,7 +16,7 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 			if ( 'dashboard_page_aioseop-about' == $hook ) {
 
 				wp_enqueue_style( 'aioseop_welcome_css', AIOSEOP_PLUGIN_URL . '/css/welcome.css' );
-				wp_enqueue_script( 'aioseop_welcome_js', AIOSEOP_PLUGIN_URL . '/js/welcome.js', array( 'jquery' ), '1.0.0', true );
+				wp_enqueue_script( 'aioseop_welcome_js', AIOSEOP_PLUGIN_URL . '/js/welcome.js', array( 'jquery' ), AIOSEOP_VERSION, true );
 			}
 		}
 
@@ -40,20 +40,25 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 			if ( ! is_admin() ) {
 				return;
 			}
+
+			if ( ! current_user_can( 'manage_options' ) ){
+				return;
+			}
+
 			wp_safe_redirect( add_query_arg( array( 'page' => 'aioseop-about' ), admin_url( 'index.php' ) ) );
 			exit;
 		}
 
 		function about_screen() {
 
-			$version = '5';
+			$version = AIOSEOP_VERSION;
 
 			?>
 
 			<div class="wrap about-wrap">
 				<h1><?php printf( esc_html__( 'Welcome to All in One SEO Pack %s', 'all-in-one-seo-pack' ), $version ); ?></h1>
 				<div
-					class="about-text"><?php printf( esc_html__( 'This is the best version yet. Check out some of our new exciting features!', 'bbpress' ), $version ); ?></div>
+					class="about-text"><?php printf( esc_html__( 'Improve your SEO with All in One SEO Pack', 'all-in-one-seo-pack' ), $version ); ?></div>
 
 				<h2 class="nav-tab-wrapper">
 					<a class="nav-tab nav-tab-active" id="aioseop-about"
