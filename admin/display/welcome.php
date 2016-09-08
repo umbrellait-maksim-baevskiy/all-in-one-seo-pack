@@ -72,11 +72,11 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 				<h2 class="nav-tab-wrapper">
 					<a class="nav-tab nav-tab-active" id="aioseop-about"
 					   href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'aioseop-about' ), 'index.php' ) ) ); ?>">
-						<?php esc_html_e( 'What&#8217;s New', 'bbpress' ); ?>
+						<?php esc_html_e( 'What&#8217;s New', 'all-in-one-seo-pack' ); ?>
 					</a>
 					<a class="nav-tab" id="aioseop-credits"
 					   href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'aioseop-credits' ), 'index.php' ) ) ); ?>">
-						<?php esc_html_e( 'Credits', 'bbpress' ); ?>
+						<?php esc_html_e( 'Credits', 'all-in-one-seo-pack' ); ?>
 					</a>
 				</h2>
 

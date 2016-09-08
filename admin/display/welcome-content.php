@@ -1,6 +1,4 @@
 <div id="welcome-panel" class="">
-	<?php wp_nonce_field( 'wpcf7-welcome-panel-nonce', 'welcomepanelnonce', false ); ?>
-
 	<div class="welcome-panel-content">
 		<div class="welcome-panel-column-container">
 			<div class="welcome-panel-column">
