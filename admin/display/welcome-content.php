@@ -20,7 +20,7 @@
 					<li><a href="https://semperplugins.com/documentation/beginners-guide-to-social-meta/" target="_blank"><?php echo __( 'Beginners Guide for Social Meta module', 'all-in-one-seo-pack' ); ?></a></li>
 					<li><a href="https://semperplugins.com/documentation/top-tips-for-good-on-page-seo/" target="_blank"><?php echo __( 'Tips for good on-page SEO', 'all-in-one-seo-pack' ); ?></a></li>
 					<li><a href="https://semperplugins.com/documentation/quality-guidelines-for-seo-titles-and-descriptions/" target="_blank"><?php echo __( 'Quality guidelines for SEO titles and descriptions', 'all-in-one-seo-pack' ); ?></a></li>
-					<li><a href="https://semperplugins.com/documentation/quality-guidelines-for-seo-titles-and-descriptions/" target="_blank"><?php echo __( 'Submit an XML Sitemap to Google', 'all-in-one-seo-pack' ); ?></a></li>
+					<li><a href="https://semperplugins.com/documentation/submitting-an-xml-sitemap-to-google/" target="_blank"><?php echo __( 'Submit an XML Sitemap to Google', 'all-in-one-seo-pack' ); ?></a></li>
 					<li><a href="https://semperplugins.com/documentation/setting-up-google-analytics/" target="_blank"><?php echo __( 'Set up Google Analytics', 'all-in-one-seo-pack' ); ?></a></li>
 				</ul>
 			</div>
