@@ -37,6 +37,7 @@ First created in 2007, see why AIOSEO is the most downloaded plugin for WordPres
 * You can override any title and set any META description and any META keywords you want.
 * Compatibility with many other plugins
 * Translated into 57 languages
+* PHP 7 100% Compatible
 
 Follow me on Twitter to keep up with the latest updates [Michael
 Torbert](http://twitter.com/michaeltorbert/)
