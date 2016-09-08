@@ -35,4 +35,5 @@
 			</div>
 		</div>
 	</div>
+	<p><a href="/wp-admin/admin.php?page=all-in-one-seo-pack/aioseop_class.php">Continue to the General Settings</a> &raquo;</p>
 </div>
