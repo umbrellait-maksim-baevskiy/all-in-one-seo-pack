@@ -72,6 +72,10 @@ section:first-child {
 /*
  * Welcome Panel
  */
+#welcome-panel > p {
+	margin-left: 15px;
+}
+
 .welcome-panel-column {
     width: 30%;
     margin-right: 3%;
