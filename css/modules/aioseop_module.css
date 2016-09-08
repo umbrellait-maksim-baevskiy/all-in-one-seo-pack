@@ -534,13 +534,18 @@ div.aioseop_feature {
 	display: none;
 }
 
-#aioseop_coming_soon .free.flag {
-	display: none;
+#aioseop_coming_soon .free.flag,
+.all-in-one-seo_page_all-in-one-seo-pack-pro-modules-aioseop_feature_manager .aioseop_feature .free.flag {
+    display: none;
 }
 
 #aioseop_coming_soon .flag.pro {
 	display: block;
 	margin-top: -30px;
+}
+
+.all-in-one-seo_page_all-in-one-seo-pack-pro-modules-aioseop_feature_manager #aioseop_coming_soon .flag.pro {
+	display: none;
 }
 
 .aioseop_feature h3 {
