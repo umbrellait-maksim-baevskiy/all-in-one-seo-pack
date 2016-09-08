@@ -5,6 +5,10 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 	class aioseop_welcome {
 		function __construct() {
 
+			if ( AIOSEOPPRO {
+				return;
+			}
+
 			add_action( 'admin_menu', array( $this, 'add_menus' ) );
 			add_action( 'admin_head', array( $this, 'remove_pages' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'welcome_screen_assets' ) );
@@ -37,6 +41,11 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 		}
 
 		function init() {
+
+			if ( AIOSEOPPRO {
+				return;
+			}
+
 			if ( ! is_admin() ) {
 				return;
 			}
