@@ -4868,18 +4868,6 @@ EOF;
 								</div>
 							</a>
 					</div>
-					<div class="aioseop_advert headwaythemes">
-						<div>
-							<h3>Drag and Drop WordPress Design</h3>
-							<p><a href="http://semperfiwebdesign.com/headwayaio/" target="_blank">Headway Themes</a>
-								allows you to easily create your own stunning website designs! Stop using premade themes
-								start making your own design with Headway's easy to use Drag and Drop interface. All in
-								One SEO Pack users have an exclusive discount by using coupon code
-								<strong>SEMPERFI30</strong> at checkout.</p>
-						</div>
-						<a href="http://semperfiwebdesign.com/headwayaio/" target="_blank"><img
-								src="<?php echo AIOSEOP_PLUGIN_IMAGES_URL; ?>headwaybanner.png"></a>
-					</div>
 				<?php } ?>
 			</div>
 		</div>
