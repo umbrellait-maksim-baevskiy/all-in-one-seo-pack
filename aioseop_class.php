@@ -1165,7 +1165,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			),
 			'advanced'  => array(
 				'name'      => __( 'Advanced Settings', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/documentation/advanced-settings/',
+				'help_link' => 'https://semperplugins.com/documentation/all-in-one-seo-pack-advanced-settings/',
 				'options'   => array(
 					'generate_descriptions',
 					'skip_excerpt',
