@@ -66,7 +66,7 @@ if ( ! class_exists( 'aioseop_dashboard_widget' ) ) {
 				foreach ( $rss_items as $item ) {
 					?>
 					<li>
-						<a href="<?php echo esc_url( $item['url'] ); ?>">
+						<a target="_blank" href="<?php echo esc_url( $item['url'] ); ?>">
 							<?php echo esc_html( $item['title'] ); ?>
 						</a>
 						<span class="aioseop-rss-date"><?php echo $item['date']; ?></span>
