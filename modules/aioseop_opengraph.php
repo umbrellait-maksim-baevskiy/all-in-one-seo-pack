@@ -82,8 +82,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 			$this->help_text = Array(
 				"setmeta"                => __( "Checking this box will use the Home Title and Home Description set in All in One SEO Pack, General Settings as the Open Graph title and description for your home page.", 'all-in-one-seo-pack' ),
-				"key"                    => __( "Enter your Facebook Admin ID here. Information about how to get your Facebook Admin ID can be found at https://developers.facebook.com/docs/platforminsights/domains", 'all-in-one-seo-pack' ),
-				"appid"                  => __( "Enter your Facebook App ID here. Information about how to get your Facebook App ID can be found at https://developers.facebook.com/docs/platforminsights/domains", 'all-in-one-seo-pack' ),
+				"key"                    => __( "Enter your Facebook Admin ID here. You can look up your Facebook ID using this tool http://findmyfbid.com/", 'all-in-one-seo-pack' ),
+				"appid"                  => __( "Enter your Facebook App ID here. Information about how to get your Facebook App ID can be found at https://developers.facebook.com/docs/apps/register", 'all-in-one-seo-pack' ),
 				"title_shortcodes"       => __( "Run shortcodes that appear in social title meta tags.", 'all-in-one-seo-pack' ),
 				"description_shortcodes" => __( "Run shortcodes that appear in social description meta tags.", 'all-in-one-seo-pack' ),
 				"sitename"               => __( "The Site Name is the name that is used to identify your website.", 'all-in-one-seo-pack' ),
