@@ -353,7 +353,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'home_title'                  => array(
 				'name'     => __( 'Home Title:', 'all-in-one-seo-pack' ),
 				'default'  => null,
-				'type'     => 'textarea',
+				'type'     => 'text',
 				'sanitize' => 'text',
 				'count'    => true,
 				'rows'     => 1,
