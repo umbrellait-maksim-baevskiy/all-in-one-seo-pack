@@ -434,6 +434,10 @@ body.all-in-one-seo_page_all-in-one-seo-pack-pro-aioseop_feature_manager .aioseo
     margin-bottom: 0;
 }
 
+.aioseop_top #aioseop-list.postbox.closed {
+    overflow: hidden;
+}
+
 .aioseop_right_sidebar {
     float: right;
     margin-top: 35px;
