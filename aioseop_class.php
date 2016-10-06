@@ -94,7 +94,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'dynamic_postspage_keywords'  => __( 'Check this if you want your keywords on your Posts page (set in WordPress under Settings, Reading, Front Page Displays) and your archive pages to be dynamically generated from the keywords of the posts showing on that page.  If unchecked, it will use the keywords set in the edit page screen for the posts page.', 'all-in-one-seo-pack' ),
 			'rewrite_titles'              => __( "Note that this is all about the title tag. This is what you see in your browser's window title bar. This is NOT visible on a page, only in the title bar and in the source code. If enabled, all page, post, category, search and archive page titles get rewritten. You can specify the format for most of them. For example: Using the default post title format below, Rewrite Titles will write all post titles as 'Post Title | Blog Name'. If you have manually defined a title using All in One SEO Pack, this will become the title of your post in the format string.", 'all-in-one-seo-pack' ),
 			'cap_titles'                  => __( 'Check this and Search Page Titles and Tag Page Titles will have the first letter of each word capitalized.', 'all-in-one-seo-pack' ),
-			'cap_cats'                    => __( 'Check this and Category Titles will have the first letter of each word capitalized.', 'all-in-one-seo-pack' ),
 			'home_page_title_format'      =>
 				__( 'This controls the format of the title tag for your Home Page.<br />The following macros are supported:', 'all-in-one-seo-pack' )
 				. '<ul><li>' . __( '%blog_title% - Your blog title', 'all-in-one-seo-pack' ) . '</li><li>' .
@@ -254,7 +253,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'dynamic_postspage_keywords'  => '#dynamically-generate-keywords-for-posts-page',
 			'rewrite_titles'              => '#rewrite-titles',
 			'cap_titles'                  => '#capitalize-titles',
-			'cap_cats'                    => '#capitalize-titles',
 			'home_page_title_format'      => '#title-format-fields',
 			'page_title_format'           => '#title-format-fields',
 			'post_title_format'           => '#title-format-fields',
@@ -450,10 +448,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			),
 			'cap_titles'                  => array(
 				'name'    => __( 'Capitalize Tag and Search Titles:', 'all-in-one-seo-pack' ),
-				'default' => 1,
-			),
-			'cap_cats'                    => array(
-				'name'    => __( 'Capitalize Category Titles:', 'all-in-one-seo-pack' ),
 				'default' => 1,
 			),
 			'home_page_title_format'      => array(
@@ -1085,7 +1079,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					'rewrite_titles',
 					'force_rewrites',
 					'cap_titles',
-					'cap_cats',
 					'home_page_title_format',
 					'page_title_format',
 					'post_title_format',
@@ -2346,7 +2339,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	// Handle prev / next links.
 
 	/**
+	 *
+	 * Gets taxonomy name.
+	 *
 	 * @param $tax
+	 *
+	 * As of 2.3.10, we've removed the option for capitalize categories. We still respect the option,
+	 * and the default (true) or a legacy option in the db can be overridden with the new filter hook aioseop_capitalize_categories
 	 *
 	 * @return mixed|void
 	 */
@@ -2363,10 +2362,25 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		if ( empty( $name ) ) {
 			$name = single_term_title( '', false );
 		}
+
+		$cap_cats = true; // Default to uppercase category/taxonomy titles.
+		if ( isset( $aioseop_options['aiosp_cap_cats'] ) && ! empty( $aioseop_options['aiosp_cap_cats'] ) ) {
+			// Legacy option is checked.
+			$cap_cats = true;
+
+		}
+
+		if ( isset( $aioseop_options['aiosp_cap_cats'] ) && empty( $aioseop_options['aiosp_cap_cats'] ) ) {
+			// Legacy option is unchecked.
+			$cap_cats = false;
+		}
+
+		$cap_cats = apply_filters( 'aioseop_capitalize_categories', $cap_cats ); // This will override any legacy settings.
+
 		// Apparently we're already ucwordsing this elsewhere, and doing it a second time messes it up... why aren't we just doing this at the end?
-				if ( ( $tax == 'category' ) && ( !empty( $aioseop_options['aiosp_cap_cats'] ) ) ){
-					$name = $this->ucwords( $name );
-				}
+		if ( ( $tax == 'category' ) && $cap_cats == true ) {
+			$name = $this->ucwords( $name );
+		}
 
 		return $this->internationalize( $name );
 	}
