@@ -922,10 +922,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Get problem files.
 		 *
-		 * Get the list of potentially conflicting sitemap files.
+		 * Get the list of potentially conflicting sitemap files, identify whether they came from us, are blank, or are of unknown origin.
 		 *
 		 * @param $files
 		 * @param $msg
+		 *
+		 * In 2.3.10 we added the ability to see empty sitemap files as well.
 		 *
 		 * @return array
 		 */
