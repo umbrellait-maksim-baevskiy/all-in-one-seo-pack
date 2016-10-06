@@ -976,6 +976,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 							$msg .= '<p>' . sprintf( __( 'Potential conflict with unknown file %s.', 'all-in-one-seo-pack' ), $f ) . "</p>\n";
 							$problem_files[] = $f;
 						}
+					} else {
+						$msg .= '<p>' . sprintf( __( 'Potential conflict with empty file %s.', 'all-in-one-seo-pack' ), $f ) . "</p>\n";
+						$problem_files[] = $f;
 					}
 				}
 			}
