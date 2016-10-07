@@ -638,9 +638,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$options[ $this->prefix . 'link' ] .= '<p>' . __( 'Note: you are using dynamic sitemap generation to keep your sitemap current; this will not generate a static sitemap file.', 'all-in-one-seo-pack' ) . '</p>';
 				$rule  = $this->get_rewrite_url( $url );
 				$rules = $this->get_rewrite_rules();
-				if ( in_array( $rule, $rules ) ) {
-					$options[ $this->prefix . 'link' ] .= '<p>' . __( 'Dynamic sitemap generation appears to be using the correct rewrite rules.', 'all-in-one-seo-pack' ) . '</p>';
-				} else {
+				if ( ! in_array( $rule, $rules ) ) {
 					$options[ $this->prefix . 'link' ] .= '<p>' . __( 'Dynamic sitemap generation does not appear to be using the correct rewrite rules; please disable any other sitemap plugins or functionality on your site and reset your permalinks.', 'all-in-one-seo-pack' ) . '</p>';
 				}
 			}
