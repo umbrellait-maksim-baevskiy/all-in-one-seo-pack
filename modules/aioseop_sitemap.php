@@ -1284,6 +1284,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * Notify search engines, do logging.
 		 */
 		function do_notify() {
+
+			if ( '0' === get_option( 'blog_public' ) ) {
+				// Don't ping search engines if blog is set to not public.
+				return;
+			}
+
 			$notify_url = array(
 				'google' => 'http://www.google.com/webmasters/sitemaps/ping?sitemap=',
 				'bing'   => 'http://www.bing.com/webmaster/ping.aspx?siteMap=',
