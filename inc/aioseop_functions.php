@@ -993,10 +993,16 @@ if ( ! function_exists( 'fnmatch' ) ) {
 
 if ( ! function_exists('aiosp_log')) {
 	function aiosp_log ( $log )  {
-		if ( is_array( $log ) || is_object( $log ) ) {
-			error_log( print_r( $log, true ) );
-		} else {
-			error_log( $log );
+
+		global $aioseop_options;
+
+		if ( ! empty( $aioseop_options ) && isset( $aioseop_options['aiosp_do_log'] ) && $aioseop_options['aiosp_do_log'] ) {
+
+			if ( is_array( $log ) || is_object( $log ) ) {
+				error_log( print_r( $log, true ) );
+			} else {
+				error_log( $log );
+			}
 		}
 	}
 }
