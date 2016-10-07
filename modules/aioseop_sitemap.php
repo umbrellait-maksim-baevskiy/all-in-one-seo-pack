@@ -1264,6 +1264,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				return;
 			}
 
+			if ( apply_filters( 'aioseo_sitemap_ping', true ) === false ) {
+				// API filter hook to disable sending sitemaps to search engines.
+				return;
+			}
+
 			$notify_url = array(
 				'google' => 'http://www.google.com/webmasters/sitemaps/ping?sitemap=',
 				'bing'   => 'http://www.bing.com/webmaster/ping.aspx?siteMap=',
