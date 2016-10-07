@@ -39,8 +39,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 			$this->help_text = array(
 				'filename'        => __( "Specifies the name of your sitemap file. This will default to 'sitemap'.", 'all-in-one-seo-pack' ),
-				'google'          => __( 'Notify Google when you update your sitemap settings.', 'all-in-one-seo-pack' ),
-				'bing'            => __( 'Notify Bing when you update your sitemap settings.', 'all-in-one-seo-pack' ),
 				'daily_cron'      => __( 'Notify search engines based on the selected schedule, and also update static sitemap daily if in use. (this uses WP-Cron, so make sure this is working properly on your server as well)', 'all-in-one-seo-pack' ),
 				'indexes'         => __( 'Organize sitemap entries into distinct files in your sitemap. Enable this only if your sitemap contains over 50,000 URLs or the file is over 5MB in size.', 'all-in-one-seo-pack' ),
 				'paginate'        => __( 'Split long sitemaps into separate files.', 'all-in-one-seo-pack' ),
@@ -63,8 +61,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 			$this->help_anchors = array(
 				'filename'        => '#filename-prefix',
-				'google'          => '#notify-google-bing',
-				'bing'            => '#notify-google-bing',
 				'daily_cron'      => '#schedule-updates',
 				'indexes'         => '#enable-sitemap-indexes',
 				'paginate'        => '#enable-sitemap-indexes',
@@ -91,8 +87,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					'type'     => 'text',
 					'sanitize' => 'filename',
 				),
-				'google'     => array( 'name' => __( 'Notify Google', 'all-in-one-seo-pack' ) ),
-				'bing'       => array( 'name' => __( 'Notify Bing', 'all-in-one-seo-pack' ) ),
 				'daily_cron' => array(
 					'name'            => __( 'Schedule Updates', 'all-in-one-seo-pack' ),
 					'type'            => 'select',
@@ -1306,7 +1300,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$url = $this->get_sitemap_url();
 			if ( ! empty( $url ) ) {
 				foreach ( $notify_url as $k => $v ) {
-					if ( isset( $this->options[ $this->prefix . $k ] ) && $this->options[ $this->prefix . $k ] ) {
 						$response = wp_remote_get( $notify_url[ $k ] . urlencode( $url ) );
 						if ( is_array( $response ) && ! empty( $response['response'] ) && ! empty( $response['response']['code'] ) ) {
 							if ( 200 == $response['response']['code'] ) {
@@ -1319,7 +1312,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						}
 					} else {
 						$this->debug_message( sprintf( __( 'Did not notify %s about changes to your sitemap.', 'all-in-one-seo-pack' ), $k, $url ) );
-					}
 				}
 			}
 		}
