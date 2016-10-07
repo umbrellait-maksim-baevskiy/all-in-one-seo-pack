@@ -50,7 +50,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				'gzipped'         => __( 'Create a compressed sitemap file in .xml.gz format.', 'all-in-one-seo-pack' ),
 				'robots'          => __( 'Places a link to your Sitemap.xml into your virtual Robots.txt file.', 'all-in-one-seo-pack' ),
 				'rewrite'         => __( 'Dynamically creates the XML sitemap instead of using a static file.', 'all-in-one-seo-pack' ),
-				'debug'           => __( 'Use rewrites to generate your sitemap on the fly. NOTE: This is required for WordPress Multisite.', 'all-in-one-seo-pack' ),
 				'addl_url'        => __( 'URL to the page.', 'all-in-one-seo-pack' ),
 				'addl_prio'       => __( 'The priority of the page.', 'all-in-one-seo-pack' ),
 				'addl_freq'       => __( 'The frequency of the page.', 'all-in-one-seo-pack' ),
@@ -137,17 +136,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 			$status_options = array(
 				'link'  => array( 'default' => '', 'type' => 'html', 'label' => 'none', 'save' => false ),
-				'debug' => array(
-					'name'     => __( 'Debug Log', 'all-in-one-seo-pack' ),
-					'default'  => '',
-					'type'     => 'html',
-					'disabled' => 'disabled',
-					'save'     => false,
-					'label'    => 'none',
-					'rows'     => 5,
-					'cols'     => 120,
-					'style'    => 'min-width:950px',
-				),
 			);
 
 			$this->layout = array(
@@ -653,11 +641,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				}
 				$options[ $this->prefix . 'link' ] .= '<p class="aioseop_error_notice">' . sprintf( __( 'Warning: your privacy settings are configured to ask search engines to not index your site; you can change this under %s for your blog.', 'all-in-one-seo-pack' ), $privacy_link );
 			}
-			if ( $this->option_isset( 'debug' ) ) {
-				$debug_msg                       = esc_html( $options["{$this->prefix}debug"] );
-				$options["{$this->prefix}debug"] = '<pre>' . $debug_msg . '</pre>';
-			}
-
 			return $options;
 		}
 
