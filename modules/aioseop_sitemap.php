@@ -626,9 +626,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$url                               = trailingslashit( get_home_url() ) . $options[ $this->prefix . 'filename' ] . '.xml';
 
 			$options[ $this->prefix . 'link' ] = sprintf( __( 'Click here to %s.', 'all-in-one-seo-pack' ), '<a href="' . esc_url( $url ) . '" target="_blank">' . __( 'view your sitemap', 'all-in-one-seo-pack' ) . '</a>' );
-			$options[ $this->prefix . 'link' ] .= __( 'Your sitemap has been created', 'all-in-one-seo-pack' );
+			$options[ $this->prefix . 'link' ] .= __( ' Your sitemap has been created', 'all-in-one-seo-pack' );
 			if ( '0' !== get_option( 'blog_public' ) ){
-				$options[ $this->prefix . 'link' ] .= __( ' and is automatically submitted to search engines with any changes' );
+				$options[ $this->prefix . 'link' ] .= __( ' and automatically submitted to search engines with any changes' );
 			}
 			$options[ $this->prefix . 'link' ] .= '.';
 
