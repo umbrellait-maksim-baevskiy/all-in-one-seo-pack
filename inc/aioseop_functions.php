@@ -991,6 +991,16 @@ if ( ! function_exists( 'fnmatch' ) ) {
 	}
 }
 
+if ( ! function_exists('aiosp_log')) {
+	function aiosp_log ( $log )  {
+		if ( is_array( $log ) || is_object( $log ) ) {
+			error_log( print_r( $log, true ) );
+		} else {
+			error_log( $log );
+		}
+	}
+}
+
 if ( ! function_exists( 'parse_ini_string' ) ) {
 	/**
 	 * Parse_ini_string() doesn't exist pre PHP 5.3.
