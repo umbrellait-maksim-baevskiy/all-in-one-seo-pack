@@ -1019,21 +1019,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Updates debug log messages.
 		 *
+		 * Deprecated as of 2.3.10 in favor of WP debug log. We should eventually remove this.
+		 *
 		 * @param $msg
 		 */
 		function debug_message( $msg ) {
-			if ( empty( $this->options["{$this->prefix}debug"] ) ) {
-				$this->options["{$this->prefix}debug"] = '';
-			}
-			$this->options["{$this->prefix}debug"] = date( 'Y-m-d H:i:s' ) . " {$msg}\n" . $this->options["{$this->prefix}debug"];
-			if ( $this->strlen( $this->options["{$this->prefix}debug"] ) > 2048 ) {
-				$end = $this->strrpos( $this->options["{$this->prefix}debug"], "\n" );
-				if ( false === $end ) {
-					$end = 2048;
-				}
-				$this->options["{$this->prefix}debug"] = $this->substr( $this->options["{$this->prefix}debug"], 0, $end );
-			}
-			$this->update_class_option( $this->options );
+			aiosp_log( $msg );
 		}
 
 		/**
@@ -1304,19 +1295,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				foreach ( $notify_url as $k => $v ) {
 					$response = wp_remote_get( $notify_url[ $k ] . urlencode( $url ) );
 					if ( is_array( $response ) && ! empty( $response['response'] ) && ! empty( $response['response']['code'] ) ) {
-						if ( 200 == $response['response']['code'] ) {
-							$this->debug_message( sprintf( __( 'Successfully notified %s about changes to your sitemap at %s.', 'all-in-one-seo-pack' ), $k, $url ) );
-						} else {
+						if ( 200 != $response['response']['code'] ) {
 							$this->debug_message( sprintf( __( 'Failed to notify %s about changes to your sitemap at %s, error code %s.', 'all-in-one-seo-pack' ), $k, $url, $response['response']['code'] ) );
 						}
 					} else {
 						$this->debug_message( sprintf( __( 'Failed to notify %s about changes to your sitemap at %s, unable to access via wp_remote_get().', 'all-in-one-seo-pack' ), $k, $url ) );
 					}
 				}
-			} else {
-				$this->debug_message( sprintf( __( 'Did not notify %s about changes to your sitemap.', 'all-in-one-seo-pack' ), $k, $url ) );
 			}
-
 		}
 
 		/**
@@ -1362,8 +1348,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$this->do_notify();
 			if ( ! empty( $message ) && is_string( $message ) ) {
 				$this->debug_message( $message );
-			} else {
-				$this->debug_message( __( 'Updated sitemap settings.', 'all-in-one-seo-pack' ) );
 			}
 		}
 
