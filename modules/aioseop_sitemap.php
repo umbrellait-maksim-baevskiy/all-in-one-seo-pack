@@ -1310,10 +1310,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						} else {
 							$this->debug_message( sprintf( __( 'Failed to notify %s about changes to your sitemap at %s, unable to access via wp_remote_get().', 'all-in-one-seo-pack' ), $k, $url ) );
 						}
+					}
 					} else {
 						$this->debug_message( sprintf( __( 'Did not notify %s about changes to your sitemap.', 'all-in-one-seo-pack' ), $k, $url ) );
 				}
-			}
+			
 		}
 
 		/**
