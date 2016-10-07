@@ -1297,7 +1297,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				'bing'   => 'http://www.bing.com/webmaster/ping.aspx?siteMap=',
 			);
 
-			$notify_url apply_filters( 'aioseo_sitemap_ping_urls', $notify_url );
+			$notify_url = apply_filters( 'aioseo_sitemap_ping_urls', $notify_url );
 
 			$url = $this->get_sitemap_url();
 			if ( ! empty( $url ) ) {
