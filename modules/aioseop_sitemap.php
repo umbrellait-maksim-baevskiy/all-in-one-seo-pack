@@ -624,8 +624,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 
 			if ( $this->option_isset( 'rewrite' ) ) {
-
-				$options[ $this->prefix . 'link' ] .= '<p>' . __( 'Note: you are using dynamic sitemap generation to keep your sitemap current; this will not generate a static sitemap file.', 'all-in-one-seo-pack' ) . '</p>';
 				$rule  = $this->get_rewrite_url( $url );
 				$rules = $this->get_rewrite_rules();
 				if ( ! in_array( $rule, $rules ) ) {
