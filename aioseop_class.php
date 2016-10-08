@@ -4467,6 +4467,12 @@ EOF;
 	}
 
 	function admin_bar_menu() {
+
+		if( apply_filters( 'aioseo_show_in_admin_bar', true) === false ){
+			// API filter hook to disable showing SEO in admin bar.
+			return;
+		}
+
 		global $wp_admin_bar, $aioseop_admin_menu, $post;
 
 			$menu_slug = plugin_basename( __FILE__ );
