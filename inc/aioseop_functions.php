@@ -95,19 +95,6 @@ if ( ! function_exists( 'aioseop_mrt_mkarry' ) ) {
 	}
 }
 
-if ( ! function_exists( 'aioseop_activate_pl' ) ) {
-	/**
-	 * @TODO see if this still gets used.
-	 */
-	function aioseop_activate_pl() {
-		if ( $aioseop_options = get_option( 'aioseop_options' ) ) {
-			$aioseop_options['aiosp_enabled'] = '0';
-
-			update_option( 'aioseop_options', $aioseop_options );
-		}
-	}
-}
-
 if ( ! function_exists( 'aioseop_get_version' ) ) {
 	/**
 	 * Returns the version.
