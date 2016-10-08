@@ -177,7 +177,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'cpostactive'                 => __( 'Use these checkboxes to select which Post Types you want to use All in One SEO Pack with.', 'all-in-one-seo-pack' ),
 			'taxactive'                   => __( 'Use these checkboxes to select which Taxonomies you want to use All in One SEO Pack with.', 'all-in-one-seo-pack' ),
 			'cposttitles'                 => __( 'This allows you to set the title tags for each Custom Post Type.', 'all-in-one-seo-pack' ),
-			'posttypecolumns'             => __( 'This lets you select which screens display the SEO Title, SEO Keywords and SEO Description columns.', 'all-in-one-seo-pack' ),
 			'admin_bar'                   => __( 'Check this to add All in One SEO Pack to the Admin Bar for easy access to your SEO settings.', 'all-in-one-seo-pack' ),
 			'custom_menu_order'           => __( 'Check this to move the All in One SEO Pack menu item to the top of your WordPress Dashboard menu.', 'all-in-one-seo-pack' ),
 			'google_verify'               => __( "Enter your verification code here to verify your site with Google Webmaster Tools.<br /><a href='http://semperplugins.com/documentation/google-webmaster-tools-verification/' target='_blank'>Click here for documentation on this setting</a>", 'all-in-one-seo-pack' ),
@@ -270,7 +269,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'cpostactive'                 => '#seo-on-only-these-post-types',
 			'taxactive'                   => '#seo-on-only-these-taxonomies',
 			'cposttitles'                 => '#custom-titles',
-			'posttypecolumns'             => '#show-column-labels-for-custom-post-types',
 			'admin_bar'                   => '#display-menu-in-admin-bar',
 			'custom_menu_order'           => '#display-menu-at-the-top',
 			'google_verify'               => '',
@@ -583,12 +581,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					'aiosp_enablecpost'    => 'on',
 					'aiosp_cpostadvanced'  => 'on',
 				),
-			),
-			'posttypecolumns'             => array(
-				'name'     => __( 'Show Column Labels for Custom Post Types:', 'all-in-one-seo-pack' ),
-				'type'     => 'multicheckbox',
-				'default'  => array( 'post', 'page' ),
-				'condshow' => array( 'aiosp_enablecpost' => 'on' ),
 			),
 			'admin_bar'                   => array(
 				'name'    => __( 'Display Menu In Admin Bar:', 'all-in-one-seo-pack' ),
@@ -1101,7 +1093,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'display'   => array(
 				'name'      => __( 'Display Settings', 'all-in-one-seo-pack' ),
 				'help_link' => 'http://semperplugins.com/documentation/display-settings/',
-				'options'   => array( 'posttypecolumns', 'admin_bar', 'custom_menu_order' ),
+				'options'   => array( 'admin_bar', 'custom_menu_order' ),
 			),
 			'webmaster' => array(
 				'name'      => __( 'Webmaster Verification', 'all-in-one-seo-pack' ),
@@ -3169,7 +3161,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				$taxes[ $t ] = $t;
 			}
 		}
-		$this->default_options['posttypecolumns']['initial_options'] = $post_types;
+
 		$this->default_options['cpostactive']['initial_options']     = $all_post_types;
 		$this->default_options['cpostnoindex']['initial_options']    = $post_types;
 		$this->default_options['cpostnofollow']['initial_options']   = $post_types;

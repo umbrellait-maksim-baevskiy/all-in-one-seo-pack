@@ -103,10 +103,6 @@ if ( ! function_exists( 'aioseop_activate_pl' ) ) {
 		if ( $aioseop_options = get_option( 'aioseop_options' ) ) {
 			$aioseop_options['aiosp_enabled'] = '0';
 
-			if ( empty( $aioseop_options['aiosp_posttypecolumns'] ) ) {
-				$aioseop_options['aiosp_posttypecolumns'] = array( 'post', 'page' );
-			}
-
 			update_option( 'aioseop_options', $aioseop_options );
 		}
 	}
@@ -144,14 +140,10 @@ if ( ! function_exists( 'aioseop_addmycolumns' ) ) {
 	/**
 	 * Adds posttype columns.
 	 *
-	 * @TODO We should see if this is still being used, and move it either way.
 	 */
 	function aioseop_addmycolumns() {
-		global $aioseop_options, $pagenow;
-		$aiosp_posttypecolumns = Array();
-		if ( ! empty( $aioseop_options ) && ! empty( $aioseop_options['aiosp_posttypecolumns'] ) ) {
-			$aiosp_posttypecolumns = $aioseop_options['aiosp_posttypecolumns'];
-		}
+		global $pagenow;
+
 		if ( ! empty( $pagenow ) && ( $pagenow === 'upload.php' ) ) {
 			$post_type = 'attachment';
 		} elseif ( ! isset( $_REQUEST['post_type'] ) ) {
@@ -160,7 +152,6 @@ if ( ! function_exists( 'aioseop_addmycolumns' ) ) {
 			$post_type = $_REQUEST['post_type'];
 		}
 
-		if ( is_array( $aiosp_posttypecolumns ) && in_array( $post_type, $aiosp_posttypecolumns ) ) {
 			add_action( 'admin_head', 'aioseop_admin_head' );
 			if ( $post_type === 'page' ) {
 				add_filter( 'manage_pages_columns', 'aioseop_mrt_pcolumns' );
@@ -176,7 +167,6 @@ if ( ! function_exists( 'aioseop_addmycolumns' ) ) {
 			} else {
 				add_action( 'manage_posts_custom_column', 'aioseop_mrt_pccolumn', 10, 2 );
 			}
-		}
 	}
 }
 
