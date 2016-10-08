@@ -177,7 +177,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'cpostactive'                 => __( 'Use these checkboxes to select which Post Types you want to use All in One SEO Pack with.', 'all-in-one-seo-pack' ),
 			'taxactive'                   => __( 'Use these checkboxes to select which Taxonomies you want to use All in One SEO Pack with.', 'all-in-one-seo-pack' ),
 			'cposttitles'                 => __( 'This allows you to set the title tags for each Custom Post Type.', 'all-in-one-seo-pack' ),
-			'custom_menu_order'           => __( 'Check this to move the All in One SEO Pack menu item to the top of your WordPress Dashboard menu.', 'all-in-one-seo-pack' ),
 			'google_verify'               => __( "Enter your verification code here to verify your site with Google Webmaster Tools.<br /><a href='http://semperplugins.com/documentation/google-webmaster-tools-verification/' target='_blank'>Click here for documentation on this setting</a>", 'all-in-one-seo-pack' ),
 			'bing_verify'                 => __( "Enter your verification code here to verify your site with Bing Webmaster Tools.<br /><a href='http://semperplugins.com/documentation/bing-webmaster-verification/' target='_blank'>Click here for documentation on this setting</a>", 'all-in-one-seo-pack' ),
 			'pinterest_verify'            => __( "Enter your verification code here to verify your site with Pinterest.<br /><a href='http://semperplugins.com/documentation/pinterest-site-verification/' target='_blank'>Click here for documentation on this setting</a>", 'all-in-one-seo-pack' ),
@@ -268,7 +267,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'cpostactive'                 => '#seo-on-only-these-post-types',
 			'taxactive'                   => '#seo-on-only-these-taxonomies',
 			'cposttitles'                 => '#custom-titles',
-			'custom_menu_order'           => '#display-menu-at-the-top',
 			'google_verify'               => '',
 			'bing_verify'                 => '',
 			'pinterest_verify'            => '',
@@ -579,10 +577,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					'aiosp_enablecpost'    => 'on',
 					'aiosp_cpostadvanced'  => 'on',
 				),
-			),
-			'custom_menu_order'           => array(
-				'name'    => __( 'Display Menu At The Top:', 'all-in-one-seo-pack' ),
-				'default' => 'on',
 			),
 			'google_verify'               => array(
 				'name'    => __( 'Google Webmaster Tools:', 'all-in-one-seo-pack' ),
@@ -1083,11 +1077,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				'name'      => __( 'Custom Post Type Settings', 'all-in-one-seo-pack' ),
 				'help_link' => 'http://semperplugins.com/documentation/custom-post-type-settings/',
 				'options'   => array( 'enablecpost', 'cpostadvanced', 'taxactive', 'cpostactive', 'cposttitles' ),
-			),
-			'display'   => array(
-				'name'      => __( 'Display Settings', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/documentation/display-settings/',
-				'options'   => array( 'custom_menu_order' ),
 			),
 			'webmaster' => array(
 				'name'      => __( 'Webmaster Verification', 'all-in-one-seo-pack' ),
@@ -4625,11 +4614,7 @@ EOF;
 
 		$this->locations['aiosp']['default_options']['nonce-aioseop-edit']['default'] = wp_create_nonce( 'edit-aioseop-nonce' );
 
-		$custom_menu_order = false;
 		global $aioseop_options;
-		if ( ! isset( $aioseop_options['custom_menu_order'] ) ) {
-			$custom_menu_order = true;
-		}
 
 		$this->update_options();
 
@@ -4647,28 +4632,17 @@ EOF;
 			if ( isset( $_POST['aiosp_donate'] ) ) {
 				$donated = $_POST['aiosp_donate'];
 			}
-			if ( isset( $_POST['Submit'] ) ) {
-				if ( isset( $_POST['aiosp_custom_menu_order'] ) ) {
-					$custom_menu_order = $_POST['aiosp_custom_menu_order'];
-				} else {
-					$custom_menu_order = false;
-				}
-			} else if ( isset( $_POST['Submit_Default'] ) || isset( $_POST['Submit_All_Default'] ) ) {
-				$custom_menu_order = true;
-			}
 		} else {
 			if ( isset( $this->options['aiosp_donate'] ) ) {
 				$donated = $this->options['aiosp_donate'];
 			}
-			if ( isset( $this->options['aiosp_custom_menu_order'] ) ) {
-				$custom_menu_order = $this->options['aiosp_custom_menu_order'];
-			}
 		}
 
-		if ( $custom_menu_order ) {
-			add_filter( 'custom_menu_order', '__return_true' );
-			add_filter( 'menu_order', array( $this, 'set_menu_order' ), 11 );
-		}
+		if( apply_filters( 'aioseo_custom_menu_order', true) !== false ){
+				// API filter hook to disable showing SEO at the top of the menu.
+				add_filter( 'custom_menu_order', '__return_true' );
+				add_filter( 'menu_order', array( $this, 'set_menu_order' ), 11 );
+			}
 
 		if ( $donated ) {
 			// Thank you for your donation.
