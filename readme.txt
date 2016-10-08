@@ -24,6 +24,7 @@ First created in 2007, see why AIOSEO is one of the all time most downloaded plu
 * Google Analytics support
 * Support for SEO on Custom Post Types
 * Advanced Canonical URLs
+* Redirect attachment pages to parent post
 * Automatically notifies search engines like Google and Bing about changes to your site
 * Built-in API so other plugins/themes can access and extend functionality
 * ONLY free plugin to provide SEO Integration for e-Commerce sites, including WooCommerce
