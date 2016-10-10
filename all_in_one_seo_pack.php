@@ -215,8 +215,12 @@ if ( class_exists( 'All_in_One_SEO_Pack' ) ) {
 if ( AIOSEOPPRO ) {
 
 	require( AIOSEOP_PLUGIN_DIR . 'pro/sfwd_update_checker.php' );
+	$aiosp_update_url = 'http://semperplugins.com/upgrade_plugins.php';
+	if( defined( 'AIOSEOP_UPDATE_URL' ) ) {
+		$aiosp_update_url = AIOSEOP_UPDATE_URL;
+	}
 	$aioseop_update_checker = new SFWD_Update_Checker(
-		'http://semperplugins.com/upgrade_plugins.php',
+		$aiosp_update_url,
 		__FILE__,
 		'aioseop'
 	);
@@ -246,6 +250,7 @@ if ( ! function_exists( 'aioseop_activate' ) ) {
 		}
 		$aiosp_activation = true;
 
+		// These checks might be duplicated in the function being called.
 		if( ! is_network_admin() || !isset( $_GET['activate-multi'] ) ) {
 			set_transient( '_aioseop_activation_redirect', true, 30 ); // Sets 30 second transient for welcome screen redirect on activation.
 			}
