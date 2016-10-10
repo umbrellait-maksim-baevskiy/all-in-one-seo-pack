@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( AIOSEOPPRO ) {
 
-	add_action( 'admin_init', 'disable_all_in_one_free', 1 );
+	add_action( 'admin_head', 'disable_all_in_one_free', 1 );
 
 }
 
