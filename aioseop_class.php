@@ -1352,9 +1352,16 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				$title = $this->wp_title();
 			}
 			$description = $this->get_main_description( $post );
+			if($this->is_front_page == true ){
+				$title_format = $aioseop_options['aiosp_home_page_title_format'];
+			}
+
+			// All this needs to be in it's own function (class really)
+
 			if ( empty( $title_format ) ) {
 				if ( is_page() ) {
 					$title_format = $aioseop_options['aiosp_page_title_format'];
+
 				} elseif ( is_single() || is_attachment() ) {
 					$title_format = $this->get_post_title_format( 'post', $post );
 				}
