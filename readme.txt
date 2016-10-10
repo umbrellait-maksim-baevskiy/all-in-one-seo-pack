@@ -8,7 +8,7 @@ Stable tag: 2.3.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-One of the most downloaded plugins for WordPress (almost 30 million downloads since 2007). Use All in One SEO Pack to automatically optimize your site for Search Engines.
+One of the most downloaded plugins for WordPress (over 30 million downloads since 2007). Use All in One SEO Pack to automatically optimize your site for Search Engines.
 
 == Description ==
 
