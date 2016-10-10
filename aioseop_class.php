@@ -1352,9 +1352,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				$title = $this->wp_title();
 			}
 			$description = $this->get_main_description( $post );
-			if($this->is_front_page == true ){
-				$title_format = $aioseop_options['aiosp_home_page_title_format'];
-			}
 
 			// All this needs to be in it's own function (class really)
 
@@ -1400,7 +1397,10 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			}
 			$description = $this->internationalize( $description );
 		}
-
+		if($this->is_front_page == true ){
+			//$title_format = $aioseop_options['aiosp_home_page_title_format'];
+			$title_format = ''; // Not sure why this needs to be this way, but we should extract all this out to figure out what's going on.
+		}
 		$show_page = true;
 		if ( ! empty( $aioseop_options['aiosp_no_paged_canonical_links'] ) ) {
 			$show_page = false;
