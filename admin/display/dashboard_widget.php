@@ -35,7 +35,11 @@ if ( ! class_exists( 'aioseop_dashboard_widget' ) ) {
 
 			if ( false === ( $rss_items = get_transient( 'aioseop_feed' ) ) ) {
 
-				$rss       = fetch_feed( "https://www.semperplugins.com/feed/" );
+				$rss = fetch_feed( "https://www.semperplugins.com/feed/" );
+				if ( is_wp_error( $rss ) ) {
+					echo '{Temporarily unable to load feed.}';
+					return;
+				}
 				$rss_items = $rss->get_items( 0, 7 );
 
 				$cached = array();
