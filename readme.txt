@@ -21,6 +21,7 @@ One of the most downloaded plugins for WordPress (over 30 million downloads sinc
 First created in 2007, see why AIOSEO is one of the all time most downloaded plugins for WordPress.
 
 * XML Sitemap support - submit your sitemap to Google and Bing and improve your SEO
+* Google AMP support (Accelerated Mobile Pages)
 * Google Analytics support
 * Support for SEO on Custom Post Types
 * Advanced Canonical URLs
