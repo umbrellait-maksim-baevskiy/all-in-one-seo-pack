@@ -801,11 +801,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 			// Don't show this schema.org if the AMP plugin is active.
 			if ( ! function_exists( 'amp_init' ) ) {
-				$attr_array[] = 'itemscope';
-				$attr_array[] = 'itemtype="http://schema.org/' . ucfirst( $type ) . '"';
+				$attr_array = Array(
+				'itemscope',
+				'itemtype="http://schema.org/' . ucfirst( $type ) . '"',
+				'prefix="og: http://ogp.me/ns#"',
+			);
 			}
-
-			$attr_array[] = 'prefix="og: http://ogp.me/ns#"';
 
 			$attributes = apply_filters( $this->prefix . 'attributes', $attr_array );
 			foreach ( $attributes as $attr ) {
