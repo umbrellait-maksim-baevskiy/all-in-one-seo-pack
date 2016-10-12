@@ -959,8 +959,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 							$problem_files[] = $f;
 						}
 					} else {
-						$msg .= '<p>' . sprintf( __( 'Potential conflict with empty file %s.', 'all-in-one-seo-pack' ), $f ) . "</p>\n";
+						$msg .= '<p>' . sprintf( __( 'Removed empty file %s.', 'all-in-one-seo-pack' ), $f ) . "</p>\n";
 						$problem_files[] = $f;
+
+						foreach ( $problem_files as $f => $file ) {
+							$files[ $f ] = realpath( $file );
+							$this->delete_file( realpath( $file ) );
+						}
+						$problem_files = false; // Don't return anything. If it's blank, we'll take care of it here.
 					}
 				}
 			}
