@@ -305,7 +305,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			add_action( $this->prefix . 'daily_update_cron', array( $this, 'daily_update' ) );
 			add_action( 'init', array( $this, 'make_dynamic_xsl' ) );
 			add_action( 'transition_post_status', array( $this, 'update_sitemap_from_posts' ), 10, 3 );
+			add_action( 'after_doing_aioseop_updates', array( $this, 'scan_sitemaps' ) );
 		}
+
 
 		/**
 		 * Update sitemap from posts.
