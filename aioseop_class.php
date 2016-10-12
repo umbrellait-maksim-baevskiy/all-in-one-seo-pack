@@ -177,6 +177,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'cpostactive'                 => __( 'Use these checkboxes to select which Post Types you want to use All in One SEO Pack with.', 'all-in-one-seo-pack' ),
 			'taxactive'                   => __( 'Use these checkboxes to select which Taxonomies you want to use All in One SEO Pack with.', 'all-in-one-seo-pack' ),
 			'cposttitles'                 => __( 'This allows you to set the title tags for each Custom Post Type.', 'all-in-one-seo-pack' ),
+			'posttypecolumns'             => __( 'This lets you select which screens display the SEO Title, SEO Keywords and SEO Description columns.', 'all-in-one-seo-pack' ),
 			'google_verify'               => __( "Enter your verification code here to verify your site with Google Webmaster Tools.<br /><a href='http://semperplugins.com/documentation/google-webmaster-tools-verification/' target='_blank'>Click here for documentation on this setting</a>", 'all-in-one-seo-pack' ),
 			'bing_verify'                 => __( "Enter your verification code here to verify your site with Bing Webmaster Tools.<br /><a href='http://semperplugins.com/documentation/bing-webmaster-verification/' target='_blank'>Click here for documentation on this setting</a>", 'all-in-one-seo-pack' ),
 			'pinterest_verify'            => __( "Enter your verification code here to verify your site with Pinterest.<br /><a href='http://semperplugins.com/documentation/pinterest-site-verification/' target='_blank'>Click here for documentation on this setting</a>", 'all-in-one-seo-pack' ),
@@ -267,6 +268,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'cpostactive'                 => '#seo-on-only-these-post-types',
 			'taxactive'                   => '#seo-on-only-these-taxonomies',
 			'cposttitles'                 => '#custom-titles',
+			'posttypecolumns'             => '#show-column-labels-for-custom-post-types',
 			'google_verify'               => '',
 			'bing_verify'                 => '',
 			'pinterest_verify'            => '',
@@ -577,6 +579,12 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					'aiosp_enablecpost'    => 'on',
 					'aiosp_cpostadvanced'  => 'on',
 				),
+			),
+			'posttypecolumns' => array(
+				'name'     => __( 'Show Column Labels for Custom Post Types:', 'all-in-one-seo-pack' ),
+				'type'     => 'multicheckbox',
+				'default'  => array( 'post', 'page' ),
+				'condshow' => array( 'aiosp_enablecpost' => 'on' ),
 			),
 			'google_verify'               => array(
 				'name'    => __( 'Google Webmaster Tools:', 'all-in-one-seo-pack' ),
@@ -1077,6 +1085,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				'name'      => __( 'Custom Post Type Settings', 'all-in-one-seo-pack' ),
 				'help_link' => 'http://semperplugins.com/documentation/custom-post-type-settings/',
 				'options'   => array( 'enablecpost', 'cpostadvanced', 'taxactive', 'cpostactive', 'cposttitles' ),
+			),
+			'display'   => array(
+				'name'      => __( 'Display Settings', 'all-in-one-seo-pack' ),
+				'help_link' => 'http://semperplugins.com/documentation/display-settings/',
+				'options'   => array( 'posttypecolumns' ),
 			),
 			'webmaster' => array(
 				'name'      => __( 'Webmaster Verification', 'all-in-one-seo-pack' ),
@@ -3152,6 +3165,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			}
 		}
 
+		$this->default_options['posttypecolumns']['initial_options'] = $post_types;
 		$this->default_options['cpostactive']['initial_options']     = $all_post_types;
 		$this->default_options['cpostnoindex']['initial_options']    = $post_types;
 		$this->default_options['cpostnofollow']['initial_options']   = $post_types;
