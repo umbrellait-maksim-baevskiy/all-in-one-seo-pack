@@ -4632,7 +4632,7 @@ EOF;
 	function admin_menu() {
 		$file      = plugin_basename( __FILE__ );
 		$menu_name = __( 'All in One SEO', 'all-in-one-seo-pack' );
-
+		$custom_menu_order = true;
 		$this->locations['aiosp']['default_options']['nonce-aioseop-edit']['default'] = wp_create_nonce( 'edit-aioseop-nonce' );
 
 		global $aioseop_options;
@@ -4659,7 +4659,12 @@ EOF;
 			}
 		}
 
-		if( apply_filters( 'aioseo_custom_menu_order', true) !== false ){
+		if ( isset( $this->options['aiosp_custom_menu_order'] ) && 'on' !== $this->options['aiosp_custom_menu_order'] ) {
+			// This is to respect legacy option for custom menu order.
+			$custom_menu_order = false;
+		}
+
+		if( apply_filters( 'aioseo_custom_menu_order', $custom_menu_order) !== false ){
 				// API filter hook to disable showing SEO at the top of the menu.
 				add_filter( 'custom_menu_order', '__return_true' );
 				add_filter( 'menu_order', array( $this, 'set_menu_order' ), 11 );
