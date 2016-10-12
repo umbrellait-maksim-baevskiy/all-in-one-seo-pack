@@ -17,13 +17,34 @@ if ( ! class_exists( 'aioseop_dashboard_widget' ) ) {
 		 * @since 2.3.10
 		 */
 		function aioseop_add_dashboard_widget() {
-			if ( current_user_can( 'install_plugins' ) ) {
+
+			if ( current_user_can( 'install_plugins' ) && false !== $this->show_widget() ) {
 				wp_add_dashboard_widget( "semperplugins-rss-feed", __( 'SEO News', 'all-in-one-seo-pack' ), array(
 					$this,
 					'aioseop_display_rss_dashboard_widget',
 				) );
 			}
 
+		}
+
+		/**
+		 * @since 2.3.10.2
+		 */
+		function show_widget(){
+
+			$show = true;
+
+			if( apply_filters( 'aioseo_show_seo_news', true) === false ){
+				// API filter hook to disable showing SEO News dashboard widget.
+				return false;
+			}
+
+			// check for option + aioseoppro
+			if( isset( $aioseop_options['show_seo_news_widget']) && empty( $aioseop_options['show_seo_news_widget'] ) ){
+				return false;
+			}
+
+			return $show;
 		}
 
 		/**
@@ -40,7 +61,7 @@ if ( ! class_exists( 'aioseop_dashboard_widget' ) ) {
 					echo '{Temporarily unable to load feed.}';
 					return;
 				}
-				$rss_items = $rss->get_items( 0, 7 );
+				$rss_items = $rss->get_items( 0, 4 ); // Show four items.
 
 				$cached = array();
 				foreach ( $rss_items as $item ) {
