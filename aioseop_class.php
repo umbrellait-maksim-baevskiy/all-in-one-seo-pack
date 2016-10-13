@@ -4478,57 +4478,64 @@ EOF;
 
 	function admin_bar_menu() {
 
-		if( apply_filters( 'aioseo_show_in_admin_bar', true) === false ){
+		if ( apply_filters( 'aioseo_show_in_admin_bar', true ) === false ) {
 			// API filter hook to disable showing SEO in admin bar.
 			return;
 		}
 
-		global $wp_admin_bar, $aioseop_admin_menu, $post;
+		global $wp_admin_bar, $aioseop_admin_menu, $post, $aioseop_options;
 
-			$menu_slug = plugin_basename( __FILE__ );
+		if ( isset( $aioseop_options['aiosp_admin_bar'] ) && 'on' !== $aioseop_options['aiosp_admin_bar'] ) {
 
-			$url = '';
-			if ( function_exists( 'menu_page_url' ) ) {
-				$url = menu_page_url( $menu_slug, 0 );
+			if ( true !== apply_filters( 'aioseo_show_in_admin_bar', false ) ) {
+				return; // Respect legacy options but allow filter to override.
 			}
-			if ( empty( $url ) ) {
-				$url = esc_url( admin_url( 'admin.php?page=' . $menu_slug ) );
-			}
+		}
 
+		$menu_slug = plugin_basename( __FILE__ );
+
+		$url = '';
+		if ( function_exists( 'menu_page_url' ) ) {
+			$url = menu_page_url( $menu_slug, 0 );
+		}
+		if ( empty( $url ) ) {
+			$url = esc_url( admin_url( 'admin.php?page=' . $menu_slug ) );
+		}
+
+		$wp_admin_bar->add_menu( array(
+			'id'    => AIOSEOP_PLUGIN_DIRNAME,
+			'title' => __( 'SEO', 'all-in-one-seo-pack' ),
+			'href'  => $url,
+		) );
+
+		if ( current_user_can( 'update_plugins' ) && ! AIOSEOPPRO ) {
 			$wp_admin_bar->add_menu( array(
-				'id'    => AIOSEOP_PLUGIN_DIRNAME,
-				'title' => __( 'SEO', 'all-in-one-seo-pack' ),
-				'href'  => $url,
+				'parent' => AIOSEOP_PLUGIN_DIRNAME,
+				'title'  => __( 'Upgrade To Pro', 'all-in-one-seo-pack' ),
+				'id'     => 'aioseop-pro-upgrade',
+				'href'   => 'http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/?loc=menu',
+				'meta'   => array( 'target' => '_blank' ),
 			) );
+			// add_action( 'admin_bar_menu', array( $this, 'admin_bar_upgrade_menu' ), 1101 );
+		}
 
-			if ( current_user_can( 'update_plugins' ) && ! AIOSEOPPRO ) {
+		$aioseop_admin_menu = 1;
+		if ( ! is_admin() && ! empty( $post ) ) {
+
+			$blog_page = aiosp_common::get_blog_page( $post );
+			if ( ! empty( $blog_page ) ) {
+				$post = $blog_page;
+			}
+			if ( ! is_home() || ( ! is_front_page() && ! is_home() ) ) {
+				// Don't show if we're on the home page and the home page is the latest posts.
 				$wp_admin_bar->add_menu( array(
+					'id'     => 'aiosp_edit_' . $post->ID,
 					'parent' => AIOSEOP_PLUGIN_DIRNAME,
-					'title'  => __( 'Upgrade To Pro', 'all-in-one-seo-pack' ),
-					'id'     => 'aioseop-pro-upgrade',
-					'href'   => 'http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/?loc=menu',
-					'meta'   => array( 'target' => '_blank' ),
+					'title'  => __( 'Edit SEO', 'all-in-one-seo-pack' ),
+					'href'   => get_edit_post_link( $post->ID ) . '#aiosp',
 				) );
-				// add_action( 'admin_bar_menu', array( $this, 'admin_bar_upgrade_menu' ), 1101 );
 			}
-
-			$aioseop_admin_menu = 1;
-			if ( ! is_admin() && ! empty( $post ) ) {
-
-				$blog_page = aiosp_common::get_blog_page( $post );
-				if ( ! empty( $blog_page ) ) {
-					$post = $blog_page;
-				}
-				if( ! is_home() || ( ! is_front_page() && ! is_home() ) ) {
-					// Don't show if we're on the home page and the home page is the latest posts.
-					$wp_admin_bar->add_menu( array(
-						'id'     => 'aiosp_edit_' . $post->ID,
-						'parent' => AIOSEOP_PLUGIN_DIRNAME,
-						'title'  => __( 'Edit SEO', 'all-in-one-seo-pack' ),
-						'href'   => get_edit_post_link( $post->ID ) . '#aiosp',
-					) );
-				}
-			}
+		}
 	}
 
 	/**
