@@ -4502,7 +4502,7 @@ EOF;
 			$toggle = 'off';
 		}
 
-		if ( ( ! empty( $aioseop_options['aiosp_admin_bar'] ) && 'off' !== $toggle ) || isset( $_POST['aiosp_admin_bar'] ) || true == apply_filters( 'aioseo_show_in_admin_bar', false ) ) {
+		if ( ( ! isset( $_POST['aiosp_admin_bar'] ) && ! AIOSEOPPRO ) || ( ! empty( $aioseop_options['aiosp_admin_bar'] ) && 'off' !== $toggle ) || isset( $_POST['aiosp_admin_bar'] ) || true == apply_filters( 'aioseo_show_in_admin_bar', false ) ) {
 
 			if ( apply_filters( 'aioseo_show_in_admin_bar', true ) === false ) {
 				// API filter hook to disable showing SEO in admin bar.
