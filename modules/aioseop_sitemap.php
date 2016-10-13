@@ -795,6 +795,28 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		}
 
 		/**
+		 * Whitelists files from static sitemap conflict warning.
+		 *
+		 * For right now, this is just externally produced news sitemaps until we figure out something better.
+		 *
+		 * @param $file
+		 *
+		 * @since 2.3.10.2
+		 *
+		 * @return string
+		 */
+		function whitelist_static_sitemaps( $file ) {
+
+			$whitelist = array( 'sitemap-news.xml', 'sitemap-news.xml' );
+
+			if ( in_array( $file, $whitelist, true ) ) {
+				return '';
+			}
+
+			return $file;
+		}
+
+		/**
 		 * Scan for sitemaps on filesystem.
 		 *
 		 * @return array
@@ -817,6 +839,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				if ( ! empty( $filescan ) ) {
 					foreach ( $filescan as $f ) {
 						if ( ! empty( $scan1 ) && fnmatch( $scan1, $home_path . $f ) ) {
+
+							$f       = $this->whitelist_static_sitemaps( $f );
 							$files[] = $home_path . $f;
 							continue;
 						}
