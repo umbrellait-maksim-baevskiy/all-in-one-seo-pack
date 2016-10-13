@@ -39,8 +39,9 @@ if ( ! class_exists( 'aioseop_dashboard_widget' ) ) {
 				return false;
 			}
 
-			// check for option + aioseoppro
-			if( isset( $aioseop_options['show_seo_news_widget']) && empty( $aioseop_options['show_seo_news_widget'] ) ){
+			global $aioseop_options;
+
+			if ( AIOSEOPPRO && isset( $aioseop_options['aiosp_showseonews'] ) && ! $aioseop_options['aiosp_showseonews'] ) {
 				return false;
 			}
 
