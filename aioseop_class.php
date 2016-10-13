@@ -4502,7 +4502,7 @@ EOF;
 			$toggle = 'off';
 		}
 
-		if ( ( ! isset( $_POST['aiosp_admin_bar'] ) && ! AIOSEOPPRO ) || ( ! empty( $aioseop_options['aiosp_admin_bar'] ) && 'off' !== $toggle ) || isset( $_POST['aiosp_admin_bar'] ) || true == apply_filters( 'aioseo_show_in_admin_bar', false ) ) {
+		if ( ( ! isset( $aioseop_options['aiosp_admin_bar'] ) && ! AIOSEOPPRO ) || ( ! empty( $aioseop_options['aiosp_admin_bar'] ) && 'off' !== $toggle ) || isset( $_POST['aiosp_admin_bar'] ) || true == apply_filters( 'aioseo_show_in_admin_bar', false ) ) {
 
 			if ( apply_filters( 'aioseo_show_in_admin_bar', true ) === false ) {
 				// API filter hook to disable showing SEO in admin bar.
@@ -4682,7 +4682,7 @@ EOF;
 			if ( isset( $_POST['aiosp_donate'] ) ) {
 				$donated = $_POST['aiosp_donate'];
 			}
-			if ( isset( $_POST['Submit'] ) ) {
+			if ( isset( $_POST['Submit'] ) && AIOSEOPPRO ) {
 				if ( isset( $_POST['aiosp_custom_menu_order'] ) ) {
 					$custom_menu_order = $_POST['aiosp_custom_menu_order'];
 				} else {
