@@ -4485,62 +4485,73 @@ EOF;
 
 	function admin_bar_menu() {
 
+
 		if ( apply_filters( 'aioseo_show_in_admin_bar', true ) === false ) {
 			// API filter hook to disable showing SEO in admin bar.
 			return;
 		}
 
+
 		global $wp_admin_bar, $aioseop_admin_menu, $post, $aioseop_options;
 
-		if ( isset( $aioseop_options['aiosp_admin_bar'] ) && 'on' !== $aioseop_options['aiosp_admin_bar'] ) {
+		$toggle = '';
+		if ( isset( $_POST['aiosp_use_original_title'] ) && isset( $_POST['aiosp_admin_bar'] ) ) {
+			$toggle = 'on';
+		}
+		if ( isset( $_POST['aiosp_use_original_title'] ) && ! isset( $_POST['aiosp_admin_bar'] ) ) {
+			$toggle = 'off';
+		}
 
-			if ( true !== apply_filters( 'aioseo_show_in_admin_bar', false ) ) {
-				return; // Respect legacy options but allow filter to override.
+		if ( ( ! empty( $aioseop_options['aiosp_admin_bar'] ) && 'off' !== $toggle ) || isset( $_POST['aiosp_admin_bar'] ) || true == apply_filters( 'aioseo_show_in_admin_bar', false ) ) {
+
+			if ( apply_filters( 'aioseo_show_in_admin_bar', true ) === false ) {
+				// API filter hook to disable showing SEO in admin bar.
+				return;
 			}
-		}
 
-		$menu_slug = plugin_basename( __FILE__ );
+			$menu_slug = plugin_basename( __FILE__ );
 
-		$url = '';
-		if ( function_exists( 'menu_page_url' ) ) {
-			$url = menu_page_url( $menu_slug, 0 );
-		}
-		if ( empty( $url ) ) {
-			$url = esc_url( admin_url( 'admin.php?page=' . $menu_slug ) );
-		}
+			$url = '';
+			if ( function_exists( 'menu_page_url' ) ) {
+				$url = menu_page_url( $menu_slug, 0 );
+			}
+			if ( empty( $url ) ) {
+				$url = esc_url( admin_url( 'admin.php?page=' . $menu_slug ) );
+			}
 
-		$wp_admin_bar->add_menu( array(
-			'id'    => AIOSEOP_PLUGIN_DIRNAME,
-			'title' => __( 'SEO', 'all-in-one-seo-pack' ),
-			'href'  => $url,
-		) );
-
-		if ( current_user_can( 'update_plugins' ) && ! AIOSEOPPRO ) {
 			$wp_admin_bar->add_menu( array(
-				'parent' => AIOSEOP_PLUGIN_DIRNAME,
-				'title'  => __( 'Upgrade To Pro', 'all-in-one-seo-pack' ),
-				'id'     => 'aioseop-pro-upgrade',
-				'href'   => 'http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/?loc=menu',
-				'meta'   => array( 'target' => '_blank' ),
+				'id'    => AIOSEOP_PLUGIN_DIRNAME,
+				'title' => __( 'SEO', 'all-in-one-seo-pack' ),
+				'href'  => $url,
 			) );
-			// add_action( 'admin_bar_menu', array( $this, 'admin_bar_upgrade_menu' ), 1101 );
-		}
 
-		$aioseop_admin_menu = 1;
-		if ( ! is_admin() && ! empty( $post ) ) {
-
-			$blog_page = aiosp_common::get_blog_page( $post );
-			if ( ! empty( $blog_page ) ) {
-				$post = $blog_page;
-			}
-			if ( ! is_home() || ( ! is_front_page() && ! is_home() ) ) {
-				// Don't show if we're on the home page and the home page is the latest posts.
+			if ( current_user_can( 'update_plugins' ) && ! AIOSEOPPRO ) {
 				$wp_admin_bar->add_menu( array(
-					'id'     => 'aiosp_edit_' . $post->ID,
 					'parent' => AIOSEOP_PLUGIN_DIRNAME,
-					'title'  => __( 'Edit SEO', 'all-in-one-seo-pack' ),
-					'href'   => get_edit_post_link( $post->ID ) . '#aiosp',
+					'title'  => __( 'Upgrade To Pro', 'all-in-one-seo-pack' ),
+					'id'     => 'aioseop-pro-upgrade',
+					'href'   => 'http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/?loc=menu',
+					'meta'   => array( 'target' => '_blank' ),
 				) );
+				// add_action( 'admin_bar_menu', array( $this, 'admin_bar_upgrade_menu' ), 1101 );
+			}
+
+			$aioseop_admin_menu = 1;
+			if ( ! is_admin() && ! empty( $post ) ) {
+
+				$blog_page = aiosp_common::get_blog_page( $post );
+				if ( ! empty( $blog_page ) ) {
+					$post = $blog_page;
+				}
+				if ( ! is_home() || ( ! is_front_page() && ! is_home() ) ) {
+					// Don't show if we're on the home page and the home page is the latest posts.
+					$wp_admin_bar->add_menu( array(
+						'id'     => 'aiosp_edit_' . $post->ID,
+						'parent' => AIOSEOP_PLUGIN_DIRNAME,
+						'title'  => __( 'Edit SEO', 'all-in-one-seo-pack' ),
+						'href'   => get_edit_post_link( $post->ID ) . '#aiosp',
+					) );
+				}
 			}
 		}
 	}
@@ -4646,10 +4657,14 @@ EOF;
 	function admin_menu() {
 		$file      = plugin_basename( __FILE__ );
 		$menu_name = __( 'All in One SEO', 'all-in-one-seo-pack' );
-		$custom_menu_order = true;
+
 		$this->locations['aiosp']['default_options']['nonce-aioseop-edit']['default'] = wp_create_nonce( 'edit-aioseop-nonce' );
 
+		$custom_menu_order = false;
 		global $aioseop_options;
+		if ( ! isset( $aioseop_options['custom_menu_order'] ) ) {
+			$custom_menu_order = true;
+		}
 
 		$this->update_options();
 
@@ -4667,22 +4682,28 @@ EOF;
 			if ( isset( $_POST['aiosp_donate'] ) ) {
 				$donated = $_POST['aiosp_donate'];
 			}
+			if ( isset( $_POST['Submit'] ) ) {
+				if ( isset( $_POST['aiosp_custom_menu_order'] ) ) {
+					$custom_menu_order = $_POST['aiosp_custom_menu_order'];
+				} else {
+					$custom_menu_order = false;
+				}
+			} else if ( isset( $_POST['Submit_Default'] ) || isset( $_POST['Submit_All_Default'] ) ) {
+				$custom_menu_order = true;
+			}
 		} else {
 			if ( isset( $this->options['aiosp_donate'] ) ) {
 				$donated = $this->options['aiosp_donate'];
 			}
-		}
-
-		if ( isset( $this->options['aiosp_custom_menu_order'] ) && 'on' !== $this->options['aiosp_custom_menu_order'] ) {
-			// This is to respect legacy option for custom menu order.
-			$custom_menu_order = false;
-		}
-
-		if( apply_filters( 'aioseo_custom_menu_order', $custom_menu_order) !== false ){
-				// API filter hook to disable showing SEO at the top of the menu.
-				add_filter( 'custom_menu_order', '__return_true' );
-				add_filter( 'menu_order', array( $this, 'set_menu_order' ), 11 );
+			if ( isset( $this->options['aiosp_custom_menu_order'] ) ) {
+				$custom_menu_order = $this->options['aiosp_custom_menu_order'];
 			}
+		}
+
+		if ( ( $custom_menu_order && false !== apply_filters( 'aioseo_custom_menu_order', $custom_menu_order ) ) || true === apply_filters( 'aioseo_custom_menu_order', $custom_menu_order ) ) {
+			add_filter( 'custom_menu_order', '__return_true' );
+			add_filter( 'menu_order', array( $this, 'set_menu_order' ), 11 );
+		}
 
 		if ( $donated ) {
 			// Thank you for your donation.
