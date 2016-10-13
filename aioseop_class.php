@@ -1174,6 +1174,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			),
 		);
 
+		if ( AIOSEOPPRO ) {
+			// Add Pro options.
+			$this->default_options = aioseop_add_pro_opt( $this->default_options );
+			$this->help_text       = aioseop_add_pro_help( $this->help_text );
+			$this->layout          = aioseop_add_pro_layout( $this->layout );
+		}
+
 		if ( ! AIOSEOPPRO ) {
 			unset( $this->layout['cpt']['options']['2'] );
 		}
