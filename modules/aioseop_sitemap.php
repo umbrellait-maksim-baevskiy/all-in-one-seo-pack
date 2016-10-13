@@ -807,7 +807,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 */
 		function whitelist_static_sitemaps( $file ) {
 
-			$whitelist = array( 'sitemap-news.xml', 'sitemap-news.xml' );
+			$whitelist = array( 'sitemap_news.xml', 'sitemap-news.xml' );
 
 			if ( in_array( $file, $whitelist, true ) ) {
 				return '';
