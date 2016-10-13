@@ -4495,14 +4495,14 @@ EOF;
 		global $wp_admin_bar, $aioseop_admin_menu, $post, $aioseop_options;
 
 		$toggle = '';
-		if ( isset( $_POST['aiosp_use_original_title'] ) && isset( $_POST['aiosp_admin_bar'] ) ) {
+		if ( isset( $_POST['aiosp_use_original_title'] ) && isset( $_POST['aiosp_admin_bar'] ) && AIOSEOPPRO ) {
 			$toggle = 'on';
 		}
-		if ( isset( $_POST['aiosp_use_original_title'] ) && ! isset( $_POST['aiosp_admin_bar'] ) ) {
+		if ( isset( $_POST['aiosp_use_original_title'] ) && ! isset( $_POST['aiosp_admin_bar'] ) && AIOSEOPPRO ) {
 			$toggle = 'off';
 		}
 
-		if ( ( ! isset( $aioseop_options['aiosp_admin_bar'] ) && ! AIOSEOPPRO ) || ( ! empty( $aioseop_options['aiosp_admin_bar'] ) && 'off' !== $toggle ) || isset( $_POST['aiosp_admin_bar'] ) || true == apply_filters( 'aioseo_show_in_admin_bar', false ) ) {
+		if ( ( ! isset( $aioseop_options['aiosp_admin_bar'] ) && 'off' !== $toggle  ) || ( ! empty( $aioseop_options['aiosp_admin_bar'] ) && 'off' !== $toggle ) || isset( $_POST['aiosp_admin_bar'] ) || true == apply_filters( 'aioseo_show_in_admin_bar', false ) ) {
 
 			if ( apply_filters( 'aioseo_show_in_admin_bar', true ) === false ) {
 				// API filter hook to disable showing SEO in admin bar.
