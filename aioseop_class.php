@@ -4032,7 +4032,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		*on the roadmap is to have a better hierarchy for attachment description pulling
 		* if ($aioseop_options['aiosp_can']) $description = $this->make_unique_att_desc($description);
 		*/
-
+		$description = $this->apply_cf_fields($description);
 		return $description;
 	}
 
