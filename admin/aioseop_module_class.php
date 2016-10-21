@@ -2,10 +2,12 @@
 /**
  * @package All-in-One-SEO-Pack
  */
-/**
- * The module base class; handles settings, options, menus, metaboxes, etc.
- */
+
 if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
+
+	/**
+	 * The module base class; handles settings, options, menus, metaboxes, etc.
+	 */
 	abstract class All_in_One_SEO_Pack_Module {
 		public static $instance = null;
 		protected $plugin_name;
