@@ -7,7 +7,7 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 	 */
 	class aioseop_welcome {
 		/**
-		 * aioseop_welcome constructor.
+		 * Constructor to add the actions.
 		 */
 		function __construct() {
 
@@ -22,6 +22,8 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 		}
 
 		/**
+		 * Enqueues style and script.
+		 *
 		 * @param $hook
 		 */
 		function welcome_screen_assets( $hook ) {
@@ -33,11 +35,17 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 			}
 		}
 
+		/**
+		 * Removes unneeded pages.
+		 */
 		function remove_pages() {
 			remove_submenu_page( 'index.php', 'aioseop-about' );
 			remove_submenu_page( 'index.php', 'aioseop-credits' );
 		}
 
+		/**
+		 * Adds (hidden) menu.
+		 */
 		function add_menus() {
 			add_dashboard_page(
 				__( 'Welcome to All in One SEO Pack', 'all-in-one-seo-pack' ),
@@ -50,6 +58,8 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 		}
 
 		/**
+		 * Initial stuff.
+		 *
 		 * @param bool $activate
 		 */
 		function init( $activate = false ) {
@@ -84,6 +94,9 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 			exit;
 		}
 
+		/**
+		 * Outputs the about screen.
+		 */
 		function about_screen() {
 			aiosp_common::clear_wpe_cache();
 			$version = AIOSEOP_VERSION;
