@@ -20,6 +20,9 @@ class aiosp_common {
 
 	}
 
+	/**
+	 * Clears WP Engine cache.
+	 */
 	static function clear_wpe_cache() {
 		if ( class_exists( 'WpeCommon' ) ) {
 			WpeCommon::purge_memcached();
@@ -96,6 +99,9 @@ class aiosp_common {
 		return $hyperlink;
 	}
 
+	/**
+	 * Gets the upgrade to Pro version URL.
+	 */
 	static function get_upgrade_url() {
 		//put build URL stuff in here
 	}
