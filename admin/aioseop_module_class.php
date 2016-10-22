@@ -49,6 +49,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			throw new Exception( $error );
 		}
 
+		/**
+		 * All_in_One_SEO_Pack_Module constructor.
+		 */
 		function __construct() {
 			if ( empty( $this->file ) ) {
 				$this->file = __FILE__;
@@ -290,6 +293,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			}
 		}
 
+		/**
+		 * @param $xmlstr
+		 *
+		 * @return array|string
+		 */
 		function xml_string_to_array( $xmlstr ) {
 			if ( ! class_exists( 'DOMDocument' ) ) {
 				return array();
@@ -360,6 +368,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return preg_replace_callback( '/%cf_([^%]*?)%/', array( $this, 'cf_field_replace' ), $format );
 		}
 
+		/**
+		 * @param $matches
+		 *
+		 * @return bool|mixed|string
+		 */
 		function cf_field_replace( $matches ) {
 			$result = '';
 			if ( ! empty( $matches ) ) {
@@ -420,6 +433,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return in_array( AIOSEOP_PLUGIN_BASENAME, (array) get_blog_option( $bid, 'active_plugins', array() ) );
 		}
 
+		/**
+		 * @param        $list
+		 * @param string $quote
+		 *
+		 * @return string
+		 */
 		function quote_list_for_regex( $list, $quote = '/' ) {
 			$regex = '';
 			$cont  = 0;
@@ -435,6 +454,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		}
 
 		// original code thanks to Sean M. Brown -- http://smbrown.wordpress.com/2009/04/29/verify-googlebot-forward-reverse-dns/
+		/**
+		 * @return bool
+		 */
 		function is_good_bot() {
 			$botlist = array(
 				'Yahoo! Slurp' => 'crawl.yahoo.net',
@@ -468,6 +490,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			}
 		}
 
+		/**
+		 * @return array
+		 */
 		function default_bad_bots() {
 			$botlist = array(
 				'Abonti',
@@ -612,6 +637,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $botlist;
 		}
 
+		/**
+		 * @return bool
+		 */
 		function is_bad_bot() {
 			$botlist = $this->default_bad_bots();
 			$botlist = apply_filters( $this->prefix . 'badbotlist', $botlist );
@@ -629,6 +657,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return false;
 		}
 
+		/**
+		 * @return array
+		 */
 		function default_bad_referers() {
 			$referlist = array(
 				'semalt.com',
@@ -661,6 +692,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $referlist;
 		}
 
+		/**
+		 * @return bool
+		 */
 		function is_bad_referer() {
 			$referlist = $this->default_bad_referers();
 			$referlist = apply_filters( $this->prefix . 'badreferlist', $referlist );
@@ -676,6 +710,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return false;
 		}
 
+		/**
+		 * @return mixed|void
+		 */
 		function allow_bot() {
 			$allow_bot = true;
 			if ( ( ! $this->is_good_bot() ) && $this->is_bad_bot() && ! is_user_logged_in() ) {
@@ -712,6 +749,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			}
 		}
 
+		/**
+		 * @param $post_objs
+		 *
+		 * @return array
+		 */
 		function get_object_labels( $post_objs ) {
 			$pt         = array_keys( $post_objs );
 			$post_types = array();
@@ -726,6 +768,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $post_types;
 		}
 
+		/**
+		 * @param $post_objs
+		 *
+		 * @return array
+		 */
 		function get_term_labels( $post_objs ) {
 			$post_types = array();
 			foreach ( $post_objs as $p ) {
@@ -737,14 +784,29 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $post_types;
 		}
 
+		/**
+		 * @param array $args
+		 *
+		 * @return array
+		 */
 		function get_post_type_titles( $args = array() ) {
 			return $this->get_object_labels( get_post_types( $args, 'objects' ) );
 		}
 
+		/**
+		 * @param array $args
+		 *
+		 * @return array
+		 */
 		function get_taxonomy_titles( $args = array() ) {
 			return $this->get_object_labels( get_taxonomies( $args, 'objects' ) );
 		}
 
+		/**
+		 * @param array $args
+		 *
+		 * @return array
+		 */
 		function get_category_titles( $args = array() ) {
 			return $this->get_term_labels( get_categories( $args ) );
 		}
@@ -1146,6 +1208,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			}
 		}
 
+		/**
+		 * @param null $options
+		 * @param null $p
+		 *
+		 * @return array
+		 */
 		function get_all_images_by_type( $options = null, $p = null ) {
 			$img = array();
 			if ( empty( $img ) ) {
@@ -1249,6 +1317,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $img;
 		}
 
+		/**
+		 * @param null $options
+		 * @param null $p
+		 *
+		 * @return array
+		 */
 		function get_all_images( $options = null, $p = null ) {
 			$img    = $this->get_all_images_by_type( $options, $p );
 			$legacy = array();
@@ -1301,10 +1375,20 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $image;
 		}
 
+		/**
+		 * @param null $p
+		 *
+		 * @return string
+		 */
 		function get_the_image_by_default( $p = null ) {
 			return '';
 		}
 
+		/**
+		 * @param array $args
+		 *
+		 * @return bool|mixed
+		 */
 		function get_the_image_by_meta_key( $args = array() ) {
 
 			/* If $meta_key is not an array. */
@@ -1325,6 +1409,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return false;
 		}
 
+		/**
+		 * @param null $p
+		 *
+		 * @return bool
+		 */
 		function get_the_image_by_post_thumbnail( $p = null ) {
 
 			if ( $p === null ) {
@@ -1349,6 +1438,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $image[0];
 		}
 
+		/**
+		 * @param null $p
+		 *
+		 * @return bool
+		 */
 		function get_the_image_by_attachment( $p = null ) {
 
 			if ( $p === null ) {
@@ -1397,6 +1491,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		}
 
+		/**
+		 * @param null $p
+		 *
+		 * @return bool
+		 */
 		function get_the_image_by_scan( $p = null ) {
 
 			if ( $p === null ) {
@@ -1421,6 +1520,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return current_user_can( 'level_8' );
 		}
 
+		/**
+		 * @param        $default_options
+		 * @param        $options
+		 * @param string $help_link
+		 */
 		function help_text_helper( &$default_options, $options, $help_link = '' ) {
 			foreach ( $options as $o ) {
 				$ht = '';
@@ -1548,6 +1652,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			}
 		}
 
+		/**
+		 * @param $data
+		 *
+		 * @return array
+		 */
 		function localize_script_data( $data ) {
 			if ( ! is_array( $data ) ) {
 				$data = array( 0 => $data );
@@ -1608,6 +1717,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			add_action( $this->prefix . 'settings_header', array( $this, 'display_tabs' ) );
 		}
 
+		/**
+		 * @return array
+		 */
 		function get_admin_links() {
 			if ( ! empty( $this->menu_name ) ) {
 				$name = $this->menu_name;
@@ -2106,6 +2218,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			}
 		}
 
+		/**
+		 * @param $domain
+		 *
+		 * @return mixed|string
+		 */
 		function sanitize_domain( $domain ) {
 			$domain = trim( $domain );
 			$domain = $this->strtolower( $domain );
