@@ -37,6 +37,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Handles calls to display_settings_page_{$location}, does error checking.
+		 *
+		 * @param $name
+		 * @param $arguments
+		 *
+		 * @throws Exception
 		 */
 		function __call( $name, $arguments ) {
 			if ( $this->strpos( $name, 'display_settings_page_' ) === 0 ) {
@@ -85,6 +90,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Update options for module, stored individually or together.
+		 *
+		 * @param      $option_data
+		 * @param bool $option_name
+		 *
+		 * @return bool
 		 */
 		function update_class_option( $option_data, $option_name = false ) {
 			if ( $option_name == false ) {
@@ -105,6 +115,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Delete options for module, stored individually or together.
+		 *
+		 * @param bool $delete
+		 *
+		 * @return bool
 		 */
 		function delete_class_option( $delete = false ) {
 			$option_name = $this->get_option_name();
@@ -138,6 +152,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 *
 		 * @param string $option
 		 *
+		 * @param null   $location
+		 *
 		 * @return bool
 		 */
 		function option_isset( $option, $location = null ) {
@@ -147,7 +163,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return ( isset( $this->options[ $opt ] ) && $this->options[ $opt ] );
 		}
 
-		/*** Case conversion; handle non UTF-8 encodings and fallback ***/
+		/*** Case conversion; handle non UTF-8 encodings and fallback **
+		 *
+		 * @param        $str
+		 * @param string $mode
+		 *
+		 * @return string
+		 */
 
 		function convert_case( $str, $mode = 'upper' ) {
 			static $charset = null;
@@ -198,6 +220,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Convert a string to lower case
 		 * Compatible with mb_strtolower(), an UTF-8 friendly replacement for strtolower()
+		 *
+		 * @param $str
+		 *
+		 * @return string
 		 */
 		function strtolower( $str ) {
 			return $this->convert_case( $str, 'lower' );
@@ -206,6 +232,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Convert a string to upper case
 		 * Compatible with mb_strtoupper(), an UTF-8 friendly replacement for strtoupper()
+		 *
+		 * @param $str
+		 *
+		 * @return string
 		 */
 		function strtoupper( $str ) {
 			return $this->convert_case( $str, 'upper' );
@@ -214,6 +244,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Convert a string to title case
 		 * Compatible with mb_convert_case(), an UTF-8 friendly replacement for ucwords()
+		 *
+		 * @param $str
+		 *
+		 * @return string
 		 */
 		function ucwords( $str ) {
 			return $this->convert_case( $str, 'title' );
@@ -221,6 +255,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Wrapper for strlen() - uses mb_strlen() if possible.
+		 *
+		 * @param $string
+		 *
+		 * @return int
 		 */
 		function strlen( $string ) {
 			if ( function_exists( 'mb_strlen' ) ) {
@@ -232,6 +270,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Wrapper for substr() - uses mb_substr() if possible.
+		 *
+		 * @param     $string
+		 * @param int $start
+		 * @param int $length
+		 *
+		 * @return mixed
 		 */
 		function substr( $string, $start = 0, $length = 2147483647 ) {
 			$args = func_get_args();
@@ -245,7 +289,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Wrapper for strpos() - uses mb_strpos() if possible.
 		 *
+		 * @param        $haystack
 		 * @param string $needle
+		 *
+		 * @param int    $offset
 		 *
 		 * @return bool|int
 		 */
@@ -260,7 +307,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Wrapper for strrpos() - uses mb_strrpos() if possible.
 		 *
+		 * @param        $haystack
 		 * @param string $needle
+		 *
+		 * @param int    $offset
 		 *
 		 * @return bool|int
 		 */
@@ -363,7 +413,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $output;
 		}
 
-		/*** adds support for using %cf_(name of field)% for using custom fields / Advanced Custom Fields in titles / descriptions etc. ***/
+		/*** adds support for using %cf_(name of field)% for using custom fields / Advanced Custom Fields in titles / descriptions etc. **
+		 *
+		 * @param $format
+		 *
+		 * @return mixed
+		 */
 		function apply_cf_fields( $format ) {
 			return preg_replace_callback( '/%cf_([^%]*?)%/', array( $this, 'cf_field_replace' ), $format );
 		}
@@ -417,6 +472,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Checks if the plugin is active on a given blog by blogid on a multisite.
+		 *
+		 * @param bool $bid
+		 *
+		 * @return bool
 		 */
 		function is_aioseop_active_on_blog( $bid = false ) {
 			global $blog_id;
@@ -724,6 +783,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Displays tabs for tabbed locations on a settings page.
+		 *
+		 * @param $location
 		 */
 		function display_tabs( $location ) {
 			if ( ( $location != null ) && isset( $locations[ $location ]['tabs'] ) ) {
@@ -813,6 +874,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Helper function for exporting settings on post data.
+		 *
+		 * @param string $prefix
+		 * @param array  $query
+		 *
+		 * @return string
 		 */
 		function post_data_export( $prefix = '_aioseop', $query = array( 'posts_per_page' => - 1 ) ) {
 			$buf         = '';
@@ -858,6 +924,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Handles exporting settings data for a module.
+		 *
+		 * @param $buf
+		 *
+		 * @return string
 		 */
 		function settings_export( $buf ) {
 			global $aiosp;
@@ -923,6 +993,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Print a basic error message.
+		 *
+		 * @param $error
+		 *
+		 * @return bool
 		 */
 		function output_error( $error ) {
 			echo "<div class='aioseop_module error'>$error</div>";
@@ -932,6 +1006,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/***
 		 * Backwards compatibility - see http://php.net/manual/en/function.str-getcsv.php
+		 *
+		 * @param        $input
+		 * @param string $delimiter
+		 * @param string $enclosure
+		 * @param string $escape
+		 *
+		 * @return array
 		 */
 		function str_getcsv( $input, $delimiter = ',', $enclosure = '"', $escape = "\\" ) {
 			$fp = fopen( 'php://memory', 'r+' );
@@ -945,6 +1026,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/***
 		 * Helper function to convert csv in key/value pair format to an associative array.
+		 *
+		 * @param $csv
+		 *
+		 * @return array
 		 */
 		function csv_to_array( $csv ) {
 			$args = array();
@@ -963,7 +1048,15 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $args;
 		}
 
-		/** Allow modules to use WP Filesystem if available and desired, fall back to PHP filesystem access otherwise. */
+		/** Allow modules to use WP Filesystem if available and desired, fall back to PHP filesystem access otherwise.
+		 *
+		 * @param string $method
+		 * @param bool   $form_fields
+		 * @param string $url
+		 * @param bool   $error
+		 *
+		 * @return bool
+		 */
 		function use_wp_filesystem( $method = '', $form_fields = false, $url = '', $error = false ) {
 			if ( empty( $method ) ) {
 				$this->credentials = request_filesystem_credentials( $url );
@@ -1026,6 +1119,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * See if the directory entry is a file using WP Filesystem.
+		 *
+		 * @param $filename
+		 *
+		 * @return bool
 		 */
 		function is_file( $filename ) {
 			$wpfs = $this->get_filesystem_object();
@@ -1038,6 +1135,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * List files in a directory using WP Filesystem.
+		 *
+		 * @param $path
+		 *
+		 * @return array|bool
 		 */
 		function scandir( $path ) {
 			$wpfs = $this->get_filesystem_object();
@@ -1055,6 +1156,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Load a file through WP Filesystem; implement basic support for offset and maxlen.
+		 *
+		 * @param      $filename
+		 * @param bool $use_include_path
+		 * @param null $context
+		 * @param int  $offset
+		 * @param int  $maxlen
+		 *
+		 * @return bool|mixed
 		 */
 		function load_file( $filename, $use_include_path = false, $context = null, $offset = - 1, $maxlen = - 1 ) {
 			$wpfs = $this->get_filesystem_object();
@@ -1090,6 +1199,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * Save a file through WP Filesystem.
 		 *
 		 * @param string $filename
+		 *
+		 * @param        $contents
 		 *
 		 * @return bool
 		 */
@@ -1170,6 +1281,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Load multiple files.
+		 *
+		 * @param $options
+		 * @param $opts
+		 * @param $prefix
+		 *
+		 * @return mixed
 		 */
 		function load_files( $options, $opts, $prefix ) {
 			foreach ( $opts as $opt => $file ) {
@@ -1186,6 +1303,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Save multiple files.
+		 *
+		 * @param $opts
+		 * @param $prefix
 		 */
 		function save_files( $opts, $prefix ) {
 			foreach ( $opts as $opt => $file ) {
@@ -1200,6 +1320,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Delete multiple files.
+		 *
+		 * @param $opts
 		 */
 		function delete_files( $opts ) {
 			foreach ( $opts as $opt => $file ) {
@@ -1337,7 +1459,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $legacy;
 		}
 
-		/*** Thanks to Justin Tadlock for the original get-the-image code - http://themehybrid.com/plugins/get-the-image ***/
+		/*** Thanks to Justin Tadlock for the original get-the-image code - http://themehybrid.com/plugins/get-the-image **
+		 *
+		 * @param null $options
+		 * @param null $p
+		 *
+		 * @return bool|mixed|string
+		 */
 
 		function get_the_image( $options = null, $p = null ) {
 
@@ -1793,12 +1921,21 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Collect metabox data together for tabbed metaboxes.
+		 *
+		 * @param $args
+		 *
+		 * @return array
 		 */
 		function filter_return_metaboxes( $args ) {
 			return array_merge( $args, $this->post_metaboxes );
 		}
 
-		/** Add submenu for module, call page hooks, set up metaboxes. */
+		/** Add submenu for module, call page hooks, set up metaboxes.
+		 *
+		 * @param $parent_slug
+		 *
+		 * @return bool
+		 */
 		function add_menu( $parent_slug ) {
 			if ( ! empty( $this->menu_name ) ) {
 				$name = $this->menu_name;
@@ -1891,6 +2028,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Update postmeta for metabox.
+		 *
+		 * @param $post_id
 		 */
 		function save_post_data( $post_id ) {
 			static $update = false;
@@ -1922,6 +2061,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Outputs radio buttons, checkboxes, selects, multiselects, handles groups.
+		 *
+		 * @param $args
+		 *
+		 * @return string
 		 */
 		function do_multi_input( $args ) {
 			extract( $args );
@@ -1990,6 +2133,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Outputs a setting item for settings pages and metaboxes.
+		 *
+		 * @param $args
+		 *
+		 * @return string
 		 */
 		function get_option_html( $args ) {
 			static $n = 0;
@@ -2087,6 +2234,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Format a row for an option on a settings page.
+		 *
+		 * @param $name
+		 * @param $opts
+		 * @param $args
+		 *
+		 * @return string
 		 */
 		function get_option_row( $name, $opts, $args ) {
 			$label_text = $input_attr = $help_text_2 = $id_attr = '';
@@ -2119,6 +2272,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Display options for settings pages and metaboxes, allows for filtering settings, custom display options.
+		 *
+		 * @param null $location
+		 * @param null $meta_args
 		 */
 		function display_options( $location = null, $meta_args = null ) {
 			static $location_settings = array();
@@ -2236,7 +2392,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $domain;
 		}
 
-		/** Sanitize options */
+		/** Sanitize options
+		 *
+		 * @param null $location
+		 */
 		function sanitize_options( $location = null ) {
 			foreach ( $this->setting_options( $location ) as $k => $v ) {
 				if ( isset( $this->options[ $k ] ) ) {
@@ -2273,6 +2432,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Display metaboxes with display_options()
+		 *
+		 * @param $post
+		 * @param $metabox
 		 */
 		function display_metabox( $post, $metabox ) {
 			$this->display_options( $metabox['args']['location'], $metabox );
@@ -2280,6 +2442,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Handle resetting options to defaults.
+		 *
+		 * @param null $location
+		 * @param bool $delete
 		 */
 		function reset_options( $location = null, $delete = false ) {
 			if ( $delete === true ) {
@@ -2293,7 +2458,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			$this->update_class_option( $this->options );
 		}
 
-		/** handle option resetting and updating */
+		/** handle option resetting and updating
+		 *
+		 * @param null $location
+		 *
+		 * @return mixed|string|void
+		 */
 		function handle_settings_updates( $location = null ) {
 			$message = '';
 			if ( ( isset( $_POST['action'] ) && $_POST['action'] == 'aiosp_update_module' &&
@@ -2333,7 +2503,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $message;
 		}
 
-		/** Update / reset settings, printing options, sanitizing, posting back */
+		/** Update / reset settings, printing options, sanitizing, posting back
+		 *
+		 * @param null $location
+		 */
 		function display_settings_page( $location = null ) {
 			if ( $location != null ) {
 				$location_info = $this->locations[ $location ];
@@ -2458,6 +2631,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Get the prefix used for a given location.
+		 *
+		 * @param null $location
+		 *
+		 * @return
 		 */
 		function get_prefix( $location = null ) {
 			if ( ( $location != null ) && isset( $this->locations[ $location ]['prefix'] ) ) {
@@ -2467,7 +2644,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $this->prefix;
 		}
 
-		/** Sets up initial settings */
+		/** Sets up initial settings
+		 *
+		 * @param null $location
+		 * @param null $defaults
+		 *
+		 * @return array
+		 */
 		function setting_options( $location = null, $defaults = null ) {
 			if ( $defaults === null ) {
 				$defaults = $this->default_options;
@@ -2570,7 +2753,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $opts;
 		}
 
-		/** Generates just the default option names and values */
+		/** Generates just the default option names and values
+		 *
+		 * @param null $location
+		 * @param null $defaults
+		 *
+		 * @return array
+		 */
 		function default_options( $location = null, $defaults = null ) {
 			$options = $this->setting_options( $location, $defaults );
 			$opts    = array();
@@ -2583,7 +2772,15 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $opts;
 		}
 
-		/** Gets the current options stored for a given location. */
+		/** Gets the current options stored for a given location.
+		 *
+		 * @param array $opts
+		 * @param null  $location
+		 * @param null  $defaults
+		 * @param null  $post
+		 *
+		 * @return array
+		 */
 		function get_current_options( $opts = array(), $location = null, $defaults = null, $post = null ) {
 			$prefix   = $this->get_prefix( $location );
 			$get_opts = '';
@@ -2620,7 +2817,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $opts;
 		}
 
-		/** Updates the options array in the module; loads saved settings with get_option() or uses defaults */
+		/** Updates the options array in the module; loads saved settings with get_option() or uses defaults
+		 *
+		 * @param array $opts
+		 * @param null  $location
+		 * @param null  $defaults
+		 */
 		function update_options( $opts = array(), $location = null, $defaults = null ) {
 			if ( $location === null ) {
 				$type = 'settings';
