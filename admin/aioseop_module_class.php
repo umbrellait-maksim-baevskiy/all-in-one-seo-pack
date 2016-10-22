@@ -1962,10 +1962,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 */
 		function get_option_row( $name, $opts, $args ) {
 			$label_text = $input_attr = $help_text_2 = $id_attr = '';
+
+			$align = 'right';
 			if ( $opts['label'] == 'top' ) {
 				$align = 'left';
-			} else {
-				$align = 'right';
 			}
 			if ( isset( $opts['id'] ) ) {
 				$id_attr .= " id=\"{$opts['id']}_div\" ";
