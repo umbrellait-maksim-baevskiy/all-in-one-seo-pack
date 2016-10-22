@@ -82,7 +82,7 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 			}
 			$seen = 0;
 			$seen = get_user_meta( get_current_user_id(), 'aioseop_seen_about_page', true );
-			if ( get_user_meta( get_current_user_id(), 'aioseop_seen_about_page', true ) === AIOSEOP_VERSION && $activate !== true ) {
+			if ( AIOSEOP_VERSION === get_user_meta( get_current_user_id(), 'aioseop_seen_about_page', true ) && true !== $activate ) {
 				return;
 			}
 
