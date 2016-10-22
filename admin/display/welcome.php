@@ -2,7 +2,13 @@
 
 if ( ! class_exists( 'aioseop_welcome' ) ) {
 
+	/**
+	 * Class aioseop_welcome
+	 */
 	class aioseop_welcome {
+		/**
+		 * aioseop_welcome constructor.
+		 */
 		function __construct() {
 
 			if ( AIOSEOPPRO ) {
@@ -15,6 +21,9 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 
 		}
 
+		/**
+		 * @param $hook
+		 */
 		function welcome_screen_assets( $hook ) {
 
 			if ( 'dashboard_page_aioseop-about' === $hook ) {
@@ -40,6 +49,9 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 
 		}
 
+		/**
+		 * @param bool $activate
+		 */
 		function init( $activate = false ) {
 
 			if ( AIOSEOPPRO ) {
