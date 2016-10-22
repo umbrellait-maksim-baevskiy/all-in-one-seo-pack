@@ -40,7 +40,7 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 
 		}
 
-		function init( $activate = FALSE ) {
+		function init( $activate = false ) {
 
 			if ( AIOSEOPPRO ) {
 				return;
@@ -59,12 +59,12 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 				return;
 			}
 			$seen = 0;
-			$seen = get_user_meta( get_current_user_id(), 'aioseop_seen_about_page', true);
-			if( get_user_meta( get_current_user_id(), 'aioseop_seen_about_page', true) === AIOSEOP_VERSION && $activate !== TRUE ){
+			$seen = get_user_meta( get_current_user_id(), 'aioseop_seen_about_page', true );
+			if ( get_user_meta( get_current_user_id(), 'aioseop_seen_about_page', true ) === AIOSEOP_VERSION && $activate !== true ) {
 				return;
 			}
 
-			update_user_meta( get_current_user_id(), 'aioseop_seen_about_page', AIOSEOP_VERSION);
+			update_user_meta( get_current_user_id(), 'aioseop_seen_about_page', AIOSEOP_VERSION );
 
 			aiosp_common::clear_wpe_cache();
 
