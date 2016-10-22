@@ -9,6 +9,9 @@ if ( ! class_exists( 'aioseop_dashboard_widget' ) ) {
 	 */
 	class aioseop_dashboard_widget {
 
+		/**
+		 * Add the action to the constructor.
+		 */
 		function __construct() {
 			add_action( "wp_dashboard_setup", array( $this, 'aioseop_add_dashboard_widget' ) );
 		}
