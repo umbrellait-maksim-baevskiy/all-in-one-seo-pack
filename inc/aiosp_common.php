@@ -3,21 +3,25 @@
 /**
  * @package All-in-One-SEO-Pack
  */
+
+/**
+ * Class aiosp_common
+ *
+ * These are commonly used functions that can be pulled from anywhere.
+ * (or in some cases they're functions waiting for a home)
+ */
 class aiosp_common {
 
 	/**
 	 * aiosp_common constructor.
 	 *
-	 * These are commonly used functions that can be pulled from anywhere.
-	 * (or in some cases they're functions waiting for a home)
-	 *
 	 */
 	function __construct() {
-		//construct
+
 	}
 
-	static function clear_wpe_cache(){
-		if( class_exists( 'WpeCommon') ){
+	static function clear_wpe_cache() {
+		if ( class_exists( 'WpeCommon' ) ) {
 			WpeCommon::purge_memcached();
 			WpeCommon::clear_maxcdn_cache();
 			WpeCommon::purge_varnish_cache();
