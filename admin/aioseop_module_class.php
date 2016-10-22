@@ -1799,7 +1799,16 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			extract( $args );
 			$buf1 = '';
 			$type = $options['type'];
-			if ( ( $type == 'radio' ) || ( $type == 'checkbox' ) ) {
+
+			$strings = array(
+				'block'     => "<select name='$name' $attr>%s\n</select>\n",
+				'group'     => "\t<optgroup label='%s'>\n%s\t</optgroup>\n",
+				'item'      => "\t<option %s value='%s'>%s</option>\n",
+				'item_args' => array( 'sel', 'v', 'subopt' ),
+				'selected'  => 'selected ',
+			);
+
+			if ( ( $type === 'radio' ) || ( $type === 'checkbox' ) ) {
 				$strings = array(
 					'block'     => "%s\n",
 					'group'     => "\t<b>%s</b><br>\n%s\n",
@@ -1807,15 +1816,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 					'item_args' => array( 'sel', 'name', 'v', 'attr', 'subopt' ),
 					'selected'  => 'checked ',
 				);
-			} else {
-				$strings = array(
-					'block'     => "<select name='$name' $attr>%s\n</select>\n",
-					'group'     => "\t<optgroup label='%s'>\n%s\t</optgroup>\n",
-					'item'      => "\t<option %s value='%s'>%s</option>\n",
-					'item_args' => array( 'sel', 'v', 'subopt' ),
-					'selected'  => 'selected ',
-				);
 			}
+
 			$setsel = $strings['selected'];
 			if ( isset( $options['initial_options'] ) && is_array( $options['initial_options'] ) ) {
 				foreach ( $options['initial_options'] as $l => $option ) {
