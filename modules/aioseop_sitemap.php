@@ -22,6 +22,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		var $freq;
 		var $freq_sel;
 		var $extra_sitemaps;
+		var $excludes;
 
 		/**
 		 * All_in_One_SEO_Pack_Sitemap constructor.
@@ -2912,6 +2913,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( ! empty( $q->posts ) ) {
 				$args['exclude'] = array_merge( $args['exclude'], $q->posts );
 			}
+			$this->excludes = $args['exclude']; // Add excluded slugs and IDs to class var.
 
 			$posts = get_posts( apply_filters( $this->prefix . 'post_query', $args ) );
 			if ( ! empty( $exclude_slugs ) ) {
