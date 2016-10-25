@@ -1768,6 +1768,16 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * @return array
 		 */
 		function get_simple_sitemap() {
+			$child   = $this->get_child_sitemap_urls();
+			$options = $this->options;
+			if ( is_array( $options["{$this->prefix}posttypes"] ) ) {
+				$options["{$this->prefix}posttypes"] = array_diff( $options["{$this->prefix}posttypes"], array( 'all' ) );
+			}
+			if ( is_array( $options["{$this->prefix}taxonomies"] ) ) {
+				$options["{$this->prefix}taxonomies"] = array_diff( $options["{$this->prefix}taxonomies"], array( 'all' ) );
+			}
+			$prio = $this->get_all_post_priority_data( $options["{$this->prefix}posttypes"] );
+
 			$home           = array(
 				'loc'        => get_home_url(),
 				'priority'   => $this->get_default_priority( 'homepage' ),
@@ -1787,15 +1797,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					);
 				}
 			}
-			$child   = $this->get_child_sitemap_urls();
-			$options = $this->options;
-			if ( is_array( $options["{$this->prefix}posttypes"] ) ) {
-				$options["{$this->prefix}posttypes"] = array_diff( $options["{$this->prefix}posttypes"], array( 'all' ) );
-			}
-			if ( is_array( $options["{$this->prefix}taxonomies"] ) ) {
-				$options["{$this->prefix}taxonomies"] = array_diff( $options["{$this->prefix}taxonomies"], array( 'all' ) );
-			}
-			$prio = $this->get_all_post_priority_data( $options["{$this->prefix}posttypes"] );
+
 			if ( $this->option_isset( 'archive' ) ) {
 				$prio = array_merge( $prio, $this->get_archive_prio_data() );
 			}
