@@ -3579,6 +3579,8 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			}
 		}
 
+		$aiosp_disable = apply_filters( 'aiosp_disable', $aiosp_disable ); // API filter to disable AIOSEOP.
+
 		if ( $aiosp_disable ) {
 			if ( ! $aiosp_disable_analytics ) {
 				if ( aioseop_option_isset( 'aiosp_google_analytics_id' ) ) {
