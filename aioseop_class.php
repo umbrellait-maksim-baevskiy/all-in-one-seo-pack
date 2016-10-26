@@ -3704,7 +3704,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			if ( aioseop_option_isset( 'aiosp_google_analytics_id' ) ) {
 				add_action( 'aioseop_modules_wp_head', array( $this, 'aiosp_google_analytics' ) );
 			}
-			add_filter( 'wp_list_pages', 'aioseop_list_pages' );
 			add_action( 'wp_head', array( $this, 'wp_head' ), apply_filters( 'aioseop_wp_head_priority', 1 ) );
 			add_action( 'template_redirect', array( $this, 'template_redirect' ), 0 );
 			add_filter( 'wp_list_pages_excludes', 'aioseop_get_pages_start' );
