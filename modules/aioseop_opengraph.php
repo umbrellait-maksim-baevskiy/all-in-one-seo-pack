@@ -430,7 +430,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 																jQuery( "#aioseop_opengraph_settings_facebook_debug_wrapper").hide();
 															} else {
 																snippet = snippet.html();
-																jQuery("#aioseop_opengraph_settings_facebook_debug").attr( "href", "https://developers.facebook.com/tools/debug/og/object?q=" + snippet );
+																jQuery("#aioseop_opengraph_settings_facebook_debug").attr( "href", "https://developers.facebook.com/tools/debug/sharing/?q=" + snippet );
 															}
 														});
 													</script>
