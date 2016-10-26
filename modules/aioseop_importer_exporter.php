@@ -362,7 +362,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Importer_Exporter' ) ) {
 				'disable',
 				'disable',
 				'disable_analytics',
-				'menulabel',
 				'togglekeywords',
 			);
 			if ( ! empty( $_FILES['aiosp_importer_exporter_import_submit']['tmp_name'] ) ) {
