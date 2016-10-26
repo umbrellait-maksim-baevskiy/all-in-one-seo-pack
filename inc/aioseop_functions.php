@@ -834,61 +834,6 @@ if ( ! function_exists( 'aioseop_get_pages' ) ) {
 	}
 }
 
-// The following two functions are GPLed from Sarah G's Page Menu Editor, https://wordpress.org/extend/plugins/page-menu-editor/.
-if ( ! function_exists( 'aioseop_list_pages' ) ) {
-	/**
-	 * Adds stuff to the HTML in list_pages.
-	 * @TODO See if we still use, or even want, these functions.
-	 *
-	 * @param $content
-	 *
-	 * @return mixed
-	 */
-	function aioseop_list_pages( $content ) {
-		global $wp_version;
-		$matches = array();
-		if ( preg_match_all( '/<li class="page_item page-item-(\d+)/i', $content, $matches ) ) {
-			update_postmeta_cache( array_values( $matches[1] ) );
-			unset( $matches );
-			if ( $wp_version >= 3.3 ) {
-				$pattern = '@<li class="page_item page-item-(\d+)([^\"]*)"><a href=\"([^\"]+)">@is';
-			} else {
-				$pattern = '@<li class="page_item page-item-(\d+)([^\"]*)"><a href=\"([^\"]+)" title="([^\"]+)">@is';
-			}
-
-			return preg_replace_callback( $pattern, 'aioseop_filter_callback', $content );
-		}
-
-		return $content;
-	}
-}
-
-if ( ! function_exists( 'aioseop_filter_callback' ) ) {
-
-	/**
-	 * @param $matches
-	 *
-	 * @return string
-	 */
-	function aioseop_filter_callback( $matches ) {
-		if ( $matches[1] && ! empty( $matches[1] ) ) {
-			$postID = $matches[1];
-		}
-		if ( empty( $postID ) ) {
-			$postID = get_option( 'page_on_front' );
-		}
-		$title_attrib = stripslashes( get_post_meta( $postID, '_aioseop_titleatr', true ) );
-		if ( empty( $title_attrib ) && ! empty( $matches[4] ) ) {
-			$title_attrib = $matches[4];
-		}
-		if ( ! empty( $title_attrib ) ) {
-			$title_attrib = ' title="' . strip_tags( $title_attrib ) . '"';
-		}
-
-		return '<li class="page_item page-item-' . $postID . $matches[2] . '"><a href="' . $matches[3] . '"' . $title_attrib . '>';
-	}
-}
-
 if ( ! function_exists( 'aioseop_add_contactmethods' ) ) {
 
 	/**
