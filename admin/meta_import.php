@@ -38,7 +38,9 @@ if ( class_exists( 'WPSEO_Import_Hooks' ) ) {
 		}
 	}
 } else {
-	add_action( 'init', 'mi_aioseop_yst_detected_notice_dismissed' );
+	if(is_admin()) {
+		add_action( 'init', 'mi_aioseop_yst_detected_notice_dismissed' );
+	}
 }
 
 /**
