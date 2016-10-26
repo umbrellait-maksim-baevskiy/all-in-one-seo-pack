@@ -4426,11 +4426,9 @@ EOF;
 				delete_post_meta( $id, "_aioseop_{$f}" );
 			}
 
-			if ( current_user_can( 'activate_plugins' ) ) {
 				delete_post_meta( $id, '_aioseop_sitemap_exclude' );
 				delete_post_meta( $id, '_aioseop_disable' );
 				delete_post_meta( $id, '_aioseop_disable_analytics' );
-			}
 
 			foreach ( $optlist as $f ) {
 				$var   = "aiosp_$f";
@@ -4439,10 +4437,10 @@ EOF;
 					add_post_meta( $id, $field, $$var );
 				}
 			}
-			if ( isset( $aiosp_sitemap_exclude ) && ! empty( $aiosp_sitemap_exclude ) && current_user_can( 'activate_plugins' ) ) {
+			if ( isset( $aiosp_sitemap_exclude ) && ! empty( $aiosp_sitemap_exclude ) ) {
 				add_post_meta( $id, '_aioseop_sitemap_exclude', $aiosp_sitemap_exclude );
 			}
-			if ( isset( $aiosp_disable ) && ! empty( $aiosp_disable ) && current_user_can( 'activate_plugins' ) ) {
+			if ( isset( $aiosp_disable ) && ! empty( $aiosp_disable ) ) {
 				add_post_meta( $id, '_aioseop_disable', $aiosp_disable );
 				if ( isset( $aiosp_disable_analytics ) && ! empty( $aiosp_disable_analytics ) ) {
 					add_post_meta( $id, '_aioseop_disable_analytics', $aiosp_disable_analytics );
