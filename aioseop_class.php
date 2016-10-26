@@ -78,7 +78,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		$this->help_text = array(
 			'donate'                      => __( 'All donations support continued development of this free software.', 'all-in-one-seo-pack' ),
 			'license_key'                 => __( 'This will be the license key received when the product was purchased. This is used for automatic upgrades.', 'all-in-one-seo-pack' ),
-			'can'                         => __( "This option will automatically generate Canonical URLs for your entire WordPress installation.  This will help to prevent duplicate content penalties by <a href=\'http://googlewebmastercentral.blogspot.com/2009/02/specify-your-canonical.html\' target=\'_blank\'>Google</a>.", 'all-in-one-seo-pack' ),
+			'can'                         => __( "This option will automatically generate Canonical URLs for your entire WordPress installation.  This will help to prevent duplicate content penalties by <a href=\'https://googlewebmastercentral.blogspot.com/2009/02/specify-your-canonical.html\' target=\'_blank\'>Google</a>.", 'all-in-one-seo-pack' ),
 			'no_paged_canonical_links'    => __( 'Checking this option will set the Canonical URL for all paginated content to the first page.', 'all-in-one-seo-pack' ),
 			'customize_canonical_links'   => __( 'Checking this option will allow you to customize Canonical URLs for specific posts.', 'all-in-one-seo-pack' ),
 			'can_set_protocol'            => __( 'Set protocol for canonical URLs.', 'all-in-one-seo-pack' ),
@@ -182,9 +182,9 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'taxactive'                   => __( 'Use these checkboxes to select which Taxonomies you want to use All in One SEO Pack with.', 'all-in-one-seo-pack' ),
 			'cposttitles'                 => __( 'This allows you to set the title tags for each Custom Post Type.', 'all-in-one-seo-pack' ),
 			'posttypecolumns'             => __( 'This lets you select which screens display the SEO Title, SEO Keywords and SEO Description columns.', 'all-in-one-seo-pack' ),
-			'google_verify'               => __( "Enter your verification code here to verify your site with Google Webmaster Tools.<br /><a href='http://semperplugins.com/documentation/google-webmaster-tools-verification/' target='_blank'>Click here for documentation on this setting</a>", 'all-in-one-seo-pack' ),
-			'bing_verify'                 => __( "Enter your verification code here to verify your site with Bing Webmaster Tools.<br /><a href='http://semperplugins.com/documentation/bing-webmaster-verification/' target='_blank'>Click here for documentation on this setting</a>", 'all-in-one-seo-pack' ),
-			'pinterest_verify'            => __( "Enter your verification code here to verify your site with Pinterest.<br /><a href='http://semperplugins.com/documentation/pinterest-site-verification/' target='_blank'>Click here for documentation on this setting</a>", 'all-in-one-seo-pack' ),
+			'google_verify'               => __( "Enter your verification code here to verify your site with Google Webmaster Tools.<br /><a href='https://semperplugins.com/documentation/google-webmaster-tools-verification/' target='_blank'>Click here for documentation on this setting</a>", 'all-in-one-seo-pack' ),
+			'bing_verify'                 => __( "Enter your verification code here to verify your site with Bing Webmaster Tools.<br /><a href='https://semperplugins.com/documentation/bing-webmaster-verification/' target='_blank'>Click here for documentation on this setting</a>", 'all-in-one-seo-pack' ),
+			'pinterest_verify'            => __( "Enter your verification code here to verify your site with Pinterest.<br /><a href='https://semperplugins.com/documentation/pinterest-site-verification/' target='_blank'>Click here for documentation on this setting</a>", 'all-in-one-seo-pack' ),
 			'google_publisher'            => __( 'Enter your Google+ Profile URL here to add the rel=“author” tag to your site for Google authorship. It is recommended that the URL you enter here should be your personal Google+ profile.  Use the Advanced Authorship Options below if you want greater control over the use of authorship.', 'all-in-one-seo-pack' ),
 			'google_disable_profile'      => __( 'Check this to remove the Google Plus field from the user profile screen.', 'all-in-one-seo-pack' ),
 			'google_author_advanced'      => __( 'Enable this to display advanced options for controlling Google Plus authorship information on your website.', 'all-in-one-seo-pack' ),
@@ -284,7 +284,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'google_author_location'      => '#display-google-authorship',
 			'google_enable_publisher'     => '#display-publisher-meta-on-front-page',
 			'google_specify_publisher'    => '#specify-publisher-url',
-			'google_analytics_id'         => 'http://semperplugins.com/documentation/setting-up-google-analytics/',
+			'google_analytics_id'         => 'https://semperplugins.com/documentation/setting-up-google-analytics/',
 			'ga_domain'                   => '#tracking-domain',
 			'ga_multi_domain'             => '#track-multiple-domains-additional-domains',
 			'ga_addl_domains'             => '#track-multiple-domains-additional-domains',
@@ -932,7 +932,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				'name'            => $this->plugin_name,
 				'type'            => 'metabox',
 				'prefix'          => '',
-				'help_link'       => 'http://semperplugins.com/sections/postpage-settings/',
+				'help_link'       => 'https://semperplugins.com/sections/postpage-settings/',
 				'options'         => array(
 					'edit',
 					'nonce-aioseop-edit',
@@ -1087,22 +1087,22 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			),
 			'cpt'       => array(
 				'name'      => __( 'Custom Post Type Settings', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/documentation/custom-post-type-settings/',
+				'help_link' => 'https://semperplugins.com/documentation/custom-post-type-settings/',
 				'options'   => array( 'enablecpost', 'cpostadvanced', 'taxactive', 'cpostactive', 'cposttitles' ),
 			),
 			'display'   => array(
 				'name'      => __( 'Display Settings', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/documentation/display-settings/',
+				'help_link' => 'https://semperplugins.com/documentation/display-settings/',
 				'options'   => array( 'posttypecolumns' ),
 			),
 			'webmaster' => array(
 				'name'      => __( 'Webmaster Verification', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/sections/webmaster-verification/',
+				'help_link' => 'https://semperplugins.com/sections/webmaster-verification/',
 				'options'   => array( 'google_verify', 'bing_verify', 'pinterest_verify' ),
 			),
 			'google'    => array(
 				'name'      => __( 'Google Settings', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/documentation/google-settings/',
+				'help_link' => 'https://semperplugins.com/documentation/google-settings/',
 				'options'   => array(
 					'google_publisher',
 					'google_disable_profile',
@@ -1129,7 +1129,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			),
 			'noindex'   => array(
 				'name'      => __( 'Noindex Settings', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/documentation/noindex-settings/',
+				'help_link' => 'https://semperplugins.com/documentation/noindex-settings/',
 				'options'   => array(
 					'cpostnoindex',
 					'cpostnofollow',
@@ -1168,7 +1168,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			),
 			'keywords'  => array(
 				'name'      => __( 'Keyword Settings', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/documentation/keyword-settings/',
+				'help_link' => 'https://semperplugins.com/documentation/keyword-settings/',
 				'options'   => array(
 					'togglekeywords',
 					'use_categories',
@@ -3732,7 +3732,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				</p>
 			</div>',
 				__( 'We\'ve detected you\'re running WooCommerce.', 'all-in-one-seo-pack' ),
-				sprintf( __( '%s Upgrade%s to All in One SEO Pack Pro for increased SEO compatibility for your products.', 'all-in-one-seo-pack' ), sprintf( '<a target="_blank" href="%s">', esc_url( 'http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/?loc=woo' ) ), '</a>' ) );
+				sprintf( __( '%s Upgrade%s to All in One SEO Pack Pro for increased SEO compatibility for your products.', 'all-in-one-seo-pack' ), sprintf( '<a target="_blank" href="%s">', esc_url( 'https://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/?loc=woo' ) ), '</a>' ) );
 
 		} elseif ( ! class_exists( 'WooCommerce' ) && ! empty( $aioseop_woo_upgrade_notice_dismissed ) ) {
 			delete_user_meta( get_current_user_id(), 'aioseop_woo_upgrade_notice_dismissed' );
@@ -4540,7 +4540,7 @@ EOF;
 					'parent' => AIOSEOP_PLUGIN_DIRNAME,
 					'title'  => __( 'Upgrade To Pro', 'all-in-one-seo-pack' ),
 					'id'     => 'aioseop-pro-upgrade',
-					'href'   => 'http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/?loc=menu',
+					'href'   => 'https://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/?loc=menu',
 					'meta'   => array( 'target' => '_blank' ),
 				) );
 				// add_action( 'admin_bar_menu', array( $this, 'admin_bar_upgrade_menu' ), 1101 );
