@@ -78,7 +78,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		$this->help_text = array(
 			'donate'                      => __( 'All donations support continued development of this free software.', 'all-in-one-seo-pack' ),
 			'license_key'                 => __( 'This will be the license key received when the product was purchased. This is used for automatic upgrades.', 'all-in-one-seo-pack' ),
-			'can'                         => __( "This option will automatically generate Canonical URLs for your entire WordPress installation.  This will help to prevent duplicate content penalties by <a href=\'https://googlewebmastercentral.blogspot.com/2009/02/specify-your-canonical.html\' target=\'_blank\'>Google</a>.", 'all-in-one-seo-pack' ),
+			'can'                         => __( "This option will automatically generate Canonical URLs for your entire WordPress installation.  This will help to prevent duplicate content penalties by Google", 'all-in-one-seo-pack' ),
 			'no_paged_canonical_links'    => __( 'Checking this option will set the Canonical URL for all paginated content to the first page.', 'all-in-one-seo-pack' ),
 			'customize_canonical_links'   => __( 'Checking this option will allow you to customize Canonical URLs for specific posts.', 'all-in-one-seo-pack' ),
 			'can_set_protocol'            => __( 'Set protocol for canonical URLs.', 'all-in-one-seo-pack' ),
