@@ -4641,7 +4641,7 @@ EOF;
 				delete_term_meta( $id, "_aioseop_{$f}" );
 			}
 
-			if ( $this->is_admin() ) {
+			if ( current_user_can( 'activate_plugins' ) ) {
 				delete_term_meta( $id, '_aioseop_sitemap_exclude' );
 				delete_term_meta( $id, '_aioseop_disable' );
 				delete_term_meta( $id, '_aioseop_disable_analytics' );
@@ -4654,10 +4654,10 @@ EOF;
 					add_term_meta( $id, $field, $$var );
 				}
 			}
-			if ( isset( $aiosp_sitemap_exclude ) && ! empty( $aiosp_sitemap_exclude ) && $this->is_admin() ) {
+			if ( isset( $aiosp_sitemap_exclude ) && ! empty( $aiosp_sitemap_exclude ) && current_user_can( 'activate_plugins' ) ) {
 				add_term_meta( $id, '_aioseop_sitemap_exclude', $aiosp_sitemap_exclude );
 			}
-			if ( isset( $aiosp_disable ) && ! empty( $aiosp_disable ) && $this->is_admin() ) {
+			if ( isset( $aiosp_disable ) && ! empty( $aiosp_disable ) && current_user_can( 'activate_plugins' ) ) {
 				add_term_meta( $id, '_aioseop_disable', $aiosp_disable );
 				if ( isset( $aiosp_disable_analytics ) && ! empty( $aiosp_disable_analytics ) ) {
 					add_term_meta( $id, '_aioseop_disable_analytics', $aiosp_disable_analytics );
