@@ -362,7 +362,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Importer_Exporter' ) ) {
 				'disable',
 				'disable',
 				'disable_analytics',
-				'titleatr',
 				'menulabel',
 				'togglekeywords',
 			);
