@@ -1660,7 +1660,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 					$ha = '';
 					$hl = $help_link;
 					if ( strpos( $o, 'ga_' ) === 0 ) { // special case -- pdb
-						$hl = 'http://semperplugins.com/documentation/advanced-google-analytics-settings/';
+						$hl = 'https://semperplugins.com/documentation/advanced-google-analytics-settings/';
 					}
 					if ( ! empty( $this->help_anchors[ $o ] ) ) {
 						$ha = $this->help_anchors[ $o ];
