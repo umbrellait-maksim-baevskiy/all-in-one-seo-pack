@@ -333,7 +333,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'nofollow'          => __( 'Check this box to ask search engines not to follow links from this page.', 'all-in-one-seo-pack' ),
 			'noodp'             => __( 'Check this box to ask search engines not to use descriptions from the Open Directory Project for this page.', 'all-in-one-seo-pack' ),
 			'noydir'            => __( 'Check this box to ask Yahoo! not to use descriptions from the Yahoo! directory for this page.', 'all-in-one-seo-pack' ),
-			'menulabel'         => __( 'Set the label for this page menu item.', 'all-in-one-seo-pack' ),
 			'sitemap_exclude'   => __( "Don't display this page in the sitemap.", 'all-in-one-seo-pack' ),
 			'disable'           => __( 'Disable SEO on this page.', 'all-in-one-seo-pack' ),
 			'disable_analytics' => __( 'Disable Google Analytics on this page.', 'all-in-one-seo-pack' ),
@@ -945,7 +944,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					'nofollow',
 					'noodp',
 					'noydir',
-					'menulabel',
 					'sitemap_exclude',
 					'disable',
 					'disable_analytics',
@@ -1024,11 +1022,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					),
 					'noodp'             => array( 'name' => __( 'Robots Meta NOODP', 'all-in-one-seo-pack' ) ),
 					'noydir'            => array( 'name' => __( 'Robots Meta NOYDIR', 'all-in-one-seo-pack' ) ),
-					'menulabel'         => array(
-						'name' => __( 'Menu Label', 'all-in-one-seo-pack' ),
-						'type' => 'text',
-						'size' => 60,
-					),
 					'sitemap_exclude'   => array( 'name' => __( 'Exclude From Sitemap', 'all-in-one-seo-pack' ) ),
 					'disable'           => array( 'name' => __( 'Disable on this page/post', 'all-in-one-seo-pack' ) ),
 					'disable_analytics' => array(
@@ -1514,7 +1507,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				'nofollow',
 				'noodp',
 				'noydir',
-				'menulabel',
 			);
 			if ( ! ( ! empty( $this->options['aiosp_can'] ) ) && ( ! empty( $this->options['aiosp_customize_canonical_links'] ) ) ) {
 				unset( $optlist['custom_link'] );
@@ -3021,7 +3013,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'nofollow',
 			'noodp',
 			'noydir',
-			'menulabel',
 		);
 		foreach ( $optlist as $f ) {
 			$meta = get_term_meta( $term_id, '_aioseop_' . $f, true );
@@ -3443,11 +3434,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			if ( ! is_object( $aioseop_sitemap ) ) {
 				unset( $settings['aiosp_sitemap_exclude'] );
 			}
-			if ( is_object( $post ) ) {
-				if ( $post->post_type != 'page' ) {
-					unset( $settings["{$prefix}menulabel"] );
-				}
-			}
+
 			if ( ! empty( $this->options[ $this->prefix . 'togglekeywords' ] ) ) {
 				unset( $settings["{$prefix}keywords"] );
 				unset( $settings["{$prefix}togglekeywords"] );
@@ -4398,7 +4385,6 @@ EOF;
 				'nofollow',
 				'noodp',
 				'noydir',
-				'menulabel',
 			);
 			if ( ! ( ! empty( $this->options['aiosp_can'] ) ) && ( ! empty( $this->options['aiosp_customize_canonical_links'] ) ) ) {
 				unset( $optlist['custom_link'] );
@@ -4419,7 +4405,6 @@ EOF;
 				'nofollow',
 				'noodp',
 				'noydir',
-				'menulabel',
 			);
 			if ( ! ( ! empty( $this->options['aiosp_can'] ) ) && ( ! empty( $this->options['aiosp_customize_canonical_links'] ) ) ) {
 				unset( $optlist['custom_link'] );
@@ -4612,7 +4597,6 @@ EOF;
 				'nofollow',
 				'noodp',
 				'noydir',
-				'menulabel',
 			);
 			foreach ( $optlist as $f ) {
 				$field = "aiosp_$f";
@@ -4630,7 +4614,6 @@ EOF;
 				'nofollow',
 				'noodp',
 				'noydir',
-				'menulabel',
 			);
 			if ( ! ( ! empty( $this->options['aiosp_can'] ) ) && ( ! empty( $this->options['aiosp_customize_canonical_links'] ) ) ) {
 				unset( $optlist['custom_link'] );
