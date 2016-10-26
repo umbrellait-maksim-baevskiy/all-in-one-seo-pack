@@ -22,7 +22,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		var $freq;
 		var $freq_sel;
 		var $extra_sitemaps;
-		var $excludes;
+		var $excludes = array();
 
 		/**
 		 * All_in_One_SEO_Pack_Sitemap constructor.
@@ -1762,6 +1762,30 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$this->log_stats( 'indexed', $options["{$this->prefix}gzipped"], false );
 		}
 
+		function remove_posts_page( $postspageid ) {
+			if ( in_array( $postspageid, $this->excludes ) ) {
+				return true;
+			}
+
+			if ( in_array( get_post_field( 'post_name', $postspageid ), $this->excludes ) ) {
+				return true;
+			}
+
+			return false;
+		}
+
+		function remove_homepage( $homepage_id ) {
+			if ( in_array( $homepage_id, $this->excludes ) ) {
+
+				return true;
+			}
+			if ( in_array( get_post_field( 'post_name', $homepage_id ), $this->excludes ) ) {
+				return true;
+			}
+
+			return false;
+		}
+
 		/**
 		 * Get simple sitemap.
 		 *
@@ -1783,7 +1807,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				'priority'   => $this->get_default_priority( 'homepage' ),
 				'changefreq' => $this->get_default_frequency( 'homepage' ),
 			);
-			$posts          = get_option( 'page_for_posts' );
+
+			$posts   = $postspageid    = get_option( 'page_for_posts' ); // It's 0 if posts are on homepage, otherwise it's the id of the posts page.
+
 			$this->paginate = false;
 			if ( $posts ) {
 				$posts = $this->get_permalink( $posts );
@@ -1821,9 +1847,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					}
 				}
 			}
-			if ( is_array( $posts ) ) {
+			if ( is_array( $posts ) && $this->remove_posts_page( $postspageid ) !== true ) {
 				array_unshift( $prio, $posts );
 			}
+
 			if ( is_array( $home ) ) {
 				array_unshift( $prio, $home );
 			}
@@ -2915,7 +2942,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( ! empty( $q->posts ) ) {
 				$args['exclude'] = array_merge( $args['exclude'], $q->posts );
 			}
-			$this->excludes = $args['exclude']; // Add excluded slugs and IDs to class var.
+			$this->excludes = array_merge( $args['exclude'] , $exclude_slugs ); // Add excluded slugs and IDs to class var.
 
 			$posts = get_posts( apply_filters( $this->prefix . 'post_query', $args ) );
 			if ( ! empty( $exclude_slugs ) ) {
