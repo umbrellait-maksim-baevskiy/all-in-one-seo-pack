@@ -3706,8 +3706,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			}
 			add_action( 'wp_head', array( $this, 'wp_head' ), apply_filters( 'aioseop_wp_head_priority', 1 ) );
 			add_action( 'template_redirect', array( $this, 'template_redirect' ), 0 );
-			add_filter( 'wp_list_pages_excludes', 'aioseop_get_pages_start' );
-			add_filter( 'get_pages', 'aioseop_get_pages' );
 		}
 	}
 

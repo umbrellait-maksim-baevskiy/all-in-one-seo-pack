@@ -794,46 +794,6 @@ if ( ! function_exists( 'aioseop_mrt_exclude_this_page' ) ) {
 	}
 }
 
-if ( ! function_exists( 'aioseop_get_pages_start' ) ) {
-
-	/**
-	 * @param $excludes
-	 *
-	 * @return mixed
-	 */
-	function aioseop_get_pages_start( $excludes ) {
-		global $aioseop_get_pages_start;
-		$aioseop_get_pages_start = 1;
-
-		return $excludes;
-	}
-}
-
-if ( ! function_exists( 'aioseop_get_pages' ) ) {
-
-	/**
-	 * @param $pages
-	 *
-	 * @return mixed
-	 */
-	function aioseop_get_pages( $pages ) {
-		global $aioseop_get_pages_start;
-		if ( ! $aioseop_get_pages_start ) {
-			return $pages;
-		}
-		foreach ( $pages as $k => $v ) {
-			$postID    = $v->ID;
-			$menulabel = stripslashes( get_post_meta( $postID, '_aioseop_menulabel', true ) );
-			if ( $menulabel ) {
-				$pages[ $k ]->post_title = $menulabel;
-			}
-		}
-		$aioseop_get_pages_start = 0;
-
-		return $pages;
-	}
-}
-
 if ( ! function_exists( 'aioseop_add_contactmethods' ) ) {
 
 	/**
