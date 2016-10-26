@@ -3042,7 +3042,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	function add_page_icon() {
 		wp_enqueue_script( 'wp-pointer', false, array( 'jquery' ) );
 		wp_enqueue_style( 'wp-pointer' );
-		$this->add_admin_pointers();
+		//$this->add_admin_pointers();
 
 		wp_enqueue_style( 'aiosp_admin_style', AIOSEOP_PLUGIN_URL . 'css/aiosp_admin.css' );
 		?>
@@ -3100,7 +3100,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			$pro = '-pro';
 		}
 
-		$this->pointers['aioseop_menu_260'] = array(
+		$this->pointers['aioseop_menu_2640'] = array(
 			'pointer_target' => "#toplevel_page_all-in-one-seo-pack$pro-aioseop_class",
 			'pointer_text'   => '<h3>' . __( 'Review Your Settings', 'all-in-one-seo-pack' )
 			                    . '</h3><p>' . sprintf( __( 'Welcome to version %s. Thank you for running the latest and greatest All in One SEO Pack Pro ever! Please review your settings, as we\'re always adding new features for you!', 'all-in-one-seo-pack' ), AIOSEOP_VERSION ) . '</p>',
@@ -4692,6 +4692,8 @@ EOF;
 
 		$this->update_options();
 
+		// For now we're removing admin pointers.
+		/*
 		$this->add_admin_pointers();
 		if ( ! empty( $this->pointers ) ) {
 			foreach ( $this->pointers as $k => $p ) {
@@ -4700,6 +4702,7 @@ EOF;
 				}
 			}
 		}
+		*/
 
 		$donated = false;
 		if ( isset( $_POST ) && isset( $_POST['module'] ) && isset( $_POST['nonce-aioseop'] ) && ( $_POST['module'] == 'All_in_One_SEO_Pack' ) && wp_verify_nonce( $_POST['nonce-aioseop'], 'aioseop-nonce' ) ) {
