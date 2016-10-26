@@ -3829,9 +3829,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				}
 				$keywords = wp_filter_nohtml_kses( str_replace( '"', '', $keywords ) );
 				$key_attr = '';
-				if ( ! empty( $aioseop_options['aiosp_schema_markup'] ) ) {
-					$key_attr = 'itemprop="keywords"';
-				}
 				$key_attr = apply_filters( 'aioseop_keywords_attributes', $key_attr );
 				$meta_string .= sprintf( "<meta name=\"keywords\" %s content=\"%s\" />\n", $key_attr, $keywords );
 			}
