@@ -215,7 +215,7 @@ if ( class_exists( 'All_in_One_SEO_Pack' ) ) {
 if ( AIOSEOPPRO ) {
 
 	require( AIOSEOP_PLUGIN_DIR . 'pro/sfwd_update_checker.php' );
-	$aiosp_update_url = 'http://semperplugins.com/upgrade_plugins.php';
+	$aiosp_update_url = 'https://semperplugins.com/upgrade_plugins.php';
 	if( defined( 'AIOSEOP_UPDATE_URL' ) ) {
 		$aiosp_update_url = AIOSEOP_UPDATE_URL;
 	}
