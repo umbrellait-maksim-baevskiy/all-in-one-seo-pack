@@ -33,5 +33,5 @@
 			</div>
 		</div>
 	</div>
-	<p><a href="/wp-admin/admin.php?page=all-in-one-seo-pack%2Faioseop_class.php"><?php _e( 'Continue to the General Settings', 'all-in-one-seo-pack' ); ?></a> &raquo;</p>
+	<p><a href=" <?php echo get_admin_url( null, "admin.php?page=" . AIOSEOP_PLUGIN_DIRNAME . "/aioseop_class.php" ); ?>  "><?php _e( 'Continue to the General Settings', 'all-in-one-seo-pack' ); ?></a> &raquo;</p>
 </div>
