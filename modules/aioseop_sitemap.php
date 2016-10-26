@@ -142,12 +142,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$this->layout = array(
 				'status'  => array(
 					'name'      => __( 'Sitemap Status', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/',
+					'help_link' => 'https://semperplugins.com/documentation/xml-sitemaps-module/',
 					'options'   => array_keys( $status_options ),
 				),
 				'default' => array(
 					'name'      => $this->name,
-					'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/',
+					'help_link' => 'https://semperplugins.com/documentation/xml-sitemaps-module/',
 					'options'   => array_keys( $this->default_options ),
 				),
 			);
@@ -267,25 +267,25 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 			$this->layout['addl_pages'] = array(
 				'name'      => __( 'Additional Pages', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/#additional-pages',
+				'help_link' => 'https://semperplugins.com/documentation/xml-sitemaps-module/#additional-pages',
 				'options'   => array_keys( $addl_options ),
 			);
 
 			$this->layout['excl_pages'] = array(
 				'name'      => __( 'Excluded Items', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/#excluded-items',
+				'help_link' => 'https://semperplugins.com/documentation/xml-sitemaps-module/#excluded-items',
 				'options'   => array_keys( $excl_options ),
 			);
 
 			$this->layout['priorities'] = array(
 				'name'      => __( 'Priorities', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/#priorities-and-frequencies',
+				'help_link' => 'https://semperplugins.com/documentation/xml-sitemaps-module/#priorities-and-frequencies',
 				'options'   => array_keys( $prio_options ),
 			);
 
 			$this->layout['frequencies'] = array(
 				'name'      => __( 'Frequencies', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/#priorities-and-frequencies',
+				'help_link' => 'https://semperplugins.com/documentation/xml-sitemaps-module/#priorities-and-frequencies',
 				'options'   => array_keys( $freq_options ),
 			);
 
@@ -346,7 +346,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 *
 		 * Add new intervals of a week and a month.
 		 *
-		 * @link http://codex.wordpress.org/Plugin_API/Filter_Reference/cron_schedules
+		 * @link https://codex.wordpress.org/Plugin_API/Filter_Reference/cron_schedules
 		 *
 		 * @param $schedules
 		 *
@@ -1303,8 +1303,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 
 			$notify_url = array(
-				'google' => 'http://www.google.com/webmasters/sitemaps/ping?sitemap=',
-				'bing'   => 'http://www.bing.com/webmaster/ping.aspx?siteMap=',
+				'google' => 'https://www.google.com/webmasters/sitemaps/ping?sitemap=',
+				'bing'   => 'https://www.bing.com/webmaster/ping.aspx?siteMap=',
 			);
 
 			$notify_url = apply_filters( 'aioseo_sitemap_ping_urls', $notify_url );
