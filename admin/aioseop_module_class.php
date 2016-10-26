@@ -1643,11 +1643,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return false;
 		}
 
-		/** crude approximization of whether current user is an admin */
-		function is_admin() {
-			return current_user_can( 'level_8' );
-		}
-
 		/**
 		 * @param        $default_options
 		 * @param        $options
