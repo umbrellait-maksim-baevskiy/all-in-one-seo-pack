@@ -162,7 +162,7 @@ function aiosp_seometa_admin() {
 		</p>
 
 		<p><span
-				class="row-title"><?php printf( esc_html__( 'Before performing an import, we strongly recommend that you make a backup of your site. We use and recommend %s BackupBuddy %s for backups.', 'all-in-one-seo-pack' ), sprintf( '<a target="_blank" href="%s">', esc_url( 'http://semperfiwebdesign.com/backupbuddy/' ) ), '</a>' ); ?></span>
+				class="row-title"><?php printf( esc_html__( 'Before performing an import, we strongly recommend that you make a backup of your site. We use and recommend %s BackupBuddy %s for backups.', 'all-in-one-seo-pack' ), sprintf( '<a target="_blank" href="%s">', esc_url( 'https://semperfiwebdesign.com/backupbuddy/' ) ), '</a>' ); ?></span>
 		</p>
 
 
