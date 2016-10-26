@@ -555,27 +555,27 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			$this->layout = Array(
 				'default'   => Array(
 					'name'      => __( 'General Settings', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/social-meta-module/',
+					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/',
 					'options'   => Array() // this is set below, to the remaining options -- pdb
 				),
 				'home'      => Array(
 					'name'      => __( 'Home Page Settings', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/social-meta-module/#use-aioseo-title-and-description',
+					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/#use-aioseo-title-and-description',
 					'options'   => Array( 'setmeta', 'sitename', 'hometitle', 'description', 'homeimage', 'hometag' ),
 				),
 				'image'     => Array(
 					'name'      => __( 'Image Settings', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/social-meta-module/#select-og-image-source',
+					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/#select-og-image-source',
 					'options'   => Array( 'defimg', 'fallback', 'dimg', 'dimgwidth', 'dimgheight', 'meta_key' ),
 				),
 				'links'     => Array(
 					'name'      => __( 'Social Profile Links', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/social-meta-module/#social-profile-links',
+					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/#social-profile-links',
 					'options'   => Array( 'profile_links', 'person_or_org', 'social_name' ),
 				),
 				'facebook'  => Array(
 					'name'      => __( 'Facebook Settings', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/social-meta-module/#facebook-settings',
+					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/#facebook-settings',
 					'options'   => Array(
 						'key',
 						'appid',
@@ -591,12 +591,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				),
 				'twitter'   => Array(
 					'name'      => __( 'Twitter Settings', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/social-meta-module/#default-twitter-card',
+					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/#default-twitter-card',
 					'options'   => Array( 'defcard', 'setcard', 'twitter_site', 'twitter_creator', 'twitter_domain' ),
 				),
 				'scan_meta' => Array(
 					'name'      => __( 'Scan Social Meta', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/social-meta-module/#scan_meta',
+					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/#scan_meta',
 					'options'   => Array( 'scan_header' ),
 				),
 			);
