@@ -835,7 +835,7 @@ if ( ! function_exists( 'aioseop_get_pages' ) ) {
 	}
 }
 
-// The following two functions are GPLed from Sarah G's Page Menu Editor, http://wordpress.org/extend/plugins/page-menu-editor/.
+// The following two functions are GPLed from Sarah G's Page Menu Editor, https://wordpress.org/extend/plugins/page-menu-editor/.
 if ( ! function_exists( 'aioseop_list_pages' ) ) {
 	/**
 	 * Adds stuff to the HTML in list_pages.
