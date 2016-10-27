@@ -53,23 +53,12 @@ class aiosp_metaboxes {
 					<?php if ( ! AIOSEOPPRO ) { ?>
 						<div class="aioseop_metabox_text">
 							<p>
-
+Put info about Pro here /placeholder
 							</p>
 						</div>
 					<?php } ?>
 
 					<div class="aioseop_metabox_feature">
-
-						<?php if ( ! AIOSEOPPRO ) { ?>
-							<a target="_blank" title="<?php _e( 'Donate', 'all-in-one-seo-pack' ); ?>"
-							   href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8">
-								<img src="<?php echo AIOSEOP_PLUGIN_URL; ?>images/donate.jpg"
-								     alt="<?php _e( 'Donate with Paypal', 'all-in-one-seo-pack' ); ?>"/> </a>
-							<a target="_blank" title="Amazon Wish List"
-							   href="https://www.amazon.com/wishlist/1NFQ133FNCOOA/ref=wl_web">
-								<img src="<?php echo AIOSEOP_PLUGIN_URL; ?>images/amazon.jpg"
-								     alt="<?php _e( 'My Amazon Wish List', 'all-in-one-seo-pack' ); ?>"/> </a>
-						<?php } ?>
 
 						<a target="_blank" title="<?php _e( 'Follow us on Facebook', 'all-in-one-seo-pack' ); ?>"
 						   href="https://www.facebook.com/aioseopack/"><span

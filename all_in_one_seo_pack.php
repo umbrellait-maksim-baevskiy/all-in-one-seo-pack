@@ -280,14 +280,6 @@ if ( ! function_exists( 'aiosp_plugin_row_meta' ) ) {
 		if ( ! AIOSEOPPRO ) {
 
 			$action_links = array(
-				'donatelink' => array(
-					'label' => __( 'Donate', 'all-in-one-seo-pack' ),
-					'url'   => 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8',
-				),
-				'amazon'     => array(
-					'label' => __( 'Amazon Wishlist', 'all-in-one-seo-pack' ),
-					'url'   => 'https://www.amazon.com/wishlist/1NFQ133FNCOOA/ref=wl_web',
-				),
 
 			);
 

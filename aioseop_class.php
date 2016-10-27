@@ -76,7 +76,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		parent::__construct();
 
 		$this->help_text = array(
-			'donate'                      => __( 'All donations support continued development of this free software.', 'all-in-one-seo-pack' ),
 			'license_key'                 => __( 'This will be the license key received when the product was purchased. This is used for automatic upgrades.', 'all-in-one-seo-pack' ),
 			'can'                         => __( "This option will automatically generate Canonical URLs for your entire WordPress installation.  This will help to prevent duplicate content penalties by Google", 'all-in-one-seo-pack' ),
 			'no_paged_canonical_links'    => __( 'Checking this option will set the Canonical URL for all paginated content to the first page.', 'all-in-one-seo-pack' ),
@@ -342,9 +341,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'license_key'                 => array(
 				'name' => __( 'License Key:', 'all-in-one-seo-pack' ),
 				'type' => 'text',
-			),
-			'donate'                      => array(
-				'name' => __( 'I enjoy this plugin and have made a donation:', 'all-in-one-seo-pack' ),
 			),
 			'home_title'                  => array(
 				'name'     => __( 'Home Title:', 'all-in-one-seo-pack' ),
@@ -917,9 +913,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			),
 		);
 
-		if ( AIOSEOPPRO ) {
-			unset( $this->default_options['donate'] );
-		} else {
+		if ( ! AIOSEOPPRO ) {
 			unset( $this->default_options['license_key'] );
 			unset( $this->default_options['taxactive'] );
 		}
@@ -4669,11 +4663,7 @@ EOF;
 		}
 		*/
 
-		$donated = false;
 		if ( isset( $_POST ) && isset( $_POST['module'] ) && isset( $_POST['nonce-aioseop'] ) && ( $_POST['module'] == 'All_in_One_SEO_Pack' ) && wp_verify_nonce( $_POST['nonce-aioseop'], 'aioseop-nonce' ) ) {
-			if ( isset( $_POST['aiosp_donate'] ) ) {
-				$donated = $_POST['aiosp_donate'];
-			}
 			if ( isset( $_POST['Submit'] ) && AIOSEOPPRO ) {
 				if ( isset( $_POST['aiosp_custom_menu_order'] ) ) {
 					$custom_menu_order = $_POST['aiosp_custom_menu_order'];
@@ -4684,9 +4674,6 @@ EOF;
 				$custom_menu_order = true;
 			}
 		} else {
-			if ( isset( $this->options['aiosp_donate'] ) ) {
-				$donated = $this->options['aiosp_donate'];
-			}
 			if ( isset( $this->options['aiosp_custom_menu_order'] ) ) {
 				$custom_menu_order = $this->options['aiosp_custom_menu_order'];
 			}
@@ -4695,15 +4682,6 @@ EOF;
 		if ( ( $custom_menu_order && false !== apply_filters( 'aioseo_custom_menu_order', $custom_menu_order ) ) || true === apply_filters( 'aioseo_custom_menu_order', $custom_menu_order ) ) {
 			add_filter( 'custom_menu_order', '__return_true' );
 			add_filter( 'menu_order', array( $this, 'set_menu_order' ), 11 );
-		}
-
-		if ( $donated ) {
-			// Thank you for your donation.
-			$this->pointers['aioseop_donate'] = array(
-				'pointer_target' => '#aiosp_donate_wrapper',
-				'pointer_text'   => '<h3>' . __( 'Thank you!', 'all-in-one-seo-pack' )
-				                    . '</h3><p>' . __( 'Thank you for your donation, it helps keep this plugin free and actively developed!', 'all-in-one-seo-pack' ) . '</p>',
-			);
 		}
 
 		if ( ! AIOSEOPPRO ) {
