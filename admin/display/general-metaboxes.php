@@ -13,7 +13,6 @@ class aiosp_metaboxes {
 
 	}
 
-
 	/**
 	 * @param $add
 	 * @param $meta
@@ -25,8 +24,7 @@ class aiosp_metaboxes {
 				?>
 				<div class="aioseop_metabox_text">
 					<p><h2
-						style="display:inline;"><?php echo AIOSEOP_PLUGIN_NAME; ?></h2><?php sprintf( __( 'by %s of %s.', 'all-in-one-seo-pack' ), 'Michael Torbert', '<a target="_blank" title="Semper Fi Web Design"
-							href="https://semperfiwebdesign.com/">Semper Fi Web Design</a>' ); ?>.</p>
+						style="display:inline;"><?php echo AIOSEOP_PLUGIN_NAME; ?></h2></p>
 					<?php
 					global $current_user;
 					$user_id = $current_user->ID;
@@ -53,7 +51,7 @@ class aiosp_metaboxes {
 					<?php if ( ! AIOSEOPPRO ) { ?>
 						<div class="aioseop_metabox_text">
 							<p>
-Put info about Pro here /placeholder
+								<?php self::pro_meta_content(); ?>
 							</p>
 						</div>
 					<?php } ?>
@@ -147,5 +145,23 @@ Put info about Pro here /placeholder
 		echo '</div>';
 	}
 
+	function pro_meta_content() {
+		echo '<ul>';
+
+		if ( class_exists( 'WooCommerce' ) ) {
+			echo '<li>Advanced support for WooCommerce</li>';
+		}else{
+			echo '<li>Advanced support for e-commerce</li>';
+		}
+
+		echo '<li>Video SEO Module</li>';
+		echo '<li>SEO for Categories, Tags and Custom Taxonomies</li>';
+		echo '<li>Access to Video Screencasts</li>';
+		echo '<li>Access to Premium Support Forums</li>';
+		echo '<li>Access to Knowledge Center</li>';
+
+		echo '</ul>';
+
+	}
 
 }
