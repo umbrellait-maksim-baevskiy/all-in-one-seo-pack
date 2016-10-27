@@ -797,18 +797,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				$type = 'WebSite';
 			}
 
-			$attr_array = Array();
-
-			// Don't show this schema.org if the AMP plugin is active.
-			if ( ! function_exists( 'amp_init' ) ) {
-				$attr_array = Array(
+			$attributes = apply_filters( $this->prefix . 'attributes', Array(
 				'itemscope',
 				'itemtype="http://schema.org/' . ucfirst( $type ) . '"',
-				'prefix="og: http://ogp.me/ns#"',
-			);
-			}
+				'prefix="og: http://ogp.me/ns#"'
+			) );
 
-			$attributes = apply_filters( $this->prefix . 'attributes', $attr_array );
 			foreach ( $attributes as $attr ) {
 				if ( strpos( $output, $attr ) === false ) {
 					$output .= "\n\t$attr ";
