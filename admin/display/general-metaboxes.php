@@ -60,12 +60,12 @@ Put info about Pro here /placeholder
 
 					<div class="aioseop_metabox_feature">
 
-						<a target="_blank" title="<?php _e( 'Follow us on Facebook', 'all-in-one-seo-pack' ); ?>"
-						   href="https://www.facebook.com/aioseopack/"><span
-								class="aioseop_follow_button aioseop_facebook_follow"></span></a>
-						<a target="_blank" title="<?php _e( 'Follow us on Twitter', 'all-in-one-seo-pack' ); ?>"
-						   href="https://twitter.com/aioseopack"><span
-								class="aioseop_follow_button aioseop_twitter_follow"></span></a>
+						<div class="aiosp-di">
+							<a class="dashicons di-twitter" target="_blank" href="https://twitter.com/aioseopack" title="Follow me on Twitter"></a>
+
+							<a class="dashicons di-facebook" target="_blank" href="https://www.facebook.com/aioseopack" title="Follow me on Facebook"></a>
+						</div>
+
 					</div><?php
 
 					$aiosp_trans = new AIOSEOP_Translations();
