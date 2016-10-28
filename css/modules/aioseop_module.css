@@ -395,6 +395,11 @@ div.aioseop_tip_icon:before {
     border: 1px solid #DDD;
 }
 
+#aioseop-about .aioseop_metabox_text ul {
+	list-style-type: disc;
+	padding-left: 15px;
+}
+
 .aioseop input[readonly] {
     background-color: #EEE;
     margin: 5px 0 5px 0 !important;
