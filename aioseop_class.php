@@ -80,7 +80,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'can'                         => __( "This option will automatically generate Canonical URLs for your entire WordPress installation.  This will help to prevent duplicate content penalties by Google", 'all-in-one-seo-pack' ),
 			'no_paged_canonical_links'    => __( 'Checking this option will set the Canonical URL for all paginated content to the first page.', 'all-in-one-seo-pack' ),
 			'customize_canonical_links'   => __( 'Checking this option will allow you to customize Canonical URLs for specific posts.', 'all-in-one-seo-pack' ),
-			'can_set_protocol'            => __( 'Set protocol for canonical URLs.', 'all-in-one-seo-pack' ),
 			'use_original_title'          => __( 'Use wp_title to get the title used by the theme; this is disabled by default. If you use this option, set your title formats appropriately, as your theme might try to do its own title SEO as well.', 'all-in-one-seo-pack' ),
 			'do_log'                      => __( 'Check this and All in One SEO Pack will create a log of important events (all-in-one-seo-pack.log) in its plugin directory which might help debugging. Make sure this directory is writable.', 'all-in-one-seo-pack' ),
 			'home_title'                  => __( 'As the name implies, this will be the Meta Title of your homepage. This is independent of any other option. If not set, the default Site Title (found in WordPress under Settings, General, Site Title) will be used.', 'all-in-one-seo-pack' ),
@@ -240,7 +239,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'can'                         => '#canonical-urls',
 			'no_paged_canonical_links'    => '#no-pagination-for-canonical-urls',
 			'customize_canonical_links'   => '#enable-custom-canonical-urls',
-			'can_set_protocol'			  => '#set-protocol-for-canonical-urls',
 			'use_original_title'          => '#use-original-title',
 			'schema_markup'               => '#use-schema-markup',
 			'do_log'                      => '#log-important-events',
@@ -400,17 +398,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				'name'     => __( 'Enable Custom Canonical URLs:', 'all-in-one-seo-pack' ),
 				'default'  => 0,
 				'condshow' => array( 'aiosp_can' => 'on' ),
-			),
-			'can_set_protocol'            => array(
-				'name'            => __( 'Set Protocol For Canonical URLs:', 'all-in-one-seo-pack' ),
-				'type'            => 'radio',
-				'default'         => 'auto',
-				'initial_options' => array(
-					'auto'  => __( 'Auto', 'all-in-one-seo-pack' ),
-					'http'  => __( 'HTTP', 'all-in-one-seo-pack' ),
-					'https' => __( 'HTTPS', 'all-in-one-seo-pack' ),
-				),
-				'condshow'        => array( 'aiosp_can' => 'on' ),
 			),
 			'rewrite_titles'              => array(
 				'name'            => __( 'Rewrite Titles:', 'all-in-one-seo-pack' ),
@@ -2755,16 +2742,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		}
 		if ( apply_filters( 'aioseop_canonical_url_pagination', $show_page ) ) {
 			$link = $this->get_paged( $link );
-		}
-		if ( ! empty( $link ) ) {
-			global $aioseop_options;
-			if ( isset( $aioseop_options['aiosp_can_set_protocol'] ) && ( 'auto' !== $aioseop_options['aiosp_can_set_protocol'] ) ) {
-				if ( 'http' === $aioseop_options['aiosp_can_set_protocol'] ) {
-					$link = preg_replace( '/^https:/i', 'http:', $link );
-				} elseif ( 'https' === $aioseop_options['aiosp_can_set_protocol'] ) {
-					$link = preg_replace( '/^http:/i', 'https:', $link );
-				}
-			}
 		}
 
 		return $link;
