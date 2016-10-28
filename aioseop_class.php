@@ -4281,6 +4281,7 @@ EOF;
 	 * @return string $url
 	 *
 	 * @since 2.3.5
+	 * @since 2.3.11 Removed check for legacy protocol setting. Added filter.
 	 */
 	function validate_url_scheme( $url ) {
 
@@ -4288,14 +4289,12 @@ EOF;
 
 		global $aioseop_options;
 
-		if( ! isset( $aioseop_options['aiosp_can_set_protocol'] ) ){
-			return $url; // Just send the url back if there's nothing there.
-		}
+		$scheme = apply_filters( 'aioseop_canonical_protocol', false );
 
-		if ( $aioseop_options['aiosp_can_set_protocol'] == 'http' ) {
+		if ( 'http' === $scheme ) {
 			$url = preg_replace( '/^https:/i', 'http:', $url );
 		}
-		if ( $aioseop_options['aiosp_can_set_protocol'] == 'https' ) {
+		if ( 'https' === $scheme ) {
 			$url = preg_replace( '/^http:/i', 'https:', $url );
 		}
 
