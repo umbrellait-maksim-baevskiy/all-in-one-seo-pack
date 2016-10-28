@@ -145,7 +145,7 @@ class aiosp_metaboxes {
 		echo '</div>';
 	}
 
-	function pro_meta_content() {
+	static function pro_meta_content() {
 
 		echo '<ul>';
 
