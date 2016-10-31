@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: All In One SEO Pack
-Plugin URI: http://semperfiwebdesign.com
+Plugin URI: https://semperfiwebdesign.com
 Description: Out-of-the-box SEO for your WordPress blog. Features like XML Sitemaps, SEO for custom post types, SEO for blogs or business sites, SEO for ecommerce sites, and much more. Almost 30 million downloads since 2007.
 Version: 2.3.10.2
 Author: Michael Torbert
-Author URI: http://michaeltorbert.com
+Author URI: https://michaeltorbert.com
 Text Domain: all-in-one-seo-pack
 Domain Path: /i18n/
 */
