@@ -618,8 +618,29 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				$this->do_opengraph();
 			}
 
-			// Avoid having duplicate meta tags
-			add_filter( 'jetpack_enable_open_graph', '__return_false' );
+			add_filter( 'jetpack_enable_open_graph', '__return_false' ); // Avoid having duplicate meta tags
+
+			add_action( 'post_updated', array( $this, 'force_fb_refresh' ), 10, 3 ); // Force refresh of Facebook cache.
+		}
+
+		/**
+		 * Forces FaceBook OpenGraph refresh on update.
+		 *
+		 * @param $post_ID
+		 * @param $post_after
+		 */
+		function force_fb_refresh( $post_ID, $post_after ) {
+
+			$current_post_type = get_post_type();
+
+			// Only ping Facebook if Social SEO is enabled on this post type.
+			if ( $this->option_isset( 'types' ) && is_array( $this->options['aiosp_opengraph_types'] ) && in_array( $current_post_type, $this->options['aiosp_opengraph_types'] ) ) {
+				$post_url = get_permalink( $post_after->ID );
+				$endpoint = sprintf( 'https://graph.facebook.com/?%s', http_build_query( array( 'id'     => $post_url,
+				                                                                                'scrape' => true,
+				) ) );
+				wp_remote_post( $endpoint, array( 'blocking' => false ) );
+			}
 		}
 
 		function settings_page_init() {
