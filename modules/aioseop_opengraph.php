@@ -622,25 +622,26 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 			// Force refresh of Facebook cache.
 			add_action( 'post_updated', array( $this, 'force_fb_refresh_update' ), 10, 3 );
-			add_action( 'transition_post_status', array( $this, 'force_fb_refresh_transition'), 10, 3 );
+			add_action( 'transition_post_status', array( $this, 'force_fb_refresh_transition' ), 10, 3 );
 		}
 
 		/**
 		 * Forces FaceBook OpenGraph to refresh its cache when a post is changed to
+		 *
 		 * @param $new_status
 		 * @param $old_status
 		 * @param $post
 		 *
-		 * @todo this and force_fb_refresh_update can probably have the remote POST extracted out.
+		 * @todo  this and force_fb_refresh_update can probably have the remote POST extracted out.
 		 *
-		 * @see https://developers.facebook.com/docs/sharing/opengraph/using-objects#update
+		 * @see   https://developers.facebook.com/docs/sharing/opengraph/using-objects#update
 		 * @since 2.3.11
 		 */
-		function force_fb_refresh_transition( $new_status, $old_status, $post ){
+		function force_fb_refresh_transition( $new_status, $old_status, $post ) {
 			if ( $new_status != 'publish' ) {
 				return;
 			}
-			if ( $old_status !== 'future'){
+			if ( $old_status !== 'future' ) {
 				return;
 			}
 
@@ -649,8 +650,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			// Only ping Facebook if Social SEO is enabled on this post type.
 			if ( $this->option_isset( 'types' ) && is_array( $this->options['aiosp_opengraph_types'] ) && in_array( $current_post_type, $this->options['aiosp_opengraph_types'] ) ) {
 				$post_url = get_permalink( $post->ID );
-				$endpoint = sprintf( 'https://graph.facebook.com/?%s', http_build_query( array( 'id'     => $post_url,
-				                                                                                'scrape' => true,
+				$endpoint = sprintf( 'https://graph.facebook.com/?%s', http_build_query( array(
+					'id'     => $post_url,
+					'scrape' => true,
 				) ) );
 				wp_remote_post( $endpoint, array( 'blocking' => false ) );
 			}
@@ -658,11 +660,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 		/**
 		 * Forces FaceBook OpenGraph refresh on update.
-		 * @todo only for PUBLISHED!!!!!!!!
+		 *
+		 * @todo  only for PUBLISHED!!!!!!!!
+		 *
 		 * @param $post_ID
 		 * @param $post_after
 		 *
-		 * @see https://developers.facebook.com/docs/sharing/opengraph/using-objects#update
+		 * @see   https://developers.facebook.com/docs/sharing/opengraph/using-objects#update
 		 * @since 2.3.11
 		 */
 		function force_fb_refresh_update( $post_ID, $post_after ) {
@@ -672,8 +676,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			// Only ping Facebook if Social SEO is enabled on this post type.
 			if ( $post_after['post_status'] === 'publish' && $this->option_isset( 'types' ) && is_array( $this->options['aiosp_opengraph_types'] ) && in_array( $current_post_type, $this->options['aiosp_opengraph_types'] ) ) {
 				$post_url = get_permalink( $post_ID );
-				$endpoint = sprintf( 'https://graph.facebook.com/?%s', http_build_query( array( 'id'     => $post_url,
-				                                                                                'scrape' => true,
+				$endpoint = sprintf( 'https://graph.facebook.com/?%s', http_build_query( array(
+					'id'     => $post_url,
+					'scrape' => true,
 				) ) );
 				wp_remote_post( $endpoint, array( 'blocking' => false ) );
 			}
