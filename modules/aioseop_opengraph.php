@@ -1043,6 +1043,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 			if ( ! empty( $thumbnail ) ) {
 				$thumbnail = esc_url( $thumbnail );
+				$thumbnail = set_url_scheme( $thumbnail );
 			}
 
 			$width = $height = '';
