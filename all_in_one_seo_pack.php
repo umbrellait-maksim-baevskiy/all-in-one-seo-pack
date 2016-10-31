@@ -319,7 +319,7 @@ if ( ! function_exists( 'aiosp_add_action_links' ) ) {
 
 			'docs' => array(
 				'label' => __( 'Documentation', 'all-in-one-seo-pack' ),
-				'url'   => 'http://semperplugins.com/documentation/',
+				'url'   => 'https://semperplugins.com/documentation/',
 			),
 
 		);
