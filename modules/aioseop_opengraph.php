@@ -638,10 +638,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 		 * @since 2.3.11
 		 */
 		function force_fb_refresh_transition( $new_status, $old_status, $post ) {
-			if ( $new_status != 'publish' ) {
+			if ( 'publish' !== $new_status ) {
 				return;
 			}
-			if ( $old_status !== 'future' ) {
+			if ( 'future' !== $old_status ) {
 				return;
 			}
 
@@ -660,8 +660,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 		/**
 		 * Forces FaceBook OpenGraph refresh on update.
-		 *
-		 * @todo  only for PUBLISHED!!!!!!!!
 		 *
 		 * @param $post_ID
 		 * @param $post_after
