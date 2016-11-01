@@ -211,7 +211,7 @@ if ( ! function_exists( 'aioseop_admin_head' ) ) {
 				width: 100%;
 			}
 
-			.aioseop_mpc_admin_meta_options.editing {
+			.aioseop_mpc_admin_meta_options.aio_editing {
 				max-height: initial;
 				overflow: visible;
 			}
