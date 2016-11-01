@@ -1165,7 +1165,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 			if ( isset( $metabox['aioseop_opengraph_settings_customimg_twitter'] ) && ! empty( $metabox['aioseop_opengraph_settings_customimg_twitter'] ) ) {
 				// Set Twitter image from custom.
-				$twitter_thumbnail = $metabox['aioseop_opengraph_settings_customimg_twitter'];
+				$twitter_thumbnail = set_url_scheme( $metabox['aioseop_opengraph_settings_customimg_twitter'] );
 			}
 
 			$meta = Array(
