@@ -674,7 +674,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			$current_post_type = get_post_type();
 
 			// Only ping Facebook if Social SEO is enabled on this post type.
-			if ( $post_after->post_status === 'publish' && $this->option_isset( 'types' ) && is_array( $this->options['aiosp_opengraph_types'] ) && in_array( $current_post_type, $this->options['aiosp_opengraph_types'] ) ) {
+			if ( 'publish' === $post_after->post_status && $this->option_isset( 'types' ) && is_array( $this->options['aiosp_opengraph_types'] ) && in_array( $current_post_type, $this->options['aiosp_opengraph_types'] ) ) {
 				$post_url = get_permalink( $post_ID );
 				$endpoint = sprintf( 'https://graph.facebook.com/?%s', http_build_query( array(
 					'id'     => $post_url,
