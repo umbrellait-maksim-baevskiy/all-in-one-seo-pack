@@ -1363,6 +1363,7 @@ END;
 				$size    = apply_filters( 'post_thumbnail_size', 'large' );
 				$default = $this->get_the_image_by_default();
 				if ( ! empty( $default ) ) {
+					$default = set_url_scheme( $default );
 					$img[ $default ] = 0;
 				}
 				$img = array_merge( $img, parent::get_all_images( $options, null ) );

@@ -1449,6 +1449,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			$img    = $this->get_all_images_by_type( $options, $p );
 			$legacy = array();
 			foreach ( $img as $k => $v ) {
+				$v['link'] = set_url_scheme($v['link']);
 				if ( $v['type'] == 'featured' ) {
 					$legacy[ $v['link'] ] = 1;
 				} else {
