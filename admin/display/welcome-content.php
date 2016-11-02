@@ -3,10 +3,10 @@
 		<div class="welcome-panel-column-container">
 			<div class="welcome-panel-column">
 				<h3><?php echo esc_html( __( 'Support All in One SEO Pack', 'all-in-one-seo-pack' ) ); ?></h3>
-				<p class="message"><?php echo esc_html( __( "There are many ways you can help support All in One SEO Pack.", 'all-in-one-seo-pack' ) ); ?></p>
-				<p class="message aioseop-message"><?php echo esc_html( __( "Upgrade to All in One SEO Pack Pro to access priority support and premium features.", 'all-in-one-seo-pack' ) ); ?></p>
+				<p class="message"><?php echo esc_html( __( 'There are many ways you can help support All in One SEO Pack.', 'all-in-one-seo-pack' ) ); ?></p>
+				<p class="message aioseop-message"><?php echo esc_html( __( 'Upgrade to All in One SEO Pack Pro to access priority support and premium features.', 'all-in-one-seo-pack' ) ); ?></p>
 				<p class="call-to-action"><a href="https://semperplugins.com/all-in-one-seo-pack-pro-version/?loc=aio_welcome" target="_blank" class="button button-primary button-orange"><?php echo __('Upgrade','all-in-one-seo-pack'); ?></a></p>
-				<p class="message aioseop-message"><?php echo esc_html( __( "Help translate All in One SEO Pack into your language.", 'all-in-one-seo-pack' ) ); ?></p>
+				<p class="message aioseop-message"><?php echo esc_html( __( 'Help translate All in One SEO Pack into your language.', 'all-in-one-seo-pack' ) ); ?></p>
 				<p class="call-to-action"><a href="https://translate.wordpress.org/projects/wp-plugins/all-in-one-seo-pack" class="button button-primary" target="_blank"><?php echo __('Translate','all-in-one-seo-pack'); ?></a></p>
 			</div>
 
@@ -33,5 +33,5 @@
 			</div>
 		</div>
 	</div>
-	<p><a href=" <?php echo get_admin_url( null, "admin.php?page=" . AIOSEOP_PLUGIN_DIRNAME . "/aioseop_class.php" ); ?>  "><?php _e( 'Continue to the General Settings', 'all-in-one-seo-pack' ); ?></a> &raquo;</p>
+	<p><a href=" <?php echo get_admin_url( null, 'admin.php?page=' . AIOSEOP_PLUGIN_DIRNAME . '/aioseop_class.php' ); ?>  "><?php _e( 'Continue to the General Settings', 'all-in-one-seo-pack' ); ?></a> &raquo;</p>
 </div>
