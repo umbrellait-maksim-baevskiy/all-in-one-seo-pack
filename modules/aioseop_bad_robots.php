@@ -100,13 +100,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 					status_header( 503 );
 					$ip         = $this->validate_ip( $_SERVER['REMOTE_ADDR'] );
 					$user_agent = $_SERVER['HTTP_USER_AGENT'];
-					aiosp_log( sprintf( __( 'Blocked bot with IP %s -- matched user agent %s found in blocklist.', 'all-in-one-seo-pack' ), $ip, $user_agent ));
+					$this->blocked_message( sprintf( __( 'Blocked bot with IP %s -- matched user agent %s found in blocklist.', 'all-in-one-seo-pack' ), $ip, $user_agent ) );
 					exit();
 				} elseif ( $this->option_isset( 'block_refer' ) && $this->is_bad_referer() ) {
 					status_header( 503 );
 					$ip      = $this->validate_ip( $_SERVER['REMOTE_ADDR'] );
 					$referer = $_SERVER['HTTP_REFERER'];
-					aiosp_log( sprintf( __( 'Blocked bot with IP %s -- matched referer %s found in blocklist.', 'all-in-one-seo-pack' ), $ip, $referer ));
+					$this->blocked_message( sprintf( __( 'Blocked bot with IP %s -- matched referer %s found in blocklist.', 'all-in-one-seo-pack' ), $ip, $referer ) );
 				}
 			}
 		}
@@ -208,6 +208,28 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 
 			return $botlist;
 		}
+
+
+		/**
+		 * Updates blocked message.
+		 *
+		 * @param string $msg
+		 */
+		function blocked_message( $msg ) {
+			if ( empty( $this->options["{$this->prefix}blocked_log"] ) ) {
+				$this->options["{$this->prefix}blocked_log"] = '';
+			}
+			$this->options["{$this->prefix}blocked_log"] = date( 'Y-m-d H:i:s' ) . " {$msg}\n" . $this->options["{$this->prefix}blocked_log"];
+			if ( $this->strlen( $this->options["{$this->prefix}blocked_log"] ) > 4096 ) {
+				$end = $this->strrpos( $this->options["{$this->prefix}blocked_log"], "\n" );
+				if ( false === $end ) {
+					$end = 4096;
+				}
+				$this->options["{$this->prefix}blocked_log"] = $this->substr( $this->options["{$this->prefix}blocked_log"], 0, $end );
+			}
+			$this->update_class_option( $this->options );
+		}
+
 
 		/**
 		 * Filter display options.
