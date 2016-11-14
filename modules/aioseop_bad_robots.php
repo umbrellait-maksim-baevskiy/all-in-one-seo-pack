@@ -216,6 +216,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 		 * @param string $msg
 		 */
 		function blocked_message( $msg ) {
+
+			if ( ! $this->option_isset( 'track_blocks' ) ) {
+				return; // Only log if track blocks is checked.
+			}
+
 			if ( empty( $this->options["{$this->prefix}blocked_log"] ) ) {
 				$this->options["{$this->prefix}blocked_log"] = '';
 			}
