@@ -502,7 +502,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			$regex = '';
 			$cont  = 0;
 			foreach ( $list as $l ) {
-				if ( $cont ) {
+				if ( $cont && ! empty( $l ) ) {
 					$regex .= '|';
 				}
 				$cont = 1;
