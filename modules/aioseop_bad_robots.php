@@ -100,13 +100,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 					status_header( 503 );
 					$ip         = $this->validate_ip( $_SERVER['REMOTE_ADDR'] );
 					$user_agent = $_SERVER['HTTP_USER_AGENT'];
-					$this->blocked_message( sprintf( __( 'Blocked bot with IP %s -- matched user agent %s found in blocklist.', 'all-in-one-seo-pack' ), $ip, $user_agent ) );
+					aiosp_log( sprintf( __( 'Blocked bot with IP %s -- matched user agent %s found in blocklist.', 'all-in-one-seo-pack' ), $ip, $user_agent ));
 					exit();
 				} elseif ( $this->option_isset( 'block_refer' ) && $this->is_bad_referer() ) {
 					status_header( 503 );
 					$ip      = $this->validate_ip( $_SERVER['REMOTE_ADDR'] );
 					$referer = $_SERVER['HTTP_REFERER'];
-					$this->blocked_message( sprintf( __( 'Blocked bot with IP %s -- matched referer %s found in blocklist.', 'all-in-one-seo-pack' ), $ip, $referer ) );
+					aiosp_log( sprintf( __( 'Blocked bot with IP %s -- matched referer %s found in blocklist.', 'all-in-one-seo-pack' ), $ip, $referer ));
 				}
 			}
 		}
