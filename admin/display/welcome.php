@@ -16,7 +16,7 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 			}
 
 			add_action( 'admin_menu', array( $this, 'add_menus' ) );
-			add_action( 'admin_head', array( $this, 'remove_pages' ) );
+			add_action( 'admin_menu', array( $this, 'remove_pages' ), 999 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'welcome_screen_assets' ) );
 
 		}
@@ -37,6 +37,8 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 
 		/**
 		 * Removes unneeded pages.
+         *
+         * @since 2.3.12 Called via admin_menu action instead of admin_head.
 		 */
 		function remove_pages() {
 			remove_submenu_page( 'index.php', 'aioseop-about' );
