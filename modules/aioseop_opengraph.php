@@ -938,6 +938,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					$social_links = $this->options['aiosp_opengraph_profile_links'];
 					if ( ! empty( $this->options['aiosp_opengraph_social_name'] ) ) {
 						$social_name = $this->options['aiosp_opengraph_social_name'];
+					}else{
+						$social_name = '';
 					}
 					if ( $this->options['aiosp_opengraph_person_or_org'] == 'person' ) {
 						$social_type = "Person";
