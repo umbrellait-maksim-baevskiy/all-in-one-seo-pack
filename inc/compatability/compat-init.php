@@ -42,6 +42,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Compatibility' ) ) {
 					'filter_jetpack_site_verification_output',
 				), 10, 1 );
 			}
+
+
+			// Remove Twitter plugin's meta if our Social Module is on.
+			global $aioseop_options;
+			if ( isset( $aioseop_options['modules']['aiosp_feature_manager_options']['aiosp_feature_manager_enable_opengraph'] ) && $aioseop_options['modules']['aiosp_feature_manager_options']['aiosp_feature_manager_enable_opengraph'] === 'on' ) {
+				add_filter('twitter_card','__return_false');
+			}
 		}
 
 		/**
