@@ -507,6 +507,9 @@ function aiosp_seometa_import() {
 			'Canonical URI'    => '_wds_canonical',
 			'Redirect URI'     => '_wds_redirect',
 		),
+		'Jetpack'                => array(
+			'META Description' => 'advanced_seo_description',
+		),
 		'Meta SEO Pack'                => array(
 			'META Description' => '_msp_description',
 			'META Keywords'    => '_msp_keywords',
