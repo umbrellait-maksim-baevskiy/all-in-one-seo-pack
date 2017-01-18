@@ -1758,13 +1758,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Load scripts for module, can pass data to module script.
-         *
-         * @todo Figure out which of these are needed and which can be removed... probably media-upload and thickbox.
 		 */
 		function enqueue_scripts() {
 			wp_enqueue_script( 'sack' );
 			wp_enqueue_script( 'jquery' );
-			wp_enqueue_media(); // WP 3.5+ Media upload.
 			wp_enqueue_script( 'media-upload' );
 			wp_enqueue_script( 'thickbox' );
 			wp_enqueue_script( 'common' );
