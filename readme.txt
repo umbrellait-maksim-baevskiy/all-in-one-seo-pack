@@ -8,7 +8,7 @@ Stable tag: 2.3.11.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-One of the most downloaded WordPress plugins (over 30 million downloads since 2007). Use All in One SEO Pack to optimize your site for Search Engines.
+The original SEO plugin for WordPress, downloaded over 30,000,000 times since 2007.
 
 == Description ==
 
