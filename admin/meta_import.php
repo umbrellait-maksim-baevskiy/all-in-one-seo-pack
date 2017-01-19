@@ -486,6 +486,7 @@ function aiosp_seometa_import() {
 			'Custom Doctitle'  => '_aioseop_title',
 			'META Description' => '_aioseop_description',
 			'META Keywords'    => '_aioseop_keywords',
+			'Canonical URI'    => '_aioseop_custom_link',
 		),
 		'Greg\'s High Performance SEO' => array(
 			'Custom Doctitle'  => '_ghpseo_secondary_title',
