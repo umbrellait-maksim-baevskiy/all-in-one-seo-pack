@@ -1737,9 +1737,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 						add_filter( 'aioseop_localize_script_data', array( $this, 'localize_script_data' ) );
 						add_action( 'admin_print_scripts', array( $this, 'enqueue_scripts' ), 20 );
 						add_action( 'admin_print_scripts', array( $this, 'enqueue_styles' ), 20 );
+						add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 20 );
 					}
 				}
 			}
+		}
+
+		function admin_enqueue_scripts(){
+			wp_enqueue_media(); // WP 3.5+ Media upload.
 		}
 
 		/**
@@ -1764,7 +1769,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			wp_enqueue_script( 'jquery' );
 			wp_enqueue_script( 'media-upload' );
 			wp_enqueue_script( 'thickbox' );
-			wp_enqueue_media(); // WP 3.5+ Media upload.
 			wp_enqueue_script( 'common' );
 			wp_enqueue_script( 'wp-lists' );
 			wp_enqueue_script( 'postbox' );
