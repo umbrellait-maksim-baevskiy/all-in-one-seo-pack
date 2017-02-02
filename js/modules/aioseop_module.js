@@ -245,7 +245,11 @@ jQuery( document ).ready(function() {
 });
 
 /**
- * @since 2.3.11.2
+ * @summary Javascript for using WP media uploader
+ *
+ * @see http://www.webmaster-source.com/2013/02/06/using-the-wordpress-3-5-media-uploader-in-your-plugin-or-theme/
+ * @since ?
+ * @since 2.3.11.2 Use WP 3.5 new media uploader
  *
  */
 jQuery(document).ready(function($){
