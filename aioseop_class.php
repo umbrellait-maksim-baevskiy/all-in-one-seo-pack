@@ -4082,7 +4082,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			$nofollow .= ',noydir';
 		}
 
-		if ( is_singlular() && $this->is_password_protected() && apply_filters( 'aiosp_noindex_password_posts', false ) ){
+		if ( is_singular() && $this->is_password_protected() && apply_filters( 'aiosp_noindex_password_posts', false ) ){
 		    $noindex = 'noindex';
         }
 
