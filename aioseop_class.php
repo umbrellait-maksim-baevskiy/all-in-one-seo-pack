@@ -4008,6 +4008,8 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 	/**
 	 * @return string
+     * @since 0.0
+     * @since 2.3.11.5 Added no index API filter hook for password protected posts.
 	 */
 	function get_robots_meta() {
 		global $aioseop_options;
@@ -4094,6 +4096,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 	/**
      * Determine if post is password protected.
+     * @since 2.3.11.5
 	 * @return bool
 	 */
     function is_password_protected(){
