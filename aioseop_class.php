@@ -4079,6 +4079,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		if ( $aiosp_noydir ) {
 			$nofollow .= ',noydir';
 		}
+
+		if ( is_single() && $this->is_password_protected() && apply_filters( 'aiosp_noindex_password_posts', false ) ){
+		    $noindex = 'noindex';
+        }
+
 		$robots_meta = $noindex . ',' . $nofollow;
 		if ( $robots_meta == 'index,follow' ) {
 			$robots_meta = '';
@@ -4086,6 +4091,21 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 		return $robots_meta;
 	}
+
+	/**
+     * Determine if post is password protected.
+	 * @return bool
+	 */
+    function is_password_protected(){
+	    global $post;
+
+	    if (!empty($post->post_password)) {
+		    return true;
+	    }
+
+        return false;
+
+    }
 
 	/**
 	 * @return mixed|void
