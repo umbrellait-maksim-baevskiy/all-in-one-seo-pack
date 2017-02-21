@@ -32,7 +32,7 @@ Ideas are great. All in One SEO Pack needs them. There are so many difficult pro
 Generally:
 
 1. Open a new issue / pick an existing one
-2. Fork the repo, create a branch, commit to it 
+2. Fork the repo, create a branch (off the development branch), commit to it 
 3. Push the branch, open a pull request
 4. The core team will review it and work with you if necessary
 5. Someone from the core team will merge the PR
