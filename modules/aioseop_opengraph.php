@@ -1168,7 +1168,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			if ( ! empty( $thumbnail ) ) {
 				$twitter_thumbnail = $thumbnail; // Default Twitter image if custom isn't set.
 			}
-			
+
 			if ( isset( $metabox['aioseop_opengraph_settings_customimg_twitter'] ) && ! empty( $metabox['aioseop_opengraph_settings_customimg_twitter'] ) ) {
 				// Set Twitter image from custom.
 				$twitter_thumbnail = set_url_scheme( $metabox['aioseop_opengraph_settings_customimg_twitter'] );
@@ -1211,40 +1211,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			if ( ! empty( $aioseop_options['aiosp_schema_markup'] ) ) {
 				$meta['google+'] = Array( 'thumbnail' => 'image' );
 			}
-
-			// Add links to testing tools
-
-			/*
-			http://developers.facebook.com/tools/debug
-			https://dev.twitter.com/docs/cards/preview
-			http://www.google.com/webmasters/tools/richsnippets
-			*/
-			/*
-			$meta = Array(
-				'facebook'	=> Array(
-						'title'			=> 'og:title',
-						'type'			=> 'og:type',
-						'url'			=> 'og:url',
-						'thumbnail'		=> 'og:image',
-						'sitename'		=> 'og:site_name',
-						'key'			=> 'fb:admins',
-						'description'	=> 'og:description'
-					),
-				'google+'	=> Array(
-						'thumbnail'		=> 'image',
-						'title'			=> 'name',
-						'description'	=> 'description'
-					),
-				'twitter'	=> Array(
-						'card'			=> 'twitter:card',
-						'url'			=> 'twitter:url',
-						'title'			=> 'twitter:title',
-						'description'	=> 'twitter:description',
-						'thumbnail'		=> 'twitter:image'
-
-					)
-			);
-			*/
 
 			$tags = Array(
 				'facebook' => Array( 'name' => 'property', 'value' => 'content' ),
