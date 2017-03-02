@@ -219,7 +219,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'cpostnoodp'                  => __( 'Set the default noodp setting for each Post Type.', 'all-in-one-seo-pack' ),
 			'noydir'                      => __( 'Check this box to ask Yahoo! not to use descriptions from the Yahoo! directory for your entire site.', 'all-in-one-seo-pack' ),
 			'cpostnoydir'                 => __( 'Set the default noydir setting for each Post Type.', 'all-in-one-seo-pack' ),
-			'skip_excerpt'                => __( "Check this and your Meta Descriptions won't be generated from the excerpt.", 'all-in-one-seo-pack' ),
+			'skip_excerpt'                => __( "This option will auto generate your meta descriptions from your post content instead of your post excerpt. This is useful if you don't use post excerpts. WooCommerce users should read the documentation regarding this setting.", 'all-in-one-seo-pack' ),
 			'generate_descriptions'       => __( 'Check this and your Meta Descriptions will be auto-generated from your excerpt or content.', 'all-in-one-seo-pack' ),
 			'run_shortcodes'              => __( 'Check this and shortcodes will get executed for descriptions auto-generated from content.', 'all-in-one-seo-pack' ),
 			'hide_paginated_descriptions' => __( 'Check this and your Meta Descriptions will be removed from page 2 or later of paginated content.', 'all-in-one-seo-pack' ),

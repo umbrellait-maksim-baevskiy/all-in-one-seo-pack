@@ -93,7 +93,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				"description"            => __( "The Home Description is the Open Graph description for your home page.", 'all-in-one-seo-pack' ),
 				"homeimage"              => __( "The Home Image is the Open Graph image for your home page.", 'all-in-one-seo-pack' ),
 				"hometag"                => __( "The Home Tag allows you to add a list of keywords that best describe your home page content.", 'all-in-one-seo-pack' ),
-				"generate_descriptions"  => __( "Check this and your Open Graph descriptions will be auto-generated from your content.", 'all-in-one-seo-pack' ),
+				"generate_descriptions"  => __( "This option will auto generate your Open Graph descriptions from your post content instead of your post excerpt. This is useful if you don't use post excerpts. WooCommerce users should read the documentation regarding this setting.", 'all-in-one-seo-pack' ),
 				"defimg"                 => __( "This option lets you choose which image will be displayed by default for the Open Graph image. You may override this on individual posts.", 'all-in-one-seo-pack' ),
 				"fallback"               => __( "This option lets you fall back to the default image if no image could be found above.", 'all-in-one-seo-pack' ),
 				"dimg"                   => __( "This option sets a default image that can be used for the Open Graph image. You can upload an image, select an image from your Media Library or paste the URL of an image here.", 'all-in-one-seo-pack' ),
