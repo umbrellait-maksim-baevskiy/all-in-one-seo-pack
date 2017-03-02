@@ -1165,8 +1165,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				$creator = AIOSEOP_Opengraph_Public::prepare_twitter_username( $creator );
 			}
 
-			$twitter_thumbnail = $thumbnail; // Default Twitter image if custom isn't set.
-
+			if ( ! empty( $thumbnail ) ) {
+				$twitter_thumbnail = $thumbnail; // Default Twitter image if custom isn't set.
+			}
+			
 			if ( isset( $metabox['aioseop_opengraph_settings_customimg_twitter'] ) && ! empty( $metabox['aioseop_opengraph_settings_customimg_twitter'] ) ) {
 				// Set Twitter image from custom.
 				$twitter_thumbnail = set_url_scheme( $metabox['aioseop_opengraph_settings_customimg_twitter'] );
