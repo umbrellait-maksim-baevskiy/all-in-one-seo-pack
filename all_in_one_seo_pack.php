@@ -387,6 +387,7 @@ if ( ! function_exists( 'aioseop_init_class' ) ) {
 		require_once( AIOSEOP_PLUGIN_DIR . 'public/google-analytics.php' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'admin/display/welcome.php' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'admin/display/dashboard_widget.php' );
+		require_once( AIOSEOP_PLUGIN_DIR . 'admin/display/menu.php' );
 
 		$aioseop_welcome = new aioseop_welcome(); // TODO move this to updates file.
 
