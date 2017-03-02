@@ -3762,8 +3762,8 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		$blog_page  = aiosp_common::get_blog_page( $post );
 		$save_posts = $posts;
 
-		// This seems to provide WooCommerce product archive functionality, but doesn't seem to actually do anything.
-        // $opts and $posts overwritten later, and it's not clear that anything is added to $this->meta_opts that isn't already there.
+		// This outputs robots meta tags and custom canonical URl on WooCommerce product archive page.
+        // See Github issue https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues/755.
 		if ( function_exists( 'wc_get_page_id' ) && is_post_type_archive( 'product' ) && ( $post_id = wc_get_page_id( 'shop' ) ) && ( $post = get_post( $post_id ) ) ) {
 			global $posts;
 			$opts    = $this->meta_opts = $this->get_current_options( array(), 'aiosp', null, $post );
