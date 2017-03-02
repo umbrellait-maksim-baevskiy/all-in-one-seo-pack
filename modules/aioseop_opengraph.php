@@ -1207,7 +1207,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				),
 			);
 
-			//Only show if "use schema.org markup is checked"
+			// Only show if "use schema.org markup is checked".
 			if ( ! empty( $aioseop_options['aiosp_schema_markup'] ) ) {
 				$meta['google+'] = Array( 'thumbnail' => 'image' );
 			}
