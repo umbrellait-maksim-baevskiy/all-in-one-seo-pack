@@ -3581,17 +3581,25 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 * @return mixed|string
 	 */
 	function rewrite_title( $header ) {
-		global $wp_query;
-		if ( ! $wp_query ) {
-			$header .= "<!-- no wp_query found! -->\n";
 
-			return $header;
+	    // Check if we're in the main query to support bad themes and plugins.
+	    global $wp_query;
+		$old_wp_query = null;
+		if ( ! $wp_query->is_main_query() ) {
+			$old_wp_query = $wp_query;
+			wp_reset_query();
 		}
+
 		$title = $this->wp_title();
 		if ( ! empty( $title ) ) {
 			$header = $this->replace_title( $header, $title );
 		}
 
+		if ( ! empty( $old_wp_query ) ) {
+			$GLOBALS['wp_query'] = $old_wp_query;
+			// Change the query back after we've finished.
+			unset( $old_wp_query );
+		}
 		return $header;
 	}
 
@@ -3725,6 +3733,15 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	}
 
 	function wp_head() {
+
+		// Check if we're in the main query to support bad themes and plugins.
+		global $wp_query;
+		$old_wp_query = null;
+		if ( ! $wp_query->is_main_query() ) {
+			$old_wp_query = $wp_query;
+			wp_reset_query();
+		}
+
 		if ( ! $this->is_page_included() ) {
 			return;
 		}
@@ -3916,6 +3933,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		} else {
 			echo "<!-- /all in one seo pack -->\n";
 		}
+
+		if ( ! empty( $old_wp_query ) ) {
+			// Change the query back after we've finished.
+			$GLOBALS['wp_query'] = $old_wp_query;
+			unset( $old_wp_query );
+		}
+
 	}
 
 	/**
