@@ -3582,8 +3582,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 */
 	function rewrite_title( $header ) {
 
+		global $wp_query;
+		if ( ! $wp_query ) {
+			$header .= "<!-- AIOSEOP no wp_query found! -->\n";
+			return $header;
+		}
+
 	    // Check if we're in the main query to support bad themes and plugins.
-	    global $wp_query;
 		$old_wp_query = null;
 		if ( ! $wp_query->is_main_query() ) {
 			$old_wp_query = $wp_query;
