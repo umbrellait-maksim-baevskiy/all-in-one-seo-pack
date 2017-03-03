@@ -932,14 +932,15 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					$sitename = get_bloginfo( 'name' );
 				}
 
-				if ( empty( $description ) && $first_page && ! empty( $post ) && ! empty( $post->post_content ) && ! post_password_required( $post ) ) {
+				if ( empty( $description ) && $first_page && ! empty( $post ) && ! post_password_required( $post ) ) {
 
-					$description = $aiosp->trim_excerpt_without_filters( $aiosp->internationalize( preg_replace( '/\s+/', ' ', $post->post_excerpt ) ), 1000 );
+					if( ! empty( $post->post_content ) || ! empty $post->post_excerpt ){
+						$description = $aiosp->trim_excerpt_without_filters( $aiosp->internationalize( preg_replace( '/\s+/', ' ', $post->post_excerpt ) ), 1000 );
 
-					if( ! empty( $this->options['aiosp_opengraph_generate_descriptions'] )) {
-						$description = $aiosp->trim_excerpt_without_filters( $aiosp->internationalize( preg_replace( '/\s+/', ' ', $post->post_content ) ), 1000 );
+						if( ! empty( $this->options['aiosp_opengraph_generate_descriptions'] )) {
+							$description = $aiosp->trim_excerpt_without_filters( $aiosp->internationalize( preg_replace( '/\s+/', ' ', $post->post_content ) ), 1000 );
+						}
 					}
-
 				}
 
 				if ( empty( $description ) && $first_page ) {
