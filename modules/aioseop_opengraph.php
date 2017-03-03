@@ -932,8 +932,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					$sitename = get_bloginfo( 'name' );
 				}
 
-				if ( empty( $description ) && $first_page && ( ! empty( $this->options['aiosp_opengraph_generate_descriptions'] ) ) && ! empty( $post ) && ! empty( $post->post_content ) && ! post_password_required( $post ) ) {
-					$description = $aiosp->trim_excerpt_without_filters( $aiosp->internationalize( preg_replace( '/\s+/', ' ', $post->post_content ) ), 1000 );
+				if ( empty( $description ) && $first_page && ! empty( $post ) && ! empty( $post->post_content ) && ! post_password_required( $post ) ) {
+
+					$description = $aiosp->trim_excerpt_without_filters( $aiosp->internationalize( preg_replace( '/\s+/', ' ', $post->post_excerpt ) ), 1000 );
+
+					if( ! empty( $this->options['aiosp_opengraph_generate_descriptions'] )) {
+						$description = $aiosp->trim_excerpt_without_filters( $aiosp->internationalize( preg_replace( '/\s+/', ' ', $post->post_content ) ), 1000 );
+					}
+
 				}
 
 				if ( empty( $description ) && $first_page ) {
@@ -1004,12 +1010,20 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					$description = trim( strip_tags( get_post_meta( $post->ID, "_aioseop_description", true ) ) );
 				}
 
-				/* Add some defaults */
+				/* Add default title */
 				if ( empty( $title ) ) {
 					$title = get_the_title();
 				}
-				if ( empty( $description ) && ( $this->options['aiosp_opengraph_generate_descriptions'] ) && ! post_password_required( $post ) ) {
-					$description = $post->post_content;
+
+				// Add default description.
+				if ( empty( $description ) && ! post_password_required( $post ) ) {
+
+					$description = $post->post_excerpt;
+
+					if ( $this->options['aiosp_opengraph_generate_descriptions'] || empty( $description ) ){
+						$description = $post->post_content;
+					}
+
 				}
 				if ( empty( $type ) ) {
 					$type = 'article';
