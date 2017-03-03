@@ -12,7 +12,7 @@ The original SEO plugin for WordPress, downloaded over 30,000,000 times since 20
 
 == Description ==
 
-Use **All in One SEO Pack** to optimize your WordPress site for SEO.
+Use **All in One SEO Pack** to optimize your WordPress site for SEO. It's easy and works out of the box for beginners, and has advanced features and an API for developers. 
 
 **[Upgrade to Pro Version](http://semperplugins.com/plugins/all-in-one-seo-pack-pro-version/?loc=readme_utpv)**
 
