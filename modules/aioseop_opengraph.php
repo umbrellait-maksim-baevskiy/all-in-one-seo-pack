@@ -874,6 +874,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			return $output;
 		}
 
+		/**
+		 * Add our social meta.
+		 *
+		 * @since 1.0.0
+		 * @since 2.3.11.5 Support for multiple fb_admins.
+		 */
 		function add_meta() {
 			global $post, $aiosp, $aioseop_options, $wp_query;
 			$metabox           = $this->get_current_options( Array(), 'settings' );
@@ -1229,8 +1235,18 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 						if ( ! is_array( $filtered_value ) ) {
 							$filtered_value = Array( $filtered_value );
 						}
-						foreach ( $filtered_value as $f ) {
-							echo '<meta ' . $tags[ $t ]['name'] . '="' . $v . '" ' . $tags[ $t ]['value'] . '="' . $f . '" />' . "\n";
+
+						// This is to accomodate multiple fb:admins on separate lines. Eventually we'll want to put this in its own function so things like images work too.
+						if( 'key' === $k ){
+							$fbadmins = explode( ',', str_replace(' ', '', $filtered_value[0] ) ); // Trim spaces then turn comma-separated values into an array.
+							foreach( $fbadmins as $fbadmin){
+								echo '<meta ' . $tags[ $t ]['name'] . '="' . $v . '" ' . $tags[ $t ]['value'] . '="' . $fbadmin . '" />' . "\n";
+							}
+						}else{
+							// For everything else.
+							foreach ( $filtered_value as $f ) {
+								echo '<meta ' . $tags[ $t ]['name'] . '="' . $v . '" ' . $tags[ $t ]['value'] . '="' . $f . '" />' . "\n";
+							}
 						}
 					}
 				}
