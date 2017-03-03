@@ -56,10 +56,6 @@
 		<a class="web" target="_blank" href="https://profiles.wordpress.org/carlalexander/"><img alt="" class="gravatar" src="https://secure.gravatar.com/avatar/5a4758faa5ba6c1322bdfb0f6ebcf56c?s=60">
 			Carl Alexander</a>
 	</li>
-	<li class="wp-person" id="shoheitanaka">
-		<a class="web" target="_blank" href="https://profiles.wordpress.org/shoheitanaka/"><img alt="" class="gravatar" src="https://secure.gravatar.com/avatar/677e512c803c40c0180d4514f876a21f?s=150&d=mm&r=g">
-			Shohei Tanaka</a>
-	</li>
 </ul>
 
 <h3 class="wp-people-group dashicons-before dashicons-translation"><?php printf( _e( 'Translation contributors and translation editors', 'all-in-one-seo-pack' ), '1.2' ); ?></h3>
