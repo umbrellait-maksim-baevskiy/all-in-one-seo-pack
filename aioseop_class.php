@@ -1625,10 +1625,10 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			global $post;
 			$post_id = $post->ID;
 
-			if ( is_post_type_archive() && is_post_type_archive( 'product' ) && $post_id = woocommerce_get_page_id( 'shop' ) && $post = get_post( $post_id ) ) {
+			if ( is_post_type_archive() && is_post_type_archive( 'product' ) && $post_id = wc_get_page_id( 'shop' ) && $post = get_post( $post_id ) ) {
 				$frontpage_id = get_option( 'page_on_front' );
 
-				if ( woocommerce_get_page_id( 'shop' ) == get_option( 'page_on_front' ) && ! empty( $aioseop_options['aiosp_use_static_home_info'] ) ) {
+				if ( wc_get_page_id( 'shop' ) == get_option( 'page_on_front' ) && ! empty( $aioseop_options['aiosp_use_static_home_info'] ) ) {
 					$title = $this->internationalize( get_post_meta( $post->ID, '_aioseop_title', true ) );
 				}
 				// $title = $this->internationalize( $aioseop_options['aiosp_home_title'] );
@@ -1709,7 +1709,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 				return $title;
 			}
-		} else if ( function_exists( 'woocommerce_get_page_id' ) && is_post_type_archive( 'product' ) && ( $post_id = woocommerce_get_page_id( 'shop' ) ) && ( $post = get_post( $post_id ) ) ) {
+		} else if ( function_exists( 'wc_get_page_id' ) && is_post_type_archive( 'product' ) && ( $post_id = wc_get_page_id( 'shop' ) ) && ( $post = get_post( $post_id ) ) ) {
 			// Too far down? -mrt.
 			$title = $this->internationalize( get_post_meta( $post->ID, '_aioseop_title', true ) );
 			if ( ! $title ) {
@@ -2489,15 +2489,15 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		$description = '';
 		if ( is_author() && $this->show_page_description() ) {
 			$description = $this->internationalize( get_the_author_meta( 'description' ) );
-		} else if ( function_exists( 'woocommerce_get_page_id' ) && is_post_type_archive( 'product' ) && ( $post_id = woocommerce_get_page_id( 'shop' ) ) && ( $post = get_post( $post_id ) ) ) {
+		} else if ( function_exists( 'wc_get_page_id' ) && is_post_type_archive( 'product' ) && ( $post_id = wc_get_page_id( 'shop' ) ) && ( $post = get_post( $post_id ) ) ) {
 			// $description = $this->get_post_description( $post );
 			// $description = $this->apply_cf_fields( $description );
-			if ( ! ( woocommerce_get_page_id( 'shop' ) == get_option( 'page_on_front' ) ) ) {
+			if ( ! ( wc_get_page_id( 'shop' ) == get_option( 'page_on_front' ) ) ) {
 				$description = trim( $this->internationalize( get_post_meta( $post->ID, '_aioseop_description', true ) ) );
-			} else if ( woocommerce_get_page_id( 'shop' ) == get_option( 'page_on_front' ) && ! empty( $aioseop_options['aiosp_use_static_home_info'] ) ) {
+			} else if ( wc_get_page_id( 'shop' ) == get_option( 'page_on_front' ) && ! empty( $aioseop_options['aiosp_use_static_home_info'] ) ) {
 				// $description = $this->get_aioseop_description( $post );
 				$description = trim( $this->internationalize( get_post_meta( $post->ID, '_aioseop_description', true ) ) );
-			} else if ( woocommerce_get_page_id( 'shop' ) == get_option( 'page_on_front' ) && empty( $aioseop_options['aiosp_use_static_home_info'] ) ) {
+			} else if ( wc_get_page_id( 'shop' ) == get_option( 'page_on_front' ) && empty( $aioseop_options['aiosp_use_static_home_info'] ) ) {
 				$description = $this->get_aioseop_description( $post );
 			}
 		} else if ( is_front_page() ) {
