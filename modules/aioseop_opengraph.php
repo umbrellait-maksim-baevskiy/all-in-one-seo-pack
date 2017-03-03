@@ -1238,7 +1238,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 						/**
 						 * This is to accomodate multiple fb:admins on separate lines.
-						 * Eventually we'll want to put this in its own function so things like images work too.
+						 * @TODO Eventually we'll want to put this in its own function so things like images work too.
 						 */
 						if( 'key' === $k ){
 							$fbadmins = explode( ',', str_replace(' ', '', $filtered_value[0] ) ); // Trim spaces then turn comma-separated values into an array.
