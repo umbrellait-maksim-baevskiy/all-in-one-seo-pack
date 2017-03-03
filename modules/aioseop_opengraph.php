@@ -555,11 +555,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			);
 
 			$this->layout = Array(
-				'default'   => Array(
-					'name'      => __( 'General Settings', 'all-in-one-seo-pack' ),
-					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/',
-					'options'   => Array() // this is set below, to the remaining options -- pdb
-				),
 				'home'      => Array(
 					'name'      => __( 'Home Page Settings', 'all-in-one-seo-pack' ),
 					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/#use-aioseo-title-and-description',
@@ -595,6 +590,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					'name'      => __( 'Twitter Settings', 'all-in-one-seo-pack' ),
 					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/#default-twitter-card',
 					'options'   => Array( 'defcard', 'setcard', 'twitter_site', 'twitter_creator', 'twitter_domain' ),
+				),
+				'default'   => Array(
+					'name'      => __( 'Advanced Settings', 'all-in-one-seo-pack' ),
+					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/',
+					'options'   => Array() // this is set below, to the remaining options -- pdb
 				),
 				'scan_meta' => Array(
 					'name'      => __( 'Scan Social Meta', 'all-in-one-seo-pack' ),
