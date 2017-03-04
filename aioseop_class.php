@@ -3667,6 +3667,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				add_action( 'aioseop_modules_wp_head', array( $this, 'aiosp_google_analytics' ) );
 			}
 			add_action( 'wp_head', array( $this, 'wp_head' ), apply_filters( 'aioseop_wp_head_priority', 1 ) );
+			add_action( 'amp_post_template_head', array( $this, 'amp_head' ), 11 );
 			add_action( 'template_redirect', array( $this, 'template_redirect' ), 0 );
 		}
 	}
@@ -3737,6 +3738,33 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 		return $description;
 	}
+
+	/**
+	 * Adds meta description to AMP pages.
+     *
+     * @since 2.3.11.5
+	 */
+	function amp_head() {
+		$description = apply_filters( 'aioseop_amp_description', $this->get_main_description( $post ) );    // Get the description.
+		// Handle the description format.
+		if ( isset( $description ) && ( $this->strlen( $description ) > $this->minimum_description_length ) && ! ( is_front_page() && is_paged() ) ) {
+			$description = $this->trim_description( $description );
+			if ( ! isset( $meta_string ) ) {
+				$meta_string = '';
+			}
+			// Description format.
+			$description = apply_filters( 'aioseop_amp_description_full', $this->apply_description_format( $description, $post ) );
+			$desc_attr   = '';
+			if ( ! empty( $aioseop_options['aiosp_schema_markup'] ) ) {
+				$desc_attr = '';
+			}
+			$desc_attr = apply_filters( 'aioseop_amp_description_attributes', $desc_attr );
+			$meta_string .= sprintf( "<meta name=\"description\" %s content=\"%s\" />\n", $desc_attr, $description );
+		}
+		if( ! empty( $meta_string) ){
+		    echo $meta_string;
+        }
+    }
 
 	function wp_head() {
 
