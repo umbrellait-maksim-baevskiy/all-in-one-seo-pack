@@ -909,6 +909,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				$title = $this->options['aiosp_opengraph_hometitle'];
 				if ( $first_page ) {
 					$description = $this->options['aiosp_opengraph_description'];
+					if ( empty( $description ) ){
+						$description = get_bloginfo( 'description' );
+					}
 				}
 				if ( ! empty( $this->options['aiosp_opengraph_homeimage'] ) ) {
 					$thumbnail = $this->options['aiosp_opengraph_homeimage'];
