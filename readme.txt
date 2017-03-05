@@ -30,7 +30,6 @@ First created in 2007, see why AIOSEO is one of the all time most downloaded plu
 * Built-in API so other plugins/themes can access and extend functionality
 * ONLY free plugin to provide SEO Integration for e-Commerce sites, including WooCommerce
 * Nonce Security built into All in One SEO Pack
-* Support for CMS-style WordPress installations
 * Automatically optimizes your **titles** for Google and other search engines
 * Generates **META tags automatically**
 * Avoids the typical duplicate content found on WordPress blogs
