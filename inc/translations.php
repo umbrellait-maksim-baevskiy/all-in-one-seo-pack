@@ -159,8 +159,10 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 			if ( file_exists( ABSPATH . 'wp-admin/includes/translation-install.php' ) ) {
 				require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
 			}
-			$translations      = ( function_exists( 'wp_get_available_translations' ) ) ? wp_get_available_translations() : array();
-			$this->native_name = $translations[ $this->current_locale ]['native_name'];
+			if ( function_exists( 'wp_get_available_translations' ) ) {
+				$translations      = wp_get_available_translations();
+				$this->native_name = $translations[ $this->current_locale ]['native_name'];
+			}
 		}
 
 		/**
