@@ -32,6 +32,8 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 
 		public $percent_translated = '';
 
+		public $native_name = '';
+
 		/**
 		 * AIOSEOP_Translations constructor.
 		 *
@@ -149,9 +151,23 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 		}
 
 		/**
+		 * Gets and sets the native language.
+		 *
+		 * @since 2.3.12.1
+		 */
+		function set_native_language() {
+			if ( file_exists( ABSPATH . 'wp-admin/includes/translation-install.php' ) ) {
+				require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
+			}
+			$translations      = ( function_exists( 'wp_get_available_translations' ) ) ? wp_get_available_translations() : array();
+			$this->native_name = $translations[ $this->current_locale ]['native_name'];
+		}
+
+		/**
 		 *
 		 * @since 2.3.5
 		 * @since 2.3.6 Return FALSE on WP_Error object in get_locale_data().
+		 * @since 2.3.12.1 set_native_language()
 		 *
 		 */
 		private function init() {
@@ -171,6 +187,8 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 			$this->translated_count = $this->count_translated_languages( $locales );
 
 			$this->set_translation_url();
+
+			$this->set_native_language();
 		}
 	}
 
