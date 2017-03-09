@@ -3778,6 +3778,12 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		}
 
 		if ( ! $this->is_page_included() ) {
+			if ( ! empty( $old_wp_query ) ) {
+				// Change the query back after we've finished.
+				$GLOBALS['wp_query'] = $old_wp_query;
+				unset( $old_wp_query );
+			}
+
 			return;
 		}
 		$opts = $this->meta_opts;
@@ -3786,6 +3792,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		$aioseop_dup_counter ++;
 		if ( $aioseop_dup_counter > 1 ) {
 			echo "\n<!-- " . sprintf( __( 'Debug Warning: All in One SEO Pack meta data was included again from %s filter. Called %s times!', 'all-in-one-seo-pack' ), current_filter(), $aioseop_dup_counter ) . " -->\n";
+			if ( ! empty( $old_wp_query ) ) {
+				// Change the query back after we've finished.
+				$GLOBALS['wp_query'] = $old_wp_query;
+				unset( $old_wp_query );
+			}
 
 			return;
 		}
