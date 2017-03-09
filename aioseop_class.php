@@ -4795,7 +4795,7 @@ EOF;
 				'display_extra_metaboxes',
 			), 'aioseop_metaboxes', 'side', 'core' );
 		} else {
-			add_meta_box( 'aioseop-about', "About <span class='Taha' style='float:right;'>Version <b>" . AIOSEOP_VERSION . '</b></span>', array(
+			add_meta_box( 'aioseop-about', __( 'About', 'all-in-one-seo-pack' ) . "<span class='Taha' style='float:right;'>" . __( 'Version', 'all-in-one-seo-pack' ) . " <b>" . AIOSEOP_VERSION . '</b></span>', array(
 				'aiosp_metaboxes',
 				'display_extra_metaboxes',
 			), 'aioseop_metaboxes', 'side', 'core' );
