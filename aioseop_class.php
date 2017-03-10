@@ -3747,6 +3747,12 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	function amp_head() {
 		$post = $this->get_queried_object();
 		$description = apply_filters( 'aioseop_amp_description', $this->get_main_description( $post ) );    // Get the description.
+
+		// To disable AMP meta description just __return_false on the aioseop_amp_description filter.
+		if ( isset( $description ) && false == $description ) {
+			return;
+		}
+
 		// Handle the description format.
 		if ( isset( $description ) && ( $this->strlen( $description ) > $this->minimum_description_length ) && ! ( is_front_page() && is_paged() ) ) {
 			$description = $this->trim_description( $description );
