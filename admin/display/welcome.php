@@ -66,6 +66,16 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 		 */
 		function init( $activate = false ) {
 
+			wp_cache_flush();
+			aiosp_common::clear_wpe_cache();
+			
+			delete_transient( '_aioseop_activation_redirect' );
+
+			$seen = 0;
+			$seen = get_user_meta( get_current_user_id(), 'aioseop_seen_about_page', true );
+
+			update_user_meta( get_current_user_id(), 'aioseop_seen_about_page', AIOSEOP_VERSION );
+
 			if ( AIOSEOPPRO ) {
 				return;
 			}
@@ -82,15 +92,10 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 			if ( ! current_user_can( 'manage_options' ) ) {
 				return;
 			}
-			$seen = 0;
-			$seen = get_user_meta( get_current_user_id(), 'aioseop_seen_about_page', true );
-			if ( AIOSEOP_VERSION === get_user_meta( get_current_user_id(), 'aioseop_seen_about_page', true ) && true !== $activate ) {
+			
+			if ( ( AIOSEOP_VERSION === $seen ) || ( true !== $activate ) ) {
 				return;
 			}
-
-			update_user_meta( get_current_user_id(), 'aioseop_seen_about_page', AIOSEOP_VERSION );
-
-			aiosp_common::clear_wpe_cache();
 
 			wp_safe_redirect( add_query_arg( array( 'page' => 'aioseop-about' ), admin_url( 'index.php' ) ) );
 			exit;
