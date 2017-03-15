@@ -66,6 +66,19 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 		 */
 		function init( $activate = false ) {
 
+			if ( ! is_admin() ) {
+				return;
+			}
+
+			// Bail if activating from network, or bulk
+			if ( is_network_admin() || isset( $_GET['activate-multi'] ) ) {
+				return;
+			}
+
+			if ( ! current_user_can( 'manage_options' ) ) {
+				return;
+			}
+			
 			wp_cache_flush();
 			aiosp_common::clear_wpe_cache();
 			
@@ -77,19 +90,6 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 			update_user_meta( get_current_user_id(), 'aioseop_seen_about_page', AIOSEOP_VERSION );
 
 			if ( AIOSEOPPRO ) {
-				return;
-			}
-
-			if ( ! is_admin() ) {
-				return;
-			}
-
-			// Bail if activating from network, or bulk
-			if ( is_network_admin() || isset( $_GET['activate-multi'] ) ) {
-				return;
-			}
-
-			if ( ! current_user_can( 'manage_options' ) ) {
 				return;
 			}
 			
