@@ -247,7 +247,7 @@ jQuery( document ).ready(function() {
 /**
  * @summary Custom jQuery plugin that enables image uploader in wordpress.
  * 
- * @since {release-target}
+ * @since 2.3.13
  * @see http://www.webmaster-source.com/2013/02/06/using-the-wordpress-3-5-media-uploader-in-your-plugin-or-theme/
  */
 jQuery.fn.aioseopImageUploader = function() {
@@ -258,7 +258,7 @@ jQuery.fn.aioseopImageUploader = function() {
     self.target = jQuery( self ).next();
 
     // Uploader per image button
-    // * Hacing only one uploader was causing problems when multiple image buttons where in place
+    // * Having only one uploader was causing problems when multiple image buttons where in place
     self.uploader = wp.media({
         title: 'Choose Image',
         button: {
@@ -299,7 +299,7 @@ jQuery.fn.aioseopImageUploader = function() {
  * @see http://www.webmaster-source.com/2013/02/06/using-the-wordpress-3-5-media-uploader-in-your-plugin-or-theme/
  * @since ?
  * @since 2.3.11.2 Use WP 3.5 new media uploader
- * @since {release-target} Fixed issue #[740](https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues/740)
+ * @since 2.3.13 Fixed issue #[740](https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues/740)
  *
  */
 jQuery(document).ready(function($){
