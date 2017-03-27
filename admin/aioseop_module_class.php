@@ -2336,6 +2336,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				if ( $opts['type'] == 'textarea' ) {
 					$attr_list = array_merge( $attr_list, array( 'rows', 'cols' ) );
 				}
+				if ( $name === 'aiosp_description' ) {
+					$opts['placeholder'] = htmlspecialchars( wp_strip_all_tags( htmlspecialchars_decode( $opts['placeholder'] ) ) );
+				}
 				$attr = '';
 				foreach ( $attr_list as $a ) {
 					if ( isset( $opts[ $a ] ) ) {
