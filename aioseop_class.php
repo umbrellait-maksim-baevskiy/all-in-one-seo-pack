@@ -1168,7 +1168,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		if ( $this->strlen( $title ) > 70 ) {
 			$title = $this->trim_excerpt_without_filters( $title, 70 ) . '...';
 		}
-		$description = htmlspecialchars( wp_strip_all_tags( htmlspecialchars_decode( $description ) ) );
 		if ( $this->strlen( $description ) > 156 ) {
 			$description = $this->trim_excerpt_without_filters( $description, 156 ) . '...';
 		}
@@ -2476,6 +2475,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			}
 			$description = $this->internationalize( $description );
 		}
+		$description = htmlspecialchars( wp_strip_all_tags( htmlspecialchars_decode( $description ) ) );
 		if ( empty( $aioseop_options['aiosp_dont_truncate_descriptions'] ) ) {
 			$description = $this->trim_excerpt_without_filters( $description );
 		}
