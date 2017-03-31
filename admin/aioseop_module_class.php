@@ -953,6 +953,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				$buf .= $this->post_data_export( '_aioseop', array(
 					'posts_per_page' => - 1,
 					'post_type'      => $post_types,
+					'post_status' => array( 'publish', 'pending', 'draft', 'future', 'private', 'inherit' ),
 				) );
 			}
 
