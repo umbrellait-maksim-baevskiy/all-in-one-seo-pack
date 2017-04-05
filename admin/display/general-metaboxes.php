@@ -39,7 +39,10 @@ class aiosp_metaboxes {
 					if ( ! AIOSEOPPRO ) {
 						?>
 						<p>
-							<strong><?php echo aiosp_common::get_upgrade_hyperlink( 'side', __( 'Pro Version', 'all-in-one-seo-pack' ), __( 'CLICK HERE', 'all-in-one-seo-pack' ), '_blank' ); ?><?php echo '__( ' to upgrade to Pro Version and get:', 'all-in-one-seo-pack' )'?></strong>
+							<strong>
+                                <?php
+                                echo aiosp_common::get_upgrade_hyperlink( 'side', __( 'Pro Version', 'all-in-one-seo-pack' ), __( 'CLICK HERE', 'all-in-one-seo-pack' ), '_blank' );
+                                echo __( ' to upgrade to Pro Version and get:', 'all-in-one-seo-pack' ); ?></strong>
 						</p>
 					<?php } ?>
 				</div>
@@ -155,16 +158,16 @@ class aiosp_metaboxes {
 		echo '<ul>';
 
 		if ( class_exists( 'WooCommerce' ) ) {
-			echo '<li>__( 'Advanced support for WooCommerce', 'all-in-one-seo-pack' )</li>';
+			echo '<li>' . __( 'Advanced support for WooCommerce', 'all-in-one-seo-pack' ) . '</li>';
 		}else{
-			echo '<li>__( 'Advanced support for e-commerce', 'all-in-one-seo-pack' )</li>';
+			echo '<li>' . __( 'Advanced support for e-commerce', 'all-in-one-seo-pack' ) . '</li>';
 		}
 
-		echo '<li>__( 'Video SEO Module', 'all-in-one-seo-pack' )</li>';
-		echo '<li>__( 'SEO for Categories, Tags and Custom Taxonomies', 'all-in-one-seo-pack' )</li>';
-		echo '<li>__( 'Access to Video Screencasts', 'all-in-one-seo-pack' )</li>';
-		echo '<li>__( 'Access to Premium Support Forums', 'all-in-one-seo-pack' )</li>';
-		echo '<li>__( 'Access to Knowledge Center', 'all-in-one-seo-pack' )</li>';
+		echo '<li>' . __( 'Video SEO Module', 'all-in-one-seo-pack' ) . '</li>';
+		echo '<li>' . __( 'SEO for Categories, Tags and Custom Taxonomies', 'all-in-one-seo-pack' ) . '</li>';
+		echo '<li>' . __( 'Access to Video Screencasts', 'all-in-one-seo-pack' ) . '</li>';
+		echo '<li>' . __( 'Access to Premium Support Forums', 'all-in-one-seo-pack' ) . '</li>';
+		echo '<li>' . __( 'Access to Knowledge Center', 'all-in-one-seo-pack' ) . '</li>';
 
 		echo '</ul>';
 
