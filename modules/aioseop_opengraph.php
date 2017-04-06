@@ -255,12 +255,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					'type'            => 'select',
 					'initial_options' => Array(
 						''         => __( 'Default Image', 'all-in-one-seo-pack' ),
- +						'featured' => __( 'Featured Image', 'all-in-one-seo-pack' ),
- +						'attach'   => __( 'First Attached Image', 'all-in-one-seo-pack' ),
- +						'content'  => __( 'First Image In Content', 'all-in-one-seo-pack' ),
- +						'custom'   => __( 'Image From Custom Field', 'all-in-one-seo-pack' ),
- +						'author'   => __( 'Post Author Image', 'all-in-one-seo-pack' ),
- +						'auto'     => __( 'First Available Image', 'all-in-one-seo-pack' ),
+ 						'featured' => __( 'Featured Image', 'all-in-one-seo-pack' ),
+ 						'attach'   => __( 'First Attached Image', 'all-in-one-seo-pack' ),
+ 						'content'  => __( 'First Image In Content', 'all-in-one-seo-pack' ),
+ 						'custom'   => __( 'Image From Custom Field', 'all-in-one-seo-pack' ),
+ 						'author'   => __( 'Post Author Image', 'all-in-one-seo-pack' ),
+ 						'auto'     => __( 'First Available Image', 'all-in-one-seo-pack' ),
 					),
 				),
 				'fallback'               => Array(
