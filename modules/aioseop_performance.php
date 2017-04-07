@@ -228,9 +228,15 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 				$ms = __( 'N/A', 'all-in-one-seo-pack' );
 			}
 
-			$siteurl    = get_option( 'siteurl' );
-			$homeurl    = get_option( 'home' );
-			$db_version = get_option( 'db_version' );
+			$siteurl        = get_option( 'siteurl' );
+			$homeurl        = get_option( 'home' );
+			$db_version     = get_option( 'db_version' );
+			$site_title     = get_bloginfo( 'name' );
+			$language       = get_bloginfo( 'language' );
+			$front_displays = get_option( 'show_on_front' );
+			$page_on_front  = get_option( 'page_on_front' );
+			$blog_public    = get_option( 'blog_public' );
+			$perm_struct    = get_option( 'permalink_structure' );
 
 			$debug_info                   = array(
 				__( 'Operating System', 'all-in-one-seo-pack' )            => PHP_OS,
@@ -253,6 +259,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 				__( 'WordPress DB Version', 'all-in-one-seo-pack' )        => $db_version,
 				__( 'Multisite', 'all-in-one-seo-pack' )                   => $ms,
 				__( 'Active Theme', 'all-in-one-seo-pack' )                => $theme['Name'] . ' ' . $theme['Version'],
+				__( 'Site Title', 'all-in-one-seo-pack' )                  => $site_title,
+				__( 'Site Language', 'all-in-one-seo-pack' )               => $language,
+				__( 'Front Page Displays', 'all-in-one-seo-pack' )         => $front_displays === 'page' ? $front_displays . ' [ID = ' . $page_on_front . ']' : $front_displays,
+				__( 'Search Engine Visibility', 'all-in-one-seo-pack' )    => $blog_public,
+				__( 'Permalink Setting', 'all-in-one-seo-pack' )           => $perm_struct,
 			);
 			$debug_info['Active Plugins'] = null;
 			$active_plugins               = $inactive_plugins = array();
