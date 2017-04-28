@@ -962,7 +962,7 @@ function aioseop_woo_upgrade_notice_dismissed() {
  * Returns home_url() value compatible for any use.
  * Thought for compatibility purposes.
  *
- * @since 2.3.13
+ * @since 2.3.12.3
  *
  * @param string $path Relative path to home_url().
  *

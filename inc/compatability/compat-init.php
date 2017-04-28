@@ -21,7 +21,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Compatibility' ) ) {
 		/**
 		 * List of compatibility classes to execute and run.
 		 *
-		 * @since 2.3.13
+		 * @since 2.3.12.3
 		 *
 		 * @var array
 		 */
@@ -42,7 +42,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Compatibility' ) ) {
 		 * Load Compatibility Hooks.
 		 *
 		 * @since 2.3.6
-		 * @since 2.3.13 Runs hooks located in compatibility classes.
+		 * @since 2.3.12.3 Runs hooks located in compatibility classes.
 		 */
 		public function load_compatibility_hooks() {
 			// We'll use this until we set up our classes.
@@ -135,7 +135,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Compatibility' ) ) {
 		 * Load Compatibility classes.
 		 *
 		 * @since 2.3.6
-		 * @since 2.3.13 WPML compatibility loaded.
+		 * @since 2.3.12.3 WPML compatibility loaded.
 		 */
 		public function load_compatibility_classes() {
 			// Load classes

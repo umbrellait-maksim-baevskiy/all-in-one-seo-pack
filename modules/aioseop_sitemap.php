@@ -605,7 +605,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * Add in options for status display on settings page, sitemap rewriting on multisite.
 		 *
 		 * @since 2.3.6
-		 * @since 2.3.13 Refactored to use aioseop_home_url() for compatibility purposes.
+		 * @since 2.3.12.3 Refactored to use aioseop_home_url() for compatibility purposes.
 		 *
 		 * @param $options
 		 *
@@ -1281,7 +1281,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * Build a url to the sitemap.
 		 *
 		 * @since 2.3.6
-		 * @since 2.3.13 Refactored to use aioseop_home_url() for compatibility purposes.
+		 * @since 2.3.12.3 Refactored to use aioseop_home_url() for compatibility purposes.
 		 *
 		 * @return string
 		 */
@@ -1532,7 +1532,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * Build an index of sitemaps used.
 		 *
 		 * @since 2.3.6
-		 * @since 2.3.13 Refactored to use aioseop_home_url() for compatibility purposes.
+		 * @since 2.3.12.3 Refactored to use aioseop_home_url() for compatibility purposes.
 		 *
 		 * @return array
 		 */
@@ -1800,7 +1800,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * Get simple sitemap.
 		 *
 		 * @since 2.3.6
-		 * @since 2.3.13 Refactored to use aioseop_home_url() for compatibility purposes.
+		 * @since 2.3.12.3 Refactored to use aioseop_home_url() for compatibility purposes.
 		 *
 		 * @return array
 		 */
@@ -1905,7 +1905,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * @see   https://semperplugins.com/documentation/aioseop_sitemap_xsl_url/
 		 *
 		 * @since 2.3.6
-		 * @since 2.3.13 Refactored to use aioseop_home_url() for compatibility purposes.
+		 * @since 2.3.12.3 Refactored to use aioseop_home_url() for compatibility purposes.
 		 */
 		function get_sitemap_xsl() {
 
@@ -2230,7 +2230,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * Return data for user entered additional pages.
 		 *
 		 * @since 2.3.6
-		 * @since 2.3.13 Refactored to use aioseop_home_url() for compatibility purposes.
+		 * @since 2.3.12.3 Refactored to use aioseop_home_url() for compatibility purposes.
 		 *
 		 * @return array|mixed|void
 		 */
@@ -2283,7 +2283,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * Return data for user entered additional pages and extra pages.
 		 *
 		 * @since 2.3.6
-		 * @since 2.3.13 Refactored to use aioseop_home_url() for compatibility purposes.
+		 * @since 2.3.12.3 Refactored to use aioseop_home_url() for compatibility purposes.
 		 *
 		 * @return array|mixed|void
 		 */

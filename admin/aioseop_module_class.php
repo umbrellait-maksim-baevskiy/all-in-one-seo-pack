@@ -1764,7 +1764,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Load scripts for module, can pass data to module script.
-		 * @since 2.3.12.2 Add missing wp_enqueue_media.
+		 * @since 2.3.12.3 Add missing wp_enqueue_media.
 		 */
 		function enqueue_scripts() {
 			wp_enqueue_script( 'sack' );

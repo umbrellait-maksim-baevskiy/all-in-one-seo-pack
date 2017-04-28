@@ -7,7 +7,7 @@
  * @package All-in-One-SEO-Pack
  *
  * @since 2.3.6
- * @since 2.3.13 Refactoring indentation and added xmlns fix for Chrome rendering.
+ * @since 2.3.12.3 Refactoring indentation and added xmlns fix for Chrome rendering.
  */
 
 echo '<?xml version="1.0" encoding="UTF-8"?>';

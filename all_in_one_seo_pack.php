@@ -372,7 +372,8 @@ if ( ! function_exists( 'aioseop_init_class' ) ) {
 	/**
 	 * Inits All-in-One-Seo plugin class.
 	 *
-	 * @since 2.3.13 Loads third party compatibility class.
+	 * @since ?? // When was this added?
+	 * @since 2.3.12.3 Loads third party compatibility class.
 	 */
 	function aioseop_init_class() {
 		global $aiosp;

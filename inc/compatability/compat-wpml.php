@@ -13,7 +13,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Wpml' ) ) {
         /**
          * Returns flag indicating if WPML is present.
          *
-         * @since 2.3.13
+         * @since 2.3.12.3
          *
          * @return bool
          */
@@ -24,7 +24,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Wpml' ) ) {
         /**
          * Declares compatibility hooks.
          *
-         * @since 2.3.13
+         * @since 2.3.12.3
          */
         public function hooks() {
             add_filter( 'aioseop_home_url', array( &$this, 'aioseop_home_url' ) );
@@ -36,7 +36,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Wpml' ) ) {
          * This is needed to obtain the correct domain in which wordpress is running on.
          * AIOSEOP would have ran first expecting the return of home_url().
          *
-         * @since 2.3.13
+         * @since 2.3.12.3
          *
          * @param string $path Relative path or url.
          *
@@ -58,7 +58,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Wpml' ) ) {
         /**
          * Returns XSL url without query string.
          *
-         * @since 2.3.13
+         * @since 2.3.12.3
          *
          * @param string $url XSL url.
          *
