@@ -1554,8 +1554,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 			$options["{$this->prefix}posttypes"]  = array_diff( $options["{$this->prefix}posttypes"], array( 'all' ) );
 			$options["{$this->prefix}taxonomies"] = array_diff( $options["{$this->prefix}taxonomies"], array( 'all' ) );
-			$url_base                             = aioseop_home_url( '/' );
-			$files[]                              = array( 'loc' => $url_base . $prefix . '_addl' . $suffix );
+
+			$files[] = array( 'loc' => aioseop_home_url( '/' . $prefix . '_addl' . $suffix ) );
+
 			if ( ! empty( $options["{$this->prefix}posttypes"] ) ) {
 				$prio        = $this->get_default_priority( 'post' );
 				$freq        = $this->get_default_frequency( 'post' );
@@ -1575,21 +1576,21 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 							$count = 1;
 							for ( $post_count = 0; $post_count < $post_counts[ $sm ]; $post_count += $this->max_posts ) {
 								$files[] = array(
-									'loc'        => $url_base . $prefix . '_' . $sm . '_' . ( $count ++ ) . $suffix,
+									'loc'        => aioseop_home_url ( '/' . $prefix . '_' . $sm . '_' . ( $count ++ ) . $suffix ),
 									'priority'   => $prio,
 									'changefreq' => $freq,
 								);
 							}
 						} else {
 							$files[] = array(
-								'loc'        => $url_base . $prefix . '_' . $sm . $suffix,
+								'loc'        => aioseop_home_url ( '/' . $prefix . '_' . $sm . $suffix ),
 								'priority'   => $prio,
 								'changefreq' => $freq,
 							);
 						}
 					} else {
 						$files[] = array(
-							'loc'        => $url_base . $prefix . '_' . $sm . $suffix,
+							'loc'        => aioseop_home_url ( '/' . $prefix . '_' . $sm . $suffix ),
 							'priority'   => $prio,
 							'changefreq' => $freq,
 						);
@@ -1598,14 +1599,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 			if ( $this->option_isset( 'archive' ) ) {
 				$files[] = array(
-					'loc'        => $url_base . $prefix . '_archive' . $suffix,
+					'loc'        => aioseop_home_url ( '/' . $prefix . '_archive' . $suffix ),
 					'priority'   => $this->get_default_priority( 'archive' ),
 					'changefreq' => $this->get_default_frequency( 'archive' ),
 				);
 			}
 			if ( $this->option_isset( 'author' ) ) {
 				$files[] = array(
-					'loc'        => $url_base . $prefix . '_author' . $suffix,
+					'loc'        => aioseop_home_url ( '/' . $prefix . '_author' . $suffix ),
 					'priority'   => $this->get_default_priority( 'author' ),
 					'changefreq' => $this->get_default_frequency( 'author' ),
 				);
@@ -1620,21 +1621,21 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 								$count = 1;
 								for ( $tc = 0; $tc < $term_count; $tc += $this->max_posts ) {
 									$files[] = array(
-										'loc'        => $url_base . $prefix . '_' . $sm . '_' . ( $count ++ ) . $suffix,
+										'loc'        => aioseop_home_url ( '/' . $prefix . '_' . $sm . '_' . ( $count ++ ) . $suffix ),
 										'priority'   => $this->get_default_priority( 'taxonomies' ),
 										'changefreq' => $this->get_default_frequency( 'taxonomies' ),
 									);
 								}
 							} else {
 								$files[] = array(
-									'loc'        => $url_base . $prefix . '_' . $sm . $suffix,
+									'loc'        => aioseop_home_url ( '/' . $prefix . '_' . $sm . $suffix ),
 									'priority'   => $this->get_default_priority( 'taxonomies' ),
 									'changefreq' => $this->get_default_frequency( 'taxonomies' ),
 								);
 							}
 						} else {
 							$files[] = array(
-								'loc'        => $url_base . $prefix . '_' . $sm . $suffix,
+								'loc'        => aioseop_home_url ( '/' . $prefix . '_' . $sm . $suffix ),
 								'priority'   => $this->get_default_priority( 'taxonomies' ),
 								'changefreq' => $this->get_default_frequency( 'taxonomies' ),
 							);
