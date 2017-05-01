@@ -1286,7 +1286,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * @return string
 		 */
 		function get_sitemap_url() {
-			$url = aioseop_home_url( '/' ) . $this->options["{$this->prefix}filename"] . '.xml';
+			$url = aioseop_home_url( '/' . $this->options["{$this->prefix}filename"] . '.xml' );
 			if ( $this->options["{$this->prefix}gzipped"] ) {
 				$url .= '.gz';
 			}
