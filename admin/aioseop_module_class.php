@@ -1777,7 +1777,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			if ( ! empty( $this->pointers ) ) {
 				wp_enqueue_script( 'wp-pointer', false, array( 'jquery' ) );
 			}
-			wp_enqueue_media();
+			global $post;
+			if( !empty( $post->ID) ) {
+				wp_enqueue_media( array( 'post' => $post->ID ) );
+			}else{
+				wp_enqueue_media();
+            }
 			wp_enqueue_script( 'aioseop-module-script', AIOSEOP_PLUGIN_URL . 'js/modules/aioseop_module.js', array(), AIOSEOP_VERSION );
 			if ( ! empty( $this->script_data ) ) {
 				aioseop_localize_script_data();
