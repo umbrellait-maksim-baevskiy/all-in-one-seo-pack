@@ -4818,7 +4818,7 @@ EOF;
 
 	/**
 	 * Filters meta value and applies generic cleanup.
-	 * - Removal of HTML entities (ie: &nbsp;).
+	 * - Removal of some HTML entities (ie: &nbsp;).
 	 * - Removal of urls.
 	 * - Internal trim.
 	 * Returns cleaned value.
@@ -4832,8 +4832,8 @@ EOF;
 	public function filter_meta_value( $value, $is_url = false ) {
 		$value = preg_replace(
 			array(
-				'/\&[\s\S]+\;/',// Remove HTML entities
-				$is_url ? '/\&[\s\S]+\;/' : '@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@',// Remove URLs
+				'/\&(nbsp)\;/',// Remove HTML entities
+				$is_url ? '/\&n\/a\;/' : '@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@',// Remove URLs
 			),
 			array(
 				'', // Replacement HTML entities
