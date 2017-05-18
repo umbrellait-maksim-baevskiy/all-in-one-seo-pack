@@ -3620,7 +3620,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			add_action( 'amp_post_template_head', array( $this, 'amp_head' ), 11 );
 			add_action( 'template_redirect', array( $this, 'template_redirect' ), 0 );
 		}
-		add_filter( 'aioseop_meta_value', array( &$this, 'filter_meta_value' ), 1 );
+		add_filter( 'aioseop_meta_value', array( &$this, 'filter_meta_value' ), 10, 2 );
 	}
 
 	function visibility_warning() {
@@ -4819,6 +4819,7 @@ EOF;
 	/**
 	 * Filters meta value and applies generic cleanup.
 	 * - Removal of HTML entities (ie: &nbsp;).
+	 * - Removal of urls.
 	 * - Internal trim.
 	 * Returns cleaned value.
 	 *
@@ -4828,9 +4829,18 @@ EOF;
 	 *
 	 * @return string
 	 */
-	public function filter_meta_value( $value ) {
-		// Remove HTML entities
-		$value = preg_replace( '/\&[\s\S]+\;/', '', $value );
+	public function filter_meta_value( $value, $is_url = false ) {
+		$value = preg_replace(
+			array(
+				'/\&[\s\S]+\;/',// Remove HTML entities
+				$is_url ? '/\&[\s\S]+\;/' : '@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@',// Remove URLs
+			),
+			array(
+				'', // Replacement HTML entities
+				'', // Replacement URLs
+			),
+			$value
+		);
 		// Internal whitespace trim.
 		$value = preg_replace( '/\s\s+/u', ' ', $value );
 		return $value;
