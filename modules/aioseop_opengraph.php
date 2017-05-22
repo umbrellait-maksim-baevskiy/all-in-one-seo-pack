@@ -760,7 +760,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					$info = $aiosp->get_page_snippet_info();
 					extract( $info );
 					// Add filters
-					$description = apply_filters( 'aioseop_meta_value', $description );
+					$description = apply_filters( 'aioseop_description', $description );
 					// Add placholders
 					$settings["{$prefix}title"]['placeholder'] = $title;
 					$settings["{$prefix}desc"]['placeholder']  = $description;
@@ -882,7 +882,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 		 *
 		 * @since 1.0.0
 		 * @since 2.3.11.5 Support for multiple fb_admins.
-		 * @since 2.3.13   Adds filter:aioseop_meta_value on description.
+		 * @since 2.3.13   Adds filter:aioseop_description on description.
 		 */
 		function add_meta() {
 			global $post, $aiosp, $aioseop_options, $wp_query;
@@ -1203,7 +1203,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			}
 
 			// Apply last filters.
-			$description = apply_filters( 'aioseop_meta_value', $description );
+			$description = apply_filters( 'aioseop_description', $description );
 
 			$meta = Array(
 				'facebook' => Array(
@@ -1265,12 +1265,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 						 * This is to accomodate multiple fb:admins on separate lines.
 						 * @TODO Eventually we'll want to put this in its own function so things like images work too.
 						 */
-						if( 'key' === $k ){
+						if ( 'key' === $k ){
 							$fbadmins = explode( ',', str_replace(' ', '', $filtered_value[0] ) ); // Trim spaces then turn comma-separated values into an array.
 							foreach( $fbadmins as $fbadmin){
 								echo '<meta ' . $tags[ $t ]['name'] . '="' . $v . '" ' . $tags[ $t ]['value'] . '="' . $fbadmin . '" />' . "\n";
 							}
-						}else{
+						} else {
 							// For everything else.
 							foreach ( $filtered_value as $f ) {
 								echo '<meta ' . $tags[ $t ]['name'] . '="' . $v . '" ' . $tags[ $t ]['value'] . '="' . $f . '" />' . "\n";
