@@ -759,6 +759,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					global $aiosp;
 					$info = $aiosp->get_page_snippet_info();
 					extract( $info );
+					// Add filters
+					$description = apply_filters( 'aioseop_meta_value', $description );
+					// Add placholders
 					$settings["{$prefix}title"]['placeholder'] = $title;
 					$settings["{$prefix}desc"]['placeholder']  = $description;
 				}
@@ -879,6 +882,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 		 *
 		 * @since 1.0.0
 		 * @since 2.3.11.5 Support for multiple fb_admins.
+		 * @since 2.3.13   Adds filter:aioseop_meta_value on description.
 		 */
 		function add_meta() {
 			global $post, $aiosp, $aioseop_options, $wp_query;
@@ -1197,6 +1201,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				// Set Twitter image from custom.
 				$twitter_thumbnail = set_url_scheme( $metabox['aioseop_opengraph_settings_customimg_twitter'] );
 			}
+
+			// Apply last filters.
+			$description = apply_filters( 'aioseop_meta_value', $description );
 
 			$meta = Array(
 				'facebook' => Array(
