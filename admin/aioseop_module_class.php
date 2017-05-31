@@ -2534,8 +2534,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			$this->settings_page_init();
 			?>
 			<div class="wrap <?php echo get_class( $this ); ?>">
+				<?php
+				ob_start();
+				do_action( $this->prefix . 'settings_header_errors', $location );
+				$errors = ob_get_clean();
+				echo $errors;
+				?>
 				<div id="aioseop_settings_header">
-					<?php if ( ! empty( $message ) ) {
+					<?php if ( ! empty( $message ) && empty( $errors ) ) {
 						echo "<div id=\"message\" class=\"updated fade\"><p>$message</p></div>";
 					} ?>
 					<div id="icon-aioseop" class="icon32"><br></div>

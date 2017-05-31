@@ -200,7 +200,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Importer_Exporter' ) ) {
 
 			if ( is_array( $this->warnings ) ) {
 				foreach ( $this->warnings as $warning ) {
-					echo "<p>" . esc_html( $warning ) . "</p>";
+					echo "<p>" . wp_kses( wp_unslash( $warning ), 'b, strong, i, em' ) . "</p>";
 				}
 			}
 			echo '</div>';
@@ -492,7 +492,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Importer_Exporter' ) ) {
 								}
 							}
 						} catch ( Exception $e ) {
+							// Shows only one warning when compromised file is imported
+							$this->warnings = array();
 							$this->warnings[] = $e->getMessage();
+							add_action(
+								$this->prefix . 'settings_header_errors',
+								array( $this, 'show_import_warnings' )
+							);
+							break;
 						}
 
 						// Shows all errors found
