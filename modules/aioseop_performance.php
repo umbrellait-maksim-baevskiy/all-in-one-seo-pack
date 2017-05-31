@@ -80,6 +80,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 
 			$system_status = array(
 				'status' => array( 'default' => '', 'type' => 'html', 'label' => 'none', 'save' => false ),
+				'send_email' => array( 'default' => '', 'type' => 'html', 'label' => 'none', 'save' => false ),
 			);
 
 			$this->layout['system_status'] = array(
@@ -151,6 +152,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 
 		function settings_page_init() {
 			$this->default_options['status']['default'] = $this->get_serverinfo();
+			$this->default_options['send_email']['default'] = $this->get_email_input();
 		}
 
 		function menu_order() {
@@ -345,9 +347,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 					}
 				}
 			} while ( 0 ); // Control structure for use with break.
+			$buf   = "<ul class='sfwd_debug_settings'>\n{$page_text}\n</ul>\n";
+
+			return $buf;
+		}
+
+		function get_email_input() {
 			$nonce = wp_create_nonce( 'sfwd-debug-nonce' );
-			$buf   = "<ul class='sfwd_debug_settings'>\n{$page_text}\n</ul>\n<p>\n" .
-			         '<input name="sfwd_debug_send_email" type="text" value="" placeholder="' . __( 'E-mail debug information', 'all-in-one-seo-pack' ) . '"><input name="sfwd_debug_nonce" type="hidden" value="' .
+			$buf   = '<input name="sfwd_debug_send_email" type="text" value="" placeholder="' . __( 'E-mail debug information', 'all-in-one-seo-pack' ) . '"><input name="sfwd_debug_nonce" type="hidden" value="' .
 			         $nonce . '"><input name="sfwd_debug_submit" type="submit" value="' . __( 'Submit', 'all-in-one-seo-pack' ) . '" class="button-primary">';
 
 			if ( AIOSEOPPRO ) {
