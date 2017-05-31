@@ -1245,7 +1245,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			$extra_title_len = strlen( str_replace( $replace_title, '', $title_format ) );
 		}
 
-		$args['value']   = sprintf( $args['value'], $title, esc_url( $url ), esc_attr( wp_strip_all_tags( $description ) ) );
+		$args['value']   = sprintf( $args['value'], $title, esc_url( $url ), esc_attr( $description ) );
 		$extra_title_len = (int) $extra_title_len;
 		$args['value'] .= "<script>var aiosp_title_extra = {$extra_title_len};</script>";
 		$buf = $this->get_option_row( $args['name'], $args['options'], $args );
@@ -2475,6 +2475,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			}
 			$description = $this->internationalize( $description );
 		}
+		$description = htmlspecialchars( wp_strip_all_tags( htmlspecialchars_decode( $description ) ) );
 		if ( empty( $aioseop_options['aiosp_dont_truncate_descriptions'] ) ) {
 			$description = $this->trim_excerpt_without_filters( $description );
 		}
