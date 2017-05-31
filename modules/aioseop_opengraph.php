@@ -759,6 +759,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					}
 					$info = $aiosp->get_page_snippet_info();
 					extract( $info );
+
                     // Description options
 					if ( is_object( $post ) )
                     	// Always show excerpt
@@ -771,7 +772,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 	                            $aiosp->internationalize( preg_replace( '/\s+/', ' ', $post->post_content ) ),
 	                            1000
 	                        );
-					$settings["{$prefix}title"]['placeholder'] = $title;
+
+          // Add filters
+					$description = apply_filters( 'aioseop_description', $description );
+					// Add placholders
+          
+          $settings["{$prefix}title"]['placeholder'] = $title;
 					$settings["{$prefix}desc"]['placeholder']  = $description;
 				}
 				if ( isset( $current[ $prefix . 'setmeta' ] ) && $current[ $prefix . 'setmeta' ] ) {
@@ -891,6 +897,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 		 *
 		 * @since 1.0.0
 		 * @since 2.3.11.5 Support for multiple fb_admins.
+		 * @since 2.3.13   Adds filter:aioseop_description on description.
 		 */
 		function add_meta() {
 			global $post, $aiosp, $aioseop_options, $wp_query;
@@ -1210,6 +1217,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				$twitter_thumbnail = set_url_scheme( $metabox['aioseop_opengraph_settings_customimg_twitter'] );
 			}
 
+			// Apply last filters.
+			$description = apply_filters( 'aioseop_description', $description );
+
 			$meta = Array(
 				'facebook' => Array(
 					'title'          => 'og:title',
@@ -1270,12 +1280,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 						 * This is to accomodate multiple fb:admins on separate lines.
 						 * @TODO Eventually we'll want to put this in its own function so things like images work too.
 						 */
-						if( 'key' === $k ){
+						if ( 'key' === $k ){
 							$fbadmins = explode( ',', str_replace(' ', '', $filtered_value[0] ) ); // Trim spaces then turn comma-separated values into an array.
 							foreach( $fbadmins as $fbadmin){
 								echo '<meta ' . $tags[ $t ]['name'] . '="' . $v . '" ' . $tags[ $t ]['value'] . '="' . $fbadmin . '" />' . "\n";
 							}
-						}else{
+						} else {
 							// For everything else.
 							foreach ( $filtered_value as $f ) {
 								echo '<meta ' . $tags[ $t ]['name'] . '="' . $v . '" ' . $tags[ $t ]['value'] . '="' . $f . '" />' . "\n";

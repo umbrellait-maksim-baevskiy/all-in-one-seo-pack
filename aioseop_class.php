@@ -2535,7 +2535,12 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	}
 
 	/**
-	 * @param $post
+	 * Gets post description.
+	 * Auto-generates description if settings are ON.
+	 *
+	 * @since 2.3.13 #899 Fixes non breacking space, applies filter "aioseop_description".
+	 *
+	 * @param object $post Post object.
 	 *
 	 * @return mixed|string
 	 */
@@ -2563,10 +2568,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			}
 		}
 
-		// Internal whitespace trim.
-		$description = preg_replace( '/\s\s+/u', ' ', $description );
-
-		return $description;
+		return apply_filters( 'aioseop_description', $description );
 	}
 
 	/**
@@ -3572,6 +3574,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		return preg_replace( '/<title([^>]*?)\s*>([^<]*?)<\/title\s*>/is', '<title\\1>' . preg_replace( '/(\$|\\\\)(?=\d)/', '\\\\\1', strip_tags( $title ) ) . '</title>', $content, 1 );
 	}
 
+	/**
+	 * Adds wordpress hooks.
+	 *
+	 * @since 2.3.13 #899 Adds filter:aioseop_description.
+	 */
 	function add_hooks() {
 		global $aioseop_options, $aioseop_update_checker;
 
@@ -3613,6 +3620,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			add_action( 'amp_post_template_head', array( $this, 'amp_head' ), 11 );
 			add_action( 'template_redirect', array( $this, 'template_redirect' ), 0 );
 		}
+		add_filter( 'aioseop_description', array( &$this, 'filter_description' ) );
 	}
 
 	function visibility_warning() {
@@ -4822,6 +4830,36 @@ EOF;
 	}
 
 	function display_settings_footer() {
+	}
+
+	/**
+	 * Filters meta value and applies generic cleanup.
+	 * - Decode HTML entities.
+	 * - Removal of urls.
+	 * - Internal trim.
+	 * Returns cleaned value.
+	 *
+	 * @since 2.3.13
+	 *
+	 * @param string $value Value to filter.
+	 *
+	 * @return string
+	 */
+	public function filter_description( $value) {
+		// Decode entities
+		$value = html_entity_decode( $value );
+		$value = preg_replace(
+			array(
+				'@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@',// Remove URLs
+			),
+			array(
+				'', // Replacement URLs
+			),
+			$value
+		);
+		// Internal whitespace trim.
+		$value = preg_replace( '/\s\s+/u', ' ', $value );
+		return $value;
 	}
 
 	function display_right_sidebar() {
