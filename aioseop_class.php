@@ -4838,6 +4838,7 @@ EOF;
 	 * - Decode HTML entities.
 	 * - Removal of urls.
 	 * - Internal trim.
+	 * - Strips HTML.
 	 * Returns cleaned value.
 	 *
 	 * @since 2.3.13
@@ -4858,6 +4859,8 @@ EOF;
 			),
 			$value
 		);
+		// Strip html
+		$value = wp_strip_all_tags( $value );
 		// Internal whitespace trim.
 		$value = preg_replace( '/\s\s+/u', ' ', $value );
 		return $value;
