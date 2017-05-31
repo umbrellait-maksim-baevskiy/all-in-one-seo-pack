@@ -4838,6 +4838,7 @@ EOF;
 	 * - Decode HTML entities.
 	 * - Removal of urls.
 	 * - Internal trim.
+	 * - External trim.
 	 * - Strips HTML.
 	 * Returns cleaned value.
 	 *
@@ -4863,7 +4864,8 @@ EOF;
 		$value = wp_strip_all_tags( $value );
 		// Internal whitespace trim.
 		$value = preg_replace( '/\s\s+/u', ' ', $value );
-		return $value;
+		// External trim.
+		return trim( $value );
 	}
 
 	function display_right_sidebar() {
