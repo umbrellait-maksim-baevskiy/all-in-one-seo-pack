@@ -503,7 +503,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			$regex = '';
 			$cont  = 0;
 			foreach ( $list as $l ) {
-				if ( ! empty( trim( $l ) ) ) {
+				$trim_l = trim ( $l );
+				if ( ! empty( $trim_l ) ) {
 					if ( $cont ) {
 						$regex .= '|';
 					}
