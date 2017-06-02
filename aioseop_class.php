@@ -4839,22 +4839,26 @@ EOF;
 	 * - Internal trim.
 	 * - External trim.
 	 * - Strips HTML.
+	 * - Strips HTML except anchor texts.
 	 * Returns cleaned value.
 	 *
 	 * @since 2.3.13
+	 * @since 2.3.14 Strips except anchor texts.
 	 *
 	 * @param string $value Value to filter.
 	 *
 	 * @return string
 	 */
-	public function filter_description( $value) {
+	public function filter_description( $value ) {
 		// Decode entities
 		$value = html_entity_decode( $value );
 		$value = preg_replace(
 			array(
+				'#<a.*?>([^>]*)</a>#i', // Remove link but keep anchor text
 				'@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@',// Remove URLs
 			),
 			array(
+				'$1', // Replacement link's anchor text.
 				'', // Replacement URLs
 			),
 			$value
