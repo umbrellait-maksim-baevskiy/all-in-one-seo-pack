@@ -49,13 +49,9 @@
 		<a class="web" target="_blank" href="https://github.com/amostajo"><img alt="" class="gravatar" src="https://avatars1.githubusercontent.com/u/1645908?s=60">
 			Alejandro Mostajo</a>
 	</li>
-	<li class="wp-person" id="joelrd">
-		<a class="web" target="_blank" href="https://github.com/joelrd"><img alt="" class="gravatar" src="https://avatars0.githubusercontent.com/u/16063717?s=60">
-			Joelrd</a>
-	</li>
-	<li class="wp-person" id="carlalexander">
-		<a class="web" target="_blank" href="https://profiles.wordpress.org/carlalexander/"><img alt="" class="gravatar" src="https://secure.gravatar.com/avatar/5a4758faa5ba6c1322bdfb0f6ebcf56c?s=60">
-			Carl Alexander</a>
+	<li class="wp-person" id="rozroz">
+		<a class="web" target="_blank" href="https://profiles.wordpress.org/rozroz/"><img alt="" class="gravatar" src="https://secure.gravatar.com/avatar/5a4758faa5ba6fc1322bdfb0f6ebcf56c?s=60">
+			Ashish Ravi</a>
 	</li>
 </ul>
 
