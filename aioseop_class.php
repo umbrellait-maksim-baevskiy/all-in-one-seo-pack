@@ -4539,7 +4539,6 @@ EOF;
 					if ( ! empty( $current_object ) && ! empty( $current_object->post_type ) ){
 						// Try the main query.
 						$edit_post_link = get_edit_post_link( $current_object->ID );
-						echo $edit_post_link;
 						$wp_admin_bar->add_menu( array(
 							'id'     => 'aiosp_edit_' . $current_object->ID,
 							'parent' => AIOSEOP_PLUGIN_DIRNAME,
