@@ -53,6 +53,10 @@
 		<a class="web" target="_blank" href="https://profiles.wordpress.org/rozroz/"><img alt="" class="gravatar" src="https://secure.gravatar.com/avatar/5a4758faa5ba6fc1322bdfb0f6ebcf56c?s=60">
 			Ashish Ravi</a>
 	</li>
+    <li class="wp-person" id="rozroz">
+        <a class="web" target="_blank" href="https://profiles.wordpress.org/yummy-wp/"><img alt="" class="gravatar" src="https://avatars0.githubusercontent.com/u/22232968?v=3&s=460">
+            Stanislav Samoilenko</a>
+    </li>
 </ul>
 
 <h3 class="wp-people-group dashicons-before dashicons-translation"><?php printf( _e( 'Translation contributors and translation editors', 'all-in-one-seo-pack' ), '1.2' ); ?></h3>
