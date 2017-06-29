@@ -4859,11 +4859,12 @@ EOF;
 	 * - Removal of urls.
 	 * - Internal trim.
 	 * - External trim.
-	 * - Strips HTML.
-	 * - Encodes to SEO ready HTML entities.
-	 * Returns cleaned value.
+	 * - Strips HTML except anchor texts.
+	 * - Returns cleaned value.
 	 *
 	 * @since 2.3.13
+	 * @since 2.3.14 Strips excerpt anchor texts.
+	 * @since 2.3.14 Encodes to SEO ready HTML entities.
 	 * @since 2.3.14 #593 encode/decode refactored.
 	 *
 	 * @param string $value Value to filter.
@@ -4875,9 +4876,11 @@ EOF;
 		$value = $this->html_entity_decode( $value );
 		$value = preg_replace(
 			array(
+				'#<a.*?>([^>]*)</a>#i', // Remove link but keep anchor text
 				'@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@',// Remove URLs
 			),
 			array(
+				'$1', // Replacement link's anchor text.
 				'', // Replacement URLs
 			),
 			$value
