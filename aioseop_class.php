@@ -4853,6 +4853,8 @@ EOF;
 	 * @return string
 	 */
 	public function filter_description( $value) {
+		if ( preg_match( '/5.2[\s\S]+/', PHP_VERSION ) )
+			$value = htmlspecialchars( wp_strip_all_tags( htmlspecialchars_decode( $value ) ) );
 		// Decode entities
 		$value = html_entity_decode( $value );
 		$value = preg_replace(
