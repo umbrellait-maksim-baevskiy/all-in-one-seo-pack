@@ -549,7 +549,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 						'setcard',
 						'customimg_twitter',
 					),
-					'display'   => $display,
+					'display'   => apply_filters( 'aioseop_opengraph_display', $display ),
 					'prefix'    => 'aioseop_opengraph_',
 				),
 			);
