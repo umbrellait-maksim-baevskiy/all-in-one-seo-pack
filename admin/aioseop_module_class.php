@@ -1743,7 +1743,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			foreach ( $this->locations as $k => $v ) {
 				if ( $v['type'] === 'metabox' && isset( $v['display'] ) && ! empty( $v['display'] ) ) {
 					$enqueue_scripts = false;
-					$enqueue_scripts = ( ( ( $screen->base == 'toplevel_page_shopp-products' ) && in_array( 'shopp_product', $v['display'] ) ) ) || in_array( $screen->post_type, $v['display'] );
+					$enqueue_scripts = ( ( ( $screen->base == 'toplevel_page_shopp-products' ) && in_array( 'shopp_product', $v['display'] ) ) )
+						|| in_array( $screen->post_type, $v['display'] )
+						|| $screen->base == 'edit-category'
+						|| $screen->base == 'edit-post_tag';
 					$enqueue_scripts = apply_filters( $prefix . 'enqueue_metabox_scripts', $enqueue_scripts, $screen, $v );
 					if ( $enqueue_scripts ) {
 						add_filter( 'aioseop_localize_script_data', array( $this, 'localize_script_data' ) );

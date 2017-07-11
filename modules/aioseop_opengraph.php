@@ -449,12 +449,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
                     'default'       => array( 'post' => 'Post', 'page' => 'Page' ),
                     'initial_options' => $this->get_post_type_titles( array( '_builtin' => false ) ),
                 ),
-                'taxonomies'    => array(
-                    'name'          => __( 'Enable Facebook Meta for Taxonomies', 'all-in-one-seo-pack' ),
-                    'type'          => 'multicheckbox',
-                    'default'       => array( 'category' => 'edit-category', 'tag' => 'edit-post_tag' ),
-                    'initial_options' => $this->get_taxonomy_pages( array( 'public' => true ) ),
-                ),
                 'title'         => array(
                     'name'          => __( 'Title', 'all-in-one-seo-pack' ),
                     'default'       => '',
@@ -593,7 +587,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 						'setcard',
 						'customimg_twitter',
 					),
-					'display'   => $display,
+					'display'   => apply_filters( 'aioseop_opengraph_display', $display ),
 					'prefix'    => 'aioseop_opengraph_',
 				),
 			);
@@ -1641,6 +1635,33 @@ END;
 			wp_enqueue_style('thickbox');
 			wp_enqueue_media();
 		}
+
+		function save_tax_data( $term_id, $tt_id, $taxonomy ) {
+			static $update = false;
+			if ( $update )
+				return;
+			if ( $this->locations !== null ) {
+				foreach ( $this->locations as $k => $v ) {
+					if ( isset( $v['type'] ) && ( $v['type'] === 'metabox' ) ) {
+						$opts    = $this->default_options( $k );
+						$options = array();
+						$update  = false;
+						foreach ( $opts as $l => $o ) {
+							if ( isset( $_POST[ $l ] ) ) {
+								$options[ $l ] = stripslashes_deep( $_POST[ $l ] );
+								$options[ $l ] = esc_attr( $options[ $l ] );
+								$update        = true;
+							}
+						}
+						if ( $update ) {
+							$prefix  = $this->get_prefix( $k );
+							$options = apply_filters( $prefix . 'filter_term_metabox_options', $options, $k, $term_id );
+							update_term_meta( $term_id, '_' . $prefix . $k, $options );
+						}
+					}
+				}
+			}
+        }
 
         /**
          * Returns the placeholder filtered and ready for DOM display.
