@@ -929,6 +929,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Handles exporting settings data for a module.
 		 *
+		 * @since 2.4.13 Fixed bug on empty options.
+		 *
 		 * @param $buf
 		 *
 		 * @return string
@@ -1544,6 +1546,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		}
 
 		/**
+		 * @since 2.4.13 Fixes when content is taxonomy.
+		 *
 		 * @param null $p
 		 *
 		 * @return bool
@@ -1555,6 +1559,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			} else {
 				$post = $p;
 			}
+
+			if ( is_category() || is_tag() || is_tax() )
+				return false;
 
 			$post_thumbnail_id = null;
 			if ( function_exists( 'get_post_thumbnail_id' ) ) {
@@ -2105,6 +2112,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			$setsel = $strings['selected'];
 			if ( isset( $options['initial_options'] ) && is_array( $options['initial_options'] ) ) {
 				foreach ( $options['initial_options'] as $l => $option ) {
+					if ( empty( $l )
+						&& empty( strip_tags( is_array( $option ) ? implode( ' ', $option ) : $option ) )
+					)
+						continue;
 					$is_group = is_array( $option );
 					if ( ! $is_group ) {
 						$option = array( $l => $option );
@@ -2205,7 +2216,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 					$buf .= "<textarea name='$name' $attr>$value</textarea>";
 					break;
 				case 'image':
-					$buf .= "<input class='aioseop_upload_image_button button-primary' type='button' value='Upload Image' style='float:left;' />" .
+					$buf .= '<input class="aioseop_upload_image_checker" type="hidden" name="'.$name.'_checker" value="0">'.
+							"<input class='aioseop_upload_image_button button-primary' type='button' value='Upload Image' style='float:left;' />" .
 					        "<input class='aioseop_upload_image_label' name='$name' type='text' $attr value='$value' size=57 style='float:left;clear:left;'>\n";
 					break;
 				case 'html':
@@ -2772,7 +2784,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $opts;
 		}
 
-		/** Generates just the default option names and values
+		/**
+		 * Generates just the default option names and values
+		 *
+		 * @since 2.4.13 Applies filter before final return.
 		 *
 		 * @param null $location
 		 * @param null $defaults
@@ -2780,6 +2795,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * @return array
 		 */
 		function default_options( $location = null, $defaults = null ) {
+			$prefix  = $this->get_prefix( $location );
 			$options = $this->setting_options( $location, $defaults );
 			$opts    = array();
 			foreach ( $options as $k => $v ) {
@@ -2787,8 +2803,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 					$opts[ $k ] = $v['default'];
 				}
 			}
-
-			return $opts;
+			return apply_filters( $prefix . 'default_options', $opts, $location );
 		}
 
 		/**

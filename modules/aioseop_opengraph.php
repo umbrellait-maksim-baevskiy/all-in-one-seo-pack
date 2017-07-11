@@ -10,6 +10,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 		var $fb_object_types;
 		var $type;
 
+		/**
+		 * Module constructor.
+		 *
+		 * @since 2.4.14  Refactored by-reference callbacks and hook init, added placeholder filter.
+		 */
 		function __construct() {
 			add_action( 'admin_enqueue_scripts', array( $this, 'og_admin_enqueue_scripts' ) );
 
@@ -185,7 +190,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			);
 
 			if ( is_admin() ) {
-				add_action( 'admin_init', Array( $this, 'debug_post_types' ), 5 );
+				add_action( 'admin_init', Array( $this, 'admin_init' ), 5 );
 			} else {
 				add_action( 'wp', Array( $this, 'type_setup' ) );
 			}
@@ -197,8 +202,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
             add_action( 'init', array( &$this, 'init' ), 999999 );
 			add_filter( 'jetpack_enable_open_graph', '__return_false' ); // Avoid having duplicate meta tags
 			// Force refresh of Facebook cache.
-			add_action( 'post_updated', array( $this, 'force_fb_refresh_update' ), 10, 3 );
-			add_action( 'transition_post_status', array( $this, 'force_fb_refresh_transition' ), 10, 3 );
+			add_action( 'post_updated', array( &$this, 'force_fb_refresh_update' ), 10, 3 );
+			add_action( 'transition_post_status', array( &$this, 'force_fb_refresh_transition' ), 10, 3 );
+			add_action( 'edited_term', array( &$this, 'save_tax_data' ), 10, 3 );
+			// Adds special filters
+			add_filter( 'aioseop_opengraph_placeholder', array( &$this, 'filter_placeholder' ) );
 		}
 
 		/**
@@ -746,6 +754,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			return $options;
 		}
 
+		/**
+         * Applies filter to module settings.
+         *
+         * @since 2.3.11
+         * @since 2.4.14 Added filter for description and title placeholders.
+         *
+         * @see [plugin]\admin\aioseop_module_class.php > display_options()
+         */
 		function filter_settings( $settings, $location, $current ) {
             global $aiosp, $post;
 			if ( $location == 'opengraph' || $location == 'settings' ) {
@@ -778,25 +794,24 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					$info = $aiosp->get_page_snippet_info();
 					extract( $info );
 
-                    // Description options
+					// Description options
 					if ( is_object( $post ) )
-                    	// Always show excerpt
-                    	$description = empty( $this->options['aiosp_opengraph_generate_descriptions'] )
-                    		? $aiosp->trim_excerpt_without_filters(
-	                            $aiosp->internationalize( preg_replace( '/\s+/', ' ', $post->post_excerpt ) ),
-	                            1000
-	                        )
-                    		: $aiosp->trim_excerpt_without_filters(
-	                            $aiosp->internationalize( preg_replace( '/\s+/', ' ', $post->post_content ) ),
-	                            1000
-	                        );
+					// Always show excerpt
+					$description = empty( $this->options['aiosp_opengraph_generate_descriptions'] )
+						? $aiosp->trim_excerpt_without_filters(
+							$aiosp->internationalize( preg_replace( '/\s+/', ' ', $post->post_excerpt ) ),
+							1000
+						)
+						: $aiosp->trim_excerpt_without_filters(
+							$aiosp->internationalize( preg_replace( '/\s+/', ' ', $post->post_content ) ),
+							1000
+						);
 
-          // Add filters
+					// Add filters
 					$description = apply_filters( 'aioseop_description', $description );
 					// Add placholders
-          
-          $settings["{$prefix}title"]['placeholder'] = $title;
-					$settings["{$prefix}desc"]['placeholder']  = $description;
+					$settings["{$prefix}title"]['placeholder'] = apply_filters( 'aioseop_opengraph_placeholder', $title );
+					$settings["{$prefix}desc"]['placeholder']  = apply_filters( 'aioseop_opengraph_placeholder', $description );
 				}
 				if ( isset( $current[ $prefix . 'setmeta' ] ) && $current[ $prefix . 'setmeta' ] ) {
 					foreach ( $opts as $opt ) {
@@ -813,14 +828,54 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			return $settings;
 		}
 
+		/**
+         * Applies filter to module options.
+         * These will display in the "Social Settings" object tab.
+         * filter:{prefix}override_options
+         *
+         * @since 2.3.11
+         * @since 2.4.14 Overrides empty og:type values.
+         *
+         * @see [plugin]\admin\aioseop_module_class.php > display_options()
+         *
+         * @global array $aioseop_options Plugin options.
+         *
+         * @param array  $options  Current options.
+         * @param string $location Location where filter is called.
+         * @param array  $settings Settings.
+         *
+         * @return array
+         */
 		function override_options( $options, $location, $settings ) {
-			$opts = Array();
+			global $aioseop_options;
+			// Prepare default and prefix
+            $prefix = $this->get_prefix( $location ) . $location . '_';
+            $opts = array();
 			foreach ( $settings as $k => $v ) {
 				if ( $v['save'] ) {
 					$opts[ $k ] = $v['default'];
 				}
 			}
 			foreach ( $options as $k => $v ) {
+				switch ($k) {
+					case $prefix . 'category':
+						if ( empty( $v ) ) {
+							// Get post type
+							$type = isset( get_current_screen()->post_type )
+								? get_current_screen()->post_type
+								: null;
+							// Assign default from plugin options
+							if ( ! empty( $type )
+								&& isset( $aioseop_options['modules'] )
+								&& isset( $aioseop_options['modules']['aiosp_opengraph_options'] )
+								&& isset( $aioseop_options['modules']['aiosp_opengraph_options']['aiosp_opengraph_'.$type.'_fb_object_type'] )
+							)
+								$options[ $prefix . 'category' ] =
+									$aioseop_options['modules']['aiosp_opengraph_options']['aiosp_opengraph_'.$type.'_fb_object_type'];
+							continue;
+						}
+						break;
+				}
 				if ( $v === null ) {
 					unset( $options[ $k ] );
 				}
@@ -830,19 +885,34 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			return $options;
 		}
 
+		/**
+         * Applies filter to metabox settings before they are saved.
+         * Sets custom as default if a custom image is uploaded.
+         * filter:{prefix}filter_metabox_options
+         * filter:{prefix}filter_term_metabox_options
+         *
+         * @since 2.3.11
+         * @since 2.4.14 Fixes for aioseop-pro #67 and other bugs found.
+         *
+         * @see [plugin]\admin\aioseop_module_class.php > save_post_data()
+         * @see [this file] > save_tax_data()
+         *
+         * @param array  $options  List of current options.
+         * @param string $location Location where filter is called.
+         * @param int    $id       Either post_id or term_id.
+         *
+         * @return array
+         */
 		function filter_metabox_options( $options, $location, $post_id ) {
 			if ( $location == 'settings' ) {
-				$prefix = $this->get_prefix( $location ) . $location;
-				if ( ! empty( $options[ $prefix . '_customimg' ] ) ) {
-					$old_options = get_post_meta( $post_id, '_' . $prefix );
-					$prefix .= '_';
-					if ( empty( $old_options[ $prefix . 'customimg' ] ) || ( $old_options[ $prefix . 'customimg' ] != $options[ $prefix . 'customimg' ] ) ) {
-						$options[ $prefix . 'image' ] = $options[ $prefix . 'customimg' ];
-					}
-				}
-			}
-
-			return $options;
+                $prefix = $this->get_prefix( $location ) . $location . '_';
+                if ( isset( $options[ $prefix . 'customimg_checker' ] )
+                    && $options[ $prefix . 'customimg_checker' ]
+                ) {
+                    $options[ $prefix . 'image' ] = $options[ $prefix . 'customimg' ];
+                }
+            }
+            return $options;
 		}
 
 		/** Custom settings **/
@@ -1076,9 +1146,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					$type = 'article';
 				}
 			} else if ( is_category() || is_tag() || is_tax() ) {
-				if ( isset( $this->options['aioseop_opengraph_settings_category'] ) ) {
+				if ( isset( $this->options['aioseop_opengraph_settings_category'] ) )
 					$type = $this->options['aioseop_opengraph_settings_category'];
-				}
+				if ( isset( $metabox['aioseop_opengraph_settings_category'] ) )
+					$type = $metabox['aioseop_opengraph_settings_category'];
 				if ( $type == 'article' ) {
 					if ( ! empty( $metabox['aioseop_opengraph_settings_section'] ) ) {
 						$section = $metabox['aioseop_opengraph_settings_section'];
@@ -1114,7 +1185,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					$title = $aiosp->wp_title();
 				}
 				if ( empty( $description ) ) {
-					$description = trim( strip_tags( get_post_meta( $post->ID, "_aioseop_description", true ) ) );
+					$term_id = isset( $_GET['tag_ID'] ) ? (int) $_GET['tag_ID'] : 0;
+					$term_id = $term_id ? $term_id : get_queried_object()->term_id;
+					$description = trim( strip_tags( get_term_meta( $term_id, '_aioseop_description', true ) ) );
 				}
 				// Add default title
 				if ( empty( $title ) ) {
@@ -1122,7 +1195,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				}
 				// Add default description.
 				if ( empty( $description ) && ! post_password_required( $post ) ) {
-					$description = ger_queried_object()->description;
+					$description = get_queried_object()->description;
 				}
 				if ( empty( $type ) ) {
 					$type = 'website';
@@ -1399,17 +1472,23 @@ END;
 			echo apply_filters( 'aiosp_opengraph_social_link_schema', $social_link_schema );
 		}
 
-		function do_opengraph() {
+		/**
+         * Do / adds opengraph properties to meta.
+         * @since 2.3.11
+         *
+         * @global array $aioseop_options AIOSEOP plugin options.
+         */
+		public function do_opengraph() {
 			global $aioseop_options;
-			if ( ! empty( $aioseop_options ) && ! empty( $aioseop_options['aiosp_schema_markup'] ) ) {
-				add_filter( 'language_attributes', Array( $this, 'add_attributes' ) );
-			}
+			if ( ! empty( $aioseop_options )
+				&& ! empty( $aioseop_options['aiosp_schema_markup'] )
+			)
+				add_filter( 'language_attributes', array( &$this, 'add_attributes' ) );
 			if ( ! defined( 'DOING_AJAX' ) ) {
-				add_action( 'aioseop_modules_wp_head', Array( $this, 'add_meta' ), 5 );
-
-				if ( true === apply_filters( 'aioseop_enable_amp_social_meta', true ) ) {
-					add_action( 'amp_post_template_head', Array( $this,	'add_meta' ), 12 ); // Add social meta to AMP plugin.
-				}
+				add_action( 'aioseop_modules_wp_head', array( &$this, 'add_meta' ), 5 );
+				// Add social meta to AMP plugin.
+				if ( apply_filters( 'aioseop_enable_amp_social_meta', true ) === true )
+					add_action( 'amp_post_template_head', array( &$this, 'add_meta' ), 12 );
 			}
 		}
 
@@ -1431,13 +1510,25 @@ END;
 			}
 		}
 
-		function debug_post_types() {
-			add_filter( $this->prefix . 'display_settings', Array( $this, 'filter_settings' ), 10, 3 );
-			add_filter( $this->prefix . 'override_options', Array( $this, 'override_options' ), 10, 3 );
-			add_filter( $this->get_prefix( 'settings' ) . 'filter_metabox_options', Array(
-				$this,
+		/**
+         * Inits hooks and others for admin init.
+         * action:admin_init. 
+         *
+         * @since 2.3.11
+         * @since 2.4.14 Refactored function name, and new filter added for defaults and missing term metabox.
+         */
+		function admin_init() {
+			add_filter( $this->prefix . 'display_settings', array( &$this, 'filter_settings' ), 10, 3 );
+			add_filter( $this->prefix . 'override_options', array( &$this, 'override_options' ), 10, 3 );
+			add_filter( $this->get_prefix( 'settings' ) . 'default_options', array( &$this, 'filter_default_options' ), 10, 2 );
+			add_filter( $this->get_prefix( 'settings' ) . 'filter_metabox_options', array(
+				&$this,
 				'filter_metabox_options',
 			), 10, 3 );
+			add_filter( $this->get_prefix( 'settings' ) . 'filter_term_metabox_options', array(
+                &$this,
+                'filter_metabox_options',
+            ), 10, 3 );
 			$post_types                                        = $this->get_post_type_titles();
 			$rempost = array( 'revision' => 1, 'nav_menu_item' => 1, 'custom_css' => 1, 'customize_changeset' => 1 );
 			$post_types                                        = array_diff_key( $post_types, $rempost );
@@ -1549,6 +1640,39 @@ END;
 			wp_enqueue_script('thickbox');
 			wp_enqueue_style('thickbox');
 			wp_enqueue_media();
+		}
+
+        /**
+         * Returns the placeholder filtered and ready for DOM display.
+         * filter:aioseop_opengraph_placeholder
+         * @since 2.4.14
+         *
+         * @param mixed  $placeholder Placeholder to be filtered.
+         * @param string $type        Type of the value to be filtered.
+         *
+         * @return string
+         */
+        public function filter_placeholder( $placeholder, $type = 'text' ) {
+            return strip_tags( trim( $placeholder ) );
+        }
+
+		/**
+		 * Returns filtered default options.
+		 * filter:{prefix}default_options
+		 * @since 2.4.13
+		 *
+		 * @param array  $options  Default options.
+		 * @param string $location Location.
+		 *
+		 * @return array
+		 */
+		public function filter_default_options( $options, $location ) {
+			if ( $location === 'settings' ) {
+				$prefix = $this->get_prefix( $location ) . $location . '_';
+				// Add image checker as default
+				$options[ $prefix . 'customimg_checker' ] = 0;
+			}
+			return $options;
 		}
 
         /**
