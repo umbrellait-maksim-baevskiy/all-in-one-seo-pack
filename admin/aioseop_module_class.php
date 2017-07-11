@@ -2791,7 +2791,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			return $opts;
 		}
 
-		/** Gets the current options stored for a given location.
+		/**
+		 * Gets the current options stored for a given location.
+		 *
+		 * @since 2.4.14 Added taxonomy options.
 		 *
 		 * @param array $opts
 		 * @param null  $location
@@ -2816,9 +2819,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				}
 
 				if ( ( isset( $_GET['taxonomy'] ) && isset( $_GET['tag_ID'] ) ) || is_category() || is_tag() || is_tax() ) {
-
+					$term_id = isset( $_GET['tag_ID'] ) ? (int) $_GET['tag_ID'] : 0;
+					$term_id = $term_id ? $term_id : get_queried_object()->term_id;
 					if ( AIOSEOPPRO ) {
 						$get_opts = AIO_ProGeneral::getprotax( $get_opts );
+						$get_opts = get_term_meta( $term_id, '_' . $prefix . $location, true );
 					}
 
 				} elseif ( isset( $post ) ) {
@@ -2826,7 +2831,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				}
 			}
 			$defs = $this->default_options( $location, $defaults );
-			if ( $get_opts == '' ) {
+			if ( empty( $get_opts ) ) {
 				$get_opts = $defs;
 			} else {
 				$get_opts = wp_parse_args( $get_opts, $defs );

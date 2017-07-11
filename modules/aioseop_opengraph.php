@@ -1,9 +1,9 @@
 <?php
 /**
- * @package All-in-One-SEO-Pack
- */
-/**
  * The Opengraph class.
+ *
+ * @package All-in-One-SEO-Pack
+ * @version 2.4.14
  */
 if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 	class All_in_One_SEO_Pack_Opengraph extends All_in_One_SEO_Pack_Module {
@@ -916,10 +916,16 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 		 * @since 1.0.0
 		 * @since 2.3.11.5 Support for multiple fb_admins.
 		 * @since 2.3.13   Adds filter:aioseop_description on description.
+		 * @since 2.4.14   Fixes for aioseop-pro #67.
+		 *
+		 * @global object $post            Current WP_Post object.
+		 * @global object $aiosp           All in one seo plugin object.
+		 * @global array  $aioseop_options All in one seo plugin options.
+		 * @global object $wp_query        WP_Query global instance.
 		 */
 		function add_meta() {
 			global $post, $aiosp, $aioseop_options, $wp_query;
-			$metabox           = $this->get_current_options( Array(), 'settings' );
+			$metabox           = $this->get_current_options( array(), 'settings' );
 			$key               = $this->options['aiosp_opengraph_key'];
 			$dimg              = $this->options['aiosp_opengraph_dimg'];
 			$current_post_type = get_post_type();
@@ -1068,6 +1074,58 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				}
 				if ( empty( $type ) ) {
 					$type = 'article';
+				}
+			} else if ( is_category() || is_tag() || is_tax() ) {
+				if ( isset( $this->options['aioseop_opengraph_settings_category'] ) ) {
+					$type = $this->options['aioseop_opengraph_settings_category'];
+				}
+				if ( $type == 'article' ) {
+					if ( ! empty( $metabox['aioseop_opengraph_settings_section'] ) ) {
+						$section = $metabox['aioseop_opengraph_settings_section'];
+					}
+					if ( ! empty( $metabox['aioseop_opengraph_settings_tag'] ) ) {
+						$tag = $metabox['aioseop_opengraph_settings_tag'];
+					}
+					if ( ! empty( $this->options['aiosp_opengraph_facebook_publisher'] ) ) {
+						$publisher = $this->options['aiosp_opengraph_facebook_publisher'];
+					}
+				}
+				if ( ! empty( $this->options['aiosp_opengraph_twitter_domain'] ) ) {
+					$domain = $this->options['aiosp_opengraph_twitter_domain'];
+				}
+				if ( $type == 'article' && ! empty( $post ) ) {
+					if ( isset( $post->post_author ) && ! empty( $this->options['aiosp_opengraph_facebook_author'] ) ) {
+						$author = get_the_author_meta( 'facebook', $post->post_author );
+					}
+					if ( isset( $post->post_date ) ) {
+						$published_time = date( 'Y-m-d\TH:i:s\Z', mysql2date( 'U', $post->post_date ) );
+					}
+					if ( isset( $post->post_modified ) ) {
+						$modified_time = date( 'Y-m-d\TH:i:s\Z', mysql2date( 'U', $post->post_modified ) );
+					}
+				}
+				$image       = $metabox['aioseop_opengraph_settings_image'];
+				$video       = $metabox['aioseop_opengraph_settings_video'];
+				$title       = $metabox['aioseop_opengraph_settings_title'];
+				$description = $metabox['aioseop_opengraph_settings_desc'];
+				/* Add AIOSEO variables if Site Title and Desc from AIOSEOP not selected */
+				global $aiosp;
+				if ( empty( $title ) ) {
+					$title = $aiosp->wp_title();
+				}
+				if ( empty( $description ) ) {
+					$description = trim( strip_tags( get_post_meta( $post->ID, "_aioseop_description", true ) ) );
+				}
+				// Add default title
+				if ( empty( $title ) ) {
+					$title = get_the_title();
+				}
+				// Add default description.
+				if ( empty( $description ) && ! post_password_required( $post ) ) {
+					$description = ger_queried_object()->description;
+				}
+				if ( empty( $type ) ) {
+					$type = 'website';
 				}
 			} else {
 				return;
@@ -1482,7 +1540,7 @@ END;
 		 */
 		function og_admin_enqueue_scripts($hook){
 
-			if ( 'all-in-one-seo_page_aiosp_opengraph' != $hook ) {
+			if ( 'all-in-one-seo_page_aiosp_opengraph' != $hook && 'term.php' != $hook ) {
 				// Only enqueue if we're on the social module settings page.
 				return;
 			}
@@ -1500,6 +1558,7 @@ END;
          * @return string 
          */
         private function get_facebook_debug() {
+            ob_start();
             ?>
                 <script>
                     jQuery(document).ready(function() {
@@ -1522,5 +1581,5 @@ END;
             <?php
             return ob_get_clean();
         }
-	}
+    }
 }
