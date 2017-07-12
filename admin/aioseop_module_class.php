@@ -1709,9 +1709,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 		/**
 		 * Load scripts and styles for metaboxes.
-		 *
 		 * edit-tags exists only for pre 4.5 support... remove when we drop 4.5 support.
-		 * Also, that check and others should be pulled out into their own functions
+		 * Also, that check and others should be pulled out into their own functions.
+		 *
+		 * @since 2.4.14 Added term as screen base.
 		 */
 		function enqueue_metabox_scripts() {
 			$screen = '';
@@ -1746,7 +1747,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 					$enqueue_scripts = ( ( ( $screen->base == 'toplevel_page_shopp-products' ) && in_array( 'shopp_product', $v['display'] ) ) )
 						|| in_array( $screen->post_type, $v['display'] )
 						|| $screen->base == 'edit-category'
-						|| $screen->base == 'edit-post_tag';
+						|| $screen->base == 'edit-post_tag'
+						|| $screen->base == 'term';
 					$enqueue_scripts = apply_filters( $prefix . 'enqueue_metabox_scripts', $enqueue_scripts, $screen, $v );
 					if ( $enqueue_scripts ) {
 						add_filter( 'aioseop_localize_script_data', array( $this, 'localize_script_data' ) );
