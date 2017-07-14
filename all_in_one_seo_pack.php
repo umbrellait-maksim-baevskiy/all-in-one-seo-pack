@@ -281,7 +281,7 @@ if ( ! function_exists( 'aiosp_plugin_row_meta' ) ) {
 			$action_links = array(
 
 				'settings' => array(
-					'label' => __( 'Report a Bug', 'all-in-one-seo-pack' ),
+					'label' => __( 'Feature Request/Bug Report', 'all-in-one-seo-pack' ),
 					'url'   => 'https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues/new' )
 
 			);
