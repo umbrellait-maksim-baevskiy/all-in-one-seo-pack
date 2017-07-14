@@ -13,7 +13,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 		/**
 		 * Module constructor.
 		 *
-		 * @since 2.4.14  Refactored by-reference callbacks and hook init, added placeholder filter.
+		 * @since 2.4.14 Added display filter. 
 		 */
 		function __construct() {
 			add_action( 'admin_enqueue_scripts', array( $this, 'og_admin_enqueue_scripts' ) );
