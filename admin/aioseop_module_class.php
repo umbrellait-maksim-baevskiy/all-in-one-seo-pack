@@ -2117,9 +2117,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			$setsel = $strings['selected'];
 			if ( isset( $options['initial_options'] ) && is_array( $options['initial_options'] ) ) {
 				foreach ( $options['initial_options'] as $l => $option ) {
-					if ( empty( $l )
-						&& empty( strip_tags( is_array( $option ) ? implode( ' ', $option ) : $option ) )
-					)
+					$option_check = strip_tags( is_array( $option ) ? implode( ' ', $option ) : $option );
+					if ( empty( $l ) && empty( $option_check ) )
 						continue;
 					$is_group = is_array( $option );
 					if ( ! $is_group ) {
