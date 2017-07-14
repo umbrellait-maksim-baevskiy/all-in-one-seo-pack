@@ -277,15 +277,16 @@ if ( ! function_exists( 'aiosp_plugin_row_meta' ) ) {
 	 */
 	function aiosp_plugin_row_meta( $actions, $plugin_file ) {
 
-		if ( ! AIOSEOPPRO ) {
 
 			$action_links = array(
 
+				'settings' => array(
+					'label' => __( 'Report a Bug', 'all-in-one-seo-pack' ),
+					'url'   => 'https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues/new' )
+
 			);
 
-		} else {
-			$action_links = '';
-		}
+
 
 		return aiosp_action_links( $actions, $plugin_file, $action_links, 'after' );
 	}
