@@ -57,7 +57,8 @@ class AIOSEOP_Updates {
 			}
 
 			if( ! is_network_admin() || !isset( $_GET['activate-multi'] ) ) {
-				set_transient( '_aioseop_activation_redirect', true, 30 ); // Sets 30 second transient for welcome screen redirect on activation.
+				// Replace this to reactivate update welcome screen.
+				//set_transient( '_aioseop_activation_redirect', true, 30 ); // Sets 30 second transient for welcome screen redirect on activation.
 			}
 			delete_transient( 'aioseop_feed' );
 			add_action( 'admin_init', array( $this, 'aioseop_welcome' ) );
