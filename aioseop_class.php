@@ -2441,6 +2441,8 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	}
 
 	/**
+	 * @since 2.3.14 #932 Adds filter "aioseop_description", removes extra filtering.
+	 *
 	 * @param null $post
 	 *
 	 * @return mixed|string|void
@@ -2475,12 +2477,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			}
 			$description = $this->internationalize( $description );
 		}
-		$description = htmlspecialchars( wp_strip_all_tags( htmlspecialchars_decode( $description ) ) );
 		if ( empty( $aioseop_options['aiosp_dont_truncate_descriptions'] ) ) {
 			$description = $this->trim_excerpt_without_filters( $description );
 		}
 
-		return $description;
+		return apply_filters( 'aioseop_description', $description );
 	}
 
 	/**
@@ -2540,6 +2541,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 * Auto-generates description if settings are ON.
 	 *
 	 * @since 2.3.13 #899 Fixes non breacking space, applies filter "aioseop_description".
+	 * @since 2.3.14 #932 Removes filter "aioseop_description".
 	 *
 	 * @param object $post Post object.
 	 *
@@ -2569,7 +2571,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			}
 		}
 
-		return apply_filters( 'aioseop_description', $description );
+		return $description;
 	}
 
 	/**
@@ -3727,6 +3729,9 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
         }
     }
 
+    /**
+	 * @since 2.3.14 #932 Removes filter "aioseop_description".
+     */
 	function wp_head() {
 
 		// Check if we're in the main query to support bad themes and plugins.
@@ -3795,7 +3800,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		}
 
 		$posts       = $save_posts;
-		$description = apply_filters( 'aioseop_description', $this->get_main_description( $post ) );    // Get the description.
+		$description = $this->get_main_description( $post );    // Get the description.
 		// Handle the description format.
 		if ( isset( $description ) && ( $this->strlen( $description ) > $this->minimum_description_length ) && ! ( is_front_page() && is_paged() ) ) {
 			$description = $this->trim_description( $description );
@@ -4871,7 +4876,9 @@ EOF;
 	 *
 	 * @return string
 	 */
-	public function filter_description( $value ) {
+	public function filter_description( $value) {
+		if ( preg_match( '/5.2[\s\S]+/', PHP_VERSION ) )
+			$value = htmlspecialchars( wp_strip_all_tags( htmlspecialchars_decode( $value ) ) );
 		// Decode entities
 		$value = $this->html_entity_decode( $value );
 		$value = preg_replace(

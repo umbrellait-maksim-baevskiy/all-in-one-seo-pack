@@ -3,7 +3,7 @@
 Plugin Name: All In One SEO Pack
 Plugin URI: https://semperplugins.com/all-in-one-seo-pack-pro-version/
 Description: Out-of-the-box SEO for your WordPress blog. Features like XML Sitemaps, SEO for custom post types, SEO for blogs or business sites, SEO for ecommerce sites, and much more. More than 30 million downloads since 2007.
-Version: 2.3.14.1
+Version: 2.3.15-dev
 Author: Michael Torbert
 Author URI: https://semperplugins.com/all-in-one-seo-pack-pro-version/
 Text Domain: all-in-one-seo-pack
@@ -277,15 +277,16 @@ if ( ! function_exists( 'aiosp_plugin_row_meta' ) ) {
 	 */
 	function aiosp_plugin_row_meta( $actions, $plugin_file ) {
 
-		if ( ! AIOSEOPPRO ) {
 
 			$action_links = array(
 
+				'settings' => array(
+					'label' => __( 'Feature Request/Bug Report', 'all-in-one-seo-pack' ),
+					'url'   => 'https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues/new' )
+
 			);
 
-		} else {
-			$action_links = '';
-		}
+
 
 		return aiosp_action_links( $actions, $plugin_file, $action_links, 'after' );
 	}
