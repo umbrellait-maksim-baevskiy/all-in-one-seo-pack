@@ -5,7 +5,6 @@
 #.eslintignore
 #.eslintrc
 #.travis.yml
-#CODE_OF_CONDUCT.md
 .svn
 
 # IDE #
