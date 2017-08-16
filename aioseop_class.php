@@ -4717,7 +4717,12 @@ EOF;
 
 		if ( ! empty( $this->options['aiosp_enablecpost'] ) && $this->options['aiosp_enablecpost'] ) {
 			if ( AIOSEOPPRO ) {
-				$this->locations['aiosp']['display'] = $this->options['aiosp_cpostactive'];
+				if( is_array( $this->options['aiosp_cpostactive'] ) ) {
+     				     $this->locations['aiosp']['display'] = $this->options['aiosp_cpostactive']; 
+				}else{
+					$this->locations['aiosp']['display'][] = $this->options['aiosp_cpostactive']; // Store as an array in case there are taxonomies to add also.	
+				}
+				
 				if ( ! empty( $this->options['aiosp_taxactive'] ) ) {
 					foreach ( $this->options['aiosp_taxactive'] as $tax ) {
 						$this->locations['aiosp']['display'][] = 'edit-' . $tax;
