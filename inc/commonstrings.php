@@ -50,7 +50,7 @@ class AIOSP_Common_Strings {
 		__( ' Need a license key?', 'all-in-one-seo-pack' );
 		__( 'Purchase one now', 'all-in-one-seo-pack' );
 		__( "There is a new version of %s available. Go to <a href='%s'>the plugins page</a> for details.", 'all-in-one-seo-pack' );
-		__( "Your license has expired. Please %s click here %s to purchase a new one.", 'all-in-one-seo-pack' );
+		__( "Your license has expired. Please %1$s click here %2$s to purchase a new one.", 'all-in-one-seo-pack' );
 		__( 'Manage Licenses', 'all-in-one-seo-pack' );
 		__( 'License Key is not set yet or invalid. ', 'all-in-one-seo-pack' );
 		__( ' Need a license key?', 'all-in-one-seo-pack' );
