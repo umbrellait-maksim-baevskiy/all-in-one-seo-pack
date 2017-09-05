@@ -54,6 +54,8 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 	/**
 	 * All_in_One_SEO_Pack constructor.
+	 *
+	 * @since 2.3.14 #921 More google analytics options added.
 	 */
 	function __construct() {
 		global $aioseop_options;
