@@ -1823,11 +1823,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 			$posts = $postspageid = (int) get_option( 'page_for_posts' ); // It's 0 if posts are on homepage, otherwise it's the id of the posts page.
 
-			$home           = array(
-				'loc'        => aioseop_home_url(),
-				'priority'   => $this->get_default_priority( 'homepage' ),
-				'changefreq' => $this->get_default_frequency( 'homepage' ),
-				'image:image'=> $this->get_images_from_post( (int) get_option( 'page_on_front' ) ),
+			$home = array(
+				'loc'         => aioseop_home_url(),
+				'priority'    => $this->get_default_priority( 'homepage' ),
+				'changefreq'  => $this->get_default_frequency( 'homepage' ),
+				'image:image' => $this->get_images_from_post( (int) get_option( 'page_on_front' ) ),
 			);
 
 			$this->paginate = false;
@@ -1954,7 +1954,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$xml_header = '<?xml-stylesheet type="text/xsl" href="' . $xsl_url . '"?>' . "\r\n"
 			              . '<urlset ';
 			$namespaces = apply_filters( $this->prefix . 'xml_namespace', array(
-				'xmlns'	=> 'http://www.sitemaps.org/schemas/sitemap/0.9',
+				'xmlns'       => 'http://www.sitemaps.org/schemas/sitemap/0.9',
 				'xmlns:image' => 'http://www.google.com/schemas/sitemap-image/1.1',
 			) );
 			if ( ! empty( $namespaces ) ) {
@@ -2003,7 +2003,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 							} else {
 								echo "\t\t<$k>$v</$k>\r\n";
 							}
-                        }
+						}
 					}
 				} else {
 					echo "\t\t<loc>" . esc_url( $url ) . "</loc>\r\n";
@@ -2113,8 +2113,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						$pr_info['changefreq'] = $def_freq;
 					}
 
-					$pr_info['image:image']	= $this->get_images_from_term( $term );
-					$prio[] = $pr_info;
+					$pr_info['image:image'] = $this->get_images_from_term( $term );
+					$prio[]                 = $pr_info;
 				}
 			}
 
@@ -2302,10 +2302,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		function get_addl_pages() {
 			$home  = array();
 			$home  = array(
-				'loc'        => aioseop_home_url(),
-				'priority'   => $this->get_default_priority( 'homepage' ),
-				'changefreq' => $this->get_default_frequency( 'homepage' ),
-				'image:image'=> $this->get_images_from_post( (int) get_option( 'page_on_front' ) ),
+				'loc'         => aioseop_home_url(),
+				'priority'    => $this->get_default_priority( 'homepage' ),
+				'changefreq'  => $this->get_default_frequency( 'homepage' ),
+				'image:image' => $this->get_images_from_post( (int) get_option( 'page_on_front' ) ),
 			);
 
 			$posts = (int) get_option( 'page_for_posts' );
@@ -2562,15 +2562,15 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 			if ( is_array( $posts ) ) {
 				foreach ( $posts as $post ) {
-					// this will determine if we check the post for images or not
-					$is_single		= true;
+					// Determine if we check the post for images.
+					$is_single = true;
 					$url          = '';
 					$post->filter = 'sample';
 					if ( 'get_permalink' === $linkfunc ) {
 						$url = $this->get_permalink( $post );
 					} else {
 						$url = call_user_func( $linkfunc, $post );
-						$is_single	= false;
+						$is_single = false;
 					}
 					$date = $post->post_modified;
 					if ( '0000-00-00 00:00:00' === $date ) {
@@ -2635,14 +2635,17 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * @return array
 		 */
 		private function get_images_from_term( $term ) {
-			$images			= array();
-			$thumbnail_id	= get_term_meta( $term->term_id, 'thumbnail_id', true );
+			$images       = array();
+			$thumbnail_id = get_term_meta( $term->term_id, 'thumbnail_id', true );
 			if ( $thumbnail_id ) {
-				$image		= wp_get_attachment_url( $thumbnail_id );
+				$image = wp_get_attachment_url( $thumbnail_id );
 				if ( $image ) {
-					$images['image:image']	= array( 'image:loc' => $image );
+					$images['image:image'] = array(
+						'image:loc' => $image,
+					);
 				}
 			}
+
 			return $images;
 		}
 
@@ -2654,66 +2657,70 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * @return array
 		 */
 		private function get_images_from_post( $post ) {
-			$images			= array();
+			$images = array();
 
 			if ( is_numeric( $post ) ) {
 				if ( 0 === $post ) {
 					return null;
 				}
-				$post		= get_post( $post );
+				$post = get_post( $post );
 			}
 
 			if ( 'attachment' === $post->post_type ) {
 				if ( false === strpos( $post->post_mime_type, 'image/' ) ) {
-					// ignore all attachments except images
+					// Ignore all attachments except images.
 					return null;
 				}
-				$attributes	= wp_get_attachment_image_src( $post->ID );
+				$attributes = wp_get_attachment_image_src( $post->ID );
 				if ( $attributes ) {
-					$images[]	= array( 'image:loc' => $attributes[0] );
+					$images[] = array(
+						'image:loc' => $attributes[0],
+					);
 				}
+
 				return $images;
 			}
 
-			// check featured image
-			$attached_url	= get_the_post_thumbnail_url( $post->ID );
+			// Check featured image.
+			$attached_url = get_the_post_thumbnail_url( $post->ID );
 			if ( false !== $attached_url ) {
-				$images[]	= $attached_url;
+				$images[] = $attached_url;
 			}
 
-			// check images in the content
-			$content    = apply_filters( 'the_content', $post->post_content );
-			$total      = substr_count( $content, '<img ' ) + substr_count( $content, '<IMG ' );
+			// Check images in the content.
+			$content = apply_filters( 'the_content', $post->post_content );
+			$total   = substr_count( $content, '<img ' ) + substr_count( $content, '<IMG ' );
 			if ( $total > 0 ) {
-				$dom	= new domDocument;
-                // non-compliant HTML might give errors, so ignore them
-                libxml_use_internal_errors( true );
+				$dom = new domDocument();
+				// Non-compliant HTML might give errors, so ignore them.
+				libxml_use_internal_errors( true );
 				$dom->loadHTML( $content );
-                libxml_clear_errors();
-                // @codingStandardsIgnoreStart
+				libxml_clear_errors();
+				// @codingStandardsIgnoreStart
 				$dom->preserveWhiteSpace = false;
-                // @codingStandardsIgnoreEnd
+				// @codingStandardsIgnoreEnd
 				$matches = $dom->getElementsByTagName( 'img' );
 				foreach ( $matches as $match ) {
-					$images[]	= $match->getAttribute( 'src' );
+					$images[] = $match->getAttribute( 'src' );
 				}
 			}
 
 			if ( $images ) {
-				$tmp			= $images;
+				$tmp = $images;
 				if ( 1 < count( $images ) ) {
-					// filter out duplicates
-					$tmp		= array_unique( $images );
+					// Filter out duplicates.
+					$tmp = array_unique( $images );
 				}
-				$images		= array();
+				$images = array();
 				foreach ( $tmp as $image ) {
-					$images[]	= array( 'image:loc' => $image );
+					$images[] = array(
+						'image:loc' => $image,
+					);
 				}
 			}
 
 			return $images;
 		}
-
 
 		/**
 		 * Return excluded categories for taxonomy queries.
