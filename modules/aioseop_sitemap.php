@@ -10,6 +10,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 	/**
 	 * Class All_in_One_SEO_Pack_Sitemap
+	 *
+	 * @since ?
+	 * @since 2.4 Include images in sitemap.
 	 */
 	class All_in_One_SEO_Pack_Sitemap extends All_in_One_SEO_Pack_Module {
 		var $cache_struct = null;
@@ -1818,7 +1821,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 			$prio = $this->get_all_post_priority_data( $options["{$this->prefix}posttypes"] );
 
-			$posts   = $postspageid    = (int) get_option( 'page_for_posts' ); // It's 0 if posts are on homepage, otherwise it's the id of the posts page.
+			$posts = $postspageid = (int) get_option( 'page_for_posts' ); // It's 0 if posts are on homepage, otherwise it's the id of the posts page.
 
 			$home           = array(
 				'loc'        => aioseop_home_url(),
