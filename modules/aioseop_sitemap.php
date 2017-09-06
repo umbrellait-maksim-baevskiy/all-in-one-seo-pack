@@ -2628,9 +2628,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		}
 
 		/**
-		 * Return the images attached to the term
+		 * Return the images attached to the term.
 		 *
 		 * @param WP_Term $term the term object.
+		 *
+		 * @since 2.4
 		 *
 		 * @return array
 		 */
@@ -2650,9 +2652,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		}
 
 		/**
-		 * Return the images from the post
+		 * Return the images from the post.
 		 *
 		 * @param WP_Post $post the post object.
+		 *
+		 * @since 2.4
 		 *
 		 * @return array
 		 */
