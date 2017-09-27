@@ -58,8 +58,6 @@ All in One SEO Pack [Changelog](http://semperfiwebdesign.com/documentation/all-i
 Please visit our complete **[Documentation](http://semperplugins.com/documentation/)** before requesting support for SEO from the
 **[All in One SEO Pack Support Forum](http://semperplugins.com/support/)**
 
-[Translations](http://semperfiwebdesign.com/documentation/all-in-one-seo-pack/translations-for-all-in-one-seo-pack/)
-
 = General Settings =
 https://www.youtube.com/watch?v=uGt6CVbA5bI
 
