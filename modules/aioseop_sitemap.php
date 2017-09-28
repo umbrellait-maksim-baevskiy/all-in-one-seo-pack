@@ -2624,10 +2624,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 			return $prio;
 		}
-
-		function show_images_in_sitemap(){
-			
-		}
 		
 		/**
 		 * Return the images attached to the term.
