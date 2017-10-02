@@ -337,12 +337,17 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( isset( $options["{$this->prefix}indexes"] ) && 'on ' !== $options["{$this->prefix}indexes"] &&
 			     1001 < $options["{$this->prefix}max_posts"] ) {
 
+				$post_counts = $num_terms = 0;
+
 				$post_counts = $this->get_total_post_count( array(
 					'post_type'   => $options["{$this->prefix}posttypes"],
 					'post_status' => 'publish',
 				) );
 
-				$num_terms = array_sum( $this->get_all_term_counts( array( 'taxonomy' => $options["{$this->prefix}taxonomies"] ) ) );
+				$term_counts = $this->get_all_term_counts( array( 'taxonomy' => $options["{$this->prefix}taxonomies"] ) );
+				if( isset( $term_counts ) && is_array( $term_counts ) ){
+					$num_terms = array_sum( $term_counts );
+				}
 
 				$sitemap_urls = $post_counts + $num_terms;
 
