@@ -2711,9 +2711,36 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$images[] = $attached_url;
 			}
 
-			// Check images in the content.
+			$content = '';
 			$content = $post->post_content;
-			$this->parse_content_for_images( $content, $images );
+
+			// Check images galleries in the content. DO NOT run the_content filter here as it might cause issues with other shortcodes.
+			if ( has_shortcode( $content, 'gallery' ) ) {
+				$galleries = get_post_galleries( $post, false );
+				if ( $galleries ) {
+					foreach ( $galleries as $gallery ) {
+						$images = array_merge( $images, $gallery['src'] );
+					}
+				}
+			}
+
+			$total   = substr_count( $content, '<img ' ) + substr_count( $content, '<IMG ' );
+			if ( $total > 0 ) {
+				$dom = new domDocument();
+				// Non-compliant HTML might give errors, so ignore them.
+				libxml_use_internal_errors( true );
+				$dom->loadHTML( $content );
+				libxml_clear_errors();
+				// @codingStandardsIgnoreStart
+				$dom->preserveWhiteSpace = false;
+				// @codingStandardsIgnoreEnd
+				$matches = $dom->getElementsByTagName( 'img' );
+				foreach ( $matches as $match ) {
+					$images[] = $match->getAttribute( 'src' );
+				}
+			}
+
+      			$this->parse_content_for_images( $content, $images );
 
 			if ( $images ) {
 				$tmp = $images;
