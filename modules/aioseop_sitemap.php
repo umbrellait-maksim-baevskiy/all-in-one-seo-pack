@@ -337,12 +337,17 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( isset( $options["{$this->prefix}indexes"] ) && 'on ' !== $options["{$this->prefix}indexes"] &&
 			     1001 < $options["{$this->prefix}max_posts"] ) {
 
+				$post_counts = $num_terms = 0;
+
 				$post_counts = $this->get_total_post_count( array(
 					'post_type'   => $options["{$this->prefix}posttypes"],
 					'post_status' => 'publish',
 				) );
 
-				$num_terms = array_sum( $this->get_all_term_counts( array( 'taxonomy' => $options["{$this->prefix}taxonomies"] ) ) );
+				$term_counts = $this->get_all_term_counts( array( 'taxonomy' => $options["{$this->prefix}taxonomies"] ) );
+				if( isset( $term_counts ) && is_array( $term_counts ) ){
+					$num_terms = array_sum( $term_counts );
+				}
 
 				$sitemap_urls = $post_counts + $num_terms;
 
@@ -2732,7 +2737,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$attributes = wp_get_attachment_image_src( $post->ID );
 				if ( $attributes ) {
 					$images[] = array(
-						'image:loc' => $attributes[0],
+						'image:loc' => $this->clean_url( $attributes[0] ),
 					);
 				}
 
@@ -2758,23 +2763,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				}
 			}
 
-			$total   = substr_count( $content, '<img ' ) + substr_count( $content, '<IMG ' );
-			if ( $total > 0 ) {
-				$dom = new domDocument();
-				// Non-compliant HTML might give errors, so ignore them.
-				libxml_use_internal_errors( true );
-				$dom->loadHTML( $content );
-				libxml_clear_errors();
-				// @codingStandardsIgnoreStart
-				$dom->preserveWhiteSpace = false;
-				// @codingStandardsIgnoreEnd
-				$matches = $dom->getElementsByTagName( 'img' );
-				foreach ( $matches as $match ) {
-					$images[] = $match->getAttribute( 'src' );
-				}
-			}
-
-      			$this->parse_content_for_images( $content, $images );
+			$this->parse_content_for_images( $content, $images );
 
 			if ( $images ) {
 				$tmp = $images;
@@ -2787,7 +2776,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$images = array();
 				foreach ( $tmp as $image ) {
 					$images[] = array(
-						'image:loc' => $image,
+						'image:loc' => $this->clean_url( $image ),
 					);
 				}
 			}
@@ -2795,6 +2784,22 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $images;
 		}
 
+		/**
+		 * Cleans the URL so that its acceptable in the sitemap.
+		 *
+		 * @param string $url The image url.
+		 *
+		 * @since 2.4.1
+		 *
+		 * @return string
+		 */
+		function clean_url( $url ) {
+			// remove the query string.
+			$url    = strtok( $url, '?' );
+			// make the url XML-safe.
+			$url    = htmlspecialchars( $url );
+			return apply_filters( 'aioseop_clean_url', $url );
+		}
 
 		/**
 		 * Validate the image.
