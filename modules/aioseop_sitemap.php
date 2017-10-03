@@ -2811,7 +2811,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 */
 		function clean_url( $url ) {
 			// remove the query string.
-			$url	= strtok( $url, '?' );
+			$url    = strtok( $url, '?' );
 			return apply_filters( 'aioseop_clean_url', $url );
 		}
 
