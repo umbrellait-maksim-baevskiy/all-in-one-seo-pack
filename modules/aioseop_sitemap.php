@@ -2810,8 +2810,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * @return string
 		 */
 		function clean_url( $url ) {
-			// remove the query string.
-			$url    = strtok( $url, '?' );
+            // remove the query string.
+            $url    = strtok( $url, '?' );
+            // make the url XML-safe.
+            $url    = htmlspecialchars( $url );
 			return apply_filters( 'aioseop_clean_url', $url );
 		}
 
