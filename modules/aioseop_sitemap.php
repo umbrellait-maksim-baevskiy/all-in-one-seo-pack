@@ -2763,6 +2763,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				}
 			}
 
+			$content .= $this->get_content_from_galleries( $content );
 			$this->parse_content_for_images( $content, $images );
 
 			if ( $images ) {
@@ -2782,6 +2783,71 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 
 			return $images;
+		}
+
+		/**
+		 * Parses the content to find out if specified images galleries exist and if they do, parse them for images.
+		 * Supports NextGen.
+		 * 
+		 * @param string $content The post content.
+		 *
+		 * @since 2.4.1
+		 *
+		 * @return string
+		 */
+		private function get_content_from_galleries( $content ) {
+			// Support for NextGen Gallery.
+			static $gallery_types   = array( 'ngg_images' );
+
+			$gallery_content    = '';
+
+			$found  = array();
+			foreach ( $gallery_types as $type ) {
+				if ( has_shortcode( $content, $type ) ) {
+					$found[] = $type;
+				}
+			}
+
+			// If none of the shortcodes-of-interest are found, bail.
+			if ( empty( $found ) ) {
+				return $gallery_content;
+			}
+
+			$galleries = array();
+
+			if ( ! preg_match_all( '/' . get_shortcode_regex() . '/s', $content, $matches, PREG_SET_ORDER ) ) {
+				return $gallery_content;
+			}
+
+			// Collect the shortcodes and their attributes.
+			foreach ( $found as $type ) {
+				foreach ( $matches as $shortcode ) {
+					if ( $type === $shortcode[2] ) {
+
+						$attributes = shortcode_parse_atts( $shortcode[3] );
+
+						if ( '' === $attributes ) { // Valid shortcode without any attributes.
+							$attributes = array();
+						}
+
+						$galleries[ $shortcode[2] ] = $attributes;
+					}
+				}
+			}
+
+			// Recreate the shortcodes and then render them to get the HTML content.
+			if ( $galleries ) {
+				foreach ( $galleries as $shortcode => $attributes ) {
+					$code   = "[$shortcode";
+					foreach ( $attributes as $key => $value ) {
+						$code   .= " $key=$value";
+					}
+					$code .= "]";
+					$gallery_content .= do_shortcode( $code );
+				}
+			}
+
+			return $gallery_content;
 		}
 
 		/**
