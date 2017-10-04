@@ -62,6 +62,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				'taxonomies'      => __( 'Select which taxonomy archives appear in your sitemap', 'all-in-one-seo-pack' ),
 				'archive'         => __( 'Include Date Archives in your sitemap.', 'all-in-one-seo-pack' ),
 				'author'          => __( 'Include Author Archives in your sitemap.', 'all-in-one-seo-pack' ),
+				'images'          => __( 'Exclude Images in your sitemap.', 'all-in-one-seo-pack' ),
 				'gzipped'         => __( 'Create a compressed sitemap file in .xml.gz format.', 'all-in-one-seo-pack' ),
 				'robots'          => __( 'Places a link to your Sitemap.xml into your virtual Robots.txt file.', 'all-in-one-seo-pack' ),
 				'rewrite'         => __( 'Dynamically creates the XML sitemap instead of using a static file.', 'all-in-one-seo-pack' ),
@@ -82,6 +83,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				'taxonomies'      => '#post-types-and-taxonomies',
 				'archive'         => '#include-archive-pages',
 				'author'          => '#include-archive-pages',
+				'images'          => '#exclude-images',
 				'gzipped'         => '#create-compressed-sitemap',
 				'robots'          => '#link-from-virtual-robots',
 				'rewrite'         => '#dynamically-generate-sitemap',
@@ -130,6 +132,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				),
 				'archive'    => array( 'name' => __( 'Include Date Archive Pages', 'all-in-one-seo-pack' ) ),
 				'author'     => array( 'name' => __( 'Include Author Pages', 'all-in-one-seo-pack' ) ),
+				'images'     => array( 'name' => __( 'Exclude Images', 'all-in-one-seo-pack' ) ),
 				'gzipped'    => array(
 					'name'    => __( 'Create Compressed Sitemap', 'all-in-one-seo-pack' ),
 					'default' => 'On',
@@ -331,7 +334,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				return;
 			}
 
-			global $options;
 			$options = $this->options;
 
 			if ( isset( $options["{$this->prefix}indexes"] ) && 'on ' !== $options["{$this->prefix}indexes"] &&
@@ -2687,7 +2689,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 */
 		private function get_images_from_term( $term ) {
 
-			if ( false === apply_filters( 'aioseo_include_images_in_sitemap', true ) ) {
+			if ( ! aiosp_include_images() ) {
 				return array();
 			}
 
@@ -2716,7 +2718,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 */
 		private function get_images_from_post( $post ) {
 
-			if ( false === apply_filters( 'aioseo_include_images_in_sitemap', true ) ) {
+			if ( ! aiosp_include_images() ) {
 				return array();
 			}
 
@@ -2737,7 +2739,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$attributes = wp_get_attachment_image_src( $post->ID );
 				if ( $attributes ) {
 					$images[] = array(
-						'image:loc' => $attributes[0],
+						'image:loc' => $this->clean_url( $attributes[0] ),
 					);
 				}
 
@@ -2763,23 +2765,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				}
 			}
 
-			$total   = substr_count( $content, '<img ' ) + substr_count( $content, '<IMG ' );
-			if ( $total > 0 ) {
-				$dom = new domDocument();
-				// Non-compliant HTML might give errors, so ignore them.
-				libxml_use_internal_errors( true );
-				$dom->loadHTML( $content );
-				libxml_clear_errors();
-				// @codingStandardsIgnoreStart
-				$dom->preserveWhiteSpace = false;
-				// @codingStandardsIgnoreEnd
-				$matches = $dom->getElementsByTagName( 'img' );
-				foreach ( $matches as $match ) {
-					$images[] = $match->getAttribute( 'src' );
-				}
-			}
-
-      			$this->parse_content_for_images( $content, $images );
+			$this->parse_content_for_images( $content, $images );
 
 			if ( $images ) {
 				$tmp = $images;
@@ -2792,7 +2778,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$images = array();
 				foreach ( $tmp as $image ) {
 					$images[] = array(
-						'image:loc' => $image,
+						'image:loc' => $this->clean_url( $image ),
 					);
 				}
 			}
@@ -2800,6 +2786,24 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			return $images;
 		}
 
+		/**
+		 * Cleans the URL so that its acceptable in the sitemap.
+		 *
+		 * @param string $url The image url.
+		 *
+		 * @since 2.4.1
+		 *
+		 * @return string
+		 */
+		function clean_url( $url ) {
+			// remove the query string.
+			$url    = strtok( $url, '?' );
+			// make the url XML-safe.
+			$url    = htmlspecialchars( $url );
+			// Make the url absolute, if its relative.
+			$url    = aiosp_common::absolutize_url( $url );
+			return apply_filters( 'aioseop_clean_url', $url );
+		}
 
 		/**
 		 * Validate the image.
@@ -2816,10 +2820,20 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				return false;
 			}
 
+			// make the url absolute, if its relative.
+			$image	    = aiosp_common::absolutize_url( $image );
+
 			$extn       = pathinfo( wp_parse_url( $image, PHP_URL_PATH ), PATHINFO_EXTENSION );
 			$allowed    = apply_filters( 'aioseop_allowed_image_extensions', self::$image_extensions );
 			// Bail if image does not refer to an image file otherwise google webmaster tools might reject the sitemap.
 			if ( ! in_array( $extn, $allowed, true ) ) {
+				return false;
+			}
+
+			// Bail if image refers to an external URL.
+			$image_host = wp_parse_url( $image, PHP_URL_HOST );
+			$wp_host    = wp_parse_url( home_url(), PHP_URL_HOST );
+			if ( $image_host !== $wp_host ) {
 				return false;
 			}
 
