@@ -2800,6 +2800,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$url    = strtok( $url, '?' );
 			// make the url XML-safe.
 			$url    = htmlspecialchars( $url );
+			// Make the url absolute, if its relative.
+			$url    = aiosp_common::absolutize_url( $url );
 			return apply_filters( 'aioseop_clean_url', $url );
 		}
 
@@ -2818,10 +2820,20 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				return false;
 			}
 
+			// make the url absolute, if its relative.
+			$image	    = aiosp_common::absolutize_url( $image );
+
 			$extn       = pathinfo( wp_parse_url( $image, PHP_URL_PATH ), PATHINFO_EXTENSION );
 			$allowed    = apply_filters( 'aioseop_allowed_image_extensions', self::$image_extensions );
 			// Bail if image does not refer to an image file otherwise google webmaster tools might reject the sitemap.
 			if ( ! in_array( $extn, $allowed, true ) ) {
+				return false;
+			}
+
+			// Bail if image refers to an external URL.
+			$image_host = wp_parse_url( $image, PHP_URL_HOST );
+			$wp_host    = wp_parse_url( home_url(), PHP_URL_HOST );
+			if ( $image_host !== $wp_host ) {
 				return false;
 			}
 
