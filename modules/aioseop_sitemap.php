@@ -2797,14 +2797,16 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 */
 		private function get_content_from_galleries( $content ) {
 			// Support for NextGen Gallery.
-			static $gallery_types   = array( 'ngg_images' );
+			static $gallery_types   = apply_filters( 'aioseop_gallery_shortcodes', array( 'ngg_images' ) );
 
 			$gallery_content    = '';
 
 			$found  = array();
-			foreach ( $gallery_types as $type ) {
-				if ( has_shortcode( $content, $type ) ) {
-					$found[] = $type;
+			if ( $gallery_types ) {
+				foreach ( $gallery_types as $type ) {
+					if ( has_shortcode( $content, $type ) ) {
+						$found[] = $type;
+					}
 				}
 			}
 
