@@ -2810,6 +2810,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					}
 				}
 			}
+			$images = array_unique( $images );
 		}
 
 		/**
