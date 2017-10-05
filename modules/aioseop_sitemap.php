@@ -2753,26 +2753,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$content = '';
 			$content = $post->post_content;
 
-			// Check images galleries in the content. DO NOT run the_content filter here as it might cause issues with other shortcodes.
-			if ( has_shortcode( $content, 'gallery' ) ) {
-				// Get the jetpack gallery images.
-				if ( class_exists( 'Jetpack_PostImages' ) ) {
-					$jetpack    = Jetpack_PostImages::get_images( $post->ID );
-					if ( $jetpack ) {
-						foreach ( $jetpack as $jetpack_image ) {
-							$images[]   = $jetpack_image['src'];
-						}
-					}
-				}
-
-				// Get the default WP gallery images.
-				$galleries = get_post_galleries( $post, false );
-				if ( $galleries ) {
-					foreach ( $galleries as $gallery ) {
-						$images = array_merge( $images, $gallery['src'] );
-					}
-				}
-			}
+			$this->get_gallery_images( $post, $images );
 
 			$content .= $this->get_content_from_galleries( $content );
 			$this->parse_content_for_images( $content, $images );
@@ -2797,6 +2778,42 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		}
 
 		/**
+		 * Fetch images from WP and Jetpack galleries.
+		 * 
+		 * @param string $content The post content.
+		 * @param array  $images the array of images.
+		 *
+		 * @since 2.4.2
+		 *
+		 */
+		private function get_gallery_images( $post, &$images ) {
+			if ( false === apply_filters( 'aioseo_include_images_in_wp_gallery', true ) ) {
+				return;
+			}
+
+			// Check images galleries in the content. DO NOT run the_content filter here as it might cause issues with other shortcodes.
+			if ( has_shortcode( $post->post_content, 'gallery' ) ) {
+				// Get the jetpack gallery images.
+				if ( class_exists( 'Jetpack_PostImages' ) ) {
+					$jetpack    = Jetpack_PostImages::get_images( $post->ID );
+					if ( $jetpack ) {
+						foreach ( $jetpack as $jetpack_image ) {
+							$images[]   = $jetpack_image['src'];
+						}
+					}
+				}
+
+				// Get the default WP gallery images.
+				$galleries = get_post_galleries( $post, false );
+				if ( $galleries ) {
+					foreach ( $galleries as $gallery ) {
+						$images = array_merge( $images, $gallery['src'] );
+					}
+				}
+			}
+		}
+
+		/**
 		 * Parses the content to find out if specified images galleries exist and if they do, parse them for images.
 		 * Supports NextGen.
 		 * 
@@ -2812,6 +2829,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$types                  = apply_filters( 'aioseop_gallery_shortcodes', $gallery_types );
 
 			$gallery_content    = '';
+
+			if ( ! $types ) {
+				return $gallery_content;
+			}
 
 			$found  = array();
 			if ( $types ) {
@@ -2852,11 +2873,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			// Recreate the shortcodes and then render them to get the HTML content.
 			if ( $galleries ) {
 				foreach ( $galleries as $shortcode => $attributes ) {
-					$code   = "[$shortcode";
+					$code   = '[' . $shortcode;
 					foreach ( $attributes as $key => $value ) {
 						$code   .= " $key=$value";
 					}
-					$code .= "]";
+					$code .= ']';
 					$gallery_content .= do_shortcode( $code );
 				}
 			}
