@@ -2755,6 +2755,17 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 			// Check images galleries in the content. DO NOT run the_content filter here as it might cause issues with other shortcodes.
 			if ( has_shortcode( $content, 'gallery' ) ) {
+				// Get the jetpack gallery images.
+				if ( class_exists( 'Jetpack_PostImages' ) ) {
+					$jetpack    = Jetpack_PostImages::get_images( $post->ID );
+					if ( $jetpack ) {
+						foreach ( $jetpack as $jetpack_image ) {
+							$images[]   = $jetpack_image['src'];
+						}
+					}
+				}
+
+				// Get the default WP gallery images.
 				$galleries = get_post_galleries( $post, false );
 				if ( $galleries ) {
 					foreach ( $galleries as $gallery ) {
