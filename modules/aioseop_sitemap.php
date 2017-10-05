@@ -2779,12 +2779,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 		/**
 		 * Fetch images from WP and Jetpack galleries.
-		 * 
-		 * @param string $content The post content.
+		 *
+		 * @param string $post The post.
 		 * @param array  $images the array of images.
 		 *
 		 * @since 2.4.2
-		 *
 		 */
 		private function get_gallery_images( $post, &$images ) {
 			if ( false === apply_filters( 'aioseo_include_images_in_wp_gallery', true ) ) {
@@ -2816,10 +2815,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Parses the content to find out if specified images galleries exist and if they do, parse them for images.
 		 * Supports NextGen.
-		 * 
+		 *
 		 * @param string $content The post content.
 		 *
-		 * @since 2.4.1
+		 * @since 2.4.2
 		 *
 		 * @return string
 		 */
