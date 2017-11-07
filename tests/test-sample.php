@@ -22,7 +22,7 @@ function test_sample_string() {
  
 	$string = 'Unit tests are sweet';
  
-	$this-&gt;assertEquals( 'Unit tests are sweet', $string );
+	$this->assertEquals( 'Unit tests are sweet', $string );
 }
 
 }
