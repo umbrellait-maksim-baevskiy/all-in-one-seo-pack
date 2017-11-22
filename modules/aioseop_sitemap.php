@@ -2778,7 +2778,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		}
 
 		/**
-		 * Fetch images from WP and Jetpack galleries.
+		 * Fetch images from WP, Jetpack and WooCommerce galleries.
 		 *
 		 * @param string $post The post.
 		 * @param array  $images the array of images.
@@ -2810,6 +2810,20 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					}
 				}
 			}
+
+			// Check WooCommerce product gallery.
+			if ( class_exists( 'WooCommerce' ) ) {
+				$woo_images = get_post_meta( $post->ID, '_product_image_gallery', true );
+				if ( ! empty( $woo_images ) ) {
+					$woo_images = array_filter( explode( ',', $woo_images ) );
+					if ( is_array( $woo_images ) ) {
+						foreach ( $woo_images as $id ) {
+							$images[] = wp_get_attachment_url( $id );
+						}
+					}
+				}
+			}
+
 			$images = array_unique( $images );
 		}
 
