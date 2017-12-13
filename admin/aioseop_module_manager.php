@@ -144,6 +144,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 		 * @return bool
 		 */
 		function load_module( $mod ) {
+			error_log("loading $mod");
 			static $feature_options = null;
 			static $feature_prefix = null;
 			if ( ! is_array( $this->modules ) ) {

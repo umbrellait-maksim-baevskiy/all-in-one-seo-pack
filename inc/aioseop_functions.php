@@ -14,6 +14,7 @@ if ( ! function_exists( 'aioseop_load_modules' ) ) {
 	 */
 	function aioseop_load_modules() {
 		global $aioseop_modules, $aioseop_module_list;
+		error_log("in aioseop_load_modules " . print_r(array_keys($aioseop_module_list),true));
 		require_once( AIOSEOP_PLUGIN_DIR . 'admin/aioseop_module_manager.php' );
 		$aioseop_modules = new All_in_One_SEO_Pack_Module_Manager( apply_filters( 'aioseop_module_list', $aioseop_module_list ) );
 		$aioseop_modules->load_modules();
@@ -581,6 +582,7 @@ if ( ! function_exists( 'aioseop_ajax_scan_header' ) ) {
 if ( ! function_exists( 'aioseop_ajax_save_settings' ) ) {
 
 	function aioseop_ajax_save_settings() {
+		error_log("aioseop_ajax_save_settings");
 		aioseop_ajax_init();
 		$options = Array();
 		parse_str( $_POST['options'], $options );
