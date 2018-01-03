@@ -1052,12 +1052,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 						$author = get_the_author_meta( 'facebook', $post->post_author );
 					}
 
-					if ( isset( $post->post_date ) ) {
-						$published_time = date( 'Y-m-d\TH:i:s\Z', mysql2date( 'U', $post->post_date ) );
+					if ( isset( $post->post_date_gmt ) ) {
+						$published_time = date( 'Y-m-d\TH:i:s\Z', mysql2date( 'U', $post->post_date_gmt ) );
 					}
 
-					if ( isset( $post->post_modified ) ) {
-						$modified_time = date( 'Y-m-d\TH:i:s\Z', mysql2date( 'U', $post->post_modified ) );
+					if ( isset( $post->post_modified_gmt ) ) {
+						$modified_time = date( 'Y-m-d\TH:i:s\Z', mysql2date( 'U', $post->post_modified_gmt ) );
 					}
 				}
 
