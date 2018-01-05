@@ -8,6 +8,22 @@
  * @version 2.3.13
  */
 
+if ( ! function_exists( 'aioseop_get_permalink' ) ) {
+	/**
+	 * Support UTF8 URLs.
+	 *
+	 * @param int|object|null $post_id The post.
+	 */
+	function aioseop_get_permalink( $post_id = null ) {
+		if ( is_null( $post_id ) ) {
+			global $post;
+			$post_id = $post;
+		}
+
+		return urldecode( get_permalink( $post_id ) );
+	}
+}
+
 if ( ! function_exists( 'aioseop_load_modules' ) ) {
 	/**
 	 * Load the module manager.

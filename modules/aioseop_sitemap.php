@@ -3074,7 +3074,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$start = false;
 			}
 
-			return get_permalink( $post );
+			return aioseop_get_permalink( $post );
 		}
 
 		/**
