@@ -304,6 +304,9 @@ if ( ! function_exists( 'aiosp_add_action_links' ) ) {
 	 * @return array
 	 */
 	function aiosp_add_action_links( $actions, $plugin_file ) {
+		if ( ! is_array( $actions ) ) {
+			return $actions;
+		}
 
 		$aioseop_plugin_dirname = AIOSEOP_PLUGIN_DIRNAME;
 		$action_links           = array();
