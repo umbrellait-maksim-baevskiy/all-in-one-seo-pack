@@ -2472,6 +2472,12 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			$description = $this->internationalize( $description );
 		}
 
+		$description = apply_filters(
+			'aioseop_description',
+			$description,
+			empty( $aioseop_options['aiosp_dont_truncate_descriptions'] )
+		);
+
 		return $description;
 	}
 
@@ -2542,6 +2548,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 */
 	function get_post_description( $post ) {
 		global $aioseop_options;
+		$aioseop_options['aiosp_dont_truncate_descriptions'] = false;
 		$description = '';
 		if ( ! $this->show_page_description() ) {
 			return '';
@@ -2560,12 +2567,8 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					$content = do_shortcode( $content );
 				}
 				$description = $this->trim_text_without_filters_full_length( $this->internationalize( $content ) );
+				$aioseop_options['aiosp_dont_truncate_descriptions'] = true;
 			}
-			$description = apply_filters(
-				'aioseop_description',
-				$description,
-				empty( $aioseop_options['aiosp_dont_truncate_descriptions'] )
-			);
 		}
 
 		return $description;
@@ -4938,7 +4941,7 @@ EOF;
 		// Internal whitespace trim.
 		$value = preg_replace( '/\s\s+/u', ' ', $value );
 		// Truncate / crop
-		if ( ! empty( $truncate ) )
+		if ( ! empty( $truncate ) && $truncate )
 			$value = $this->trim_excerpt_without_filters( $value );
 		// Encode to valid SEO html entities
 		return $this->seo_entity_encode( $value );
