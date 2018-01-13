@@ -2509,12 +2509,16 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	}
 
 	/**
+	 * @since ?
+	 * @since 2.4 #1395 Longer Meta Descriptions & don't trim manual Descriptions.
+	 *
 	 * @param null $post
 	 *
 	 * @return mixed|string
 	 */
 	function get_aioseop_description( $post = null ) {
 		global $aioseop_options;
+		$aioseop_options['aiosp_dont_truncate_descriptions'] = true;
 		if ( null === $post ) {
 			$post = $GLOBALS['post'];
 		}
@@ -2548,7 +2552,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 */
 	function get_post_description( $post ) {
 		global $aioseop_options;
-		$aioseop_options['aiosp_dont_truncate_descriptions'] = false;
 		$description = '';
 		if ( ! $this->show_page_description() ) {
 			return '';
@@ -2567,7 +2570,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					$content = do_shortcode( $content );
 				}
 				$description = $this->trim_text_without_filters_full_length( $this->internationalize( $content ) );
-				$aioseop_options['aiosp_dont_truncate_descriptions'] = true;
+				$aioseop_options['aiosp_dont_truncate_descriptions'] = false;
 			}
 		}
 
