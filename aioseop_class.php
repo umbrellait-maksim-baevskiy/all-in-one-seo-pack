@@ -2518,7 +2518,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 */
 	function get_aioseop_description( $post = null ) {
 		global $aioseop_options;
-		$aioseop_options['aiosp_dont_truncate_descriptions'] = true;
 		if ( null === $post ) {
 			$post = $GLOBALS['post'];
 		}
@@ -2570,7 +2569,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					$content = do_shortcode( $content );
 				}
 				$description = $this->trim_text_without_filters_full_length( $this->internationalize( $content ) );
-				$aioseop_options['aiosp_dont_truncate_descriptions'] = false;
+			}
+			if ( isset( $aioseop_options['aiosp_dont_truncate_descriptions'] ) && false === $aioseop_options['aiosp_dont_truncate_descriptions'] ) {
+				$description = $this->substr( $description, 0, $this->maximum_description_length );
+				$description = trim( $description );
+			} elseif ( ! isset( $aioseop_options['aiosp_dont_truncate_descriptions'] ) || empty( $aioseop_options['aiosp_dont_truncate_descriptions'] ) ) {
+				$description = $this->substr( $description, 0, $this->maximum_description_length );
+				$description = trim( $description );
 			}
 		}
 
