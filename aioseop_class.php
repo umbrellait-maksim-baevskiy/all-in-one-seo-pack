@@ -2569,13 +2569,14 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					$content = do_shortcode( $content );
 				}
 				$description = $this->trim_text_without_filters_full_length( $this->internationalize( $content ) );
-			}
-			if ( isset( $aioseop_options['aiosp_dont_truncate_descriptions'] ) && false === $aioseop_options['aiosp_dont_truncate_descriptions'] ) {
-				$description = $this->substr( $description, 0, $this->maximum_description_length );
-				$description = trim( $description );
-			} elseif ( ! isset( $aioseop_options['aiosp_dont_truncate_descriptions'] ) || empty( $aioseop_options['aiosp_dont_truncate_descriptions'] ) ) {
-				$description = $this->substr( $description, 0, $this->maximum_description_length );
-				$description = trim( $description );
+
+				if ( isset( $aioseop_options['aiosp_dont_truncate_descriptions'] ) && false === $aioseop_options['aiosp_dont_truncate_descriptions'] ) {
+					$description = $this->substr( $description, 0, $this->maximum_description_length );
+					$description = trim( $description );
+				} elseif ( ! isset( $aioseop_options['aiosp_dont_truncate_descriptions'] ) || empty( $aioseop_options['aiosp_dont_truncate_descriptions'] ) ) {
+					$description = $this->substr( $description, 0, $this->maximum_description_length );
+					$description = trim( $description );
+				}
 			}
 		}
 
