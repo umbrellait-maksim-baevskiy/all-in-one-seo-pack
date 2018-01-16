@@ -2436,6 +2436,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	/**
 	 * @since 2.3.14 #932 Adds filter "aioseop_description", removes extra filtering.
 	 * @since 2.4 #951 Trim/truncates occurs inside filter "aioseop_description".
+	 * @since 2.4.4 #1395 Longer Meta Descriptions & don't trim manual Descriptions.
 	 *
 	 * @param null $post
 	 *
@@ -2472,10 +2473,20 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			$description = $this->internationalize( $description );
 		}
 
+		$truncate     = false;
+		$aioseop_desc = '';
+		if ( ! empty( $post->ID ) ) {
+			$aioseop_desc = get_post_meta( $post->ID, '_aioseop_description', true );
+		}
+
+		if ( empty ( $aioseop_desc ) && 'on' === $aioseop_options['aiosp_generate_descriptions'] && empty( $aioseop_options['aiosp_dont_truncate_descriptions'] ) ) {
+			$truncate = true;
+		}
+
 		$description = apply_filters(
 			'aioseop_description',
 			$description,
-			empty( $aioseop_options['aiosp_dont_truncate_descriptions'] )
+			$truncate
 		);
 
 		return $description;
@@ -2569,14 +2580,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					$content = do_shortcode( $content );
 				}
 				$description = $this->trim_text_without_filters_full_length( $this->internationalize( $content ) );
-
-				if ( isset( $aioseop_options['aiosp_dont_truncate_descriptions'] ) && false === $aioseop_options['aiosp_dont_truncate_descriptions'] ) {
-					$description = $this->substr( $description, 0, $this->maximum_description_length );
-					$description = trim( $description );
-				} elseif ( ! isset( $aioseop_options['aiosp_dont_truncate_descriptions'] ) || empty( $aioseop_options['aiosp_dont_truncate_descriptions'] ) ) {
-					$description = $this->substr( $description, 0, $this->maximum_description_length );
-					$description = trim( $description );
-				}
 			}
 		}
 
