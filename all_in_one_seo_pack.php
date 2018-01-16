@@ -454,7 +454,7 @@ if ( ! function_exists( 'aioseop_welcome' ) ){
 add_action( 'init', 'aioseop_load_modules', 1 );
 //add_action( 'after_setup_theme', 'aioseop_load_modules' );
 
-if ( is_admin() ) {
+if ( is_admin() || defined( 'AIOSEOP_UNIT_TESTING' ) ) {
 	add_action( 'wp_ajax_aioseop_ajax_save_meta', 'aioseop_ajax_save_meta' );
 	add_action( 'wp_ajax_aioseop_ajax_save_url', 'aioseop_ajax_save_url' );
 	add_action( 'wp_ajax_aioseop_ajax_delete_url', 'aioseop_ajax_delete_url' );
