@@ -105,8 +105,6 @@ class AIOSEOP_Unit_Test_Base extends WP_UnitTestCase {
 			}
 		}
 
-		$created = array();
-
 		$posts	= get_posts(
 			array(
 				'post_type' => $type,
