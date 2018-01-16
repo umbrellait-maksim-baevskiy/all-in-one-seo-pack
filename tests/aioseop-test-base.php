@@ -206,10 +206,10 @@ class AIOSEOP_Unit_Test_Base extends WP_UnitTestCase {
 				if ( true === $attributes ) {
 					// just test if the url exists.
 					$this->assertArrayHasKey( $url, $sitemap );
-				} else {
-					// just test if the url NOT exists.
-					$this->assertArrayNotHasKey( $url, $sitemap );
+					continue;
 				}
+				// just test if the url NOT exists.
+				$this->assertArrayNotHasKey( $url, $sitemap );
 				continue;
 			}
 
