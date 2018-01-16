@@ -136,9 +136,9 @@ class AIOSEOP_Unit_Test_Base extends WP_UnitTestCase {
 			if ( has_post_thumbnail( $id ) ) {
 				$featured++;
 				$with[] = get_permalink( $id );
-			} else {
-				$without[] = get_permalink( $id );
+				continue;
 			}
+			$without[] = get_permalink( $id );
 		}
 
 		// 2 posts have featured image?
