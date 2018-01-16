@@ -221,12 +221,12 @@ class AIOSEOP_Unit_Test_Base extends WP_UnitTestCase {
 					// just check if this element exists/not-exists.
 					if ( true === $value ) {
 						$this->assertArrayHasKey( $name, $sitemap[ $url ] );
-					} else {
-						$this->assertArrayNotHasKey( $name, $sitemap[ $url ] );
+						continue;
 					}
-				} else {
-					$this->assertEquals( $value, $sitemap[ $url ][ $name ] );
+					$this->assertArrayNotHasKey( $name, $sitemap[ $url ] );
+					continue;
 				}
+				$this->assertEquals( $value, $sitemap[ $url ][ $name ] );
 			}
 		}
 
