@@ -1406,7 +1406,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		function do_sitemaps( $message = '' ) {
 			if ( defined( 'AIOSEOP_UNIT_TESTING' ) ) {
 				$aioseop_options = aioseop_get_options();
-				$this->options = $aioseop_options['modules']["{$this->prefix}options"];
+				$this->options = $aioseop_options['modules'][ "{$this->prefix}options" ];
 			}
 
 			if ( ! empty( $this->options["{$this->prefix}indexes"] ) ) {
