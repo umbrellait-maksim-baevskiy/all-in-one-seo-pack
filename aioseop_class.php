@@ -2436,7 +2436,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	/**
 	 * @since 2.3.14 #932 Adds filter "aioseop_description", removes extra filtering.
 	 * @since 2.4 #951 Trim/truncates occurs inside filter "aioseop_description".
-	 * @since 2.4.4 #1395 Longer Meta Descriptions & don't trim manual Descriptions.
+	 * @since 2.4.4.1 #1395 Longer Meta Descriptions & don't trim manual Descriptions.
 	 *
 	 * @param null $post
 	 *
