@@ -106,6 +106,52 @@ class Test_Sitemap extends AIOSEOP_Unit_Test_Base {
 			)
 		);
 	}
+
+	public function test_woocommerce_gallery() {
+		$woo = 'woocommerce/woocommerce.php';
+		$file = dirname(dirname( dirname( __FILE__ ) )) . '/';
+		
+		if ( ! file_exists( $file . $woo ) ) {
+			$this->markTestSkipped( 'WooCommerce not installed. Skipping.' );
+		}
+
+		tests_add_filter( 'muplugins_loaded', function(){
+			require $file . $woo;
+		} );
+
+		activate_plugin( $woo );
+
+		if ( ! is_plugin_active( $woo ) ) {
+			$this->markTestSkipped( 'WooCommerce not activated. Skipping.' );
+		}
+
+
+		// create 4 attachments.
+		$attachments = array();
+		for ( $x = 0; $x < 4; $x++ ) {
+			$attachments[] = $this->upload_image_and_maybe_attach( str_replace( '\\', '/', trailingslashit( __DIR__ ) . 'resources/images/footer-logo.png' ) );
+		}
+
+		$id = $this->factory->post->create( array( 'post_type' => 'product' ) );
+		update_post_meta( $id, '_product_image_gallery', implode( ',', $attachments ) );
+		$url = get_permalink( $id );
+
+		$custom_options = array();
+		$custom_options['aiosp_sitemap_indexes'] = '';
+		$custom_options['aiosp_sitemap_images'] = '';
+		$custom_options['aiosp_sitemap_gzipped'] = '';
+		$custom_options['aiosp_sitemap_posttypes'] = array( 'product' );
+
+		$this->_setup_options( 'sitemap', $custom_options );
+
+		$this->validate_sitemap(
+			array(
+					$url => array(
+						'image'	=> true,
+					),
+			)
+		);
+	}
 }
 
 
