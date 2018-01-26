@@ -118,9 +118,14 @@ class Test_Sitemap extends Sitemap_Test_Base {
 		);
 	}
 
+	/**
+	 * Add WooCommerce product gallery images to XML sitemap.
+	 *
+	 * @ticket 366 Add WooCommerce product gallery images to XML sitemap
+	 */
 	public function test_woocommerce_gallery() {
 		$woo = 'woocommerce/woocommerce.php';
-		$file = dirname(dirname( dirname( __FILE__ ) )) . '/';
+		$file = dirname( dirname( AIOSEOP_UNIT_TESTING_DIR ) ) . '/';
 		
 		if ( ! file_exists( $file . $woo ) ) {
 			$this->markTestSkipped( 'WooCommerce not installed. Skipping.' );
@@ -136,11 +141,10 @@ class Test_Sitemap extends Sitemap_Test_Base {
 			$this->markTestSkipped( 'WooCommerce not activated. Skipping.' );
 		}
 
-
 		// create 4 attachments.
 		$attachments = array();
 		for ( $x = 0; $x < 4; $x++ ) {
-			$attachments[] = $this->upload_image_and_maybe_attach( str_replace( '\\', '/', trailingslashit( __DIR__ ) . 'resources/images/footer-logo.png' ) );
+			$attachments[] = $this->upload_image_and_maybe_attach( str_replace( '\\', '/', AIOSEOP_UNIT_TESTING_DIR . '/resources/images/footer-logo.png' ) );
 		}
 
 		$id = $this->factory->post->create( array( 'post_type' => 'product' ) );
