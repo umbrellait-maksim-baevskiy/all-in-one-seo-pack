@@ -2722,6 +2722,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * @return array
 		 */
 		private function get_images_from_post( $post ) {
+			global $wp_version;
 
 			if ( ! aiosp_include_images() ) {
 				return array();
