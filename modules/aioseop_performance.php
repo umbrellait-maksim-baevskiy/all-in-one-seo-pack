@@ -163,7 +163,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 			global $wpdb;
 			global $wp_version;
 
-			$sqlversion = $wpdb->get_var( "SELECT VERSION() AS version" );
+			$sqlversion = $wpdb->get_var( 'SELECT VERSION() AS version' );
 			$mysqlinfo  = $wpdb->get_results( "SHOW VARIABLES LIKE 'sql_mode'" );
 			if ( is_array( $mysqlinfo ) ) {
 				$sql_mode = $mysqlinfo[0]->Value;
@@ -225,7 +225,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 				} else {
 					$ms = __( 'No', 'all-in-one-seo-pack' );
 				}
-
 			} else {
 				$ms = __( 'N/A', 'all-in-one-seo-pack' );
 			}
@@ -312,11 +311,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 						if ( wp_mkdir_p( $dir ) ) {
 							$file_path = $dir . 'settings_aioseop-' . date( 'Y-m-d' ) . '-' . time() . '.ini';
 							if ( ! file_exists( $file_path ) ) {
+								// @codingStandardsIgnoreStart
 								if ( $file_handle = @fopen( $file_path, 'w' ) ) {
+								// @codingStandardsIgnoreEnd
 									global $aiosp;
 									$buf = '; ' . __(
-											'Settings export file for All in One SEO Pack', 'all-in-one-seo-pack'
-										) . "\n";
+										'Settings export file for All in One SEO Pack', 'all-in-one-seo-pack'
+									) . "\n";
 
 									// Adds all settings and posts data to settings file
 									add_filter( 'aioseop_export_settings_exporter_post_types', array( $this, 'get_exporter_post_types' ) );
@@ -349,7 +350,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 		function get_email_input() {
 			$nonce = wp_create_nonce( 'sfwd-debug-nonce' );
 			$buf   = '<input name="sfwd_debug_send_email" type="text" value="" placeholder="' . __( 'E-mail debug information', 'all-in-one-seo-pack' ) . '"><input name="sfwd_debug_nonce" type="hidden" value="' .
-			         $nonce . '"><input name="sfwd_debug_submit" type="submit" value="' . __( 'Submit', 'all-in-one-seo-pack' ) . '" class="button-primary">';
+					 $nonce . '"><input name="sfwd_debug_submit" type="submit" value="' . __( 'Submit', 'all-in-one-seo-pack' ) . '" class="button-primary">';
 			return $buf;
 		}
 
