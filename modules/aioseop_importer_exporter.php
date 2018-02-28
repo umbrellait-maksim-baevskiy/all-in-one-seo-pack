@@ -307,7 +307,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Importer_Exporter' ) ) {
 							for ( $i = 0; $i < count( $elem2 ); $i ++ ) {
 								$content .= $key2 . '[] = "' . $elem2[ $i ] . "\"\n";
 							}
-						} else if ( $elem2 == '' ) {
+						} elseif ( $elem2 == '' ) {
 							$content .= $key2 . " = \n";
 						} else {
 							$content .= $key2 . ' = "' . $elem2 . "\"\n";
@@ -320,7 +320,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Importer_Exporter' ) ) {
 						for ( $i = 0; $i < count( $elem ); $i ++ ) {
 							$content .= $key2 . '[] = "' . $elem[ $i ] . "\"\n";
 						}
-					} else if ( $elem == '' ) {
+					} elseif ( $elem == '' ) {
 						$content .= $key2 . " = \n";
 					} else {
 						$content .= $key2 . ' = "' . $elem . "\"\n";

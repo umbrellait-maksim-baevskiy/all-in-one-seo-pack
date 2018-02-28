@@ -1,7 +1,7 @@
 <?php
 if ( ! class_exists( 'All_in_One_SEO_Pack_Wpml' ) ) {
 	/**
-	 * Compatibility with WPML - Wordpress Multilingual Plugin
+	 * Compatibility with WPML - WordPress Multilingual Plugin
 	 *
 	 * @link https://wpml.org/
 	 * @package All-in-One-SEO-Pack
@@ -33,7 +33,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Wpml' ) ) {
 
 		/**
 		 * Returns specified url filtered by wpml.
-		 * This is needed to obtain the correct domain in which wordpress is running on.
+		 * This is needed to obtain the correct domain in which WordPress is running on.
 		 * AIOSEOP would have ran first expecting the return of home_url().
 		 *
 		 * @since 2.3.12.3

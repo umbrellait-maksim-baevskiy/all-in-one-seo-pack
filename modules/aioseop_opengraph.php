@@ -188,7 +188,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			if ( ! is_admin() || defined( 'DOING_AJAX' ) ) {
 				$this->do_opengraph();
 			}
-			// Set variables after wordpress load.
+			// Set variables after WordPress load.
 			add_action( 'init', array( &$this, 'init' ), 999999 );
 			add_filter( 'jetpack_enable_open_graph', '__return_false' ); // Avoid having duplicate meta tags
 			// Force refresh of Facebook cache.
@@ -202,7 +202,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 		}
 
 		/**
-		 * Hook called after wordpress has been loaded.
+		 * Hook called after WordPress has been loaded.
 		 * @since 2.4.14
 		 */
 		public function init() {
@@ -698,7 +698,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					if ( ctype_digit( (string) $thumbnail ) || ( $thumbnail == 'post' ) ) {
 						if ( $thumbnail == 'post' ) {
 							$thumbnail = $images['post1'];
-						} else if ( ! empty( $legacy[ $thumbnail ] ) ) {
+						} elseif ( ! empty( $legacy[ $thumbnail ] ) ) {
 							$thumbnail = $legacy[ $thumbnail ];
 						}
 					}
@@ -1113,7 +1113,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				if ( empty( $type ) ) {
 					$type = 'article';
 				}
-			} else if ( AIOSEOPPRO && ( is_category() || is_tag() || is_tax() ) ) {
+			} elseif ( AIOSEOPPRO && ( is_category() || is_tag() || is_tax() ) ) {
 				if ( isset( $this->options['aioseop_opengraph_settings_category'] ) ) {
 					$type = $this->options['aioseop_opengraph_settings_category'];
 				}
@@ -1170,7 +1170,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				if ( empty( $type ) ) {
 					$type = 'website';
 				}
-			} else if ( is_home() && ! is_front_page() ) {
+			} elseif ( is_home() && ! is_front_page() ) {
 				// This is the blog page but not the homepage.
 				global $aiosp;
 				$image       = $metabox['aioseop_opengraph_settings_image'];

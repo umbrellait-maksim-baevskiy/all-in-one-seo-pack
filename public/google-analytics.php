@@ -66,7 +66,7 @@ if ( ! class_exists( 'aioseop_google_analytics' ) ) {
 				) ) {
 					$autotrack = apply_filters(
 						'aiosp_google_autotrack',
-						AIOSEOP_PLUGIN_URL . 'public/js/autotrack.js'
+						AIOSEOP_PLUGIN_URL . 'public/js/vendor/autotrack.js'
 					);
 					?><script async src="<?php echo $autotrack; ?>"></script>
 <?php
