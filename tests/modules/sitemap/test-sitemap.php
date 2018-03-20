@@ -167,8 +167,40 @@ class Test_Sitemap extends Sitemap_Test_Base {
 
 	/**
 	 * @requires PHPUnit 5.7
+	 * Creates posts with schemeless images in the content and checks if they are being correctly included in the sitemap.
+	 */
+	public function test_schemeless_images() {
+		$id1 = $this->factory->post->create( array( 'post_type' => 'post', 'post_content' => 'content <img src="http://example.org/image1.jpg">', 'post_title' => 'title with image' ) );
+		$id2 = $this->factory->post->create( array( 'post_type' => 'post', 'post_content' => 'content <img src="//example.org/image2.jpg">', 'post_title' => 'title with image' ) );
+		$id3 = $this->factory->post->create( array( 'post_type' => 'post', 'post_content' => 'content <img src="/image3.jpg">', 'post_title' => 'title with image' ) );
+		$urls = array( get_permalink( $id1 ), get_permalink( $id2 ), get_permalink( $id3 ) );
+
+		$custom_options = array();
+		$custom_options['aiosp_sitemap_indexes'] = '';
+		$custom_options['aiosp_sitemap_images'] = '';
+		$custom_options['aiosp_sitemap_gzipped'] = '';
+		$custom_options['aiosp_sitemap_posttypes'] = array( 'post' );
+
+		$this->_setup_options( 'sitemap', $custom_options );
+
+		$this->validate_sitemap(
+			array(
+					$urls[0] => array(
+						'image'	=> true,
+					),
+					$urls[1] => array(
+						'image'	=> true,
+					),
+					$urls[2] => array(
+						'image'	=> true,
+					),
+			)
+		);
+	}
+  
+	/**
 	 * Creates different types of posts, enables indexes and pagination and checks if the posts are being paginated correctly without additional/blank sitemaps.
-	 *
+	 * @requires PHPUnit 5.7
 	 * @dataProvider enabledPostTypes
 	 */
 	public function test_sitemap_index_pagination( $enabled_post_type, $enabled_post_types_count, $cpt ) {
@@ -220,7 +252,7 @@ class Test_Sitemap extends Sitemap_Test_Base {
 
 		$posts = $this->setup_posts( 2 );
 
-		add_filter( 'aiosp_sitemap_addl_pages_only', array( $this, 'add_external_urls' ) );
+		add_filter( 'aiosp_sitemap_addl_pages_only', array( $this, 'filter_aiosp_sitemap_addl_pages_only' ) );
 
 		$custom_options = array();
 		$custom_options['aiosp_sitemap_indexes'] = '';
@@ -264,7 +296,7 @@ class Test_Sitemap extends Sitemap_Test_Base {
 	/**
 	 * Returns the urls to be added to the sitemap.
 	 */
-	public function add_external_urls() {
+	public function filter_aiosp_sitemap_addl_pages_only() {
 		return $this->_urls;
 	}
 

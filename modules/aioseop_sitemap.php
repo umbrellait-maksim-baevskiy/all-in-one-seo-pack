@@ -2856,6 +2856,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 		/**
 		 * Validate the image.
+		 * NOTE: We will use parse_url here instead of wp_parse_url as we will correct the URLs beforehand and 
+		 * this saves us the need to check PHP version support.
 		 *
 		 * @param string $image The image src.
 		 *
@@ -2865,13 +2867,18 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * @return bool
 		 */
 		function is_image_valid( $image ) {
+			global $wp_version;
+
 			// Bail if empty image.
 			if ( empty( $image ) ) {
 				return false;
 			}
 
 			global $wp_version;
-			if ( version_compare( $wp_version, '4.7', '<' ) ) {
+			if ( version_compare( $wp_version, '4.4', '<' ) ) {
+				$p_url = parse_url( $image );
+				$url = $p_url['scheme'] . $p_url['host'] . $p_url['path'];
+			} elseif ( version_compare( $wp_version, '4.7', '<' ) ) {
 				// Compatability for older WP version that don't have 4.7 changes.
 				// @link https://core.trac.wordpress.org/changeset/38726
 				$p_url = wp_parse_url( $image );
@@ -2884,20 +2891,19 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			// make the url absolute, if its relative.
 			$image      = aiosp_common::absolutize_url( $image );
 
-			$extn       = pathinfo( $url, PATHINFO_EXTENSION );
+			$extn       = pathinfo( parse_url( $image, PHP_URL_PATH ), PATHINFO_EXTENSION );
 			$allowed    = apply_filters( 'aioseop_allowed_image_extensions', self::$image_extensions );
 			// Bail if image does not refer to an image file otherwise google webmaster tools might reject the sitemap.
 			if ( ! in_array( $extn, $allowed, true ) ) {
 				return false;
 			}
 
-			// Bail if image refers to an external URL.
-			$image_host = wp_parse_url( $image, PHP_URL_HOST );
-			$wp_host    = wp_parse_url( home_url(), PHP_URL_HOST );
-			if ( $image_host !== $wp_host ) {
+			$image_host = parse_url( $image, PHP_URL_HOST );
+			$host       = parse_url( home_url(), PHP_URL_HOST );
+
+			if ( $image_host !== $host ) {
 				return false;
 			}
-
 			return true;
 		}
 
