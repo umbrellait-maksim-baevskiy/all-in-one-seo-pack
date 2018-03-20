@@ -321,6 +321,55 @@ class Test_Sitemap extends Sitemap_Test_Base {
 			),
 		);
 	}
+  
+	/**
+	 * Creates posts with external images and uses the filter 'aioseop_images_allowed_from_hosts' to allow only a particular host's images to be included in the sitemap.
+	 */
+	public function test_external_images() {
+		$posts = $this->setup_posts( 2 );
+
+		$id1 = $this->factory->post->create( array( 'post_type' => 'post', 'post_content' => 'content <img src="http://www.x.com/image.jpg">', 'post_title' => 'title with image' ) );
+		$id2 = $this->factory->post->create( array( 'post_type' => 'post', 'post_content' => 'content <img src="http://www.y.com/image.jpg">', 'post_title' => 'title with image' ) );
+		$posts['with'] = array( get_permalink( $id1 ), get_permalink( $id2 ) );
+
+		// allow only www.x.com.
+		add_filter( 'aioseop_images_allowed_from_hosts', array( $this, 'filter_aioseop_images_allowed_from_hosts' ) );
+
+		$custom_options = array();
+		$custom_options['aiosp_sitemap_indexes'] = '';
+		$custom_options['aiosp_sitemap_images'] = '';
+		$custom_options['aiosp_sitemap_gzipped'] = '';
+		$custom_options['aiosp_sitemap_posttypes'] = array( 'post' );
+
+		$this->_setup_options( 'sitemap', $custom_options );
+
+		$with = $posts['with'];
+		$without = $posts['without'];
+		$this->validate_sitemap(
+			array(
+					$with[0] => array(
+						'image'	=> true,
+					),
+					$with[1] => array(
+						'image'	=> false,
+					),
+					$without[0] => array(
+						'image'	=> false,
+					),
+					$without[1] => array(
+						'image'	=> false,
+					),
+			)
+		);
+	}
+
+	/**
+	 * Implements the filter 'aioseop_images_allowed_from_hosts' to allow speficic hosts.
+	 */
+	public function filter_aioseop_images_allowed_from_hosts( $hosts ) {
+		$hosts[] = 'www.x.com';
+		return $hosts;
+	}
 
 	/**
 	 * Provides posts types to test test_sitemap_index_pagination against.

@@ -2902,7 +2902,20 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$host       = parse_url( home_url(), PHP_URL_HOST );
 
 			if ( $image_host !== $host ) {
-				return false;
+				// Allowed hosts will be provided in a wildcard format i.e. img.yahoo.* or *.akamai.*.
+				// And we will convert that into a regular expression for matching.
+				$whitelist  = apply_filters( 'aioseop_images_allowed_from_hosts', array() );
+				$allowed    = false;
+				if ( $whitelist ) {
+					foreach ( $whitelist as $pattern ) {
+						if ( preg_match( '/' . str_replace( '*', '.*', $pattern ) . '/', $image_host ) === 1 ) {
+							$allowed = true;
+							break;
+						}
+					}
+				}
+				return $allowed;
+
 			}
 			return true;
 		}
