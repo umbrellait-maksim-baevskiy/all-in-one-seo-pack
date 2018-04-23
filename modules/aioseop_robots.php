@@ -15,88 +15,74 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 			parent::__construct();
 
 			$help_text = array(
-				'additional' => __( 'Rule Type', 'all-in-one-seo-pack' ),
-				'useragent'  => __( 'User Agent', 'all-in-one-seo-pack' ),
+				'type' => __( 'Rule Type', 'all-in-one-seo-pack' ),
+				'agent'  => __( 'User Agent', 'all-in-one-seo-pack' ),
 				'path'       => __( 'Directory Path', 'all-in-one-seo-pack' ),
-				'robotgen'   => __( 'Robots.txt editor', 'all-in-one-seo-pack' ),
 			);
 
 			$this->default_options = array(
 				'usage'              => array(
 					'type'    => 'html',
 					'label'   => 'none',
-					'default' => __( 'Use the rule builder below to add rules to create a new Robots.txt file.  If you already have a Robots.txt file you should use the File Editor feature in All in One SEO Pack to edit it or you can delete your current Robots.txt file and start a new one with the rule builder below.', 'all-in-one-seo-pack' ),
+					'default' => __( 'Use the rule builder below to add/delete rules.', 'all-in-one-seo-pack' ),
 					'save'    => false,
-				),
-				'additional'         => array(
-					'name'            => __( 'Rule Type', 'all-in-one-seo-pack' ),
-					'save'            => false,
-					'type'            => 'select',
-					'initial_options' => array( 'allow' => 'Allow', 'block' => 'Block' ),
-				),
-				'useragent'          => array(
-					'name' => __( 'User Agent', 'all-in-one-seo-pack' ),
-					'save' => false,
-					'type' => 'text',
-				),
-				'path'               => array(
-					'name' => __( 'Directory Path', 'all-in-one-seo-pack' ),
-					'save' => false,
-					'type' => 'text',
-				),
-				'robotgen'           => array(
-					'name'     => __( 'Generate Robots.txt', 'all-in-one-seo-pack' ),
-					'save'     => false,
-					'default'  => '',
-					'type'     => 'textarea',
-					'cols'     => 57,
-					'rows'     => 20,
-					'label'    => 'none',
-					'readonly' => 'readonly',
-				),
-				'Submit_Preview'     => array(
-					'type'   => 'submit',
-					'class'  => 'button-primary MRL',
-					'name'   => __( 'Add Rule', 'all-in-one-seo-pack' ) . ' &raquo;',
-					'nowrap' => 1,
-				),
-				'Submit_Update'      => array(
-					'type'   => 'submit',
-					'class'  => 'button-primary',
-					'name'   => __( 'Save Robots.txt File', 'all-in-one-seo-pack' ) . ' &raquo;',
-					'nowrap' => 1,
-				),
-				'Submit_Delete'      => array(
-					'type'   => 'submit',
-					'class'  => 'button-primary',
-					'name'   => __( 'Delete Robots.txt File', 'all-in-one-seo-pack' ) . ' &raquo;',
-					'nowrap' => 1,
-				),
-				'optusage'           => array(
-					'type'    => 'html',
-					'label'   => 'none',
-					'default' => __( 'Click the Optimize button below and All in One SEO Pack will analyze your Robots.txt file to make sure it complies with the standards for Robots.txt files.  The results will be displayed in a table below.', 'all-in-one-seo-pack' ),
-					'save'    => false,
-				),
-				'Submit_Opt_Update'  => array(
-					'type'   => 'submit',
-					'class'  => 'button-primary',
-					'name'   => __( 'Update Robots.txt File', 'all-in-one-seo-pack' ) . ' &raquo;',
-					'nowrap' => 1,
-					'style'  => 'margin-left: 20px;',
-				),
-				'Submit_Opt_Preview' => array(
-					'type'   => 'submit',
-					'class'  => 'button-primary',
-					'name'   => __( 'Disregard Changes', 'all-in-one-seo-pack' ) . ' &raquo;',
-					'nowrap' => 1,
-				),
-				'Submit_Optimize'    => array(
-					'type'  => 'submit',
-					'class' => 'button-primary',
-					'name'  => __( 'Optimize', 'all-in-one-seo-pack' ) . ' &raquo;',
 				),
 			);
+
+			$this->rule_fields		= array(
+				'agent'         => array(
+					'name'            => __( 'User Agent', 'all-in-one-seo-pack' ),
+					'type'            => 'text',
+					'label'           => 'top',
+					'save'            => false,
+				),
+				'type'          => array(
+					'name'  => __( 'Rule', 'all-in-one-seo-pack' ),
+					'type'  => 'select',
+					'initial_options' => array( 'allow' => __( 'Allow', 'all-in-one-seo-pack' ), 'disallow' => __( 'Block', 'all-in-one-seo-pack' ) ),
+					'label' => 'top',
+					'save'  => false,
+				),
+				'path'         => array(
+					'name'            => __( 'Directory Path', 'all-in-one-seo-pack' ),
+					'type'            => 'text',
+					'label'           => 'top',
+					'save'            => false,
+				),
+				'Submit'            => array(
+					'type'  => 'submit',
+					'class' => 'button-primary',
+					'name'  => __( 'Add Rule', 'all-in-one-seo-pack' ) . ' &raquo;',
+					'style' => 'margin-left: 20px;',
+					'label' => 'none',
+					'save'  => false,
+					'value' => 1,
+				),
+				'rules'        => array(
+					'name' => __( 'Configured Rules', 'all-in-one-seo-pack' ),
+					'type' => 'custom',
+					'save' => true,
+				),
+				'robots.txt'        => array(
+					'name' => __( 'Robots.txt', 'all-in-one-seo-pack' ),
+					'type' => 'custom',
+					'save' => true,
+				),
+			);
+
+			if ( $this->has_physical_file() ) {
+				if ( ( is_multisite() && is_network_admin() ) || ( ! is_multisite() && current_user_can( 'manage_options') ) ) {
+					$this->default_options['usage']['default'] .= '<p>' . sprintf( __( 'A physical file exists. Do you want to %simport and delete%s it, %sdelete%s it or continue using it?', 'all-in-one-seo-pack' ), '<a href="#" class="aiosp_robots_physical aiosp_robots_import" data-action="import">', '</a>', '<a href="#" class="aiosp_robots_physical aiosp_robots_delete" data-action="delete">', '</a>' ) . '</p>';
+				} else {
+					$this->default_options['usage']['default'] .= '<p>' . __( 'A physical file exists. This feature cannot be used.', 'all-in-one-seo-pack' ) . '</p>';
+				}
+
+				add_action( 'wp_ajax_aioseop_ajax_robots_physical', array( $this, 'ajax_action_physical_file' ) );
+
+				return;
+			}
+
+			$this->default_options = array_merge( $this->default_options, $this->rule_fields );
 
 			if ( ! empty( $help_text ) ) {
 				foreach ( $help_text as $k => $v ) {
@@ -104,539 +90,356 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 				}
 			}
 
-			$this->locations = array(
-				'generator' => array(
-					'name'    => 'Robots.txt',
-					'type'    => 'settings',
-					'options' => array(
-						'usage',
-						'additional',
-						'useragent',
-						'path',
-						'Submit_Preview',
-						'Submit_Update',
-						'Submit_Delete',
-						'robotgen',
-						'optusage',
-						'Submit_Opt_Update',
-						'Submit_Opt_Preview',
-						'Submit_Optimize',
-					),
-				),
-			);
-
 			$this->layout             = array(
 				'default' => array(
 					'name'    => __( 'Create a Robots.txt File', 'all-in-one-seo-pack' ),
-					'options' => array(
-						'usage',
-						'additional',
-						'useragent',
-						'path',
-						'Submit_Preview',
-						'Submit_Update',
-						'Submit_Delete',
-						'robotgen',
-					), // this is set below, to the remaining options -- pdb
+					'options' => array_merge( array( 'usage' ), array_keys( $this->rule_fields ) ),
 				),
 			);
-			$this->layout['optimize'] = array(
-				'name'    => __( 'Optimize your Robots.txt File', 'all-in-one-seo-pack' ),
-				'options' => array( 'optusage', 'Submit_Optimize' ),
-			);
-			if ( isset( $_POST['Submit_Optimize'] ) ) {
-				$this->layout['optimize']['options']          = array(
-					'optusage',
-					'Submit_Opt_Update',
-					'Submit_Opt_Preview',
-					'robothtml',
-				);
-				$this->default_options['optusage']['default'] = __( 'Your Robots.txt file has been optimized.  Here are the results and recommendations.  Click the Update Robots.txt File button below to write these changes to your Robots.txt file.  Click the Disregard Changes button to ignore these recommendations and keep your current Robots.txt file.', 'all-in-one-seo-pack' );
-			}
 
 			// load initial options / set defaults
 			$this->update_options();
 
-			add_action( $this->prefix . 'settings_update', array( $this, 'do_robots' ), 10, 2 );
-			add_filter( $this->prefix . 'display_options', array( $this, 'filter_options' ), 10, 2 );
-			add_filter( $this->prefix . 'submit_options', array( $this, 'filter_submit' ), 10, 2 );
-			add_filter( $this->prefix . 'display_settings', array( $this, 'filter_settings' ), 10, 2 );
+			add_filter( $this->prefix . 'output_option', array( $this, 'display_custom_options' ), 10, 2 );
+			add_filter( $this->prefix . 'update_options', array( $this, 'filter_options' ) );
+			add_action( 'wp_ajax_aioseop_ajax_delete_rule', array( $this, 'ajax_delete_rule' ) );
+			add_filter( 'robots_txt', array( $this, 'robots_txt' ), 10, 2 );
+			add_filter( $this->prefix . 'submit_options', array( $this, 'submit_options'), 10, 2 );
 		}
 
-		function filter_settings( $settings, $location ) {
-			if ( $location == 'generator' ) {
-				$prefix = $this->get_prefix( $location ) . $location . '_';
-				if ( isset( $_POST['Submit_Optimize'] ) ) {
-					if ( isset( $settings[ $prefix . 'robotgen' ] ) ) {
-						$settings[ $prefix . 'robotgen' ]['type']      = 'hidden';
-						$settings[ $prefix . 'robotgen' ]['label']     = 'none';
-						$settings[ $prefix . 'robotgen' ]['help_text'] = '';
-						$settings[ $prefix . 'robothtml' ]             = array(
-							'name'    => __( 'Robots.txt', 'all-in-one-seo-pack' ),
-							'save'    => false,
-							'default' => '',
-							'type'    => 'html',
-							'label'   => 'none',
-							'style'   => 'margin-top:10px;',
-						);
+		function submit_options( $submit_options, $location ) {
+			unset( $submit_options['Submit'] );
+			unset( $submit_options['Submit_Default'] );
+			return $submit_options;
+		}
+
+		function ajax_action_physical_file() {
+			aioseop_ajax_init();
+			$action = $_POST['options'];
+
+			switch ( $action ) {
+				case 'import':
+					if ( ! $this->import_physical_file() ) {
+						wp_send_json_success( array( 'message' => __( 'Unable to read file', 'all-in-one-seo-pack' ) ) );
 					}
+					// fall-through.
+				case 'delete':
+					if ( ! $this->delete_physical_file() ) {
+						wp_send_json_success( array( 'message' => __( 'Unable to delete file', 'all-in-one-seo-pack' ) ) );
+					}
+					break;
+			}
+
+			wp_send_json_success();
+		}
+
+		private function import_physical_file() {
+			$wp_filesystem = $this->get_filesystem_object();
+			$file = trailingslashit( $wp_filesystem->abspath() ) . 'robots.txt';
+			if ( ! $wp_filesystem->is_readable( $file ) ) {
+				return false;
+			}
+
+			$lines = $wp_filesystem->get_contents_array( $file );
+			if ( ! $lines ) {
+				return true;
+			}
+			$rules = array();
+			$user_agent = null;
+			$rule = array();
+			foreach ( $lines as $line ) {
+				if ( empty( $line ) ) {
+					continue;
+				}
+				$array = array_map( 'trim', explode( ':', $line ) );
+				if ( $array && count( $array ) !== 2 ) {
+					error_log( "Ignoring $line from robots.txt" );
+					continue;
+				}
+				$operand = $array[0];
+				switch ( strtolower( $operand ) ) {
+					case 'user-agent':
+						$user_agent = $array[1];
+						break;
+					case 'disallow':
+						// fall-through.
+					case 'allow':
+						$rule[ 'agent' ] = $user_agent;
+						$rule[ 'type' ] = $operand;
+						$rule[ 'path' ] = $array[1];
+						$rule[ 'id' ] = $this->create_rule_id( $rule[ 'type' ], $rule[ 'agent' ], $rule[ 'path' ] );
+						break;
+				}
+				if ( $rule ) {
+					$rules[] = $rule;
+					$rule = array();
 				}
 			}
-
-			return $settings;
-		}
-
-		function filter_submit( $submit, $location ) {
-			if ( $location == 'generator' ) {
-				unset( $submit['Submit_Default'] );
-				$submit['Submit']['type'] = 'hidden';
-			}
-
-			return $submit;
-		}
-
-		/**
-		 * Returns the sitemap filename;
-		 *
-		 * @return bool
-		 */
-		function get_sitemap_filename() {
 
 			global $aioseop_options;
-			if ( isset( $aioseop_options['modules']['aiosp_sitemap_options']['aiosp_sitemap_filename'] ) ) {
-				return $aioseop_options['modules']['aiosp_sitemap_options']['aiosp_sitemap_filename'];
-			}
-
-			return false;
+			$aioseop_options['modules']["{$this->prefix}options"]["{$this->prefix}rules"] = $rules;
+			update_option( 'aioseop_options', $aioseop_options );
+			return true;
 		}
 
-		/**
-		 * Filters the options.
-		 *
-		 * @todo  Much of this couldn't be considered filtering options, and should be extracted to other functions.
-		 * @since ??
-		 * @since 2.3.6
-		 */
-		function filter_options( $options, $location ) {
-			if ( $location ) {
-				$prefix = $this->get_prefix( $location ) . $location . '_';
-			}
-			if ( $location === 'generator' ) {
-				$optimize = false;
-				$robotgen = '';
-				if ( ! empty( $_POST[ $prefix . 'robotgen' ] ) ) {
-					$robotgen = str_replace( "\r\n", "\n", $_POST[ $prefix . 'robotgen' ] );
-				}
-				if ( isset( $_POST['Submit_Preview'] ) ) {
-					$options[ $prefix . 'robotgen' ] = $robotgen;
-				}
-				if ( ! isset( $_POST['Submit_Preview'] ) ) {
-					if ( isset( $_POST['Submit_Optimize'] ) && ! isset( $_POST['Submit_Delete'] ) && ! isset( $_POST['Submit_Update'] ) && ! isset( $_POST['Submit_Opt_Update'] ) ) {
-						$optimize = true;
-					}
-					if ( ! isset( $options[ $prefix . 'robotgen' ] ) || empty( $options[ $prefix . 'robotgen' ] ) ) {
-						if ( $optimize ) {
-							$options[ $prefix . 'robotgen' ] = $robotgen;
-						}
-						if ( empty( $options[ $prefix . 'robotgen' ] ) ) {
-							$options = $this->load_files( $options, array( 'robotgen' => 'robots.txt' ), $prefix );
-						}
-					}
-				}
-				$access = ( get_option( 'blog_public' ) ) ? 'allow' : 'block';
-				if ( $access ) {
-					global $aioseop_options;
-					$sitemapurl      = '';
-					$sitemap_filename = $this->get_sitemap_filename();
-					if ( $sitemap_filename ) {
-						$sitemapurl = trailingslashit( get_home_url() ) . $sitemap_filename . '.xml';
-					}
-					$allow_rule = "Sitemap: $sitemapurl \n\n# global\nUser-agent: *\nDisallow: /xmlrpc.php\n\n";
-					$block_rule = "# global\nUser-agent: *\nDisallow: /\n\n";
-					if ( empty( $options[ $prefix . 'robotgen' ] ) ) {
-						$options[ $prefix . 'robotgen' ] = '';
-					}
-					if ( isset( $_POST['Submit_Preview'] ) && ( ( $options[ $prefix . 'robotgen' ] == $allow_rule ) ||
-																( $options[ $prefix . 'robotgen' ] == $block_rule ) )
-					) {
-						$options[ $prefix . 'robotgen' ] = '';
-					}
-					if ( $access === 'block' && empty( $options[ $prefix . 'robotgen' ] ) ) {
-						$options[ $prefix . 'robotgen' ] .= $block_rule;
-					} elseif ( $access === 'allow' && empty( $options[ $prefix . 'robotgen' ] ) ) {
-						$options[ $prefix . 'robotgen' ] .= $allow_rule;
-					}
-				}
-				foreach ( array( 'ad' => 'additional', 'ua' => 'useragent', 'dp' => 'path' ) as $k => $v ) {
-					if ( isset( $_POST[ $prefix . $v ] ) ) {
-						$$k = $_POST[ $prefix . $v ];
-					}
-				}
-				if ( ! empty( $ad ) && ! empty( $ua ) && ! empty( $dp ) ) {
-					if ( $ad === 'allow' ) {
-						$ad = 'Allow: ';
-					} else {
-						$ad = 'Disallow: ';
-					}
-					$options[ $prefix . 'robotgen' ] .= "User-agent: $ua\n$ad $dp\n\n";
-				}
-				$file = explode( "\n", $options[ $prefix . 'robotgen' ] );
-				if ( $optimize ) {
-					$rules       = $this->parse_robots( $file );
-					$user_agents = $this->get_robot_user_agents( $rules );
-					foreach ( $user_agents as $ua => $rules ) {
-						$user_agents[ $ua ]['disallow'] = $this->opt_robot_rule( $rules['disallow'] );
-						$user_agents[ $ua ]['allow']    = $this->opt_robot_rule( $rules['allow'] );
-					}
-					$rules = $this->flatten_user_agents( $user_agents );
-					unset( $user_agents );
-					foreach ( $rules as $r ) {
-						$r['disallow'] = $this->opt_robot_rule( $r['disallow'] );
-						$r['allow']    = $this->opt_robot_rule( $r['allow'] );
-					}
-					$options[ $prefix . 'robotgen' ]  = $this->output_robots( $rules );
-					$file2                            = explode( "\n", $options[ $prefix . 'robotgen' ] );
-					$options[ $prefix . 'robothtml' ] = '<table width=100%><tr><td valign=top width=45%>' . $this->annotate_robots_html( $file, true, __( 'Current File', 'all-in-one-seo-pack' ) ) . '</td><td><span style="font-size: xx-large">&#8594;</span></td><td valign=top>' . $this->annotate_robots_html( $file2, true, __( 'Proposed Changes', 'all-in-one-seo-pack' ) ) . '</td></tr></table>';
-				} else {
-					$options[ $prefix . 'robothtml' ] = $this->annotate_robots_html( $file, true, __( 'Current File', 'all-in-one-seo-pack' ) );
-				}
+		private function delete_physical_file() {
+			$wp_filesystem = $this->get_filesystem_object();
+			$file = trailingslashit( $wp_filesystem->abspath() ) . 'robots.txt';
+			return $wp_filesystem->delete( $file );
+		}
+
+		private function has_physical_file() {
+			$wp_filesystem = $this->get_filesystem_object();
+			$file = trailingslashit( $wp_filesystem->abspath() ) . 'robots.txt';
+			return $wp_filesystem->exists( $file );
+		}
+
+		function robots_txt( $output, $public ) {
+			return $output . "\r\n" . $this->get_rules();
+		}
+
+		private function get_rules() {
+			$rules = '';
+
+			if ( is_multisite() ) {
+				// get the network admin rules first.
+				$rules .= $this->get_rules_for_blog( $this->get_network_id() );
+			} else {
+				$rules .= "\r\n" . $this->get_rules_for_blog();
 			}
 
+			if ( $this->get_network_id() != get_current_blog_id() ) {
+				$rules .= "\r\n" . $this->get_rules_for_blog();
+			}
+
+			return $rules;
+		}
+
+		private function get_network_id() {
+			if ( is_multisite() ) {
+				return get_network()->site_id;
+			}
+			return get_current_blog_id();
+		}
+
+		private function get_option_for_blog( $id = null ) {
+			if ( is_null( $id ) ) {
+				$id = get_current_blog_id();
+			}
+			if ( is_multisite() ) {
+				switch_to_blog( $id );
+			}
+			$options = get_option('aioseop_options');
+			if ( is_multisite() ) {
+				restore_current_blog();
+			}
+			return array_key_exists( "{$this->prefix}options", $options['modules'] ) ? $options['modules']["{$this->prefix}options"] : array();
+		}
+
+		private function get_all_rules( $id = null ) {
+			$options = $this->get_option_for_blog( $id );
+			return array_key_exists( "{$this->prefix}rules", $options ) ? $options[ "{$this->prefix}rules" ] : array();
+		}
+
+		private function get_rules_for_blog( $id = null ) {
+			$robots		= array();
+			$blog_rules	= $this->get_all_rules( $id );
+			$rules		= array();
+			foreach ( $blog_rules as $rule ) {
+				$condition	= sprintf( '%s: %s', $rule['type'], $rule['path'] );
+				$agent		= $rule['agent'];
+				if ( ! array_key_exists( $agent, $rules ) ) {
+					$rules[$agent]	= array();
+				}
+				$rules[ $agent ][]	= $condition;
+			}
+
+			foreach( $rules as $agent => $conditions ) {
+				$robots[]	= sprintf( 'User-agent: %s', $agent );
+				$robots[]	= implode( "\r\n", $conditions );
+				$robots[]	= "";
+			}
+			return implode( "\r\n", $robots );
+		}
+
+		function ajax_delete_rule() {
+			aioseop_ajax_init();
+			$id = $_POST['options'];
+
+			$blog_rules	= $this->get_all_rules();
+			$rules = array();
+			foreach ( $blog_rules as $rule ) {
+				if ( $id === $rule['id'] ) {
+					continue;
+				}
+				$rules[] = $rule;
+			}
+			global $aioseop_options;
+			$aioseop_options['modules']["{$this->prefix}options"]["{$this->prefix}rules"] = $rules;
+			update_option( 'aioseop_options', $aioseop_options );
+		}
+
+
+		/**
+		 * Filter options.
+		 *
+		 * @param $options
+		 *
+		 * @return mixed
+		 */
+		function filter_options( $options ) {
+			if ( ! empty( $_POST[ $this->prefix . "path" ] ) ) {
+				//$blog_rules = json_decode( html_entity_decode( $this->get_all_rules( get_current_blog_id() ) ), true );
+				$blog_rules = $this->get_all_rules();
+				foreach ( array_keys( $this->rule_fields ) as $field ) {
+					$post_field	= $this->prefix . "" . $field;
+					if ( ! empty( $_POST[ $post_field ] ) ) {
+						$_POST[ $post_field ] = esc_attr( wp_kses_post( $_POST[ $post_field ] ) );
+					} else {
+						$_POST[ $post_field ] = '';
+					}
+				}
+				$rule	= $this->validate_rule( $blog_rules );
+				if ( $rule ) {
+					$blog_rules[] = $rule;
+					$options[ $this->prefix . "rules" ] = $blog_rules;
+				}
+			}
+			// testing only - to clear the rules.
+			//$options[ $this->prefix . "rules" ]=array();
 			return $options;
 		}
 
-		function do_robots( $options, $location ) {
-			if ( $location ) {
-				$prefix = $this->get_prefix( $location ) . $location . '_';
+		private function sanitize_path( $path ) {
+			// if path does not have a trailing wild card (*), add trailish slash.
+			if ( '*' !== substr( $path, -1 ) ) {
+				$path = trailingslashit( $path );
 			}
-			if ( $location === 'generator' ) {
-				if ( isset( $_POST['Submit_Update'] ) || isset( $_POST['Submit_Opt_Update'] ) ) {
-					$this->save_files( array( 'robotgen' => 'robots.txt' ), $prefix );
-				} elseif ( isset( $_POST['Submit_Delete'] ) ) {
-					$this->delete_files( array( 'robotgen' => 'robots.txt' ) );
-				}
+
+			// if path does not have a leading slash, add it.
+			if ( '/' !== substr( $path, 0, 1 ) ) {
+				$path = '/' . $path;
 			}
+
+			// convert everything to lower case.
+			$path = strtolower( $path );
+
+			return $path;
 		}
 
-		function annotate_robots_html( $file, $show_help = false, $title = '' ) {
-			$robots = $this->annotate_robots( $file );
-			if ( ! empty( $robots ) ) {
-				$buf = '<table class="widefat" ><thead>';
-				if ( ! empty( $title ) ) {
-					$buf .= '<tr><th colspan=3>' . $title . '</th></tr>';
-				}
-				$buf .= '<tr class="aioseop_optimize_thread">';
-				$buf .= '<th style="width:5%;"></th><th style="width:78%;"><span class="column_label" >Parameter</span></th>';
-				$buf .= '<th><span class="" >Status</span></th></tr></thead>';
-				$buf .= '<tbody>';
+		private function create_rule_id( $type, $agent, $path ) {
+			return md5( $type . $agent . $path );
+		}
 
-				foreach ( $robots as $r ) {
-					$class  = 'robots';
-					$status = '#9cf975';
-					$help   = '';
-					if ( ! $r['valid'] || ! $r['strict'] ) {
-						if ( ! $r['strict'] ) {
-							$class .= ' quirks';
-							$status = 'yellow';
-						}
-						if ( ! $r['valid'] ) {
-							$class .= ' invalid';
-							$status = '#f9534a';
-						}
-						if ( $show_help ) {
-							$help = '<a style="cursor:pointer;" class="' . $class . '" title="Click for Help!" onclick="toggleVisibility(\'aiosp_robots_main_legend_tip\');" title="Click for Help">'
-									. '<div class="aioseop_tip_icon"></div></a>';
-						}
-					}
-					$buf .= "<tr class='entry-row {$class}'><td>{$help}</td><td><span class='entry_label'>{$r['content']}</td><td><div style='background:{$status};'></div></td></tr>";
-				}
-				$buf .= '</tbody>';
+		private function validate_rule( $rules ) {
+			$network = $this->get_all_rules( $this->get_network_id() );
 
-				$buf .= '</table>';
-				if ( $show_help ) {
-					$buf .= '<div class="aioseop_option_docs" id="aiosp_robots_main_legend_tip">
-				<h3>' . __( 'Legend', 'all-in-one-seo-pack' ) . '</h3>
-				<ul>
-				<li>' . __( 'The yellow indicator means that a non-standard extension was recognized; not all crawlers may recognize it or interpret it the same way. The Allow and Sitemap directives are commonly used by Google and Yahoo.', 'all-in-one-seo-pack' ) . '</li>
-				<li>' . __( 'The red indicator means that the syntax is invalid for a robots.txt file.', 'all-in-one-seo-pack' ) . '</li>
-				</ul>
-				<a target="_blank" rel="nofollow" href="https://wikipedia.org/wiki/Robots_exclusion_standard#Nonstandard_extensions">' . __( 'More Information', 'all-in-one-seo-pack' ) . '</a>
-				</div>';
-				}
-			} else {
-				$buf = '<p class="aioseop_error_notice" ><strong>Your Robots.txt file is either empty, cannot be found, or has invalid data.</strong></p>';
+			// sanitize path.
+			$path = $this->sanitize_path( $_POST[ $this->prefix . "path" ] );
+
+			// generate id to check uniqueness and also for purposes of deletion.
+			$id = $this->create_rule_id( $_POST[ $this->prefix . "type" ],  $_POST[ $this->prefix . "agent" ],  $path );
+			$ids = wp_list_pluck( $rules, 'id' );
+			if ( in_array( $id, $ids ) ) {
+				return null;
 			}
 
+			if ( $network ) {
+				$nw_agent_paths = array();
+				foreach ( $network as $n ) {
+					$nw_agent_paths[] = $n['agent'] . $n['path'];
+				}
+				// the same rule cannot be duplicated by the Admin.
+				$agent_path =  $_POST[ $this->prefix . "agent" ] . $path;
+				if ( in_array( $agent_path, $nw_agent_paths ) ) {
+					return null;
+				}
+
+				// an identical path as specified by Network Admin cannot be overriden by Admin.
+				$nw_paths = wp_list_pluck( $network, 'path' );
+				if ( in_array( $path, $nw_paths ) ) {
+					return null;
+				}
+
+				// a wild-carded path specified by the Admin cannot override a path specified by Network Admin.
+				$path_no_wildcards = str_replace( '*', '', $path );
+				foreach ( $nw_paths as $nw_path ) {
+					if ( strpos( $nw_path, $path_no_wildcards ) !== false ) {
+						return null;
+					}
+				}
+			}
+
+			$rule	= array(
+					'type' => ucwords( $_POST[ $this->prefix . "type" ] ),
+					'agent' => $_POST[ $this->prefix . "agent" ],
+					'path' => $path,
+					'id' => $id,
+			);
+			return $rule;
+		}
+
+		private function reorder_rules( $rules ) {
+			uasort( $rules, array( $this, 'sort_rules' ) );
+			return $rules;
+		}
+
+		function sort_rules( $a, $b ) {
+			return $a['agent'] > $b['agent'];
+		}
+
+		private function get_display_rules( $rules ) {
+			$buf = '';
+			if ( ! empty( $rules ) ) {
+				$rules = $this->reorder_rules( $rules );
+				$buf = "<table class='aioseop_table' cellpadding=0 cellspacing=0>\n";
+				foreach ( $rules as $v ) {
+					$buf .= "\t<tr><td><a href='#' class='aiosp_delete aiosp_robots_delete_rule' data-id='{$v['id']}'></a></td><td>{$v['agent']}</td><td>{$v['type']}</td><td>{$v['path']}</td></tr>\n";
+				}
+				$buf .= "</table>\n";
+			}
 			return $buf;
 		}
 
-		function annotate_robots( $robots ) {
-			$state = 0;
-			$rules = array();
-			foreach ( $robots as $l ) {
-				$l = trim( $l );
-				if ( empty( $l[0] ) ) {
-					if ( $state > 1 ) {
-						$rules[] = array(
-							'state'   => 0,
-							'type'    => 'blank',
-							'content' => $l,
-							'valid'   => true,
-							'strict'  => true,
-						);
-						$state   = 0;
-					}
-				} elseif ( $l[0] === '#' ) {
-					if ( $state < 1 ) {
-						$state = 1;
-					}
-					$rules[] = array(
-						'state'   => $state,
-						'type'    => 'comment',
-						'content' => $l,
-						'valid'   => true,
-						'strict'  => true,
-					);
-				} elseif ( stripos( $l, 'sitemap' ) === 0 ) {
-					$state   = 2;
-					$rules[] = array(
-						'state'   => $state,
-						'type'    => 'sitemap',
-						'content' => $l,
-						'valid'   => true,
-						'strict'  => false,
-					);
-				} elseif ( stripos( $l, 'crawl-delay' ) === 0 ) {
-					$state   = 3;
-					$rules[] = array(
-						'state'   => $state,
-						'type'    => 'crawl-delay',
-						'content' => $l,
-						'valid'   => true,
-						'strict'  => false,
-					);
-				} elseif ( stripos( $l, 'user-agent' ) === 0 ) {
-					$state   = 3;
-					$rules[] = array(
-						'state'   => $state,
-						'type'    => 'user-agent',
-						'content' => $l,
-						'valid'   => true,
-						'strict'  => true,
-					);
-				} elseif ( stripos( $l, 'useragent' ) === 0 ) {
-					$state   = 3;
-					$rules[] = array(
-						'state'   => $state,
-						'type'    => 'user-agent',
-						'content' => $l,
-						'valid'   => true,
-						'strict'  => false,
-					);
-				} elseif ( stripos( $l, 'disallow' ) === 0 ) {
-					if ( $state < 3 ) {
-						$rules[] = array(
-							'state'   => $state,
-							'type'    => 'disallow',
-							'content' => $l,
-							'valid'   => false,
-							'strict'  => false,
-						);
-						continue;
-					}
-					$state   = 3;
-					$rules[] = array(
-						'state'   => $state,
-						'type'    => 'disallow',
-						'content' => $l,
-						'valid'   => true,
-						'strict'  => true,
-					);
-				} elseif ( stripos( $l, 'allow' ) === 0 ) {
-					if ( $state < 3 ) {
-						$rules[] = array(
-							'state'   => $state,
-							'type'    => 'allow',
-							'content' => $l,
-							'valid'   => false,
-							'strict'  => false,
-						);
-						continue;
-					}
-					$state   = 3;
-					$rules[] = array(
-						'state'   => $state,
-						'type'    => 'allow',
-						'content' => $l,
-						'valid'   => true,
-						'strict'  => false,
-					);
-				} else {
-					$rules[] = array(
-						'state'   => $state,
-						'type'    => 'unknown',
-						'content' => $l,
-						'valid'   => false,
-						'strict'  => false,
-					);
-				}
+		/**
+		 * Custom settings.
+		 *
+		 * Displays boxes in a table layout.
+		 *
+		 * @param $buf
+		 * @param $args
+		 *
+		 * @return string
+		 */
+		function display_custom_options( $buf, $args ) {
+			if ( "{$this->prefix}rules" === $args['name'] ) {
+				$buf .= "<div id='{$this->prefix}rules'>";
+				$buf .= $this->get_display_rules( $args['value'] );
+				$buf .= '</div>';
 			}
 
-			return $rules;
-		}
-
-		function parse_annotated_robots( $robots ) {
-			$state = 0;
-			$rules = array();
-			$opts  = array( 'sitemap', 'crawl-delay', 'user-agent', 'allow', 'disallow', 'comment' );
-			$rule  = array();
-			foreach ( $opts as $o ) {
-				$rule[ $o ] = array();
-			}
-			$blank_rule = $rule;
-			foreach ( $robots as $l ) {
-				switch ( $l['type'] ) {
-					case 'blank':
-						if ( $state >= 1 ) {
-							if ( ( $state === 1 ) && ( empty( $rule['user-agent'] ) ) ) {
-								$rule['user-agent'] = array( null );
-							}
-							$rules[] = $rule;
-							$rule    = $blank_rule;
-						}
-						continue;
-					case 'comment':
-						$rule['comment'][] = $l['content'];
-						continue;
-					case 'sitemap':
-						$rule['sitemap'][] = trim( substr( $l['content'], 8 ) );
-						break;
-					case 'crawl-delay':
-						$rule['crawl-delay'][] = trim( substr( $l['content'], 12 ) );
-						break;
-					case 'user-agent':
-						if ( $l['strict'] ) {
-							$ua = trim( substr( $l['content'], 11 ) );
-						} else {
-							$ua = trim( substr( $l['content'], 10 ) );
-						}
-						$rule['user-agent'][] = $ua;
-						break;
-					case 'disallow':
-						if ( $l['valid'] ) {
-							$rule['disallow'][] = trim( substr( $l['content'], 9 ) );
-							break;
-						}
-						continue;
-					case 'allow':
-						if ( $l['valid'] ) {
-							$rule['allow'][] = trim( substr( $l['content'], 6 ) );
-							break;
-						}
-						continue;
-					case 'unknown':
-					default:
-				}
-				$state = $l['state'];
-			}
-			if ( ( $state === 1 ) && ( empty( $rule['user-agent'] ) ) ) {
-				$rule['user-agent'] = array( null );
-			}
-			if ( $state >= 1 ) {
-				$rules[] = $rule;
+			if ( "{$this->prefix}robots.txt" === $args['name'] ) {
+				$buf .= "<textarea disabled id='{$this->prefix}robot-txt' class='large-text robots-text' rows='15'>";
+				// disable header warnings.
+				error_reporting(0);
+				ob_start();
+				do_action( 'do_robots' );
+				$buf .= ob_get_clean();
+				$buf .= "</textarea>";
 			}
 
-			return $rules;
-		}
-
-		function parse_robots( $robots ) {
-			return $this->parse_annotated_robots( $this->annotate_robots( $robots ) );
-		}
-
-		function get_robot_user_agents( $rules ) {
-			$opts        = array( 'sitemap', 'crawl-delay', 'user-agent', 'allow', 'disallow', 'comment' );
-			$user_agents = array();
-			foreach ( $rules as $r ) {
-				if ( ! empty( $r['sitemap'] ) && empty( $r['user-agent'] ) ) {
-					$r['user-agent'] = array( null );
-				}
-				foreach ( $r['user-agent'] as $ua ) {
-					if ( ! isset( $user_agents[ $ua ] ) ) {
-						$user_agents[ $ua ] = array();
-					}
-					foreach ( $opts as $o ) {
-						if ( ! isset( $user_agents[ $ua ][ $o ] ) ) {
-							$user_agents[ $ua ][ $o ] = $r[ $o ];
-						} else {
-							$user_agents[ $ua ][ $o ] = array_merge( $user_agents[ $ua ][ $o ], $r[ $o ] );
-						}
-					}
-				}
+			$args['options']['type'] = 'hidden';
+			if ( ! empty( $args['value'] ) ) {
+				$args['value'] = wp_json_encode( $args['value'] );
+			} else {
+				$args['options']['type'] = 'html';
 			}
-
-			return $user_agents;
-		}
-
-		function flatten_user_agents( $user_agents ) {
-			$rules = array();
-			foreach ( $user_agents as $ua => $r ) {
-				$r['user-agent'] = array( $ua );
-				$rules[]         = $r;
+			if ( empty( $args['value'] ) ) {
+				$args['value'] = '';
 			}
+			$buf .= $this->get_option_html( $args );
 
-			return $rules;
-		}
-
-		function opt_robot_rule( $dis ) {
-			if ( is_array( $dis ) ) { // unique rules only
-				$dis = array_unique( $dis, SORT_STRING );
-				$pd  = null;
-				foreach ( $dis as $k => $d ) {
-					$d = trim( $d );
-					if ( ! empty( $pd ) && ! empty( $d ) ) {
-						if ( strpos( $d, $pd ) === 0 ) {
-							unset( $dis[ $k ] );
-							continue; // get rid of subpaths of $pd
-						}
-					}
-					$l = strlen( $d );
-					if ( ( $l > 0 ) && ( $d[ $l - 1 ] !== '/' ) ) {
-						continue;
-					}
-					$pd = $d; // only allow directory paths for $pd
-				}
-			}
-
-			return $dis;
-		}
-
-		function output_robots( $rules ) {
-			$robots = '';
-			foreach ( $rules as $r ) {
-				foreach ( $r['comment'] as $c ) {
-					$robots .= "$c\n";
-				}
-				foreach ( $r['user-agent'] as $u ) {
-					if ( $u != '' ) {
-						$robots .= "User-agent: $u\n";
-					}
-				}
-				foreach ( $r['crawl-delay'] as $c ) {
-					$robots .= "Crawl-Delay: $c\n";
-				}
-				foreach ( $r['allow'] as $a ) {
-					$robots .= "Allow: $a\n";
-				}
-				foreach ( $r['disallow'] as $d ) {
-					$robots .= "Disallow: $d\n";
-				}
-				foreach ( $r['sitemap'] as $s ) {
-					$robots .= "Sitemap: $s\n";
-				}
-				$robots .= "\n";
-			}
-
-			return $robots;
+			return $buf;
 		}
 	}
 }

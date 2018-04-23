@@ -487,13 +487,33 @@ function aioseop_handle_ajax_call( action, settings, options, success ) {
  * @param $options.
  * @param $success.
  */
-function aioseop_handle_post_url( action, settings, options, success) {
+function aioseop_handle_post_url( action, settings, options, success_function, use_native) {
 	jQuery( "div#aiosp_" + settings ).fadeOut(
 		'fast', function() {
 			var loading = '<label class="aioseop_loading aioseop_' + settings + '_loading"></label> Please wait...';
 			jQuery( "div#aiosp_" + settings ).fadeIn(
 				'fast', function() {
-					aioseop_handle_ajax_call( action, settings, options, success );
+                    if(use_native) {
+                        jQuery.ajax({
+                            url     : ajaxurl,
+                            method  : 'POST',
+                            dataType: 'json',
+                            data    : {
+                                'action'    : action,
+                                'options'   : options,
+                                'settings'  : settings,
+                                'nonce-aioseop': jQuery( 'input[name="nonce-aioseop"]' ).val(),
+                                'nonce-aioseop-edit': jQuery( 'input[name="nonce-aioseop-edit"]' ).val()
+                            },
+                            success : function(data){
+                                if(success_function){
+                                    success_function(data);
+                                }
+                            }
+                        });
+                    }else{
+					    aioseop_handle_ajax_call( action, settings, options, success_function );
+                    }
 				}
 			);
 			jQuery( "div#aiosp_" + settings ).html( loading );
@@ -800,6 +820,44 @@ jQuery( document ).ready(
 				return false;
 			}
 		);
+
+
+		jQuery( "div#aiosp_robots_default_metabox" )
+		.delegate(
+			"a.aiosp_robots_delete_rule", "click", function( e ) {
+				e.preventDefault();
+				aioseop_handle_post_url(
+					'aioseop_ajax_delete_rule',
+					'robots_rules',
+                    jQuery( this ).attr( "data-id" ),
+					function() {
+                        window.location.reload();
+                    }
+				);
+				return false;
+			}
+		);
+
+		jQuery( "div#aiosp_robots_metabox" )
+		.delegate(
+			"a.aiosp_robots_physical", "click", function( e ) {
+				e.preventDefault();
+				aioseop_handle_post_url(
+					'aioseop_ajax_robots_physical',
+					'robots_metabox',
+					jQuery( this ).attr( "data-action" ),
+					function(data) {
+                        if(data.data && data.data.message){
+                            alert(data.data.message);
+                        }
+                        window.location.reload();
+                    },
+                    true
+				);
+				return false;
+			}
+		);
+
 	}
 );
 

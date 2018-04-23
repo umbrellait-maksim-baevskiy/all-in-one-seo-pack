@@ -952,6 +952,40 @@ table.aioseop_table td, table.aioseop_table th {
 	clear: right;
 }
 
+#aiosp_robots_rules {
+	clear: left;
+	margin-left: 20px;
+	max-width: 1072px;
+}
+
+#aiosp_robots_default_metabox .aioseop_wrapper {
+	width: 31%;
+	min-width: 165px;
+	display: inline-block;
+	max-width: 265px;
+}
+
+#aiosp_robots_default_metabox .aioseop_help_text_div {
+	position: absolute;
+	margin: 5px 0 10px 0;
+}
+
+#aiosp_robots_default_metabox .aioseop_option_input {
+	width: 94%;
+	min-width: 94%;
+}
+
+#aiosp_robots_default_metabox table.aioseop_table {
+	width: 96%;
+	border: 1px solid #CCC;
+	margin: 5px 0 10px 0;
+}
+
+#aiosp_robots_default_metabox table.aioseop_table td {
+	width: 25%;
+	padding-left: 5%;
+}
+
 #aiosp_settings_form .aioseop_no_label, .aioseop_no_label {
 	float: left;
 	width: 92%;
@@ -1189,7 +1223,7 @@ div.aioseop_notice a.aioseop_dismiss_link {
 	vertical-align: bottom;
 }
 
-.aiosp_delete_url {
+.aiosp_delete {
 	background-image: url('../../images/delete.png');
 	display: inline-block;
 	width: 16px;
@@ -1416,4 +1450,10 @@ div#aioseop_snippet > div > span {
 .aioseop_count_ugly {
 	color: #fff !important;
 	background-color: #f00 !important;
+}
+
+textarea.robots-text {
+	background-color: #eee;
+	width: 100%;
+	height: 100%;
 }

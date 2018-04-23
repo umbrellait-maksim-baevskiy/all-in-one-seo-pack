@@ -35,4 +35,6 @@ class AIOSEOPAdminMenus {
 	}
 }
 
-new AIOSEOPAdminMenus();
+if ( ! is_multisite() ) {
+	new AIOSEOPAdminMenus();
+}
