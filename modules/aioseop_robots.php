@@ -9,6 +9,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 	class All_in_One_SEO_Pack_Robots extends All_in_One_SEO_Pack_Module {
 
 		function __construct() {
+			// only for testing
+			/*
+			if ( ! defined( 'AIOSEOP_DO_LOG' ) ) {
+				define( 'AIOSEOP_DO_LOG', true );
+			}
+			*/
+
 			$this->name   = __( 'Robots.txt', 'all-in-one-seo-pack' );    // Human-readable name of the plugin
 			$this->prefix = 'aiosp_robots_';                        // option prefix
 			$this->file   = __FILE__;                                    // the current file
@@ -70,6 +77,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 				),
 			);
 
+			add_filter( $this->prefix . 'submit_options', array( $this, 'submit_options'), 10, 2 );
+
 			if ( $this->has_physical_file() ) {
 				if ( ( is_multisite() && is_network_admin() ) || ( ! is_multisite() && current_user_can( 'manage_options') ) ) {
 					$this->default_options['usage']['default'] .= '<p>' . sprintf( __( 'A physical file exists. Do you want to %simport and delete%s it, %sdelete%s it or continue using it?', 'all-in-one-seo-pack' ), '<a href="#" class="aiosp_robots_physical aiosp_robots_import" data-action="import">', '</a>', '<a href="#" class="aiosp_robots_physical aiosp_robots_delete" data-action="delete">', '</a>' ) . '</p>';
@@ -80,6 +89,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 				add_action( 'wp_ajax_aioseop_ajax_robots_physical', array( $this, 'ajax_action_physical_file' ) );
 
 				return;
+			} else {
+				add_action( 'admin_init', array( $this, 'import_default_robots' ) );
 			}
 
 			$this->default_options = array_merge( $this->default_options, $this->rule_fields );
@@ -104,7 +115,25 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 			add_filter( $this->prefix . 'update_options', array( $this, 'filter_options' ) );
 			add_action( 'wp_ajax_aioseop_ajax_delete_rule', array( $this, 'ajax_delete_rule' ) );
 			add_filter( 'robots_txt', array( $this, 'robots_txt' ), 10, 2 );
-			add_filter( $this->prefix . 'submit_options', array( $this, 'submit_options'), 10, 2 );
+		}
+
+		/**
+		 * First time import of the default robots.txt rules.
+		 */
+		function import_default_robots() {
+			$options = $this->get_option_for_blog( $this->get_network_id() );
+			if ( array_key_exists( "default", $options ) ) {
+				return;
+			}
+
+			$default = $this->do_robots();
+			$lines = explode( "\n", $default );
+			$rules = $this->extract_rules( $lines );
+			aiosp_log("adding default rules: " . print_r($rules,true));
+
+			global $aioseop_options;
+			$aioseop_options['modules']["{$this->prefix}options"]["default"] = $rules;
+			update_option( 'aioseop_options', $aioseop_options );
 		}
 
 		function submit_options( $submit_options, $location ) {
@@ -119,6 +148,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 
 			switch ( $action ) {
 				case 'import':
+					$this->import_default_robots();
 					if ( ! $this->import_physical_file() ) {
 						wp_send_json_success( array( 'message' => __( 'Unable to read file', 'all-in-one-seo-pack' ) ) );
 					}
@@ -144,16 +174,28 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 			if ( ! $lines ) {
 				return true;
 			}
+
+			$rules = $this->extract_rules( $lines );
+			aiosp_log("importing rules: " . print_r($rules,true));
+
+			global $aioseop_options;
+			$aioseop_options['modules']["{$this->prefix}options"]["{$this->prefix}rules"] = $rules;
+			update_option( 'aioseop_options', $aioseop_options );
+			return true;
+		}
+
+		private function extract_rules( array $lines ) {
 			$rules = array();
 			$user_agent = null;
 			$rule = array();
+			$blog_rules = $this->get_all_rules();
 			foreach ( $lines as $line ) {
 				if ( empty( $line ) ) {
 					continue;
 				}
 				$array = array_map( 'trim', explode( ':', $line ) );
 				if ( $array && count( $array ) !== 2 ) {
-					error_log( "Ignoring $line from robots.txt" );
+					aiosp_log( "Ignoring $line from robots.txt" );
 					continue;
 				}
 				$operand = $array[0];
@@ -167,19 +209,17 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 						$rule[ 'agent' ] = $user_agent;
 						$rule[ 'type' ] = $operand;
 						$rule[ 'path' ] = $array[1];
-						$rule[ 'id' ] = $this->create_rule_id( $rule[ 'type' ], $rule[ 'agent' ], $rule[ 'path' ] );
 						break;
 				}
 				if ( $rule ) {
-					$rules[] = $rule;
-					$rule = array();
+					$rule	= $this->validate_rule( $blog_rules, $rule );
+					if ( $rule ) {
+						$rules[] = $rule;
+						$rule = array();
+					}
 				}
 			}
-
-			global $aioseop_options;
-			$aioseop_options['modules']["{$this->prefix}options"]["{$this->prefix}rules"] = $rules;
-			update_option( 'aioseop_options', $aioseop_options );
-			return true;
+			return $rules;
 		}
 
 		private function delete_physical_file() {
@@ -236,9 +276,20 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 			return array_key_exists( "{$this->prefix}options", $options['modules'] ) ? $options['modules']["{$this->prefix}options"] : array();
 		}
 
+		/**
+		 * Get all rules defined for the blog.
+		 */
 		private function get_all_rules( $id = null ) {
 			$options = $this->get_option_for_blog( $id );
 			return array_key_exists( "{$this->prefix}rules", $options ) ? $options[ "{$this->prefix}rules" ] : array();
+		}
+
+		/**
+		 * Get the default robot rules that were saved in the first initialization.
+		 */
+		private function get_default_rules() {
+			$options = $this->get_option_for_blog( $this->get_network_id() );
+			return array_key_exists( "default", $options ) ? $options[ "default" ] : array();
 		}
 
 		private function get_rules_for_blog( $id = null ) {
@@ -288,9 +339,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 		 * @return mixed
 		 */
 		function filter_options( $options ) {
-			if ( ! empty( $_POST[ $this->prefix . "path" ] ) ) {
-				//$blog_rules = json_decode( html_entity_decode( $this->get_all_rules( get_current_blog_id() ) ), true );
-				$blog_rules = $this->get_all_rules();
+			$blog_rules = $this->get_all_rules();
+			if ( ! empty( $_POST[ "{$this->prefix}path" ] ) ) {
 				foreach ( array_keys( $this->rule_fields ) as $field ) {
 					$post_field	= $this->prefix . "" . $field;
 					if ( ! empty( $_POST[ $post_field ] ) ) {
@@ -299,14 +349,19 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 						$_POST[ $post_field ] = '';
 					}
 				}
-				$rule	= $this->validate_rule( $blog_rules );
+				$new_rule = array( 
+					'path' => $_POST[ "{$this->prefix}path" ],
+					'type' => $_POST[ "{$this->prefix}type" ],
+					'agent' => $_POST[ "{$this->prefix}agent" ],
+				);
+				$rule	= $this->validate_rule( $blog_rules, $new_rule );
 				if ( $rule ) {
 					$blog_rules[] = $rule;
-					$options[ $this->prefix . "rules" ] = $blog_rules;
 				}
 			}
 			// testing only - to clear the rules.
-			//$options[ $this->prefix . "rules" ]=array();
+			$options[ $this->prefix . "rules" ]=array();
+			$options[ "{$this->prefix}rules" ] = $blog_rules;
 			return $options;
 		}
 
@@ -331,17 +386,25 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 			return md5( $type . $agent . $path );
 		}
 
-		private function validate_rule( $rules ) {
+		private function validate_rule( $rules, $new_rule ) {
+			$default = $this->get_default_rules();
 			$network = $this->get_all_rules( $this->get_network_id() );
+			if ( ! is_array( $network ) ) {
+				$network = array();
+			}
+			$network = array_merge( $default, $network );
 
 			// sanitize path.
-			$path = $this->sanitize_path( $_POST[ $this->prefix . "path" ] );
+			$path = $this->sanitize_path( $new_rule[ 'path' ] );
 
 			// generate id to check uniqueness and also for purposes of deletion.
-			$id = $this->create_rule_id( $_POST[ $this->prefix . "type" ],  $_POST[ $this->prefix . "agent" ],  $path );
-			$ids = wp_list_pluck( $rules, 'id' );
-			if ( in_array( $id, $ids ) ) {
-				return null;
+			$id = $this->create_rule_id( $new_rule[ 'type' ],  $new_rule[ 'agent' ],  $path );
+			if ( is_array( $rules ) ) {
+				$ids = wp_list_pluck( $rules, 'id' );
+				if ( in_array( $id, $ids ) ) {
+					aiosp_log("rejected: same rule id exists - " . print_r($rule,true) . " vs. " . print_r($rules,true));
+					return null;
+				}
 			}
 
 			if ( $network ) {
@@ -350,14 +413,16 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 					$nw_agent_paths[] = $n['agent'] . $n['path'];
 				}
 				// the same rule cannot be duplicated by the Admin.
-				$agent_path =  $_POST[ $this->prefix . "agent" ] . $path;
+				$agent_path =  $new_rule[ 'agent' ] . $path;
 				if ( in_array( $agent_path, $nw_agent_paths ) ) {
+					aiosp_log("rejected: same agent/path being overridden - " . print_r($rule,true) . " vs. " . print_r($rules,true));
 					return null;
 				}
 
 				// an identical path as specified by Network Admin cannot be overriden by Admin.
 				$nw_paths = wp_list_pluck( $network, 'path' );
 				if ( in_array( $path, $nw_paths ) ) {
+					aiosp_log("rejected: same path being overridden - " . print_r($rule,true) . " vs. " . print_r($rules,true));
 					return null;
 				}
 
@@ -365,14 +430,15 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 				$path_no_wildcards = str_replace( '*', '', $path );
 				foreach ( $nw_paths as $nw_path ) {
 					if ( strpos( $nw_path, $path_no_wildcards ) !== false ) {
+						aiosp_log("rejected: wild card path being overridden - " . print_r($rule,true) . " vs. " . print_r($rules,true));
 						return null;
 					}
 				}
 			}
 
 			$rule	= array(
-					'type' => ucwords( $_POST[ $this->prefix . "type" ] ),
-					'agent' => $_POST[ $this->prefix . "agent" ],
+					'type' => ucwords( $new_rule[ 'type' ] ),
+					'agent' => $new_rule[ 'agent' ],
 					'path' => $path,
 					'id' => $id,
 			);
@@ -380,7 +446,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 		}
 
 		private function reorder_rules( $rules ) {
-			uasort( $rules, array( $this, 'sort_rules' ) );
+			if ( is_array( $rules ) ) {
+				uasort( $rules, array( $this, 'sort_rules' ) );
+			}
 			return $rules;
 		}
 
@@ -401,6 +469,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 			return $buf;
 		}
 
+		private function do_robots() {
+			// disable header warnings.
+			error_reporting(0);
+			ob_start();
+			do_action( 'do_robots' );
+			return ob_get_clean();
+		}
+
 		/**
 		 * Custom settings.
 		 *
@@ -412,20 +488,17 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 		 * @return string
 		 */
 		function display_custom_options( $buf, $args ) {
-			if ( "{$this->prefix}rules" === $args['name'] ) {
-				$buf .= "<div id='{$this->prefix}rules'>";
-				$buf .= $this->get_display_rules( $args['value'] );
-				$buf .= '</div>';
-			}
-
-			if ( "{$this->prefix}robots.txt" === $args['name'] ) {
-				$buf .= "<textarea disabled id='{$this->prefix}robot-txt' class='large-text robots-text' rows='15'>";
-				// disable header warnings.
-				error_reporting(0);
-				ob_start();
-				do_action( 'do_robots' );
-				$buf .= ob_get_clean();
-				$buf .= "</textarea>";
+			switch ( $args['name'] ) {
+				case "{$this->prefix}rules":
+					$buf .= "<div id='{$this->prefix}rules'>";
+					$buf .= $this->get_display_rules( $args['value'] );
+					$buf .= '</div>';
+					break;
+				case "{$this->prefix}robots.txt":
+					$buf .= "<textarea disabled id='{$this->prefix}robot-txt' class='large-text robots-text' rows='15'>";
+					$buf .= $this->do_robots();
+					$buf .= "</textarea>";
+					break;
 			}
 
 			$args['options']['type'] = 'hidden';
