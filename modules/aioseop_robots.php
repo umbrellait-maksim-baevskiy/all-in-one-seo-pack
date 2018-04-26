@@ -229,8 +229,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 						$this->add_error( $rule );
 					} else {
 						$rules[] = $rule;
-						$rule = array();
 					}
+					$rule = array();
 				}
 			}
 			return $rules;
