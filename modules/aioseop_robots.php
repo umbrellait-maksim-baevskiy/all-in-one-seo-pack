@@ -388,7 +388,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 				}
 			}
 			// testing only - to clear the rules.
-			//$options[ $this->prefix . "rules" ]=array();
+			//$blog_rules = array();
 			$options[ "{$this->prefix}rules" ] = $blog_rules;
 			return $options;
 		}
@@ -415,6 +415,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 		}
 
 		private function validate_rule( $rules, $new_rule ) {
+			if ( empty( $new_rule[ 'agent' ] ) ) {
+				return new WP_Error('invalid', __( 'User Agent cannot be empty', 'all-in-one-seo-pack' ) );
+			}
+			if ( empty( $new_rule[ 'path' ] ) ) {
+				return new WP_Error('invalid', __( 'Directory Path cannot be empty', 'all-in-one-seo-pack' ) );
+			}
+
 			$default = $this->get_default_rules();
 			$network = $this->get_all_rules( $this->get_network_id() );
 			if ( ! is_array( $network ) ) {
@@ -470,7 +477,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 				);
 				foreach ( $nw_paths as $nw_path ) {
 					$matches = array();
-					preg_match( "/{$pattern}/", $path, $matches );
+					preg_match( "/{$pattern}/", $nw_path, $matches );
 					if ( ! empty( $matches ) && count( $matches ) >= 2 && ! empty( $matches[1] ) ) {
 						aiosp_log("rejected: wild card path being overridden - " . print_r($new_rule,true) . " vs. " . print_r($rules,true));
 						return new WP_Error('conflict', sprintf( __( 'Wild-card path cannot be overridden: %s', 'all-in-one-seo-pack' ), $new_rule[ 'path' ] ) );
