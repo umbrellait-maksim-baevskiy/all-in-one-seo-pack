@@ -2672,9 +2672,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						$url = call_user_func( $linkfunc, $post );
 						$is_single = false;
 					}
-					$date = $post->post_modified;
+					$date = $post->post_modified_gmt;
 					if ( '0000-00-00 00:00:00' === $date ) {
-						$date = $post->post_date;
+						$date = $post->post_date_gmt;
 					}
 					if ( '0000-00-00 00:00:00' !== $date ) {
 						$date = date( 'Y-m-d\TH:i:s\Z', mysql2date( 'U', $date ) );
