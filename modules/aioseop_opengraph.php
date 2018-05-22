@@ -1079,8 +1079,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 						$published_time = date( 'Y-m-d\TH:i:s\Z', mysql2date( 'U', $post->post_date_gmt ) );
 					}
 
-					if ( isset( $post->post_modified ) ) {
-						$modified_time = date( 'Y-m-d\TH:i:s\Z', mysql2date( 'U', $post->post_modified ) );
+					if ( isset( $post->post_modified_gmt ) ) {
+						$modified_time = date( 'Y-m-d\TH:i:s\Z', mysql2date( 'U', $post->post_modified_gmt ) );
 					}
 				}
 
@@ -1143,8 +1143,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					if ( isset( $post->post_date_gmt ) ) {
 						$published_time = date( 'Y-m-d\TH:i:s\Z', mysql2date( 'U', $post->post_date_gmt ) );
 					}
-					if ( isset( $post->post_modified ) ) {
-						$modified_time = date( 'Y-m-d\TH:i:s\Z', mysql2date( 'U', $post->post_modified ) );
+					if ( isset( $post->post_modified_gmt ) ) {
+						$modified_time = date( 'Y-m-d\TH:i:s\Z', mysql2date( 'U', $post->post_modified_gmt ) );
 					}
 				}
 				$image       = $metabox['aioseop_opengraph_settings_image'];
