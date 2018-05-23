@@ -736,7 +736,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					list( $legacy, $settings[ $prefix . 'image' ]['initial_options'] ) = $this->get_all_images( $current );
 					$opts              = array( 'title', 'desc' );
 					$current_post_type = get_post_type();
-					if ( isset( $this->options["aiosp_opengraph_{$current_post_type}_fb_object_type"] ) ) {
+					if ( isset( $this->options[ "aiosp_opengraph_{$current_post_type}_fb_object_type" ] ) ) {
 						$flat_type_list = array();
 						foreach ( $this->fb_object_types as $k => $v ) {
 							if ( is_array( $v ) ) {
@@ -747,8 +747,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 						}
 						$settings[ $prefix . 'category' ]['initial_options'] = array_merge(
 							array(
-								$this->options["aiosp_opengraph_{$current_post_type}_fb_object_type"] => __( 'Default ', 'all-in-one-seo-pack' ) . ' - '
-								                                                                         . $flat_type_list[ $this->options["aiosp_opengraph_{$current_post_type}_fb_object_type"] ],
+								$this->options[ "aiosp_opengraph_{$current_post_type}_fb_object_type" ] => __( 'Default ', 'all-in-one-seo-pack' ) . ' - '
+																										 . $flat_type_list[ $this->options[ "aiosp_opengraph_{$current_post_type}_fb_object_type" ] ],
 							),
 							$settings[ $prefix . 'category' ]['initial_options']
 						);
@@ -757,9 +757,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 						$settings[ $prefix . 'setcard' ]['default'] = $this->options['aiosp_opengraph_defcard'];
 					}
 					$info = $aiosp->get_page_snippet_info();
-					// @codingStandardsIgnoreStart
-					extract( $info );
-					// @codingStandardsIgnoreEnd
+					$title = $info['title'];
+					$description = $info['description'];
 
 					// Description options
 					if ( is_object( $post ) ) {
@@ -778,8 +777,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					// Add filters
 					$description = apply_filters( 'aioseop_description', $description );
 					// Add placholders
-					$settings["{$prefix}title"]['placeholder'] = apply_filters( 'aioseop_opengraph_placeholder', $title );
-					$settings["{$prefix}desc"]['placeholder']  = apply_filters( 'aioseop_opengraph_placeholder', $description );
+					$settings[ "{$prefix}title" ]['placeholder'] = apply_filters( 'aioseop_opengraph_placeholder', $title );
+					$settings[ "{$prefix}desc" ]['placeholder']  = apply_filters( 'aioseop_opengraph_placeholder', $description );
 				}
 				if ( isset( $current[ $prefix . 'setmeta' ] ) && $current[ $prefix . 'setmeta' ] ) {
 					foreach ( $opts as $opt ) {
@@ -804,13 +803,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 		 * @since 2.3.11
 		 * @since 2.4.14 Overrides empty og:type values.
 		 *
-		 * @see   [plugin]\admin\aioseop_module_class.php > display_options()
+		 * @see [plugin]\admin\aioseop_module_class.php > display_options()
 		 *
 		 * @global array $aioseop_options Plugin options.
 		 *
-		 * @param array  $options         Current options.
-		 * @param string $location        Location where filter is called.
-		 * @param array  $settings        Settings.
+		 * @param array  $options  Current options.
+		 * @param string $location Location where filter is called.
+		 * @param array  $settings Settings.
 		 *
 		 * @return array
 		 */
@@ -818,7 +817,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			global $aioseop_options;
 			// Prepare default and prefix
 			$prefix = $this->get_prefix( $location ) . $location . '_';
-			$opts   = array();
+			$opts = array();
+
 			foreach ( $settings as $k => $v ) {
 				if ( $v['save'] ) {
 					$opts[ $k ] = $v['default'];
@@ -834,9 +834,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 								: null;
 							// Assign default from plugin options
 							if ( ! empty( $type )
-							     && isset( $aioseop_options['modules'] )
-							     && isset( $aioseop_options['modules']['aiosp_opengraph_options'] )
-							     && isset( $aioseop_options['modules']['aiosp_opengraph_options'][ 'aiosp_opengraph_' . $type . '_fb_object_type' ] )
+								&& isset( $aioseop_options['modules'] )
+								&& isset( $aioseop_options['modules']['aiosp_opengraph_options'] )
+								&& isset( $aioseop_options['modules']['aiosp_opengraph_options'][ 'aiosp_opengraph_' . $type . '_fb_object_type' ] )
 							) {
 								$options[ $prefix . 'category' ] =
 									$aioseop_options['modules']['aiosp_opengraph_options'][ 'aiosp_opengraph_' . $type . '_fb_object_type' ];
@@ -863,8 +863,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 		 * @since 2.3.11
 		 * @since 2.4.14 Fixes for aioseop-pro #67 and other bugs found.
 		 *
-		 * @see   [plugin]\admin\aioseop_module_class.php > save_post_data()
-		 * @see   [this file] > save_tax_data()
+		 * @see [plugin]\admin\aioseop_module_class.php > save_post_data()
+		 * @see [this file] > save_tax_data()
 		 *
 		 * @param array  $options  List of current options.
 		 * @param string $location Location where filter is called.
@@ -876,25 +876,24 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			if ( $location == 'settings' ) {
 				$prefix = $this->get_prefix( $location ) . $location . '_';
 				if ( isset( $options[ $prefix . 'customimg_checker' ] )
-				     && $options[ $prefix . 'customimg_checker' ]
+					&& $options[ $prefix . 'customimg_checker' ]
 				) {
 					$options[ $prefix . 'image' ] = $options[ $prefix . 'customimg' ];
 				}
 			}
-
 			return $options;
 		}
 
 		/** Custom settings **/
 		function display_custom_options( $buf, $args ) {
 			if ( $args['name'] == 'aiosp_opengraph_scan_header' ) {
-				$buf                     .= '<div class="aioseop aioseop_options aiosp_opengraph_settings"><div class="aioseop_wrapper aioseop_custom_type" id="aiosp_opengraph_scan_header_wrapper"><div class="aioseop_input" id="aiosp_opengraph_scan_header" style="padding-left:20px;">';
+				$buf .= '<div class="aioseop aioseop_options aiosp_opengraph_settings"><div class="aioseop_wrapper aioseop_custom_type" id="aiosp_opengraph_scan_header_wrapper"><div class="aioseop_input" id="aiosp_opengraph_scan_header" style="padding-left:20px;">';
 				$args['options']['type'] = 'submit';
 				$args['attr']            = " class='button-primary' ";
 				$args['value']           = $args['options']['default'] = __( 'Scan Now', 'all-in-one-seo-pack' );
-				$buf                     .= __( 'Scan your site for duplicate social meta tags.', 'all-in-one-seo-pack' );
-				$buf                     .= '<br /><br />' . $this->get_option_html( $args );
-				$buf                     .= '</div></div></div>';
+				$buf .= __( 'Scan your site for duplicate social meta tags.', 'all-in-one-seo-pack' );
+				$buf .= '<br /><br />' . $this->get_option_html( $args );
+				$buf .= '</div></div></div>';
 			}
 
 			return $buf;
@@ -1050,8 +1049,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					}
 				}
 			} elseif ( is_singular() && $this->option_isset( 'types' )
-			           && is_array( $this->options['aiosp_opengraph_types'] )
-			           && in_array( $current_post_type, $this->options['aiosp_opengraph_types'] )
+					   && is_array( $this->options['aiosp_opengraph_types'] )
+					   && in_array( $current_post_type, $this->options['aiosp_opengraph_types'] )
 			) {
 
 				if ( $type == 'article' ) {
@@ -1140,6 +1139,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					if ( isset( $post->post_author ) && ! empty( $this->options['aiosp_opengraph_facebook_author'] ) ) {
 						$author = get_the_author_meta( 'facebook', $post->post_author );
 					}
+
 					if ( isset( $post->post_date_gmt ) ) {
 						$published_time = date( 'Y-m-d\TH:i:s\Z', mysql2date( 'U', $post->post_date_gmt ) );
 					}
@@ -1157,8 +1157,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					$title = $aiosp->wp_title();
 				}
 				if ( empty( $description ) ) {
-					$term_id     = isset( $_GET['tag_ID'] ) ? (int) $_GET['tag_ID'] : 0;
-					$term_id     = $term_id ? $term_id : get_queried_object()->term_id;
+					$term_id = isset( $_GET['tag_ID'] ) ? (int) $_GET['tag_ID'] : 0;
+					$term_id = $term_id ? $term_id : get_queried_object()->term_id;
 					$description = trim( strip_tags( get_term_meta( $term_id, '_aioseop_description', true ) ) );
 				}
 				// Add default title
@@ -1412,7 +1412,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 						/**
 						 * This is to accomodate multiple fb:admins on separate lines.
-						 *
 						 * @TODO Eventually we'll want to put this in its own function so things like images work too.
 						 */
 						if ( 'key' === $k ) {
@@ -1460,7 +1459,6 @@ END;
 
 		/**
 		 * Do / adds opengraph properties to meta.
-		 *
 		 * @since 2.3.11
 		 *
 		 * @global array $aioseop_options AIOSEOP plugin options.
@@ -1468,7 +1466,7 @@ END;
 		public function do_opengraph() {
 			global $aioseop_options;
 			if ( ! empty( $aioseop_options )
-			     && ! empty( $aioseop_options['aiosp_schema_markup'] )
+				&& ! empty( $aioseop_options['aiosp_schema_markup'] )
 			) {
 				add_filter( 'language_attributes', array( &$this, 'add_attributes' ) );
 			}
@@ -1497,8 +1495,8 @@ END;
 				$current_post_type = get_post_type();
 				if ( ! empty( $metabox['aioseop_opengraph_settings_category'] ) ) {
 					$this->type = $metabox['aioseop_opengraph_settings_category'];
-				} elseif ( isset( $this->options["aiosp_opengraph_{$current_post_type}_fb_object_type"] ) ) {
-					$this->type = $this->options["aiosp_opengraph_{$current_post_type}_fb_object_type"];
+				} elseif ( isset( $this->options[ "aiosp_opengraph_{$current_post_type}_fb_object_type" ] ) ) {
+					$this->type = $this->options[ "aiosp_opengraph_{$current_post_type}_fb_object_type" ];
 				}
 			}
 		}
@@ -1570,7 +1568,7 @@ END;
 				$size    = apply_filters( 'post_thumbnail_size', 'large' );
 				$default = $this->get_the_image_by_default();
 				if ( ! empty( $default ) ) {
-					$default         = set_url_scheme( $default );
+					$default = set_url_scheme( $default );
 					$img[ $default ] = 0;
 				}
 				$img = array_merge( $img, parent::get_all_images( $options, null ) );
@@ -1632,7 +1630,6 @@ END;
 
 		/**
 		 * Enqueue our file upload scripts and styles.
-		 *
 		 * @param $hook
 		 */
 		function og_admin_enqueue_scripts( $hook ) {
@@ -1679,7 +1676,6 @@ END;
 		/**
 		 * Returns the placeholder filtered and ready for DOM display.
 		 * filter:aioseop_opengraph_placeholder
-		 *
 		 * @since 2.4.14
 		 *
 		 * @param mixed  $placeholder Placeholder to be filtered.
@@ -1694,7 +1690,6 @@ END;
 		/**
 		 * Returns filtered default options.
 		 * filter:{prefix}default_options
-		 *
 		 * @since 2.4.13
 		 *
 		 * @param array  $options  Default options.
@@ -1708,13 +1703,11 @@ END;
 				// Add image checker as default
 				$options[ $prefix . 'customimg_checker' ] = 0;
 			}
-
 			return $options;
 		}
 
 		/**
 		 * Returns facebook debug script and link.
-		 *
 		 * @since 2.4.14
 		 *
 		 * @return string
