@@ -440,6 +440,15 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 					aiosp_log("rejected: same rule id exists - " . print_r($new_rule,true) . " vs. " . print_r($rules,true));
 					return new WP_Error('duplicate', sprintf( __( 'Identical rule exists: %s', 'all-in-one-seo-pack' ), $new_rule[ 'path' ] ) );
 				}
+
+				// identical path and agent.
+				$agent_path =  $new_rule[ 'agent' ] . $path;
+				foreach ( $rules as $rule ) {
+					if ( $agent_path === $rule[ 'agent' ] . $rule[ 'path' ] ) {
+						aiosp_log("rejected: same agent/path being overridden - " . print_r($new_rule,true) . " vs. " . print_r($rules,true));
+						return new WP_Error('duplicate', sprintf( __( 'Rule cannot be overridden: %s', 'all-in-one-seo-pack' ), $new_rule[ 'path' ] ) );
+					}
+				}
 			}
 
 			if ( $network ) {
@@ -447,6 +456,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 				foreach ( $network as $n ) {
 					$nw_agent_paths[] = $n['agent'] . $n['path'];
 				}
+
 				// the same rule cannot be duplicated by the Admin.
 				$agent_path =  $new_rule[ 'agent' ] . $path;
 				if ( in_array( $agent_path, $nw_agent_paths ) ) {
