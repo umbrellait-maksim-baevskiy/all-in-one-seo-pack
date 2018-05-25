@@ -253,15 +253,27 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 		}
 
 		private function get_rules() {
-			$rules = '';
-
+			$robots		= array();
+			$blog_rules	= $this->get_all_rules( is_multisite() ? $this->get_network_id() : null );
 			if ( is_multisite() ) {
-				$rules = $this->get_rules_for_blog( $this->get_network_id() );
-			} else {
-				$rules = "\r\n" . $this->get_rules_for_blog();
+				$blog_rules += $this->get_all_rules();
+			}
+			$rules		= array();
+			foreach ( $blog_rules as $rule ) {
+				$condition	= sprintf( '%s: %s', $rule['type'], $rule['path'] );
+				$agent		= $rule['agent'];
+				if ( ! array_key_exists( $agent, $rules ) ) {
+					$rules[$agent]	= array();
+				}
+				$rules[ $agent ][]	= $condition;
 			}
 
-			return $rules;
+			foreach( $rules as $agent => $conditions ) {
+				$robots[]	= sprintf( 'User-agent: %s', $agent );
+				$robots[]	= implode( "\r\n", $conditions );
+				$robots[]	= "";
+			}
+			return implode( "\r\n", $robots );
 		}
 
 		private function get_network_id() {
@@ -299,30 +311,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 		private function get_default_rules() {
 			$options = $this->get_option_for_blog( $this->get_network_id() );
 			return array_key_exists( 'default', $options ) ? $options[ 'default' ] : array();
-		}
-
-		private function get_rules_for_blog( $id = null ) {
-			$robots		= array();
-			$blog_rules	= $this->get_all_rules( $id );
-			if ( is_multisite() && $id === $this->get_network_id() ) {
-				$blog_rules += $this->get_all_rules();
-			}
-			$rules		= array();
-			foreach ( $blog_rules as $rule ) {
-				$condition	= sprintf( '%s: %s', $rule['type'], $rule['path'] );
-				$agent		= $rule['agent'];
-				if ( ! array_key_exists( $agent, $rules ) ) {
-					$rules[$agent]	= array();
-				}
-				$rules[ $agent ][]	= $condition;
-			}
-
-			foreach( $rules as $agent => $conditions ) {
-				$robots[]	= sprintf( 'User-agent: %s', $agent );
-				$robots[]	= implode( "\r\n", $conditions );
-				$robots[]	= "";
-			}
-			return implode( "\r\n", $robots );
 		}
 
 		function ajax_delete_rule() {
