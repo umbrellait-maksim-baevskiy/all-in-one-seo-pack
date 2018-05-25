@@ -996,7 +996,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					),
 				),
 				// #1067: if SEO is disabled and an empty array is passed below, it will be overriden. So let's pass a post type that cannot possibly exist.
-				'display'         => 'on' === $aioseop_options['aiosp_enablecpost'] ? $aioseop_options['aiosp_cpostactive'] : array( '___null___' ),
+				'display'         => 'on' === $aioseop_options['aiosp_enablecpost'] ? array( $aioseop_options['aiosp_cpostactive'] ) : array( '___null___' ),
 			),
 		);
 
