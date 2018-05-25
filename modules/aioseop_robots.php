@@ -256,14 +256,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 			$rules = '';
 
 			if ( is_multisite() ) {
-				// get the network admin rules first.
-				$rules .= $this->get_rules_for_blog( $this->get_network_id() );
+				$rules = $this->get_rules_for_blog( $this->get_network_id() );
 			} else {
-				$rules .= "\r\n" . $this->get_rules_for_blog();
-			}
-
-			if ( $this->get_network_id() != get_current_blog_id() ) {
-				$rules .= "\r\n" . $this->get_rules_for_blog();
+				$rules = "\r\n" . $this->get_rules_for_blog();
 			}
 
 			return $rules;
@@ -309,6 +304,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 		private function get_rules_for_blog( $id = null ) {
 			$robots		= array();
 			$blog_rules	= $this->get_all_rules( $id );
+			if ( is_multisite() && $id === $this->get_network_id() ) {
+				$blog_rules += $this->get_all_rules();
+			}
 			$rules		= array();
 			foreach ( $blog_rules as $rule ) {
 				$condition	= sprintf( '%s: %s', $rule['type'], $rule['path'] );
@@ -427,7 +425,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 			if ( ! is_array( $network ) ) {
 				$network = array();
 			}
-			$network = array_merge( $default, $network );
+			$network = array_merge( $default, $network, $rules );
 
 			// sanitize path.
 			$path = $this->sanitize_path( $new_rule[ 'path' ] );
@@ -439,15 +437,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 				if ( in_array( $id, $ids ) ) {
 					aiosp_log("rejected: same rule id exists - " . print_r($new_rule,true) . " vs. " . print_r($rules,true));
 					return new WP_Error('duplicate', sprintf( __( 'Identical rule exists: %s', 'all-in-one-seo-pack' ), $new_rule[ 'path' ] ) );
-				}
-
-				// identical path and agent.
-				$agent_path =  $new_rule[ 'agent' ] . $path;
-				foreach ( $rules as $rule ) {
-					if ( $agent_path === $rule[ 'agent' ] . $rule[ 'path' ] ) {
-						aiosp_log("rejected: same agent/path being overridden - " . print_r($new_rule,true) . " vs. " . print_r($rules,true));
-						return new WP_Error('duplicate', sprintf( __( 'Rule cannot be overridden: %s', 'all-in-one-seo-pack' ), $new_rule[ 'path' ] ) );
-					}
 				}
 			}
 
