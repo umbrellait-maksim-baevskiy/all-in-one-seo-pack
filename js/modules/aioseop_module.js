@@ -1,3 +1,4 @@
+(function($){
 /**
  * Controls all the styling of the plugin.
  *
@@ -865,8 +866,8 @@ jQuery( document ).ready(
 jQuery( document ).ready(
 	function() {
 			// TODO: consider moving EVERYTHING that needs ready() to this function
-			initAll( jQuery );
-      initCounting( jQuery );
+			initAll();
+      initCounting();
 	}
 );
 
@@ -890,3 +891,4 @@ function initCounting($){
     });
 }
 
+})(jQuery);
