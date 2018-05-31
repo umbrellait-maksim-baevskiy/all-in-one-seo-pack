@@ -510,6 +510,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 			error_reporting(0);
 			ob_start();
 			do_action( 'do_robots' );
+			if ( is_admin() ) {
+				// conflict with WooCommerce etc. cause the page to render as text/plain.
+				header( 'Content-Type:text/html' );
+			}
 			return ob_get_clean();
 		}
 
