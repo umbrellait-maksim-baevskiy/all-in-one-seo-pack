@@ -255,8 +255,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 		private function get_rules() {
 			$robots		= array();
 			$blog_rules	= $this->get_all_rules( is_multisite() ? $this->get_network_id() : null );
-			if ( is_multisite() ) {
-				$blog_rules += $this->get_all_rules();
+			if ( is_multisite() && $this->get_network_id() != get_current_blog_id() ) {
+				$blog_rules = array_merge( $blog_rules, $this->get_all_rules( get_current_blog_id() ) );
 			}
 			$rules		= array();
 			foreach ( $blog_rules as $rule ) {
