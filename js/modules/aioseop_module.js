@@ -82,7 +82,7 @@ function countChars( field, cntfield ) {
             cntfield.removeClass().addClass('aioseop_count_good');
         }
     } else {
-        if ( cntfield.val() > ( field_size - 91 ) ) {
+        if ( cntfield.val() > ( field_size - 10 ) ) {
             cntfield.removeClass().addClass('aioseop_count_bad');
         } else {
             cntfield.removeClass().addClass('aioseop_count_good');
@@ -807,12 +807,12 @@ jQuery( document ).ready(
 jQuery( document ).ready(
 	function() {
 			// TODO: consider moving EVERYTHING that needs ready() to this function
-			initAll( jQuery );
-      initCounting( jQuery );
+			aiospinitAll( jQuery );
+      aiospinitCounting( jQuery );
 	}
 );
 
-function initAll($){
+function aiospinitAll($){
 	if ( $( '.aiseop-date' ).length > 0 && $( '.aiseop-date' ).eq( 0 ).prop( 'type' ).toLowerCase() === 'text' ) {
 		$( '.aiseop-date' ).datepicker(
 			{
@@ -822,7 +822,7 @@ function initAll($){
 	}
 }
 
-function initCounting($){
+function aiospinitCounting($){
     /* count them characters */
     $( '.aioseop_count_chars' ).on('keyup keydown', function(){
         countChars( $(this).eq(0), $(this).parent().find('[name="' + $(this).attr('data-length-field') + '"]').eq(0));
