@@ -83,7 +83,7 @@ function countChars( field, cntfield ) {
             cntfield.removeClass().addClass('aioseop_count_good');
         }
     } else {
-        if ( cntfield.val() > ( field_size - 91 ) ) {
+        if ( cntfield.val() > ( field_size - 10 ) ) {
             cntfield.removeClass().addClass('aioseop_count_bad');
         } else {
             cntfield.removeClass().addClass('aioseop_count_good');
@@ -639,8 +639,8 @@ jQuery( document ).ready(
 			}
 		);
 
-        initAll();
-        initCounting();
+        aiospinitAll();
+        aiospinitCounting();
 
 	}
 );
@@ -658,7 +658,7 @@ jQuery.fn.aioseopImageUploader = function( options ) {
 	// Keep reference to this.
 	var self = this;
 
-	// Options
+  // Options
 	self.options = jQuery.extend(
 		{
 			success: undefined,
@@ -847,9 +847,8 @@ function aioseop_overflow_border( el ) {
 	}
 }
 
-
-function initAll(){
-	if ( $( '.aiseop-date' ).length > 0 && $( '.aiseop-date' ).eq( 0 ).prop( 'type' ).toLowerCase() === 'text' ) {
+function aiospinitAll($){
+  if ( $( '.aiseop-date' ).length > 0 && $( '.aiseop-date' ).eq( 0 ).prop( 'type' ).toLowerCase() === 'text' ) {
 		$( '.aiseop-date' ).datepicker(
 			{
 				dateFormat: "yy-mm-dd"
@@ -858,7 +857,7 @@ function initAll(){
 	}
 }
 
-function initCounting(){
+function aiospinitCounting($){
     /* count them characters */
     $( '.aioseop_count_chars' ).on('keyup keydown', function(){
         countChars( $(this).eq(0), $(this).parent().find('[name="' + $(this).attr('data-length-field') + '"]').eq(0));
