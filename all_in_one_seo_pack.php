@@ -279,7 +279,11 @@ if ( ! function_exists( 'aioseop_activate' ) ) {
 	}
 }
 
-add_action( 'plugins_loaded', 'aioseop_init_class' );
+if ( is_multisite() ) {
+	add_action( 'muplugins_loaded', 'aioseop_init_class' );
+} else {
+	add_action( 'plugins_loaded', 'aioseop_init_class' );
+}
 
 if ( ! function_exists( 'aiosp_plugin_row_meta' ) ) {
 
