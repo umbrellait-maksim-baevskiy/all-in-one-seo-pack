@@ -1980,6 +1980,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			} else {
 				$name = $this->name;
 			}
+			
+			if( is_multisite() && is_network_admin() && $name == 'Robots.txt' ){
+				// Add the robots.txt editor into the network admin menu.
+				add_menu_page( 'Robots.txt Editor','Robots.txt Editor','edit_themes',plugin_basename( $this->file ),array(	$this, 'display_settings_page',	));
+			}
+			
 			if ( $this->locations === null ) {
 				$hookname = add_submenu_page(
 					$parent_slug, $name, $name, apply_filters( 'manage_aiosp', 'aiosp_manage_seo' ), plugin_basename( $this->file ), array(
@@ -2306,7 +2312,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				} else {
 					$count_desc = __( ' characters. Most search engines use a maximum of %1$s chars for the %2$s.', 'all-in-one-seo-pack' );
 				}
-				$buf .= "<br /><input readonly type='text' name='{$prefix}length$n' size='3' maxlength='3' style='width:53px;height:23px;margin:0px;padding:0px 0px 0px 10px;' value='" . $this->strlen( $value ) . "' />"
+				$buf .= "<br /><input readonly tabindex='-1' type='text' name='{$prefix}length$n' size='3' maxlength='3' style='width:53px;height:23px;margin:0px;padding:0px 0px 0px 10px;' value='" . $this->strlen( $value ) . "' />"
 						. sprintf( $count_desc, $size, trim( $this->strtolower( $options['name'] ), ':' ) );
 				if ( ! empty( $onload ) ) {
 					$buf .= "<script>jQuery( document ).ready(function() { {$onload} });</script>";

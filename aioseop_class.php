@@ -3651,7 +3651,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		}
 
 		if ( is_admin() ) {
+			if ( is_multisite() ) {
+				add_action( 'network_admin_menu', array( $this, 'admin_menu' ) );
+			}
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+
 			add_action( 'admin_head', array( $this, 'add_page_icon' ) );
 			add_action( 'admin_init', 'aioseop_addmycolumns', 1 );
 			add_action( 'admin_init', 'aioseop_handle_ignore_notice' );
