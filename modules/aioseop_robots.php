@@ -79,19 +79,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 
 			add_filter( $this->prefix . 'submit_options', array( $this, 'submit_options'), 10, 2 );
 
-			if ( $this->has_physical_file() ) {
-				if ( ( is_multisite() && is_network_admin() ) || ( ! is_multisite() && current_user_can( 'manage_options') ) ) {
-					$this->default_options['usage']['default'] .= '<p>' . sprintf( __( 'A physical file exists. Do you want to %simport and delete%s it, %sdelete%s it or continue using it?', 'all-in-one-seo-pack' ), '<a href="#" class="aiosp_robots_physical aiosp_robots_import" data-action="import">', '</a>', '<a href="#" class="aiosp_robots_physical aiosp_robots_delete" data-action="delete">', '</a>' ) . '</p>';
-				} else {
-					$this->default_options['usage']['default'] .= '<p>' . __( 'A physical file exists. This feature cannot be used.', 'all-in-one-seo-pack' ) . '</p>';
-				}
-
-				add_action( 'wp_ajax_aioseop_ajax_robots_physical', array( $this, 'ajax_action_physical_file' ) );
-
-				return;
-			} else {
-				add_action( 'admin_init', array( $this, 'import_default_robots' ) );
-			}
+			$dirname = AIOSEOP_PLUGIN_DIRNAME;
+			$robots_admin_page = "all-in-one-seo_page_$dirname/modules/aioseop_robots";
+			add_action('load-'. $robots_admin_page, array( $this, 'physical_file_check' ) );
 
 			$this->default_options = array_merge( $this->default_options, $this->rule_fields );
 
@@ -117,6 +107,22 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 			add_filter( $this->prefix . 'display_options', array( $this, 'filter_display_options' ) );
 			add_action( 'wp_ajax_aioseop_ajax_delete_rule', array( $this, 'ajax_delete_rule' ) );
 			add_filter( 'robots_txt', array( $this, 'robots_txt' ), 10, 2 );
+		}
+
+		function physical_file_check() {
+			if ( $this->has_physical_file() ) {
+				if ( ( is_multisite() && is_network_admin() ) || ( ! is_multisite() && current_user_can( 'manage_options') ) ) {
+					$this->default_options['usage']['default'] .= '<p>' . sprintf( __( 'A physical file exists. Do you want to %simport and delete%s it, %sdelete%s it or continue using it?', 'all-in-one-seo-pack' ), '<a href="#" class="aiosp_robots_physical aiosp_robots_import" data-action="import">', '</a>', '<a href="#" class="aiosp_robots_physical aiosp_robots_delete" data-action="delete">', '</a>' ) . '</p>';
+				} else {
+					$this->default_options['usage']['default'] .= '<p>' . __( 'A physical file exists. This feature cannot be used.', 'all-in-one-seo-pack' ) . '</p>';
+				}
+
+				add_action( 'wp_ajax_aioseop_ajax_robots_physical', array( $this, 'ajax_action_physical_file' ) );
+
+				return;
+			} else {
+				add_action( 'admin_init', array( $this, 'import_default_robots' ) );
+			}
 		}
 
 		function filter_display_options( $options ) {
@@ -244,9 +250,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 		}
 
 		private function has_physical_file() {
-			$wp_filesystem = $this->get_filesystem_object();
-			$file = trailingslashit( $wp_filesystem->abspath() ) . 'robots.txt';
-			return $wp_filesystem->exists( $file );
+			$access_type = get_filesystem_method();
+
+			if ( 'direct' === $access_type ) {
+				$wp_filesystem = $this->get_filesystem_object();
+				$file          = trailingslashit( $wp_filesystem->abspath() ) . 'robots.txt';
+
+				return $wp_filesystem->exists( $file );
+			}
 		}
 
 		function robots_txt( $output, $public ) {
@@ -362,7 +373,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 						$_POST[ $post_field ] = '';
 					}
 				}
-				$new_rule = array( 
+				$new_rule = array(
 					'path' => $_POST[ "{$this->prefix}path" ],
 					'type' => $_POST[ "{$this->prefix}type" ],
 					'agent' => $_POST[ "{$this->prefix}agent" ],
@@ -450,17 +461,17 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 				}
 
 				// a wild-carded path specified by the Admin cannot override a path specified by Network Admin.
-				$pattern = str_replace( 
+				$pattern = str_replace(
 					array(
 						'.',
 						'/',
 						'*',
-					), 
+					),
 					array(
 						'\.',
 						'\/',
 						'(.*)',
-					), 
+					),
 					$path
 				);
 				foreach ( $nw_paths as $nw_path ) {
