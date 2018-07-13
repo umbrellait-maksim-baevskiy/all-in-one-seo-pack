@@ -250,9 +250,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 		}
 
 		private function has_physical_file() {
-			$wp_filesystem = $this->get_filesystem_object();
-			$file = trailingslashit( $wp_filesystem->abspath() ) . 'robots.txt';
-			return $wp_filesystem->exists( $file );
+			$access_type = get_filesystem_method();
+
+			if ( 'direct' === $access_type ) {
+				$wp_filesystem = $this->get_filesystem_object();
+				$file          = trailingslashit( $wp_filesystem->abspath() ) . 'robots.txt';
+
+				return $wp_filesystem->exists( $file );
+			}
 		}
 
 		function robots_txt( $output, $public ) {
