@@ -629,25 +629,22 @@ jQuery( document ).ready(
 			}
 		);
 
-		jQuery( "div#aiosp_robots_metabox" )
-		.delegate(
-			"a.aiosp_robots_physical", "click", function( e ) {
-				e.preventDefault();
-				aioseop_handle_post_url(
-					'aioseop_ajax_robots_physical',
-					'robots_metabox',
-					jQuery( this ).attr( "data-action" ),
-					function(data) {
-                        if(data.data && data.data.message){
-                            alert(data.data.message);
-                        }
-                        window.location.reload();
-                    },
-                    true
-				);
-				return false;
-			}
-		);
+		jQuery( "a.aiosp_robots_physical" ).on( 'click', function( e ) {
+			e.preventDefault();
+			aioseop_handle_post_url(
+				'aioseop_ajax_robots_physical',
+				'robots_physical_import_delete',//'robots_metabox', // No element of the ID existed, and unsure which element its intended for.
+				jQuery( this ).attr( "data-action" ),
+				function( data ) {
+					if ( data.data && data.data.message ) {
+						alert( data.data.message );
+					}
+					window.location.reload();
+				},
+				true
+			);
+			return false;
+		});
 
         aiospinitAll();
         aiospinitCounting();
