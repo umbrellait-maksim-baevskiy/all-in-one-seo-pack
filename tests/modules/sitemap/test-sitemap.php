@@ -159,6 +159,72 @@ class Test_Sitemap extends Sitemap_Test_Base {
   
 
 	/**
+	 * Testing post type archive pages.
+	 *
+	 * @ticket 155 XML Sitemap - Add support for post type archive pages and support to exclude them as well.
+	 *
+	 * @access public
+	 * @dataProvider post_type_archive_pages_provider
+	 */
+	public function test_post_type_archive_pages( $post_types, $has_archive, $exclude ) {
+		$tests = array();
+
+		foreach( $post_types as $post_type ) {
+			$ids		= array();
+			if ( ! in_array( $post_type, array( 'post', 'page' ) ) ) {
+				register_post_type( $post_type, array( 'has_archive' => $has_archive ) );
+			}
+
+			$ids	= $this->factory->post->create_many( 2, array( 'post_type' => $post_type ) );
+			foreach ( $ids as $id ) {
+				$tests[ get_permalink( $id ) ] = true;
+			}
+			$url = get_post_type_archive_link( $post_type );
+			$tests[ $url ] = $has_archive && ! $exclude;
+		}
+
+		if ( $exclude ) {
+			add_filter( 'aiosp_sitemap_include_post_types_archives', array( $this, 'filter_aiosp_sitemap_include_post_types_archives' ) );
+		}
+
+		$custom_options = array();
+		$custom_options['aiosp_sitemap_indexes'] = '';
+		$custom_options['aiosp_sitemap_images'] = 'on';
+		$custom_options['aiosp_sitemap_gzipped'] = '';
+		$custom_options['aiosp_sitemap_archive'] = 'on';
+		$custom_options['aiosp_sitemap_posttypes'] = $post_types;
+
+		$this->_setup_options( 'sitemap', $custom_options );
+
+		$this->validate_sitemap( $tests );
+	}
+
+	/**
+	 * Implements the filter 'aiosp_sitemap_include_post_types_archives'.
+	 */
+	public function filter_aiosp_sitemap_include_post_types_archives( $types ) {
+		return array();
+	}
+
+	/**
+	 * Provide the post types for testing test_post_type_archive_pages.
+	 * 
+	 * This will enable us to test these cases:
+	 * 1) When a CPT post type is selected that DOES NOT support archives => only CPT in the sitemap.
+	 * 2) When a CPT post type is selected that DOES support archives => CPT and CPT archives in the sitemap.
+	 * 3) When a CPT post type is selected that DOES support archives and we exclude this => only CPT in the sitemap.
+	 *
+	 * @access public
+	 */
+	public function post_type_archive_pages_provider() {
+		return array(
+			array( array( 'xxxx' ), false, false ),
+			array( array( 'xxxx' ), true, false ),
+			array( array( 'xxxx' ), true, true ),
+		);
+	}
+  
+	/**
 	 * Add WooCommerce product gallery images to XML sitemap.
 	 *
 	 * @ticket 366 Add WooCommerce product gallery images to XML sitemap
@@ -213,27 +279,21 @@ class Test_Sitemap extends Sitemap_Test_Base {
 		$test1 = wp_create_category( 'test1' );
 		$test2 = wp_create_category( 'test2' );
 		$test3 = wp_create_category( 'test3' );
-
 		$ids = $this->factory->post->create_many( 10 );
-
 		// first 3 to test1, next 3 to test2 and let others remain uncategorized.
 		for ( $x = 0; $x < 3; $x++ ) {
 			wp_set_post_categories( $ids[ $x ], $test1 );
 		}
-
 		for ( $x = 3; $x < 6; $x++ ) {
 			wp_set_post_categories( $ids[ $x ], $test2 );
 		}
-
 		$custom_options = array();
 		$custom_options['aiosp_sitemap_indexes'] = '';
 		$custom_options['aiosp_sitemap_images'] = '';
 		$custom_options['aiosp_sitemap_gzipped'] = '';
 		$custom_options['aiosp_sitemap_taxonomies'] = array( 'category' );
 		$custom_options['aiosp_sitemap_posttypes'] = array();
-
 		$this->_setup_options( 'sitemap', $custom_options );
-
 		// in the sitemap, test3 should not appear as no posts have been assigned to it.
 		$this->validate_sitemap(
 			array(
