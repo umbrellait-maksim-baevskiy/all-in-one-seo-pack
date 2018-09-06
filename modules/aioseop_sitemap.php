@@ -220,7 +220,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				),
 				'addl_url'          => array(
 					'name'  => __( 'Page URL', 'all-in-one-seo-pack' ),
-					'type'  => 'text',
+					'type'  => 'url',
 					'label' => 'top',
 					'save'  => false,
 				),
@@ -502,7 +502,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						if ( is_object( $v ) ) {
 							$v = (Array) $v;
 						}
-						$buf .= "\t<tr><td><a href='#' title='$k' class='aiosp_delete aiosp_delete_url'></a> {$k}</td><td>{$v['prio']}</td><td>{$v['freq']}</td><td>{$v['mod']}</td></tr>\n";
+						$buf .= "\t<tr><td><a href='#' title='$k' class='dashicons dashicons-trash aiosp_delete_url'></a> {$k}</td><td>{$v['prio']}</td><td>{$v['freq']}</td><td>{$v['mod']}</td></tr>\n";
 					}
 					$buf .= "</table>\n";
 				}
@@ -775,6 +775,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( isset( $options[ $this->prefix . 'addl_pages' ][0] ) ) {
 				unset( $options[ $this->prefix . 'addl_pages' ][0] );
 			}
+
 			// TODO Refactor all these... use a nonce, dump the incoming _Post into an array and use that.
 			if ( ! empty( $_POST[ $this->prefix . 'addl_url' ] ) ) {
 				foreach ( array( 'addl_url', 'addl_prio', 'addl_freq', 'addl_mod' ) as $field ) {
@@ -787,11 +788,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				if ( ! is_array( $options[ $this->prefix . 'addl_pages' ] ) ) {
 					$options[ $this->prefix . 'addl_pages' ] = array();
 				}
-				$options[ $this->prefix . 'addl_pages' ][ $_POST[ $this->prefix . 'addl_url' ] ] = array(
-					'prio' => $_POST[ $this->prefix . 'addl_prio' ],
-					'freq' => $_POST[ $this->prefix . 'addl_freq' ],
-					'mod'  => $_POST[ $this->prefix . 'addl_mod' ],
-				);
+
+				if ( aiosp_common::is_url_valid( $_POST[ $this->prefix . 'addl_url' ] ) ) {
+					$options[ $this->prefix . 'addl_pages' ][ $_POST[ $this->prefix . 'addl_url' ] ] = array(
+						'prio' => $_POST[ $this->prefix . 'addl_prio' ],
+						'freq' => $_POST[ $this->prefix . 'addl_freq' ],
+						'mod'  => $_POST[ $this->prefix . 'addl_mod' ],
+					);
+				}
 			}
 
 			return $options;
@@ -2347,10 +2351,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( ! empty( $this->options[ $this->prefix . 'addl_pages' ] ) ) {
 				$siteurl = parse_url( aioseop_home_url() );
 				foreach ( $this->options[ $this->prefix . 'addl_pages' ] as $k => $v ) {
+					$k	= aiosp_common::make_url_valid_smartly( $k );
 					$url = parse_url( $k );
-					if ( empty( $url['scheme'] ) ) {
-						$url['scheme'] = $siteurl['scheme'];
-					}
 					if ( empty( $url['host'] ) ) {
 						$url['host'] = $siteurl['host'];
 					}
