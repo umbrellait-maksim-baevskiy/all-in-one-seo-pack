@@ -62,6 +62,10 @@
 		<a class="web" target="_blank" href="https://profiles.wordpress.org/yummy-wp/"><img alt="" class="gravatar" src="https://avatars0.githubusercontent.com/u/22232968?v=3&s=460">
 			Stanislav Samoilenko</a>
 	</li>
+	<li class="wp-person" id="EkoJR">
+	<a class="web" target="_blank" href="https://profiles.wordpress.org/EkoJR/"><img alt="" class="gravatar" src="https://secure.gravatar.com/avatar/bb4c78fe944b58bd5f127d836500c30a?s=200&d=mm&r=g">
+			Stanislav Samoilenko</a>
+	</li>
 </ul>
 
 <h3 class="wp-people-group dashicons-before dashicons-translation"><?php printf( _e( 'Translation contributors and translation editors', 'all-in-one-seo-pack' ), '1.2' ); ?></h3>
