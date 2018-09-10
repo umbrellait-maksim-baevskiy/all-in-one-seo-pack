@@ -687,6 +687,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( ! empty( $this->options["{$this->prefix}filename"] ) ) {
 				$filename = $this->options["{$this->prefix}filename"];
 				$filename = str_replace( '/', '', $filename );
+			} else if ( 'aiosp_video_sitemap_' === $this->prefix ) {
+				$filename	= 'video-sitemap';
 			}
 			return $filename;
 		}
