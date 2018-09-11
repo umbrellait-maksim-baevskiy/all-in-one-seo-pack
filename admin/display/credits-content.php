@@ -55,7 +55,7 @@
 			Alejandro Mostajo</a>
 	</li>
 	<li class="wp-person" id="rozroz">
-		<a class="web" target="_blank" href="https://profiles.wordpress.org/rozroz/"><img alt="" class="gravatar" src="https://secure.gravatar.com/avatar/5a4758faa5ba6fc1322bdfb0f6ebcf56c?s=60">
+		<a class="web" target="_blank" href="https://github.com/contactashish13"><img alt="" class="gravatar" src="https://avatars2.githubusercontent.com/u/12953439?s=60">
 			Ashish Ravi</a>
 	</li>
 	<li class="wp-person" id="rozroz">
