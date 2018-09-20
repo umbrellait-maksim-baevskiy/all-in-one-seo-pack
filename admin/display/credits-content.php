@@ -62,6 +62,10 @@
 		<a class="web" target="_blank" href="https://profiles.wordpress.org/yummy-wp/"><img alt="" class="gravatar" src="https://avatars0.githubusercontent.com/u/22232968?v=3&s=460">
 			Stanislav Samoilenko</a>
 	</li>
+	<li class="wp-person" id="shoheitanaka">
+		<a class="web" target="_blank" href="https://profiles.wordpress.org/shoheitanaka"><img alt="" class="gravatar" src="https://secure.gravatar.com/avatar/677e512c803c40c0180d4514f876a21f?s=200&d=mm&r=g">
+			Shohei Tanaka</a>
+	</li>		
 </ul>
 
 <h3 class="wp-people-group dashicons-before dashicons-translation"><?php printf( _e( 'Translation contributors and translation editors', 'all-in-one-seo-pack' ), '1.2' ); ?></h3>
