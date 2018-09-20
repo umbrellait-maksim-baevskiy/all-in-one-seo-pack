@@ -400,7 +400,15 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				return;
 			}
 
-			$this->do_sitemaps();
+			if ( defined( 'AIOSEOP_UNIT_TESTING' ) ) {
+				$this->do_sitemaps();
+			} elseif ( ! has_action( 'shutdown', $callback = array( $this, 'do_sitemaps' ) ) ) {
+				/**
+				 * Defer do_sitemaps until after everything is done.
+				 * And run it only once regardless of posts updated.
+				 */
+				add_action( 'shutdown', $callback );
+			}
 		}
 
 		/**
@@ -679,6 +687,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( ! empty( $this->options["{$this->prefix}filename"] ) ) {
 				$filename = $this->options["{$this->prefix}filename"];
 				$filename = str_replace( '/', '', $filename );
+			} else if ( 'aiosp_video_sitemap_' === $this->prefix ) {
+				$filename	= 'video-sitemap';
 			}
 			return $filename;
 		}
@@ -2816,6 +2826,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					if ( $image ) {
 						$images['image:image'] = array(
 							'image:loc' => $image,
+							'image:caption' => wp_get_attachment_caption( $thumbnail_id ),
+							'image:title' => get_the_title( $thumbnail_id ),
 						);
 					}
 				}
@@ -2858,15 +2870,37 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				if ( $attributes ) {
 					$images[] = array(
 						'image:loc' => $this->clean_url( $attributes[0] ),
+						'image:caption' => wp_get_attachment_caption( $post->ID ),
+						'image:title' => get_the_title( $post->ID ),
 					);
 				}
 
 				return $images;
 			}
 
-			$attached_url = get_the_post_thumbnail_url( $post->ID );
-			if ( $attached_url ) {
-				$images[] = $attached_url;
+			/**
+			 * Static attachment cache, 1 query vs. n posts.
+			 */
+			static $post_thumbnails;
+
+			if ( is_null( $post_thumbnails ) || defined( 'AIOSEOP_UNIT_TESTING' ) ) {
+				global $wpdb;
+
+				$post_thumbnails = $wpdb->get_results( "SELECT post_ID, meta_value FROM $wpdb->postmeta WHERE meta_key = '_thumbnail_id'", ARRAY_A );
+
+				if ( $post_thumbnails ) {
+					$post_thumbnails = array_combine(
+						wp_list_pluck( $post_thumbnails, 'post_ID' ),
+						wp_list_pluck( $post_thumbnails, 'meta_value' )
+					);
+				}
+			}
+
+			if ( isset( $post_thumbnails[ $post->ID ] ) ) {
+				$attachment_url = wp_get_attachment_image_url( $post_thumbnails[ $post->ID ], 'post-thumbnail' );
+				if ( $attachment_url ) {
+					$images[] = $attachment_url;
+				}
 			}
 
 			$content = '';
@@ -2887,13 +2921,35 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$tmp = array_filter( $images, array( $this, 'is_image_valid' ) );
 				$images = array();
 				foreach ( $tmp as $image ) {
-					$images[] = array(
-						'image:loc' => $this->clean_url( $image ),
+					$image_attributes	= $this->get_image_attributes( $image );
+					$images[] = array_merge(
+							array(
+								'image:loc' => $this->clean_url( $image ),
+							),
+							$image_attributes
 					);
 				}
 			}
 
 			return $images;
+		}
+
+		/**
+		 * Fetch image attributes such as title and caption given the image URL.
+		 *
+		 * @param string $url The image URL.
+		 */
+		private function get_image_attributes( $url ) {
+			$attributes	= array();
+			global $wpdb;
+			$attachment = $wpdb->get_col( $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $url ) ); 
+			if ( $attachment && is_array( $attachment ) && is_numeric( $attachment[0] ) ) {
+				$attributes	= array(
+					'image:caption' => wp_get_attachment_caption( $attachment[0] ),
+					'image:title' => get_the_title( $attachment[0] ),
+				);
+			}
+			return $attributes;
 		}
 
 		/**
