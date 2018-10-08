@@ -124,7 +124,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				__( '%blog_description% - Your blog description', 'all-in-one-seo-pack' ) . '</li><li>' .
 				__( '%post_title% - The original title of the post', 'all-in-one-seo-pack' ) . '</li><li>' .
 				__( '%category_title% - The (main) category of the post', 'all-in-one-seo-pack' ) . '</li><li>' .
-				__( '%1$category% - Alias for %2$category_title%', 'all-in-one-seo-pack' ) . '</li><li>' .
+				__( '%category% - Alias for %category_title%', 'all-in-one-seo-pack' ) . '</li><li>' .
 				__( "%post_author_login% - This post's author' login", 'all-in-one-seo-pack' ) . '</li><li>' .
 				__( "%post_author_nicename% - This post's author' nicename", 'all-in-one-seo-pack' ) . '</li><li>' .
 				__( "%post_author_firstname% - This post's author' first name (capitalized)", 'all-in-one-seo-pack' ) . '</li><li>' .
@@ -3543,12 +3543,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					return false;
 				}
 			} else {
-				$cp_nofollow_active = false;
-				if ( ! empty( $aioseop_options['aiosp_cpostnofollow'] ) && is_array( $aioseop_options['aiosp_cpostnofollow'] ) ) {
-					$cp_nofollow_active = in_array( $post_type, $aioseop_options['aiosp_cpostnofollow'] );
+				$cp_noindex_active = false;
+				// Make sure noindex works even of SEO is turned off for that post type.
+				if ( ! empty( $aioseop_options['aiosp_cpostnoindex'] ) && is_array( $aioseop_options['aiosp_cpostnoindex'] ) ) {
+					$cp_noindex_active = in_array( $post_type, $aioseop_options['aiosp_cpostnoindex'] );
 				}
 
-				if ( is_singular() && ! in_array( $post_type, $wp_post_types ) && ! is_front_page() && ! $cp_nofollow_active ) {
+				if ( is_singular() && ! in_array( $post_type, $wp_post_types ) && ! is_front_page() && ! $cp_noindex_active ) {
 					return false;
 				}
 				if ( is_post_type_archive() && ! is_post_type_archive( $wp_post_types ) ) {
