@@ -1732,7 +1732,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			$title = apply_filters( 'aioseop_title_page', $title );
 
 			return $title;
-		} elseif ( is_single() ) {
+		} elseif ( is_single() || $this->check_singular() ) {
 			// We're not in the loop :(.
 			if ( null === $post ) {
 				return false;
@@ -2482,7 +2482,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			}
 		} elseif ( is_front_page() ) {
 			$description = $this->get_aioseop_description( $post );
-		} elseif ( is_single() || is_page() || is_attachment() || is_home() || $this->is_static_posts_page() ) {
+		} elseif ( is_single() || is_page() || is_attachment() || is_home() || $this->is_static_posts_page() || $this->check_singular() ) {
 			$description = $this->get_aioseop_description( $post );
 		} elseif ( ( is_category() || is_tag() || is_tax() ) && $this->show_page_description() ) {
 			if ( ! empty( $opts ) && AIOSEOPPRO ) {
@@ -2838,7 +2838,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			return null;
 		}
 		// If we are on synthetic pages.
-		if ( ! is_home() && ! is_page() && ! is_single() && ! $this->is_static_front_page() && ! $this->is_static_posts_page() && ! is_archive() && ! is_post_type_archive() && ! is_category() && ! is_tag() && ! is_tax() ) {
+		if ( ! is_home() && ! is_page() && ! is_single() && ! $this->is_static_front_page() && ! $this->is_static_posts_page() && ! is_archive() && ! is_post_type_archive() && ! is_category() && ! is_tag() && ! is_tax() && ! $this->check_singular() ) {
 			return null;
 		}
 		$keywords = array();
@@ -4252,7 +4252,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				$nofollow = 'nofollow';
 			}
 			// #322: duplicating this code so that we don't step on some other entities' toes.
-		} elseif ( is_single() || is_page() || $this->is_static_posts_page() || is_attachment() || is_category() || is_tag() || is_tax() || ( $page > 1 ) ) {
+		} elseif ( is_single() || is_page() || $this->is_static_posts_page() || is_attachment() || is_category() || is_tag() || is_tax() || ( $page > 1 ) || $this->check_singular() ) {
 			$post_type = get_post_type();
 			if ( $aiosp_noindex || $aiosp_nofollow || ! empty( $aioseop_options['aiosp_cpostnoindex'] )
 				 || ! empty( $aioseop_options['aiosp_cpostnofollow'] ) || ! empty( $aioseop_options['aiosp_paginated_noindex'] ) || ! empty( $aioseop_options['aiosp_paginated_nofollow'] )
@@ -4284,8 +4284,28 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	}
 
 	/**
-	 * Determine if post is password protected.
-	 * @since 2.3.11.5
+	 * Determine if the post is 'like' singular. In some specific instances, such as when the Reply post type of bbpress is loaded in its own page,
+	 * it reflects as singular intead of single
+	 *
+	 * @since 2.4.2
+	 *
+	 * @return bool
+	 */
+	private function check_singular() {
+		global $wp_query, $post;
+		$is_singular    = false;
+		if ( is_singular() ) {
+			// #1297 - support for bbpress 'reply' post type.
+			if ( $post && 'reply' === $post->post_type ) {
+				$is_singular    = true;
+			}
+		}
+		return $is_singular;
+	}
+
+	/**
+   * Determine if post is password protected.
+   * @since 2.3.11.5
 	 * @return bool
 	 */
 	function is_password_protected() {
