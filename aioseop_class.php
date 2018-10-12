@@ -2537,6 +2537,10 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 * @return mixed
 	 */
 	function get_page_number() {
+		global $post;
+		if ( is_singular() && false === strpos( $post->post_content, '<!--nextpage-->' ) ) {
+			return null;
+		}
 		$page = get_query_var( 'page' );
 		if ( empty( $page ) ) {
 			$page = get_query_var( 'paged' );
@@ -2779,9 +2783,19 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		}
 		if ( ! empty( $page ) && $page > 1 ) {
 			if ( $page == get_query_var( 'page' ) ) {
-				$link = trailingslashit( $link ) . "$page";
+				if ( get_query_var( 'p' ) ) {
+					// non-pretty urls.
+					$link = add_query_arg( 'page', $page, $link );
+				} else {
+					$link = trailingslashit( $link ) . "$page";
+				}
 			} else {
-				$link = trailingslashit( $link ) . trailingslashit( $page_name ) . $page;
+				if ( get_query_var( 'p' ) ) {
+					// non-pretty urls.
+					$link = add_query_arg( 'page', $page, trailingslashit( $link ) . $page_name );
+				} else {
+					$link = trailingslashit( $link ) . trailingslashit( $page_name ) . $page;
+				}
 			}
 			$link = user_trailingslashit( $link, 'paged' );
 		}
@@ -3893,6 +3907,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		global $aioseop_update_checker, $wp_query, $aioseop_options, $posts;
 		static $aioseop_dup_counter = 0;
 		$aioseop_dup_counter ++;
+    
 		if ( ! defined( 'AIOSEOP_UNIT_TESTING' ) && $aioseop_dup_counter > 1 ) {
 			echo "\n<!-- " . sprintf( __( 'Debug Warning: All in One SEO Pack meta data was included again from %1$s filter. Called %2$s times!', 'all-in-one-seo-pack' ), current_filter(), $aioseop_dup_counter ) . " -->\n";
 			if ( ! empty( $old_wp_query ) ) {
@@ -4449,6 +4464,8 @@ EOF;
 				if ( $numpages > 1 ) {
 					$multipage = 1;
 				}
+			} else {
+				$page = null;
 			}
 			if ( ! empty( $page ) ) {
 				if ( $page > 1 ) {
