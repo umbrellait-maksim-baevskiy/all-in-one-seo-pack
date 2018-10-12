@@ -2686,6 +2686,9 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			return false;
 		}
 		$link    = '';
+		// this boolean will determine if any additional parameters will be added to the final link or not.
+		// this is especially useful in issues such as #491.
+		$add_query_params = false;
 		$haspost = false;
 		if ( ! empty( $query->posts ) ) {
 			$haspost = count( $query->posts ) > 0;
@@ -2706,6 +2709,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				default:
 					return false;
 			}
+			$add_query_params = true;
 		} elseif ( $query->is_home && ( get_option( 'show_on_front' ) == 'page' ) && ( $pageid = get_option( 'page_for_posts' ) ) ) {
 			$link = aioseop_get_permalink( $pageid );
 		} elseif ( is_front_page() || ( $query->is_home && ( get_option( 'show_on_front' ) != 'page' || ! get_option( 'page_for_posts' ) ) ) ) {
@@ -2731,18 +2735,14 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				$link = get_tag_link( $tag->term_id );
 			}
 		} elseif ( $query->is_day && $haspost ) {
-			$link = get_day_link(
-				get_query_var( 'year' ),
-				get_query_var( 'monthnum' ),
-				get_query_var( 'day' )
-			);
+			$link = get_day_link( get_query_var( 'year' ), get_query_var( 'monthnum' ), get_query_var( 'day' ) );
+			$add_query_params = true;
 		} elseif ( $query->is_month && $haspost ) {
-			$link = get_month_link(
-				get_query_var( 'year' ),
-				get_query_var( 'monthnum' )
-			);
+			$link = get_month_link( get_query_var( 'year' ), get_query_var( 'monthnum' ) );
+			$add_query_params = true;
 		} elseif ( $query->is_year && $haspost ) {
 			$link = get_year_link( get_query_var( 'year' ) );
+			$add_query_params = true;
 		} elseif ( $query->is_tax && $haspost ) {
 			$taxonomy = get_query_var( 'taxonomy' );
 			$term     = get_query_var( 'term' );
@@ -2762,6 +2762,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		}
 		if ( apply_filters( 'aioseop_canonical_url_pagination', $show_page ) ) {
 			$link = $this->get_paged( $link );
+		}
+
+		if ( $add_query_params ) {
+			$post_type = get_query_var( 'post_type' );
+			if ( ! empty( $post_type ) ) {
+				$link = add_query_arg( 'post_type', $post_type, $link );
+			}
 		}
 
 		return $link;
