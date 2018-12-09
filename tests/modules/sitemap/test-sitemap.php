@@ -84,9 +84,13 @@ class Test_Sitemap extends Sitemap_Test_Base {
 			array(
 				$with[0] => array(
 					'image' => true,
+					'image:title' => true,
+					'image:caption' => true,
 				),
 				$with[1] => array(
 					'image' => true,
+					'image:title' => true,
+					'image:caption' => true,
 				),
 				$without[0] => array(
 					'image' => false,
@@ -136,6 +140,44 @@ class Test_Sitemap extends Sitemap_Test_Base {
 			)
 		);
 	}
+  
+	/**
+	 * Test the generated RSS file for the sitemap.
+	 *
+	 * @ticket 561 XML Sitemap module - Add support for RSS/Atom updates.
+	 */
+	public function test_rss() {
+		$posts = $this->setup_posts( 2 );
+	
+		$custom_options = array();
+		$custom_options['aiosp_sitemap_indexes'] = '';
+		$custom_options['aiosp_sitemap_images'] = 'on';
+		$custom_options['aiosp_sitemap_gzipped'] = '';
+		$custom_options['aiosp_sitemap_rss_sitemap'] = 'on';
+		$custom_options['aiosp_sitemap_posttypes'] = array( 'post' );
+
+		$this->_setup_options( 'sitemap', $custom_options );
+
+		$this->validate_sitemap( 
+			array(
+					$posts['without'][0] => true,
+					$posts['without'][1] => true,
+			)
+		);
+
+		$rss = ABSPATH . '/sitemap.rss';
+		$this->assertFileExists( $rss );
+
+		libxml_use_internal_errors(true);
+		$dom = new DOMDocument(); 
+		$dom->load( $rss ); 
+		$content = file_get_contents( $rss );
+
+		$this->assertTrue( $dom->schemaValidate( AIOSEOP_UNIT_TESTING_DIR . '/resources/xsd/rss.xsd' ) );
+		$this->assertContains( $posts['without'][0], $content );
+		$this->assertContains( $posts['without'][1], $content );
+	}
+  
 
   	/**
 	 * Don't include content from trashed pages.
@@ -724,7 +766,6 @@ class Test_Sitemap extends Sitemap_Test_Base {
 		// so all urls 
 	}
 
-
 	/**
 	 * Provides the invalid external pages that need to be added to the sitemap.
 	 */
@@ -767,3 +808,4 @@ class Test_Sitemap extends Sitemap_Test_Base {
 		);
 	}
 }
+

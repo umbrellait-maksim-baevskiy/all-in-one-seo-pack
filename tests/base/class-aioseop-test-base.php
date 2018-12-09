@@ -6,6 +6,7 @@ class AIOSEOP_Test_Base extends WP_UnitTestCase {
 
 	public function _setUp() {
 		parent::setUp();
+
  		// avoids error - readfile(/src/wp-includes/js/wp-emoji-loader.js): failed to open stream: No such file or directory
 		remove_action('wp_head', 'print_emoji_detection_script', 7);
 		
@@ -143,7 +144,6 @@ class AIOSEOP_Test_Base extends WP_UnitTestCase {
 		}
 	}
 
-
 	/**
 	 * Switch between user roles
 	 * E.g. administrator, editor, author, contributor, subscriber
@@ -164,6 +164,12 @@ class AIOSEOP_Test_Base extends WP_UnitTestCase {
 		$this->factory->attachment->create( array( 'file' => $image, 'post_parent' => $id ) );
 		*/
 		$attachment_id = $this->factory->attachment->create_upload_object( $image, $id );
+
+		// add an image caption and title with special characters.
+		kses_remove_filters();
+		wp_update_post( array( 'ID' => $attachment_id, 'post_title' => wp_generate_password( 12, true, true ) . '<tom>&jerry"\'', 'post_excerpt' => wp_generate_password( 12, true, true ) . '<tom>&jerry"\'' ) );
+		kses_init_filters();
+
 		if ( 0 !== $id ) {
 			update_post_meta( $id, '_thumbnail_id', $attachment_id );
 		}
@@ -259,9 +265,17 @@ class AIOSEOP_Test_Base extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Set up posts of specific post type, without/without images. Use this when post attributes such as title, content etc. don't matter.
-	*/
-	protected final function setup_posts( $without_images = 0, $with_images = 0, $type = 'post' ) {
+	 * Setup Posts
+	 *
+	 * Set up posts of specific post type, without/without images. Use this when post attributes such as title,
+	 * content etc. don't matter.
+	 *
+	 * @param int    $without_images
+	 * @param int    $with_images
+	 * @param string $type
+	 * @return array
+	 */
+	final protected function setup_posts( $without_images = 0, $with_images = 0, $type = 'post' ) {
 		if ( $without_images > 0 ) {
 			$this->factory->post->create_many( $without_images, array( 'post_type' => $type, 'post_content' => 'content without image', 'post_title' => 'title without image' ) );
 		}
@@ -296,7 +310,7 @@ class AIOSEOP_Test_Base extends WP_UnitTestCase {
 		// 2 attachments created?
 		$this->assertEquals( $with_images, count( $attachments ) );
 
-		$with = array();
+		$with    = array();
 		$without = array();
 
 		$featured	= 0;
@@ -313,8 +327,8 @@ class AIOSEOP_Test_Base extends WP_UnitTestCase {
 		$this->assertEquals( $with_images, $featured );
 
 		return array(
-			'with'	=> $with,
-			'without'	=> $without,
+			'with'    => $with,
+			'without' => $without,
 		);
 	}
 
@@ -341,7 +355,7 @@ class AIOSEOP_Test_Base extends WP_UnitTestCase {
 	protected final function parse_html( $link, $tags = array(), $debug = false ) {
 		$html = $this->get_page_source( $link );
 		if ( $debug ) {
-			error_log( $html );
+			error_log( "$link === $html" );
 		}
 
 		libxml_use_internal_errors( true );
@@ -392,5 +406,4 @@ class AIOSEOP_Test_Base extends WP_UnitTestCase {
 	}
 
 }
-
 
