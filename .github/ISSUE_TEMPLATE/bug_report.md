@@ -3,7 +3,7 @@ name: Bug report
 about: Create a report to help us improve
 
 ---
- - [ ] I've searched for any related issues and avoided creating a duplicate issue.
+ - [ ] I understand that this is a development repository and not a support forum. This is a bug report and is not a support request.
  - [ ] I've followed the [troubleshooting steps](https://semperplugins.com/documentation/how-to-troubleshoot-issues-with-all-in-one-seo-pack)  to determine if there's a theme/plugin conflict. 
 
 **Describe the bug**
