@@ -1,7 +1,7 @@
 === All in One SEO Pack ===
 Contributors: hallsofmontezuma, semperplugins, wpsmort, arnaudbroes
 Tags: SEO, Google Search Console, XML Sitemap, meta description, meta title, noindex
-Requires at least: 4.4
+Requires at least: 4.6
 Tested up to: 5.0
 Stable tag: 2.12-dev
 License: GPLv2 or later
