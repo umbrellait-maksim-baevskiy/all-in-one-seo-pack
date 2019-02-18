@@ -411,9 +411,9 @@ msgstr ""
 
 #: aioseop_class.php:180
 msgid ""
-"Enter your verification code here to verify your site with Google Webmaster "
-"Tools.<br /><a href='http://semperplugins.com/documentation/google-webmaster-"
-"tools-verification/' target='_blank'>Click here for documentation on this "
+"Enter your verification code here to verify your site with Google Search Console "
+"Tools.<br /><a href='http://semperplugins.com/documentation/google-search-"
+"console-verification/' target='_blank'>Click here for documentation on this "
 "setting</a>"
 msgstr ""
 
