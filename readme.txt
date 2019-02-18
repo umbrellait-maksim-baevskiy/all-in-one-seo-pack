@@ -47,7 +47,7 @@ Torbert](http://twitter.com/michaeltorbert/)
 https://www.youtube.com/watch?v=46MR4FboMaA
 
 = Tags =
-seo, SEO, All in One, google, meta, meta description, search engine optimization, xml sitemap, xml sitemaps, google sitemap, sitemap, sitemaps, robots meta, rss, rss footer, yahoo, bing, widget, Post, plugin, admin, posts, shortcode, sidebar, twitter, page, images, comments, image, news sitemaps, XML News Sitemaps, WordPress SEO, multisite, canonical, nofollow, noindex, keywords, meta keywords, description, webmaster tools, google webmaster tools, seo pack, schema.org, search engines, custom post types, custom taxonomies, canonical
+seo, SEO, All in One, google, meta, meta description, search engine optimization, xml sitemap, xml sitemaps, google sitemap, sitemap, sitemaps, robots meta, rss, rss footer, yahoo, bing, widget, Post, plugin, admin, posts, shortcode, sidebar, twitter, page, images, comments, image, news sitemaps, XML News Sitemaps, WordPress SEO, multisite, canonical, nofollow, noindex, keywords, meta keywords, description, bing webmaster tools, google search console, seo pack, schema.org, search engines, custom post types, custom taxonomies, canonical
 
 == Changelog ==
 
