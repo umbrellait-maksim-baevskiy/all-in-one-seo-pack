@@ -3764,7 +3764,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			// TODO Change to wp_parse_url().
 			$extn    = pathinfo( parse_url( $image, PHP_URL_PATH ), PATHINFO_EXTENSION );
 			$allowed = apply_filters( 'aioseop_allowed_image_extensions', self::$image_extensions );
-			// Bail if image does not refer to an image file otherwise google webmaster tools might reject the sitemap.
+			// Bail if image does not refer to an image file otherwise Google Search Console might reject the sitemap.
 			if ( ! in_array( $extn, $allowed, true ) ) {
 				return false;
 			}
