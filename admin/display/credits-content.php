@@ -51,7 +51,7 @@
 				__( 'Want to see your name and picture here as a community developer? %1$sClick here%2$s to open an issue on GitHub to report a bug, request a feature or find an issue and submit code!', 'all-in-one-seo-pack' ),
 				'<a href="https://github.com/semperfiwebdesign/all-in-one-seo-pack" target="_blank">', '</a>'
 			);
-				?>
+			?>
 		</li>
 	<li class="wp-person" id="wp-person-mayukojpn">
 		<a class="web" target="_blank" href="https://github.com/rebeccahum"><img alt="" class="gravatar" src="https://2.gravatar.com/avatar/b57b5efcabe3e01833849390ad7d3129?s=60">
@@ -81,7 +81,6 @@
 		<a class="web" target="_blank" href="https://profiles.wordpress.org/shoheitanaka"><img alt="" class="gravatar" src="https://secure.gravatar.com/avatar/677e512c803c40c0180d4514f876a21f?s=200&d=mm&r=g">
 			Shohei Tanaka</a>
 	</li>
-
     <li class="wp-person" id="webaware">
     <a class="web" target="_blank" href="https://profiles.wordpress.org/webaware/"><img alt="" class="gravatar" src="https://secure.gravatar.com/avatar/aee800bc3644d9ebfa33c1ed9df5d958?s=200&d=mm&r=g">
         Ross McKay</a>
