@@ -4486,17 +4486,26 @@ EOF;
 			}
 			if ( ! empty( $page ) ) {
 				if ( $page > 1 ) {
+					// Cannot use `wp_link_page()` since it is for rendering purposes and has no control over the page number.
+					// TODO Investigate alternate wp concept. If none is found, keep private function in case of any future WP changes.
 					$prev = _wp_link_page( $page - 1 );
 				}
 				if ( $page + 1 <= $numpages ) {
+					// Cannot use `wp_link_page()` since it is for rendering purposes and has no control over the page number.
+					// TODO Investigate alternate wp concept. If none is found, keep private function in case of any future WP changes.
 					$next = _wp_link_page( $page + 1 );
 				}
 			}
+
 			if ( ! empty( $prev ) ) {
-				$prev = $this->substr( $prev, 9, - 2 );
+				$dom = new DOMDocument();
+				$dom->loadHTML( $prev );
+				$prev = $dom->getElementsByTagName( 'a' )->item(0)->getAttribute( 'href' );
 			}
 			if ( ! empty( $next ) ) {
-				$next = $this->substr( $next, 9, - 2 );
+				$dom = new DOMDocument();
+				$dom->loadHTML( $next );
+				$next = $dom->getElementsByTagName( 'a' )->item(0)->getAttribute( 'href' );
 			}
 		}
 
