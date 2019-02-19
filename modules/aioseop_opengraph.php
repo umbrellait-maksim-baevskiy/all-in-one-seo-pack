@@ -971,7 +971,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 								$options[ $prefix . 'category' ] =
 									$aioseop_options['modules']['aiosp_opengraph_options'][ 'aiosp_opengraph_' . $type . '_fb_object_type' ];
 							}
-							continue;
 						}
 						break;
 				}
@@ -1604,7 +1603,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 END;
 			}
-			echo apply_filters( 'aiosp_opengraph_social_link_schema', $social_link_schema );
+
+			// Only show if "use schema.org markup is checked".
+			if ( ! empty( $aioseop_options['aiosp_schema_markup'] ) ) {
+				echo apply_filters( 'aiosp_opengraph_social_link_schema', $social_link_schema );
+			}
 		}
 
 		/**
