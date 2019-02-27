@@ -2590,15 +2590,21 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		}
 		if ( ! $description ) {
 			if ( empty( $aioseop_options['aiosp_skip_excerpt'] ) ) {
-				$description = $this->trim_text_without_filters_full_length( $this->internationalize( $post->post_excerpt ) );
+				$description = $post->post_excerpt;
 			}
 			if ( ! $description && isset( $aioseop_options['aiosp_generate_descriptions'] ) && $aioseop_options['aiosp_generate_descriptions'] ) {
-				$content = $post->post_content;
-				if ( ! empty( $aioseop_options['aiosp_run_shortcodes'] ) ) {
-					$content = do_shortcode( $content );
+				if ( ! AIOSEOPPRO || ( AIOSEOPPRO && apply_filters( $this->prefix . 'generate_descriptions_from_content', true, $post ) ) ) {
+					$content = $post->post_content;
+					if ( ! empty( $aioseop_options['aiosp_run_shortcodes'] ) ) {
+						$content = do_shortcode( $content );
+					}
+					$description = $content;
+				} else {
+					$description = $post->post_excerpt;
 				}
-				$description = $this->trim_text_without_filters_full_length( $this->internationalize( $content ) );
 			}
+
+			$description = $this->trim_text_without_filters_full_length( $this->internationalize( $description ) );
 		}
 
 		return $description;
