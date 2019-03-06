@@ -19,6 +19,12 @@ _Put an `x` in the boxes that apply. You can also fill these out after creating 
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] I have added necessary documentation (if appropriate)
 
+## Testing instructions
+-Don't assume the tester knows the entire backstory of the issue, and don't force him/her to decipher the code to try and figure out what -it's doing or how to test it.
+-Do provide step by step instructions on how to test. 
+-Do note things to watch out for.
+-Do not what aspects the tester should try and break.
+
 ## Further comments
 
 If this is a relatively large or complex change, kick off the discussion by explaining why you chose the solution you did and what alternatives you considered, etc...
