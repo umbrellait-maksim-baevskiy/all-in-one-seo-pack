@@ -32,14 +32,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * The original WordPress SEO plugin.
  *
  * @package All-in-One-SEO-Pack
- * @version 2.12
+ * @version 3.0-dev
  */
 
 if ( ! defined( 'AIOSEOPPRO' ) ) {
 	define( 'AIOSEOPPRO', false );
 }
 if ( ! defined( 'AIOSEOP_VERSION' ) ) {
-	define( 'AIOSEOP_VERSION', '2.12' );
+	define( 'AIOSEOP_VERSION', '3.0-dev' );
 }
 global $aioseop_plugin_name;
 $aioseop_plugin_name = 'All in One SEO Pack';
