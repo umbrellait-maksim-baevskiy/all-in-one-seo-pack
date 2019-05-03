@@ -51,11 +51,11 @@ class aiosp_metaboxes {
 				</div>
 				<?php
 					// Is this fall through deliberate?
-				case 'aioseop-donate':
-					?>
+			case 'aioseop-donate':
+				?>
 					<div>
 
-					<?php if ( ! AIOSEOPPRO ) { ?>
+				<?php if ( ! AIOSEOPPRO ) { ?>
 						<div class="aioseop_metabox_text">
 							<p>
 								<?php self::pro_meta_content(); ?>
@@ -91,7 +91,7 @@ class aiosp_metaboxes {
 									/* translators: %1$s expands to the number of languages All in One SEO Pack has been translated into. $2%s to the percentage translated of the current language, $3%s to the language name, %4$s and %5$s to anchor tags with link to translation page at translate.wordpress.org  */
 									printf(
 										__(
-											'All in One SEO Pack has been translated into %1$s languages, but currently the %3$s translation is only %2$s percent complete. %4$s Click here %5$s to help get it to 100 percent.', 'all-in-one-seo-pack'
+											'All in One SEO Pack has been translated into %1$s languages, but currently the %3$s translation is only %2$s percent complete. %4$sClick here%5$s to help get it to 100 percent.', 'all-in-one-seo-pack'
 										),
 										$aiosp_trans->translated_count,
 										$aiosp_trans->percent_translated,
@@ -111,8 +111,12 @@ class aiosp_metaboxes {
 				?>
 				<div class="aioseop_metabox_text">
 					<form
-						action="https://semperfiwebdesign.us1.list-manage.com/subscribe/post?u=794674d3d54fdd912f961ef14&amp;id=af0a96d3d9"
-						method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
+						<?php if ( AIOSEOPPRO ) : ?>
+							action="https://semperplugins.us1.list-manage.com/subscribe/post?u=794674d3d54fdd912f961ef14&amp;id=b786958a9a"
+						<?php else : ?>
+							action="https://semperplugins.us1.list-manage.com/subscribe/post?u=794674d3d54fdd912f961ef14&amp;id=af0a96d3d9"
+						<?php endif; ?>
+							method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
 						target="_blank">
 						<h2><?php _e( 'Join our mailing list for tips, tricks, and WordPress secrets.', 'all-in-one-seo-pack' ); ?></h2>
 						<p>
