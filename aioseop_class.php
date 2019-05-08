@@ -240,7 +240,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'paged_format'                => array(
 				'name'     => __( 'Paged Format:', 'all-in-one-seo-pack' ),
 				'type'     => 'text',
-				'default'  => ' - Part %page%',
+				'default'  => sprintf( ' - %s %%page%%', __( 'Part', 'all-in-one-seo-pack' ) ),
 				'condshow' => array( 'aiosp_rewrite_titles' => 1 ),
 			),
 			'cpostactive'                 => array(
@@ -3668,11 +3668,10 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		$description = '';
 		// Logging - rewrite handler check for output buffering.
 		$this->check_rewrite_handler();
-		if ( AIOSEOPPRO ) {
-			echo "\n<!-- All in One SEO Pack Pro $this->version by Michael Torbert of Semper Fi Web Design";
-		} else {
-			echo "\n<!-- All in One SEO Pack $this->version by Michael Torbert of Semper Fi Web Design";
-		}
+
+		/* translators: The complete string is: "All in One SEO Pack by Michael Torbert of Semper Fi Web Design". The placeholders shouldn't be altered; only the words "by" and "of" should be translated. */
+		printf( "\n<!-- " . __( '%1$s by %2$s of %3$s', 'all-in-one-seo-pack' ), AIOSEOP_PLUGIN_NAME . ' ' . $this->version, 'Michael Torbert', 'Semper Fi Web Design' );
+
 		if ( $this->ob_start_detected ) {
 			echo 'ob_start_detected ';
 		}
