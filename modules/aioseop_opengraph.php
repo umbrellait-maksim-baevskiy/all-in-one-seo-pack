@@ -1545,11 +1545,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				),
 			);
 
-			// Only show if "use schema.org markup is checked".
-			if ( ! empty( $aioseop_options['aiosp_schema_markup'] ) ) {
-				$meta['google+'] = array( 'thumbnail' => 'image' );
-			}
-
 			// https://github.com/semperfiwebdesign/all-in-one-seo-pack/issues/1848
 			if ( is_ssl() ) {
 				$meta['facebook'] += array( 'thumbnail_1' => 'og:image:secure_url' );
@@ -1559,7 +1554,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			$tags = array(
 				'facebook' => array( 'name' => 'property', 'value' => 'content' ),
 				'twitter'  => array( 'name' => 'name', 'value' => 'content' ),
-				'google+'  => array( 'name' => 'itemprop', 'value' => 'content' ),
 			);
 
 			foreach ( $meta as $t => $data ) {
