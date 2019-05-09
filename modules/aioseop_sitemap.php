@@ -345,10 +345,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			);
 
 			$excl_options = array(
-				'excl_categories' => array(
-					'name'            => __( 'Excluded Categories', 'all-in-one-seo-pack' ),
-					'type'            => 'multicheckbox',
-					'initial_options' => '',
+				'excl_terms' => array(
+					'name'  => __( 'Excluded Terms', 'all-in-one-seo-pack' ),
+					'type'  => 'multiselect',
+					'class' => 'aioseop-exclude-terms',
 				),
 				'excl_pages'      => array(
 					'name' => __( 'Excluded Pages', 'all-in-one-seo-pack' ),
@@ -562,6 +562,72 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		}
 
 		/**
+		 * Admin Enqueue Scripts
+		 *
+		 * Hook function to enqueue scripts and localize data to scripts.
+		 *
+		 * @since 3.0
+		 *
+		 * @see 'admin_enqueue_scripts' hook
+		 * @link https://developer.wordpress.org/reference/hooks/admin_enqueue_scripts/
+		 *
+		 * @param string $hook_suffix The current admin page.
+		 */
+		public function admin_enqueue_scripts( $hook_suffix ) {
+			parent::admin_enqueue_scripts( $hook_suffix );
+			if ( $this->pagehook !== $hook_suffix ) {
+				return;
+			}
+
+			wp_enqueue_script(
+				'aioseop-selectize',
+				'https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js',
+				array( 'jquery' ),
+				AIOSEOP_VERSION
+			);
+
+			wp_enqueue_script(
+				'aioseop-search-terms',
+				AIOSEOP_PLUGIN_URL . 'js/modules/aioseop_sitemap.js',
+				array( 'jquery' ),
+				AIOSEOP_VERSION,
+				true
+			);
+		}
+
+		/**
+		 * Load styles for module.
+		 *
+		 * @since 3.0
+		 *
+		 * @see 'admin_enqueue_scripts' hook
+		 * @link https://developer.wordpress.org/reference/hooks/admin_enqueue_scripts/
+		 *
+		 * @param string $hook_suffix The current admin page.
+		 */
+		public function admin_enqueue_styles( $hook_suffix ) {
+			parent::admin_enqueue_styles( $hook_suffix );
+			if ( $this->pagehook !== $hook_suffix ) {
+				return;
+			}
+
+			wp_enqueue_style(
+				'aioseop-selectize',
+				'https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.css',
+				false,
+				AIOSEOP_VERSION,
+				false
+			);
+			wp_enqueue_style(
+				'aioseop-selectize-default',
+				'https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.default.min.css',
+				false,
+				AIOSEOP_VERSION,
+				false
+			);
+		}
+
+		/**
 		 * Initialize options, after constructor.
 		 */
 		public function load_sitemap_options() {
@@ -636,6 +702,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 		/**
 		 * Add post type details for settings once post types have been registered.
+		 *
+		 * @todo This function is being used to set up option values. This could possibly be refactored to something better suited.
+		 *
+		 * @since 3.0 Add custom taxonomy support for Excluding Terms setting. (#240)
 		 */
 		public function add_post_types() {
 			$post_type_titles = $this->get_post_type_titles( array( 'public' => true ) );
@@ -643,11 +713,39 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( isset( $post_type_titles['attachment'] ) ) {
 				$post_type_titles['attachment'] = __( 'Media / Attachments', 'all-in-one-seo-pack' );
 			}
-			$this->default_options['posttypes']['initial_options']       = array_merge( array( 'all' => __( 'All Post Types', 'all-in-one-seo-pack' ) ), $post_type_titles );
-			$this->default_options['taxonomies']['initial_options']      = array_merge( array( 'all' => __( 'All Taxonomies', 'all-in-one-seo-pack' ) ), $taxonomy_titles );
-			$this->default_options['posttypes']['default']               = array_keys( $this->default_options['posttypes']['initial_options'] );
-			$this->default_options['taxonomies']['default']              = array_keys( $this->default_options['taxonomies']['initial_options'] );
-			$this->default_options['excl_categories']['initial_options'] = $this->get_category_titles();
+			$this->default_options['posttypes']['initial_options']  = array_merge( array( 'all' => __( 'All Post Types', 'all-in-one-seo-pack' ) ), $post_type_titles );
+			$this->default_options['taxonomies']['initial_options'] = array_merge( array( 'all' => __( 'All Taxonomies', 'all-in-one-seo-pack' ) ), $taxonomy_titles );
+			$this->default_options['posttypes']['default']          = array_keys( $this->default_options['posttypes']['initial_options'] );
+			$this->default_options['taxonomies']['default']         = array_keys( $this->default_options['taxonomies']['initial_options'] );
+
+			// Exclude Terms element items.
+			$this->default_options['excl_terms']['initial_options'] = array();
+			$taxonomies_active = array();
+			if ( is_array( $this->options['aiosp_sitemap_taxonomies'] ) ) {
+				$taxonomies_active = $this->options['aiosp_sitemap_taxonomies'];
+			} elseif ( ! empty( $this->options['aiosp_sitemap_taxonomies'] ) ) {
+				$taxonomies_active = array( $this->options['aiosp_sitemap_taxonomies'] );
+			}
+
+			$args_taxonomy_key = array_search( 'all', $taxonomies_active, true );
+			if ( false !== $args_taxonomy_key ) {
+				// Remove 'all' as an invalid post_type. Use registered post_types selected instead.
+				unset( $taxonomies_active[ $args_taxonomy_key ] );
+			}
+
+			$excl_terms_init_opts = array();
+			foreach ( $taxonomies_active as $v1_taxonomy ) {
+				$args_terms        = array(
+					'taxonomy'   => $v1_taxonomy,
+					'hide_empty' => false,
+				);
+
+				$taxonomy_terms_tmp = $this->get_term_titles( $args_terms );
+				foreach ( $taxonomy_terms_tmp as $k2_id => $v2_term ) {
+					$excl_terms_init_opts[ $v1_taxonomy . '-' . $k2_id ] = $v2_term . ' (' . $v1_taxonomy . ')';
+				}
+			}
+			$this->default_options['excl_terms']['initial_options'] = $excl_terms_init_opts;
 
 			$post_name = ' ' . __( 'Post Type', 'all-in-one-seo-pack' );
 			$tax_name  = ' ' . __( 'Taxonomy', 'all-in-one-seo-pack' );
@@ -814,6 +912,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 *
 		 * @since 2.3.6
 		 * @since 2.3.12.3 Refactored to use aioseop_home_url() for compatibility purposes.
+		 * @since 3.0 Change 'excl_terms' to include taxonomy slugs with term id. (Pro #240)
 		 *
 		 * @param $options
 		 *
@@ -860,6 +959,15 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				/* translators: Link to settings to disable "Discourage search engines from indexing this site". */
 				$options[ $this->prefix . 'link' ] .= '<p class="aioseop_error_notice">' . sprintf( __( 'Warning: your privacy settings are configured to ask search engines to not index your site; you can change this under %s for your site.', 'all-in-one-seo-pack' ), $privacy_link );
 			}
+
+			$excl_terms = array();
+			foreach ( $options[ $this->prefix . 'excl_terms' ] as $k1_taxonomy => $v1_tax_terms ) {
+				foreach ( $v1_tax_terms['terms'] as $v2_term ) {
+					$excl_terms[] = $k1_taxonomy . '-' . $v2_term;
+				}
+			}
+			$options[ $this->prefix . 'excl_terms' ] = $excl_terms;
+
 			return $options;
 		}
 
@@ -869,6 +977,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * Handle 'all' option for post types / taxonomies, further sanitization of filename, rewrites on for multisite, setting up addl pages option.
 		 *
 		 * @todo This needs nonce support.
+		 *
+		 * @since ?
+		 * @since 3.0 Change saving 'excl_terms' to database with tax_query format for custom taxonomy support. (Pro #240)
 		 *
 		 * @param $options
 		 *
@@ -937,6 +1048,30 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						'mod'  => $_POST[ $this->prefix . 'addl_mod' ],
 					);
 				}
+			}
+
+			if ( ! empty( $_POST[ $this->prefix . 'excl_terms' ] ) ) {
+				$raw_excl_terms = filter_input( INPUT_POST, $this->prefix . 'excl_terms', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+
+				// Parse taxonomy terms {$taxonomy_slug}-{$term_id}
+				$excl_terms = array();
+				foreach ( $raw_excl_terms as $v1_tax_term ) {
+					$term_id = explode( '-', $v1_tax_term );
+					$term_id = intval( end( $term_id ) );
+					$taxonomy_slug = sanitize_text_field( str_replace( '-' . $term_id, '', $v1_tax_term ) );
+
+					// Initialize taxonomy => terms array if not yet set.
+					if ( ! isset( $excl_terms[ $taxonomy_slug ] ) ) {
+						$excl_terms[ $taxonomy_slug ] = array(
+							'terms' => array(),
+						);
+					}
+
+					$excl_terms[ $taxonomy_slug ]['taxonomy'] = $taxonomy_slug;
+					$excl_terms[ $taxonomy_slug ]['terms'][]  = $term_id;
+				}
+
+				$options[ $this->prefix . 'excl_terms' ] = $excl_terms;
 			}
 
 			return $options;
@@ -1546,7 +1681,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					$sitemap_data = $this->get_all_post_priority_data( $sitemap_type, 'publish', $page );
 				} elseif ( in_array( $sitemap_type, $taxonomies ) ) {
 					// TODO Add `true` in 3rd argument with in_array(); which changes it to a strict comparison.
-					$sitemap_data = $this->get_term_priority_data( get_terms( $this->get_tax_args( $sitemap_type, $page ) ) );
+					$sitemap_data = $this->get_term_priority_data( get_terms( $this->get_tax_args( (array) $sitemap_type, $page ) ) );
 				} else {
 					// TODO Add `true` in 3rd argument with in_array(); which changes it to a strict comparison.
 					if ( is_array( $this->extra_sitemaps ) && in_array( $sitemap_type, $this->extra_sitemaps ) ) {
@@ -1910,25 +2045,40 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( ! empty( $post_types ) ) {
 				$prio        = $this->get_default_priority( 'post' );
 				$freq        = $this->get_default_frequency( 'post' );
-				// Get post counts from posts type. Exclude if NoIndex is on.
-				$post_counts = $this->get_all_post_counts(
-					array(
-						'post_type'   => $post_types,
-						'post_status' => 'publish',
-						'meta_query'     => array(
-							'relation'   => 'OR',
-							array(
-								'key'     => '_aioseop_noindex',
-								'value'   => 'on',
-								'compare' => '!=',
-							),
-							array(
-								'key'     => '_aioseop_noindex',
-								'compare' => 'NOT EXISTS',
-							),
+
+				// Get post counts from posts type. Exclude if NoIndex is on, and does not contain excluded terms.
+				$args = array(
+					'post_type'   => $post_types,
+					'post_status' => 'publish',
+					'meta_query'     => array(
+						'relation'   => 'OR',
+						array(
+							'key'     => '_aioseop_noindex',
+							'value'   => 'on',
+							'compare' => '!=',
 						),
-					)
+						array(
+							'key'     => '_aioseop_noindex',
+							'compare' => 'NOT EXISTS',
+						),
+					),
 				);
+				if ( $this->option_isset( 'excl_terms' ) ) {
+					// Adds excluded terms to exclude from query.
+					foreach ( $this->options[ $this->prefix . 'excl_terms' ] as $k1_taxonomy => $v1_tax_terms ) {
+						if ( ! isset( $args['tax_query'] ) ) {
+							$args['tax_query'] = array(
+								'relation' => 'AND',
+							);
+						}
+						$args['tax_query'][] = array(
+							'taxonomy' => $k1_taxonomy,
+							'terms'    => $v1_tax_terms['terms'],
+							'operator' => 'NOT IN',
+						);
+					}
+				}
+				$post_counts = $this->get_all_post_counts( $args );
 
 				foreach ( $post_types as $sm ) {
 					if ( 0 === intval( $post_counts[ $sm ] ) ) {
@@ -1976,29 +2126,32 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			}
 
 			if ( ! empty( $options[ "{$this->prefix}taxonomies" ] ) ) {
-				foreach ( $options[ "{$this->prefix}taxonomies" ] as $sm ) {
-					$term_count = wp_count_terms( $sm, array( 'hide_empty' => true ) );
+				foreach ( $options[ "{$this->prefix}taxonomies" ] as $v1_taxonomy ) {
+					$tax_args           = $this->get_tax_args( array( $v1_taxonomy ) );
+					$tax_args['fields'] = 'count';
+
+					$term_count = get_terms( $tax_args );
 					if ( ! is_wp_error( $term_count ) && ( $term_count > 0 ) ) {
 						if ( ! empty( $this->options[ "{$this->prefix}indexes" ] ) ) {
 							if ( $term_count > $this->max_posts ) {
 								$count = 1;
 								for ( $tc = 0; $tc < $term_count; $tc += $this->max_posts ) {
 									$files[] = array(
-										'loc'        => aioseop_home_url( '/' . $prefix . '_' . $sm . '_' . ( $count ++ ) . $suffix ),
+										'loc'        => aioseop_home_url( '/' . $prefix . '_' . $v1_taxonomy . '_' . ( $count ++ ) . $suffix ),
 										'changefreq' => $this->get_default_frequency( 'taxonomies' ),
 										'priority'   => $this->get_default_priority( 'taxonomies' ),
 									);
 								}
 							} else {
 								$files[] = array(
-									'loc'        => aioseop_home_url( '/' . $prefix . '_' . $sm . $suffix ),
+									'loc'        => aioseop_home_url( '/' . $prefix . '_' . $v1_taxonomy . $suffix ),
 									'changefreq' => $this->get_default_frequency( 'taxonomies' ),
 									'priority'   => $this->get_default_priority( 'taxonomies' ),
 								);
 							}
 						} else {
 							$files[] = array(
-								'loc'        => aioseop_home_url( '/' . $prefix . '_' . $sm . $suffix ),
+								'loc'        => aioseop_home_url( '/' . $prefix . '_' . $v1_taxonomy . $suffix ),
 								'changefreq' => $this->get_default_frequency( 'taxonomies' ),
 								'priority'   => $this->get_default_priority( 'taxonomies' ),
 							);
@@ -3857,26 +4010,36 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		}
 
 		/**
+		 * Set Taxonomy Args
+		 *
 		 * Return excluded categories for taxonomy queries.
 		 *
 		 * @since ?
-		 * @since 3.0.0 Added $taxonomy parameter.
+		 * @since 3.0.0 Added $taxonomies parameter.
+		 * @since 3.0 Change 'exclude' to support excluding custom taxonomy terms. (Pro #240)
 		 *
-		 * @param array $taxonomy The array of taxonomy slugs.
-		 * @param int $page The page number.
-		 *
+		 * @param array $taxonomies The array of taxonomy slugs.
+		 * @param int   $page       The page number.
 		 * @return array
 		 */
-		public function get_tax_args( $taxonomy, $page = 0 ) {
+		public function get_tax_args( $taxonomies, $page = 0 ) {
 			$args = array();
-			if ( $this->option_isset( 'excl_categories' ) ) {
-				$args['exclude'] = $this->options[ $this->prefix . 'excl_categories' ];
-			}
+
 			if ( ! empty( $this->options[ "{$this->prefix}indexes" ] ) ) {
 				$args['number'] = $this->max_posts;
 				$args['offset'] = $page * $this->max_posts;
 			}
-			$args['taxonomy'] = $this->show_or_hide_taxonomy( $taxonomy );
+
+			$args['taxonomy'] = $this->show_or_hide_taxonomy( $taxonomies );
+
+			if ( $this->option_isset( 'excl_terms' ) ) {
+				$args['exclude'] = array();
+				foreach ( $taxonomies as $v1_taxonomy ) {
+					if ( isset( $this->options[ $this->prefix . 'excl_terms' ][ $v1_taxonomy ] ) ) {
+						$args['exclude'] = array_merge( $args['exclude'], $this->options[ $this->prefix . 'excl_terms' ][ $v1_taxonomy ]['terms'] );
+					}
+				}
+			}
 
 			$args = apply_filters( $this->prefix . 'tax_args', $args, $page, $this->options );
 
@@ -3884,19 +4047,30 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		}
 
 		/**
+		 * Set Post Args
+		 *
 		 * Return excluded categories and pages for post queries.
 		 *
-		 * @param $args
+		 * @since ?
+		 * @since 3.0 Change 'excl_terms' to tax_query format. (Pro #240)
 		 *
+		 * @param $args
 		 * @return mixed
 		 */
 		public function set_post_args( $args ) {
-			if ( $this->option_isset( 'excl_categories' ) ) {
-				$cats = array();
-				foreach ( $this->options[ $this->prefix . 'excl_categories' ] as $c ) {
-					$cats[] = - $c;
+			if ( $this->option_isset( 'excl_terms' ) ) {
+				foreach ( $this->options[ $this->prefix . 'excl_terms' ] as $k1_taxonomy => $v1_tax_terms ) {
+					if ( ! isset( $args['tax_query'] ) ) {
+						$args['tax_query'] = array(
+							'relation' => 'AND',
+						);
+					}
+					$args['tax_query'][] = array(
+						'taxonomy' => $k1_taxonomy,
+						'terms'    => $v1_tax_terms['terms'],
+						'operator' => 'NOT IN',
+					);
 				}
-				$args['category'] = implode( ',', $cats );
 			}
 			if ( $this->option_isset( 'excl_pages' ) ) {
 				$args['exclude'] = $this->options[ $this->prefix . 'excl_pages' ];
