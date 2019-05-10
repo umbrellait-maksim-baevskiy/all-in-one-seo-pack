@@ -3503,6 +3503,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 *
 		 * @todo Add ~`get_attachment_postid_to_url()` function.
 		 * @todo Benchmark `wp_get_attachment_image_src()` & `wp_get_attachment_url()`.
+		 * @todo Look into using 'wp_get_attachment_image_url()'.
 		 *
 		 * @since 2.4
 		 * @since 2.11 Optimization #2008 - Reduce the need to convert url to id.
