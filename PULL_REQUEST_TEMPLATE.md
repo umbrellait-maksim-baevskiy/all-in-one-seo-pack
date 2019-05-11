@@ -1,8 +1,5 @@
 Issue #(issue number here)
 
-- [ ] I've selected the appropriate branch (ie x.y rather than master).
-- [ ] I've created an appropriate title, descriptive of what the PR does.
-
 ## Proposed changes
 
 Describe the big picture of your changes here to communicate why the PR should be accepted. If it fixes a bug or resolves a feature request, be sure to link to that issue.
@@ -21,6 +18,8 @@ _Delete those that don't apply_
 
 _Put an `x` in the boxes that apply. You can also fill these out after creating the PR. If you're unsure about any of them, don't hesitate to ask. We're here to help! This is simply a reminder of what we are going to look for before merging your code._
 
+- [ ] I've selected the appropriate branch (ie x.y rather than master).
+- [ ] I've created an appropriate title, descriptive of what the PR does.
 - [ ] Travis-ci runs with no errors.
 - [ ] I have added tests that prove my fix is effective/my feature works or have created an issue for it (if appropriate).
 - [ ] I have added necessary documentation, or have created an issue for docs (if appropriate).
