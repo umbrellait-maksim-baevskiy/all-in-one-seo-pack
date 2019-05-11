@@ -3,6 +3,8 @@ Issue #
 - [ ] I've selected the appropriate branch (ie x.y rather than master).
 - [ ] I've created an appropriate title, descriptive of what the PR does.
 - [ ] Travis-ci runs with no errors.
+- [ ] I have added tests that prove my fix is effective/my feature works or have created an issue for it (if appropriate).
+- [ ] I have added necessary documentation, or have created an issue for docs (if appropriate).
 
 ## Proposed changes
 
