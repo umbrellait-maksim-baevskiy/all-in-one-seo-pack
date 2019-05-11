@@ -1,10 +1,7 @@
-Issue #
+Issue #(issue number here)
 
 - [ ] I've selected the appropriate branch (ie x.y rather than master).
 - [ ] I've created an appropriate title, descriptive of what the PR does.
-- [ ] Travis-ci runs with no errors.
-- [ ] I have added tests that prove my fix is effective/my feature works or have created an issue for it (if appropriate).
-- [ ] I have added necessary documentation, or have created an issue for docs (if appropriate).
 
 ## Proposed changes
 
@@ -24,9 +21,9 @@ _Delete those that don't apply_
 
 _Put an `x` in the boxes that apply. You can also fill these out after creating the PR. If you're unsure about any of them, don't hesitate to ask. We're here to help! This is simply a reminder of what we are going to look for before merging your code._
 
-- [ ] Unit tests pass with my changes
-- [ ] I have added tests that prove my fix is effective or that my feature works
-- [ ] I have added necessary documentation (if appropriate)
+- [ ] Travis-ci runs with no errors.
+- [ ] I have added tests that prove my fix is effective/my feature works or have created an issue for it (if appropriate).
+- [ ] I have added necessary documentation, or have created an issue for docs (if appropriate).
 
 ## Testing instructions
 -Don't assume the tester knows the entire backstory of the issue, and don't force him/her to decipher the code to try and figure out what -it's doing or how to test it.
