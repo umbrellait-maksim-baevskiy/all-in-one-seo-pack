@@ -1,10 +1,9 @@
-## Issue
+# PR administration
 
 Put the issue # here.
 
-# Branch
-
 - [ ] I've selected the appropriate branch (ie x.y rather than master).
+- [ ] I've created an appropriate title, descriptive of what the PR does.
 
 ## Proposed changes
 
