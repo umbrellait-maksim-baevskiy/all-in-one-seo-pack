@@ -1,6 +1,6 @@
 # PR administration
 
-Issue #?
+Issue #
 
 - [ ] I've selected the appropriate branch (ie x.y rather than master).
 - [ ] I've created an appropriate title, descriptive of what the PR does.
