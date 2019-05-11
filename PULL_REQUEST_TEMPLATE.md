@@ -2,6 +2,10 @@
 
 Put the issue # here.
 
+# Branch
+
+- [ ] I've selected the appropriate branch (ie x.y rather than master).
+
 ## Proposed changes
 
 Describe the big picture of your changes here to communicate why the PR should be accepted. If it fixes a bug or resolves a feature request, be sure to link to that issue.
@@ -9,11 +13,12 @@ Describe the big picture of your changes here to communicate why the PR should b
 ## Types of changes
 
 What types of changes does your code introduce?
-_Put an `x` in the boxes that apply_
+_Delete those that don't apply_
 
-- [ ] Bugfix (non-breaking change which fixes an issue)
-- [ ] New feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- Bugfix (non-breaking change which fixes an issue)
+- New feature (non-breaking change which adds functionality)
+- Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- Removing old code/functionality
 
 ## Checklist
 
