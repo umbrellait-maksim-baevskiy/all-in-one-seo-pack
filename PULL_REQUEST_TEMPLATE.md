@@ -4,6 +4,7 @@ Issue #
 
 - [ ] I've selected the appropriate branch (ie x.y rather than master).
 - [ ] I've created an appropriate title, descriptive of what the PR does.
+- [ ] Travis-ci runs with no errors.
 
 ## Proposed changes
 
