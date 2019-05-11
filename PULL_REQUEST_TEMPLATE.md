@@ -1,5 +1,3 @@
-## PR administration
-
 Issue #
 
 - [ ] I've selected the appropriate branch (ie x.y rather than master).
