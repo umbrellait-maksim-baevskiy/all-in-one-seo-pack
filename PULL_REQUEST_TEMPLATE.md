@@ -13,6 +13,8 @@ _Delete those that don't apply_
 - New feature (non-breaking change which adds functionality)
 - Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - Removing old code/functionality
+- Improves existing functionalty
+- Improves existing code
 
 ## Checklist
 
