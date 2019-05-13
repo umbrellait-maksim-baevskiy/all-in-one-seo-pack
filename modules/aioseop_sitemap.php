@@ -181,11 +181,14 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					),
 					'default'         => 0,
 				),
-				'indexes'     => array( 'name' => __( 'Enable Sitemap Indexes', 'all-in-one-seo-pack' ) ),
+				'indexes'     => array(
+					'name' => __( 'Enable Sitemap Indexes', 'all-in-one-seo-pack' ),
+					'default' => 'on',
+				),
 				'max_posts'   => array(
 					'name'     => __( 'Maximum Posts Per Sitemap Page', 'all-in-one-seo-pack' ),
 					'type'     => 'text',
-					'default'  => 50000,
+					'default'  => 1000,
 					'condshow' => array(
 						"{$this->prefix}indexes" => 'on',
 						"{$this->prefix}indexes" => 'on',
