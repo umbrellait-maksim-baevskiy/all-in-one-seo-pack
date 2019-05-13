@@ -207,10 +207,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				'archive'     => array( 'name' => __( 'Include Date Archive Pages', 'all-in-one-seo-pack' ) ),
 				'author'      => array( 'name' => __( 'Include Author Pages', 'all-in-one-seo-pack' ) ),
 				'images'      => array( 'name' => __( 'Exclude Images', 'all-in-one-seo-pack' ) ),
-				'gzipped'     => array(
-					'name'    => __( 'Create Compressed Sitemap', 'all-in-one-seo-pack' ),
-					'default' => 'On',
-				),
 				'robots'      => array(
 					'name'    => __( 'Link From Virtual Robots.txt', 'all-in-one-seo-pack' ),
 					'default' => 'On',
@@ -1092,9 +1088,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 								$siteurl = get_home_url( $blog_id );
 							}
 							$url = $siteurl . '/' . $this->get_filename() . '.xml';
-							if ( $sitemap_options[ "{$this->prefix}gzipped" ] ) {
-								$url .= '.gz';
-							}
 							$siteurls[] = $url;
 						}
 					}
@@ -1163,17 +1156,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 */
 		public function scan_match_files() {
 			$scan1 = '';
-			$scan2 = '';
 			$files = array();
 
 			$filename = $this->get_filename();
 			if ( ! empty( $filename ) ) {
 				$scan1 = get_home_path() . $filename . '*.xml';
-				if ( ! empty( $this->options[ "{$this->prefix}gzipped" ] ) ) {
-					$scan2 .= get_home_path() . $filename . '*.xml.gz';
-				}
 
-				if ( empty( $scan1 ) && empty( $scan2 ) ) {
+				if ( empty( $scan1 ) ) {
 					return $files;
 				}
 				$home_path = get_home_path();
@@ -1186,12 +1175,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 							$files[] = $home_path . $f;
 							continue;
 						}
-						if ( ! empty( $scan2 ) && fnmatch( $scan2, $home_path . $f ) ) {
-							$files[] = $home_path . $f;
-						}
 					}
 				}
-
 				return $files;
 			}
 		}
@@ -1430,34 +1415,23 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * @return array
 		 */
 		public function get_rewrite_rules( $prefix_removed_rules_with = null ) {
-			$sitemap_rules_gzipped = array();
-			$sitemap_rules_normal  = array(
+			$sitemap_rules  = array(
 				$this->get_filename() . '.xml'            => 'index.php?' . $this->prefix . 'path=root',
 				$this->get_filename() . '_(.+)_(\d+).xml' => 'index.php?' . $this->prefix . 'path=$matches[1]&' . $this->prefix . 'page=$matches[2]',
 				$this->get_filename() . '_(.+).xml'       => 'index.php?' . $this->prefix . 'path=$matches[1]',
 			);
 
 			if ( isset( $this->options[ "{$this->prefix}rss_sitemap" ] ) && $this->options[ "{$this->prefix}rss_sitemap" ] ) {
-				$sitemap_rules_normal += array(
+				$sitemap_rules += array(
 					$this->get_filename() . '.rss'       => 'index.php?' . $this->prefix . 'path=rss',
 					$this->get_filename() . 'latest.rss' => 'index.php?' . $this->prefix . 'path=rss_latest',
 				);
 			} elseif ( ! empty( $prefix_removed_rules_with ) ) {
-				$sitemap_rules_normal += array(
+				$sitemap_rules += array(
 					$prefix_removed_rules_with . $this->get_filename() . '.rss'            => 'index.php?' . $this->prefix . 'path=rss',
 					$prefix_removed_rules_with . $this->get_filename() . 'latest.rss'      => 'index.php?' . $this->prefix . 'path=rss_latest',
 				);
 			}
-
-			if ( $this->options[ "{$this->prefix}gzipped" ] ) {
-				$sitemap_rules_gzipped = array(
-					$this->get_filename() . '.xml.gz'            => 'index.php?' . $this->prefix . 'gzipped=1&' . $this->prefix . 'path=root.gz',
-					$this->get_filename() . '_(.+)_(\d+).xml.gz' => 'index.php?' . $this->prefix . 'path=$matches[1].gz&' . $this->prefix . 'page=$matches[2]',
-					$this->get_filename() . '_(.+).xml.gz'       => 'index.php?' . $this->prefix . 'path=$matches[1].gz',
-				);
-			}
-			$sitemap_rules = $sitemap_rules_gzipped + $sitemap_rules_normal;
-
 			return $sitemap_rules;
 		}
 
@@ -1523,20 +1497,19 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Stop timing and log memory usage for debug info.
 		 *
+		 * @since ?
+		 * @since 3.0 Removed $compressed in issue #534
+		 *
 		 * @param string $sitemap_type
-		 * @param bool   $compressed
 		 * @param bool   $dynamic
 		 */
-		public function log_stats( $sitemap_type = 'static', $compressed = false, $dynamic = true ) {
+		public function log_stats( $sitemap_type = 'static', $dynamic = true ) {
 			$time                 = timer_stop();
 			$end_memory_usage     = memory_get_peak_usage();
 			$sitemap_memory_usage = $end_memory_usage - $this->start_memory_usage;
 			$end_memory_usage     = $end_memory_usage / 1024.0 / 1024.0;
 			$sitemap_memory_usage = $sitemap_memory_usage / 1024.0 / 1024.0;
 			$sitemap_type         = __( 'static', 'all-in-one-seo-pack ' );
-			if ( $compressed ) {
-				$sitemap_type = __( 'compressed', 'all-in-one-seo-pack' );
-			}
 			if ( $dynamic ) {
 				$sitemap_type = __( 'dynamic', 'all-in-one-seo-pack ' );
 			}
@@ -1562,27 +1535,13 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$this->start_memory_usage = memory_get_peak_usage();
 				$sitemap_type             = $query->query_vars[ "{$this->prefix}path" ];
 
-				$gzipped                  = false;
-				if ( $this->substr( $sitemap_type, - 3 ) === '.gz' ) {
-					$gzipped      = true;
-					$sitemap_type = $this->substr( $sitemap_type, 0, - 3 );
-				}
 				$blog_charset = get_option( 'blog_charset' );
-				if ( $this->options[ "{$this->prefix}gzipped" ] && $gzipped ) {
-					header( "Content-Type: application/x-gzip; charset=$blog_charset", true );
-				} else {
-					$gzipped = false;
-					header( "Content-Type: text/xml; charset=$blog_charset", true );
-				}
+				header( "Content-Type: text/xml; charset=$blog_charset", true );
 
 				// Always follow and noindex the sitemap.
 				header( 'X-Robots-Tag: noindex, follow', true );
 
 				do_action( $this->prefix . 'add_headers', $query, $this->options );
-
-				if ( $gzipped ) {
-					ob_start();
-				}
 
 				$content = $this->do_rewrite_sitemap( $sitemap_type, $page );
 
@@ -1599,11 +1558,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 				echo $content;
 
-				if ( $gzipped ) {
-					// TODO Add esc_* function.
-					echo gzencode( ob_get_clean() );
-				}
-				$this->log_stats( $sitemap_type, $gzipped );
+				$this->log_stats( $sitemap_type );
 				exit();
 
 			}
@@ -1700,12 +1655,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 */
 		public function get_sitemap_url() {
 
-			$gz = '';
-			if ( $this->options[ "{$this->prefix}gzipped" ] ) {
-				$gz .= '.gz';
-			}
-
-			$url = aioseop_home_url( '/' . $this->get_filename() . ".xml$gz" );
+			$url = aioseop_home_url( '/' . $this->get_filename() . '.xml' );
 
 			return $url;
 		}
@@ -1798,7 +1748,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						$this->write_sitemaps( $this->get_filename(), $rss, '.rss' );
 					}
 
-					$this->log_stats( 'root', $this->options[ "{$this->prefix}gzipped" ], false );
+					$this->log_stats( 'root', false );
 				}
 			} else {
 				delete_transient( "{$this->prefix}rules_flushed" );
@@ -1827,33 +1777,29 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Write multiple sitemaps.
 		 *
-		 * Write sitemaps (compressed or otherwise) to the filesystem.
+		 * Write sitemaps to the filesystem.
 		 *
 		 * @param $filename
 		 * @param $contents
 		 */
 		public function write_sitemaps( $filename, $contents, $extn = '.xml' ) {
 			$this->write_sitemap( $filename . $extn, $contents );
-			if ( $this->options[ "{$this->prefix}gzipped" ] ) {
-				$this->write_sitemap( $filename . $extn . '.gz', $contents, true );
-			}
 		}
 
 		/**
 		 * Write single sitemap.
 		 *
-		 * Write a single sitemap to the filesystem, handle compression.
+		 * Write a single sitemap to the filesystem.
+		 *
+		 * @since ?
+		 * @since 3.0 Removed $gzip in issue #534
 		 *
 		 * @param      $filename
 		 * @param      $contents
-		 * @param bool $gzip
 		 *
 		 * @return bool
 		 */
-		public function write_sitemap( $filename, $contents, $gzip = false ) {
-			if ( $gzip ) {
-				$contents = gzencode( $contents );
-			}
+		public function write_sitemap( $filename, $contents ) {
 			add_filter( 'upload_mimes', array( $this, 'add_xml_mime_type' ) );
 			$filename = $this->get_home_path() . sanitize_file_name( $filename );
 			remove_filter( 'upload_mimes', array( $this, 'add_xml_mime_type' ) );
@@ -1978,9 +1924,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$prefix  = $this->get_filename();
 			$suffix  = '.xml';
 
-			if ( $options[ "{$this->prefix}gzipped" ] ) {
-				$suffix .= '.gz';
-			}
 			if ( empty( $options[ "{$this->prefix}posttypes" ] ) ) {
 				$options[ "{$this->prefix}posttypes" ] = array();
 			}
@@ -2278,7 +2221,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					}
 				}
 			}
-			$this->log_stats( 'indexed', $options[ "{$this->prefix}gzipped" ], false );
+			$this->log_stats( 'indexed', false );
 		}
 
 		public function remove_posts_page( $postspageid ) {
