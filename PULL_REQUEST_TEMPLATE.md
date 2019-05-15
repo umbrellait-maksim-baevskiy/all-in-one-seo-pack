@@ -14,7 +14,7 @@ _Delete those that don't apply_
 - Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - Adds new API hooks
 - Removing old code/functionality
-- Improves existing functionalty
+- Improves existing functionality
 - Improves existing code
 
 ## Checklist
