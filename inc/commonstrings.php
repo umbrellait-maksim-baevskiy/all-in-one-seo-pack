@@ -28,7 +28,6 @@ class AIOSP_Common_Strings {
 		// Update checker strings (incomplete... need to separate out html).
 		__( 'Purchase one now', 'all-in-one-seo-pack' );
 		__( 'License Key is not set yet or invalid. ', 'all-in-one-seo-pack' );
-		/* translators: Please mind the space at the beginning of the string. */
 		__( 'Need a license key?', 'all-in-one-seo-pack' );
 		__( 'Notice: ', 'all-in-one-seo-pack' );
 		__( 'Manage Licenses', 'all-in-one-seo-pack' );
