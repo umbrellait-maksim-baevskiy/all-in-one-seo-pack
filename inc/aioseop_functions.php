@@ -358,9 +358,9 @@ if ( ! function_exists( 'aioseop_ajax_save_meta' ) ) {
 			die();
 		}
 		if ( $result != '' ) :
-			$label = "<label id='aioseop_label_{$target}_{$post_id}' class='aioseop-label-quickedit' for='{$target}editlink{$id}'>" . $result . '</label>';
+			$label = "<label id='aioseop_label_{$target}_{$post_id}' class='aioseop-label-quickedit' for='{$target}editlink{$post_id}'>" . $result . '</label>';
 		else :
-			$label = "<label id='aioseop_label_{$target}_{$post_id}' class='aioseop-label-quickedit' for='{$target}editlink{$id}'></label><strong><i>" . __( 'No', 'all-in-one-seo-pack' ) . ' ' . $target . '</i></strong>';
+			$label = "<label id='aioseop_label_{$target}_{$post_id}' class='aioseop-label-quickedit' for='{$target}editlink{$post_id}'></label><strong><i>" . __( 'No', 'all-in-one-seo-pack' ) . ' ' . $target . '</i></strong>';
 		endif;
 		$nonce  = wp_create_nonce( "aioseop_meta_{$target}_{$post_id}" );
 		$output = '<a id="' . $target . 'editlink' . $post_id . '" '
