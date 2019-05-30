@@ -1354,7 +1354,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						$problem_files[] = $f;
 
 						// This is causing all problem_files to be deleted automatically; which may be the intent.
-						// TODO Either create a seperate variable for this set of problem_files, or a final loop to clean problem_files before returning.
+						// TODO Either create a separate variable for this set of problem_files, or a final loop to clean problem_files before returning.
 						foreach ( $problem_files as $f => $file ) {
 							$files[ $f ] = realpath( $file );
 							$this->delete_file( realpath( $file ) );
