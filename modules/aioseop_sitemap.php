@@ -299,27 +299,23 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				'addl_url'          => array(
 					'name'  => __( 'Page URL', 'all-in-one-seo-pack' ),
 					'type'  => 'url',
-					'label' => 'top',
 					'save'  => false,
 				),
 				'addl_prio'         => array(
 					'name'            => __( 'Page Priority', 'all-in-one-seo-pack' ),
 					'type'            => 'select',
 					'initial_options' => $prio,
-					'label'           => 'top',
 					'save'            => false,
 				),
 				'addl_freq'         => array(
 					'name'            => __( 'Page Frequency', 'all-in-one-seo-pack' ),
 					'type'            => 'select',
 					'initial_options' => $freq,
-					'label'           => 'top',
 					'save'            => false,
 				),
 				'addl_mod'          => array(
 					'name'  => __( 'Last Modified', 'all-in-one-seo-pack' ),
 					'type'  => 'date',
-					'label' => 'top',
 					'save'  => false,
 					'class' => 'aiseop-date',
 				),
@@ -1388,8 +1384,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					$msg .= "<input type='hidden' name='aioseop_sitemap_conflict[]' value='" . esc_attr( basename( realpath( $p ) ) ) . "'>\n";
 				}
 				$msg .= "<input type='hidden' name='nonce-aioseop' value='" . wp_create_nonce( 'aioseop-nonce' ) . "'>\n";
-				$msg .= "<input type='submit' name='aioseop_sitemap_rename_files' value='" . __( 'Rename Conflicting Files', 'all-in-one-seo-pack' ) . "'> ";
-				$msg .= "<input type='submit' name='aioseop_sitemap_delete_files' value='" . __( 'Delete Conflicting Files', 'all-in-one-seo-pack' ) . "'>";
+				$msg .= "<input type='submit' name='aioseop_sitemap_delete_files' class='aioseop_delete_files_button button-primary' value='" . __( 'Delete Conflicting Files', 'all-in-one-seo-pack' ) . "' aria-label='" . __( 'Delete Conflicting Files', 'all-in-one-seo-pack' ) . "'>";
+				$msg .= "<input type='submit' name='aioseop_sitemap_rename_files' class='aioseop_rename_files_button button-secondary' value='" . __( 'Rename Conflicting Files', 'all-in-one-seo-pack' ) . "' aria-label='" . __( 'Rename Conflicting Files', 'all-in-one-seo-pack' ) . "'> ";
 
 				$msg = '<form action="" method="post">' . $msg . '</form>';
 			}
