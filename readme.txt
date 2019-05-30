@@ -49,7 +49,7 @@ https://www.youtube.com/watch?v=46MR4FboMaA
 
 == Changelog ==
 
-All in One SEO Pack [Changelog](https://semperfiwebdesign.com/all-in-one-seo-pack-release-history/)
+All in One SEO Pack [Changelog](https://semperplugins.com/all-in-one-seo-pack-changelog/)
 
 == Frequently Asked Questions ==
 
