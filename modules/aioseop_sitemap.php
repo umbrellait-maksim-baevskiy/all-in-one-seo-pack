@@ -3380,7 +3380,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 						$timestamp      = mysql2date( 'U', $post->post_modified_gmt );
 						$pr_info['rss'] = array(
 							'title'       => $title,
-							'description' => get_the_excerpt( $post ),
+							'description' => get_post_field( 'post_excerpt', $post->ID ),
 							'pubDate'     => date( 'r', $timestamp ),
 							'timestamp  ' => $timestamp,
 							'post_type'   => $post->post_type,
@@ -4369,7 +4369,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				),
 			);
 			$ex_args['fields']         = 'ids';
-			$ex_args['posts_per_page'] = $this->max_posts;
+			// This needs to be -1 so that excluding posts isn't restricted to affect posts to not be excluded properly.
+			$ex_args['posts_per_page'] = -1;
 
 			// Exclude (method) query.
 			$q_exclude                 = new WP_Query( $ex_args );
