@@ -394,7 +394,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			// TODO is this required for dynamic sitemap?
 			add_action( 'transition_post_status', array( $this, 'update_sitemap_from_posts' ), 10, 3 );
 			add_action( 'after_doing_aioseop_updates', array( $this, 'scan_sitemaps' ) );
-			add_action( 'all_admin_notices', array( $this, 'sitemap_notices' ) );
+			add_action( 'admin_init', array( $this, 'sitemap_notices' ) );
 		}
 
 		/**
@@ -709,10 +709,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			// Exclude Terms element items.
 			$this->default_options['excl_terms']['initial_options'] = array();
 			$taxonomies_active = array();
-			if ( is_array( $this->options['aiosp_sitemap_taxonomies'] ) ) {
-				$taxonomies_active = $this->options['aiosp_sitemap_taxonomies'];
-			} elseif ( ! empty( $this->options['aiosp_sitemap_taxonomies'] ) ) {
-				$taxonomies_active = array( $this->options['aiosp_sitemap_taxonomies'] );
+			if ( is_array( $this->options[ $this->prefix . 'taxonomies' ] ) ) {
+				$taxonomies_active = $this->options[ $this->prefix . 'taxonomies' ];
+			} elseif ( ! empty( $this->options[ $this->prefix . 'taxonomies' ] ) ) {
+				$taxonomies_active = array( $this->options[ $this->prefix . 'taxonomies' ] );
 			}
 
 			$args_taxonomy_key = array_search( 'all', $taxonomies_active, true );
