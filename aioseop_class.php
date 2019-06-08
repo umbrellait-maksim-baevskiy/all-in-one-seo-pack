@@ -3504,7 +3504,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 */
 	public function woo_upgrade_notice() {
 		global $aioseop_notices;
-		if ( class_exists( 'WooCommerce' ) && current_user_can( 'manage_options' ) && ! AIOSEOPPRO ) {
+		if ( class_exists( 'WooCommerce' ) && ! AIOSEOPPRO ) {
 			$aioseop_notices->activate_notice( 'woocommerce_detected' );
 		} else {
 			global $aioseop_notices;
