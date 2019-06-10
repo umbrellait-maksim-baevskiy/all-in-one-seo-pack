@@ -1,4 +1,10 @@
 <?php
+/**
+ * AIOSEOP Updates Class
+ *
+ * @package All_in_One_SEO_Pack
+ * @since ?
+ */
 
 /**
  * Handles detection of new plugin version updates.
@@ -13,7 +19,6 @@ class AIOSEOP_Updates {
 
 	/**
 	 * Constructor
-	 *
 	 */
 	function __construct() {
 
@@ -158,7 +163,9 @@ class AIOSEOP_Updates {
 				array(
 					"DOC\r\n",
 					"DOC\n",
-				), '', $list
+				),
+				'',
+				$list
 			);
 			$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
 			update_option( 'aioseop_options', $aioseop_options );
@@ -186,7 +193,9 @@ class AIOSEOP_Updates {
 				array(
 					"yandex\r\n",
 					"yandex\n",
-				), '', $list
+				),
+				'',
+				$list
 			);
 			$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
 			update_option( 'aioseop_options', $aioseop_options );
@@ -210,7 +219,9 @@ class AIOSEOP_Updates {
 				array(
 					"SeznamBot\r\n",
 					"SeznamBot\n",
-				), '', $list
+				),
+				'',
+				$list
 			);
 			$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
 			update_option( 'aioseop_options', $aioseop_options );
@@ -234,7 +245,9 @@ class AIOSEOP_Updates {
 				array(
 					"SemrushBot\r\n",
 					"SemrushBot\n",
-				), '', $list
+				),
+				'',
+				$list
 			);
 			$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
 			update_option( 'aioseop_options', $aioseop_options );
@@ -257,7 +270,9 @@ class AIOSEOP_Updates {
 				array(
 					"Exabot\r\n",
 					"Exabot\n",
-				), '', $list
+				),
+				'',
+				$list
 			);
 			$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
 			update_option( 'aioseop_options', $aioseop_options );
