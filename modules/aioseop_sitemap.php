@@ -4143,8 +4143,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 			$args['taxonomy'] = $this->show_or_hide_taxonomy( $taxonomies );
 
+			$args['exclude'] = array();
 			if ( $this->option_isset( 'excl_terms' ) ) {
-				$args['exclude'] = array();
 				foreach ( $taxonomies as $v1_taxonomy ) {
 					if ( isset( $this->options[ $this->prefix . 'excl_terms' ][ $v1_taxonomy ] ) ) {
 						$args['exclude'] = array_merge( $args['exclude'], $this->options[ $this->prefix . 'excl_terms' ][ $v1_taxonomy ]['terms'] );
@@ -4152,7 +4152,20 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				}
 			}
 
-			$args = apply_filters( $this->prefix . 'tax_args', $args, $page, $this->options );
+			/**
+			 * The aioseop_sitemap_exclude_tax_terms filter hook.
+			 *
+			 * Allows users to exclude (or include) taxonomy terms from the sitemap.
+			 *
+			 * @since 2.9
+			 * @since 3.2.0 Rename filter hook & remove redundant params.
+			 *
+			 * @param array $args {
+			 *     @type array $taxonomy Name of the taxonomy that is being included in the sitemap.
+			 *     @type array $exclude IDs of taxonomy terms of the relevant taxonomy that need to be excluded.
+			 * }
+			 */
+			$args = apply_filters( 'aioseop_sitemap_exclude_tax_terms', $args );
 
 			return $args;
 		}
