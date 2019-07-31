@@ -348,7 +348,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					'name'       => __( 'Home Title', 'all-in-one-seo-pack' ),
 					'default'    => '',
 					'type'       => 'text',
-					'class'      => 'aioseop_count_chars',
 					'count'      => true,
 					'count_desc' => $count_desc,
 					'size'       => 95,
@@ -364,7 +363,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					'name'       => __( 'Home Description', 'all-in-one-seo-pack' ),
 					'default'    => '',
 					'type'       => 'textarea',
-					'class'      => 'aioseop_count_chars',
 					'count'      => true,
 					'count_desc' => $count_desc,
 					'size'       => 200,
@@ -570,7 +568,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					'type'    => 'html',
 					'save'    => false,
 					'default' => '<a 
-						name="aioseop_opengraph_settings_facebook_debug"
 						id="aioseop_opengraph_settings_facebook_debug"
 						class="button-primary"
 						href=""
@@ -1744,7 +1741,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			$images = array();
 			if ( ! empty( $image ) ) {
 				foreach ( $image as $k => $v ) {
-					$images[ $v ] = '<img height=150 src="' . $v . '">';
+					$images[ $v ] = '<img alt="" height=150 src="' . $v . '">';
 				}
 			}
 

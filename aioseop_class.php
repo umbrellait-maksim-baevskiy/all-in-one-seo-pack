@@ -5658,18 +5658,14 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				<?php do_meta_boxes( 'aioseop_metaboxes', 'normal', array( 'test' ) ); ?>
 			</div>
 		</div>
-		<style>
-			#wpbody-content {
-				min-width: 900px;
-			}
-		</style>
+
 		<div class="aioseop_right_sidebar aioseop_options_wrapper">
 
 			<div class="aioseop_sidebar">
 				<?php
 				do_meta_boxes( 'aioseop_metaboxes', 'side', array( 'test' ) );
 				?>
-				<script type="text/javascript">
+				<script>
 					//<![CDATA[
 					jQuery(document).ready(function ($) {
 						// Close postboxes that should be closed.
