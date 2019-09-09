@@ -596,7 +596,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				/* translators: This is a setting that outputs basic Schema.org markup, also known as structured data, into the source code of each page. */
 				'name'            => __( 'Use Schema.org Markup', 'all-in-one-seo-pack' ),
 				'type'            => 'radio',
-				'default'         => 0,
+				'default'         => 1,
 				'initial_options' => array(
 					1 => __( 'Enabled', 'all-in-one-seo-pack' ),
 					0 => __( 'Disabled', 'all-in-one-seo-pack' ),
@@ -4254,7 +4254,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			 */
 			$robots_meta = apply_filters( 'aioseop_robots_meta', $this->get_robots_meta() );
 			if ( ! empty( $robots_meta ) && 'index,follow' !== $robots_meta ) {
-				printf( '<meta name="robots" content="%s"', esc_attr( $robots_meta ) ) . " >\n";
+				echo sprintf( '<meta name="robots" content="%s"', esc_attr( $robots_meta ) ) . " />\n";
 			}
 
 			if ( ! empty( $old_wp_query ) ) {
