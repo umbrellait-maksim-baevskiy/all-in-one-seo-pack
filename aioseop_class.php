@@ -4454,9 +4454,16 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		}
 
 		// Handle Schema.
-		if ( ! empty( $aioseop_options['aiosp_schema_markup'] ) && (bool) $aioseop_options['aiosp_schema_markup'] ) {
-			$aioseop_schema = new AIOSEOP_Schema_Builder();
-			$aioseop_schema->display_json_ld_head_script();
+		if ( version_compare( PHP_VERSION, '5.5', '>=' ) ) {
+			if ( ! empty( $aioseop_options['aiosp_schema_markup'] ) && boolval( $aioseop_options['aiosp_schema_markup'] ) ) {
+				$aioseop_schema = new AIOSEOP_Schema_Builder();
+				$aioseop_schema->display_json_ld_head_script();
+			}
+		} else {
+			if ( ! empty( $aioseop_options['aiosp_schema_markup'] ) && (bool) $aioseop_options['aiosp_schema_markup'] ) {
+				$aioseop_schema = new AIOSEOP_Schema_Builder();
+				$aioseop_schema->display_json_ld_head_script();
+			}
 		}
 
 		// Handle canonical links.
