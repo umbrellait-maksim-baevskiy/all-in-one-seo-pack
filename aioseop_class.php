@@ -4130,11 +4130,56 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				add_action( 'aioseop_modules_wp_head', array( $this, 'aiosp_google_analytics' ) );
 			}
 			add_action( 'wp_head', array( $this, 'wp_head' ), apply_filters( 'aioseop_wp_head_priority', 1 ) );
-			add_action( 'amp_post_template_head', array( $this, 'amp_head' ), 11 );
 			add_action( 'template_redirect', array( $this, 'template_redirect' ), 0 );
 		}
 		add_filter( 'aioseop_description', array( &$this, 'filter_description' ), 10, 3 );
 		add_filter( 'aioseop_title', array( &$this, 'filter_title' ) );
+
+		// Plugin compatibility hooks.
+		// AMP.
+		$this->add_hooks_amp();
+
+		// TODO Move WooCommerce hooks here from __construct().
+	}
+
+	/**
+	 * Add Hooks for AMP.
+	 *
+	 * @since 3.3.0
+	 */
+	protected function add_hooks_amp() {
+		if ( is_admin() ) {
+			return;
+		}
+		global $aioseop_options;
+
+		// Add AIOSEOP's output to AMP.
+		add_action( 'amp_post_template_head', array( $this, 'amp_head' ), 11 );
+
+		/**
+		 * AIOSEOP AMP Schema Enable/Disable
+		 *
+		 * Allows or prevents the use of schema on AMP generated posts/pages.
+		 *
+		 * @since 3.3.0
+		 *
+		 * @param bool $var True to enable, and false to disable.
+		 */
+		$use_schema = apply_filters( 'aioseop_amp_schema', true );
+		if ( ! empty( $aioseop_options['aiosp_schema_markup'] ) && (bool) $aioseop_options['aiosp_schema_markup'] && $use_schema ) {
+			// Removes AMP's Schema data to prevent any conflicts/duplications with AIOSEOP's.
+			add_action( 'amp_post_template_head', array( $this, 'remove_hooks_amp_schema' ), 9 );
+		}
+	}
+
+	/**
+	 * Remove Hooks with AMP's Schema.
+	 *
+	 * @since 3.3.0
+	 */
+	public function remove_hooks_amp_schema() {
+		// Remove AMP Schema hook used for outputting data.
+		remove_action( 'amp_post_template_head', 'amp_print_schemaorg_metadata' );
 	}
 
 	/**
@@ -4209,26 +4254,32 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 * @todo Change void returns to empty string returns.
 	 *
 	 * @since 2.3.11.5
+	 * @since 3.3.0 Fix loose comparator reading empty string in $description as false and returning. #2875
+	 * @since 3.3.0 Add Schema to AMP. #506
 	 *
-	 * @return string|void
+	 * @return void
 	 */
 	function amp_head() {
 		if ( ! $this->is_seo_enabled_for_cpt() ) {
 			return;
 		}
 
-		$post        = $this->get_queried_object();
+		$post = $this->get_queried_object();
+		/**
+		 * AIOSEOP AMP Description.
+		 *
+		 * To disable AMP meta description just __return_false on the aioseop_amp_description filter.
+		 *
+		 * @since ?
+		 *
+		 * @param string $post_description
+		 */
 		$description = apply_filters( 'aioseop_amp_description', $this->get_main_description( $post ) );    // Get the description.
-
-		// To disable AMP meta description just __return_false on the aioseop_amp_description filter.
-		if ( isset( $description ) && false == $description ) {
-			return;
-		}
 
 		global $aioseop_options;
 
 		// Handle the description format.
-		if ( isset( $description ) && ( $this->strlen( $description ) > $this->minimum_description_length ) && ! ( is_front_page() && is_paged() ) ) {
+		if ( isset( $description ) && false !== $description && ( $this->strlen( $description ) > $this->minimum_description_length ) && ! ( is_front_page() && is_paged() ) ) {
 			$description = $this->trim_description( $description );
 			if ( ! isset( $meta_string ) ) {
 				$meta_string = '';
@@ -4245,6 +4296,22 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		if ( ! empty( $meta_string ) ) {
 			echo $meta_string;
 		}
+
+		// Handle Schema.
+		/**
+		 * AIOSEOP AMP Schema Enable/Disable
+		 *
+		 * Allows or prevents the use of schema on AMP generated posts/pages. Use __return_false to disable.
+		 *
+		 * @since 3.3.0
+		 *
+		 * @param bool $var True to enable, and false to disable.
+		 */
+		$use_schema = apply_filters( 'aioseop_amp_schema', true );
+		if ( $use_schema && ! empty( $aioseop_options['aiosp_schema_markup'] ) && (bool) $aioseop_options['aiosp_schema_markup'] ) {
+			$aioseop_schema = new AIOSEOP_Schema_Builder();
+			$aioseop_schema->display_json_ld_head_script();
+		}
 	}
 
 	/**
@@ -4252,7 +4319,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 *
 	 * Checks whether the current CPT should show the SEO tags.
 	 *
-	 * @since 2.9
+	 * @since 2.9.0
 	 *
 	 * @todo Remove this as it is only a simple boolean check.
 	 *
