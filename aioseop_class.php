@@ -2938,12 +2938,12 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		if ( ! empty( $post ) && post_password_required( $post ) ) {
 			return $description;
 		}
-		if ( ! $description ) {
+		if ( ! $description && ! empty( $aioseop_options['aiosp_generate_descriptions'] ) ) {
 			if ( empty( $aioseop_options['aiosp_skip_excerpt'] ) ) {
 				$description = $post->post_excerpt;
 			}
-			if ( ! $description && isset( $aioseop_options['aiosp_generate_descriptions'] ) && $aioseop_options['aiosp_generate_descriptions'] ) {
-				if ( ! AIOSEOPPRO || ( AIOSEOPPRO && apply_filters( $this->prefix . 'generate_descriptions_from_content', true, $post ) ) ) {
+			if ( ! $description ) {
+				if ( ! AIOSEOPPRO || ( AIOSEOPPRO && apply_filters( 'aiosp_generate_descriptions_from_content', true, $post ) ) ) {
 					$content = $post->post_content;
 					if ( ! empty( $aioseop_options['aiosp_run_shortcodes'] ) ) {
 						$content = aioseop_do_shortcodes( $content );
