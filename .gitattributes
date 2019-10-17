@@ -13,3 +13,10 @@ bin export-ignore
 .scrutinizer.yml export-ignore
 CODE_OF_CONDUCT.md export-ignore
 LICENSE export-ignore
+composer.json
+CONTRIBUTING.md
+Gruntfile.js
+.jshintrc
+package.json
+phpcs.xml
+PULL_REQUEST_TEMPLATE.md
