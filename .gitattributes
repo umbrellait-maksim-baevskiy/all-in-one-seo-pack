@@ -20,3 +20,4 @@ Gruntfile.js export-ignore
 package.json export-ignore
 phpcs.xml export-ignore
 PULL_REQUEST_TEMPLATE.md export-ignore
+.github export-ignore
