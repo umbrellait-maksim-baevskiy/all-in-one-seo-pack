@@ -564,6 +564,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 						'rhs' => '',
 					),
 					'aiosp_ga_advanced_options' => 'on',
+					'aiosp_gtm_container_id'    => array(
+						'lhs' => 'aiosp_gtm_container_id',
+						'op'  => '==',
+						'rhs' => '',
+					),
 				),
 			),
 			'ga_link_attribution'         => array(
@@ -590,6 +595,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 						'rhs' => '',
 					),
 					'aiosp_ga_advanced_options' => 'on',
+					'aiosp_gtm_container_id'    => array(
+						'lhs' => 'aiosp_gtm_container_id',
+						'op'  => '==',
+						'rhs' => '',
+					),
 				),
 			),
 			'schema_markup'               => array(
@@ -4125,10 +4135,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			if ( '1' == $aioseop_options['aiosp_can'] || 'on' == $aioseop_options['aiosp_can'] ) {
 				remove_action( 'wp_head', 'rel_canonical' );
 			}
-			// Analytics.
-			if ( aioseop_option_isset( 'aiosp_google_analytics_id' ) ) {
-				add_action( 'aioseop_modules_wp_head', array( $this, 'aiosp_google_analytics' ) );
-			}
+			add_action( 'aioseop_modules_wp_head', array( $this, 'aiosp_google_analytics' ) );
 			add_action( 'wp_head', array( $this, 'wp_head' ), apply_filters( 'aioseop_wp_head_priority', 1 ) );
 			add_action( 'template_redirect', array( $this, 'template_redirect' ), 0 );
 		}
@@ -5128,6 +5135,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 * Google Analytics
 	 *
 	 * @since ?
+	 * @since 3.3.0 Added support for Google Analytics.
 	 *
 	 * @param $options
 	 * @param $location
@@ -5135,6 +5143,9 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	 * @return mixed
 	 */
 	function aiosp_google_analytics() {
+		if ( AIOSEOPPRO ) {
+			new AIOSEOP_Pro_Google_Tag_Manager;
+		}
 		new aioseop_google_analytics;
 	}
 
