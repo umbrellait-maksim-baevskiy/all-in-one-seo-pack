@@ -3,7 +3,7 @@
 	"curly": true,
 	"eqeqeq": true,
 	"eqnull": true,
-	"esversion": 5,
+	"esversion": 6,
 	"expr": true,
 	"immed": true,
 	"jquery": true,
@@ -34,6 +34,8 @@
 		"aioseop_count_chars",
 		"aioseop_preview_snippet",
 		"tinymce",
-		"XRegExp"
+		"XRegExp",
+		"aioseopCharacterCounter",
+		"aioseopOGCharacterCounter"
 	]
 }
