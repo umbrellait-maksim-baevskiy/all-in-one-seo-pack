@@ -3,7 +3,7 @@
 	"curly": true,
 	"eqeqeq": true,
 	"eqnull": true,
-	"esversion": 5,
+	"esversion": 6,
 	"expr": true,
 	"immed": true,
 	"jquery": true,
@@ -30,6 +30,12 @@
 		"ajaxurl",
 		"wp",
 		"aiosp_data",
-		"aioseopadmin"
+		"aioseopadmin",
+		"aioseop_count_chars",
+		"aioseop_preview_snippet",
+		"tinymce",
+		"XRegExp",
+		"aioseopCharacterCounter",
+		"aioseopOGCharacterCounter"
 	]
 }

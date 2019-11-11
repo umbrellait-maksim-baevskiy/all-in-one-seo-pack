@@ -1076,68 +1076,6 @@ if ( ! function_exists( 'aiosp_log' ) ) {
 	}
 }
 
-if ( ! function_exists( 'parse_ini_string' ) ) {
-	/**
-	 * Parse INI String
-	 *
-	 * Parse_ini_string() doesn't exist pre PHP 5.3.
-	 *
-	 * @since ?
-	 *
-	 * @param $string
-	 * @param $process_sections
-	 * @return array|bool
-	 */
-	function parse_ini_string( $string, $process_sections ) {
-
-		if ( ! class_exists( 'parse_ini_filter' ) ) {
-
-			/**
-			 * Class parse_ini_filter
-			 *
-			 * Define our filter class.
-			 */
-			// @codingStandardsIgnoreStart
-			class parse_ini_filter extends php_user_filter {
-			// @codingStandardsIgnoreEnd
-				/**
-				 * Buffer
-				 *
-				 * @since ?
-				 *
-				 * @var string $buf
-				 */
-				static $buf = '';
-
-				/**
-				 * The actual filter for parsing.
-				 *
-				 * @param $in
-				 * @param $out
-				 * @param $consumed
-				 * @param $closing
-				 *
-				 * @return int
-				 */
-				function filter( $in, $out, &$consumed, $closing ) {
-					$bucket = stream_bucket_new( fopen( 'php://memory', 'wb' ), self::$buf );
-					stream_bucket_append( $out, $bucket );
-
-					return PSFS_PASS_ON;
-				}
-			}
-
-			// Register our filter with PHP.
-			if ( ! stream_filter_register( 'parse_ini', 'parse_ini_filter' ) ) {
-				return false;
-			}
-		}
-		parse_ini_filter::$buf = $string;
-
-		return parse_ini_file( 'php://filter/read=parse_ini/resource=php://memory', $process_sections );
-	}
-}
-
 /**
  * AIOSEOP Update User Visibility Notice
  *
@@ -1403,7 +1341,34 @@ if ( ! function_exists( 'aioseop_is_woocommerce_active' ) ) {
 }
 
 /**
- * Gets the major version of a sementic plugin version.
+ * The aioseop_get_page_number() function.
+ *
+ * Returns the number of the current page.
+ * This can be used to determine if we're on a paginated page for example.
+ *
+ * @since ?
+ * @since 3.2.0
+ *
+ * @return int $page_number
+ */
+if ( ! function_exists( 'aioseop_get_page_number' ) ) {
+	function aioseop_get_page_number() {
+		global $post;
+		if ( is_singular() && false === strpos( $post->post_content, '<!--nextpage-->', 0 ) ) {
+			return null;
+		}
+
+		// 'page' has to be used to determine the pagination number on a static front page.
+		$page_number = get_query_var( 'page' );
+		if ( empty( $page_number ) ) {
+			$page_number = get_query_var( 'paged' );
+		}
+
+		return $page_number;
+	}
+}
+
+/** Gets the major version of a sementic plugin version.
  *
  * @since 3.2.8
  *

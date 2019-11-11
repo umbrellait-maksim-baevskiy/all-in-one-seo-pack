@@ -421,7 +421,9 @@ class AIOSEOP_Helper {
 			'aiosp_schema_site_represents'      => __( 'Select whether your website is primarily for a person or an organization.', 'all-in-one-seo-pack' ),
 			'aiosp_schema_organization_name'    => __( 'Enter your organization or business name.', 'all-in-one-seo-pack' ),
 			'aiosp_schema_organization_logo'    => __( 'Add a logo that represents your organization or business. The image must be in PNG, JPG or GIF format and a minimum size of 112px by 112px. If no image is selected, then the plugin will try to use the logo in the Customizer settings.', 'all-in-one-seo-pack' ),
-			'aiosp_schema_person_user'          => __( 'Select the primary owner for your site from the list of users. Only users with the role of Author, Editor or Administrator will be listed here.', 'all-in-one-seo-pack' ),
+			'aiosp_schema_person_user'          => __( 'Select the primary owner for your site from the list of users. Only users with the role of Author, Editor or Administrator will be listed here. Alternatively, you can choose Manually Enter to manually enter the site owner\'s name.', 'all-in-one-seo-pack' ),
+			'aiosp_schema_person_manual_name'   => __( 'Enter the name of the site owner here.', 'all-in-one-seo-pack' ),
+			'aiosp_schema_person_manual_image'  => __( 'Upload or enter the URL for the site owner\'s image or avatar.', 'all-in-one-seo-pack' ),
 			'aiosp_schema_phone_number'         => __( 'Enter the primary phone number your organization or business. You must include the country code and the phone number must use the standard format for your country, for example: 1-888-888-8888.', 'all-in-one-seo-pack' ),
 			'aiosp_schema_contact_type'         => __( 'Select the type of contact for the phone number you have entered.', 'all-in-one-seo-pack' ),
 
@@ -478,7 +480,15 @@ class AIOSEOP_Helper {
 				$pt_obj_taxes = get_object_taxonomies( $v1_pt, 'objects' );
 				foreach ( $pt_obj_taxes as $k2_slug => $v2_tax_obj ) {
 					if ( $v2_tax_obj->public ) {
-						$help_text_macros .= sprintf( '<dt>%%tax_%1$s%%</dt><dd>' . __( 'The title of the %2$s taxonomy that is associated to this %3$s', 'all-in-one-seo-pack' ) . '</dd>', $k2_slug, ucwords( $v2_tax_obj->label ), $name );
+						$help_text_macros .= sprintf(
+							'<dt>%%tax_%1$s%%</dt><dd>' .
+							/* translators: %2$s and %3$s are placeholders and should not be translated. These are replaced with the name of the taxonomy (%2$s) that is associated with (the name of) a custom post type (%2$s). */
+							__( 'The title of the %2$s taxonomy that is associated to this %3$s', 'all-in-one-seo-pack' )
+							. '</dd>',
+							$k2_slug,
+							ucwords( $v2_tax_obj->label ),
+							$name
+						);
 					}
 				}
 
@@ -550,7 +560,7 @@ class AIOSEOP_Helper {
 			'aiosp_bing_verify'                 => 'https://semperplugins.com/documentation/bing-webmaster-verification/',
 			'aiosp_pinterest_verify'            => 'https://semperplugins.com/documentation/pinterest-site-verification/',
 			'aiosp_yandex_verify'               => 'https://semperplugins.com/documentation/yandex-webmaster-verification/',
-			'aiosp_baidu_verify'                => 'https://semperplugins.com/documentation/baidu-webmaster-verification/',
+			'aiosp_baidu_verify'                => 'https://semperplugins.com/documentation/baidu-webmaster-tools-verification/',
 
 			// Google Analytics.
 			'aiosp_google_analytics_id'         => 'https://semperplugins.com/documentation/setting-up-google-analytics/',
