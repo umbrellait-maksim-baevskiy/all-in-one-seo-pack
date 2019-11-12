@@ -16,6 +16,8 @@ class AIOSEOP_Robots_Meta {
 
 	/**
 	 * User-defined plugin options.
+	 * 
+	 * @since 3.3.1
 	 *
 	 * @var array
 	 */
