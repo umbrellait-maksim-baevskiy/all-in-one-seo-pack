@@ -21,11 +21,11 @@ class AIOSEOP_Robots_Meta {
 	 *
 	 * @var array
 	 */
-	private static $plugin_options;
+	private $plugin_options;
 
 	public function __construct() {
 		global $aioseop_options;
-		$plugin_options = $aioseop_options;
+		$this->plugin_options = $aioseop_options;
 	}
 
 	/**
@@ -246,7 +246,7 @@ class AIOSEOP_Robots_Meta {
 	 * @return bool
 	 */
 	private function is_noindexed_paginated_page( $page_number ) {
-		if ( ! empty( $plugin_options['aiosp_paginated_noindex'] ) && 1 < $page_number ) {
+		if ( ! empty( $this->plugin_options['aiosp_paginated_noindex'] ) && 1 < $page_number ) {
 			return true;
 		}
 		return false;
@@ -263,7 +263,7 @@ class AIOSEOP_Robots_Meta {
 	 * @return bool
 	 */
 	private function is_nofollowed_paginated_page( $page_number ) {
-		if ( ! empty( $plugin_options['aiosp_paginated_nofollow'] ) && 1 < $page_number ) {
+		if ( ! empty( $this->plugin_options['aiosp_paginated_nofollow'] ) && 1 < $page_number ) {
 			return true;
 		}
 		return false;
@@ -299,12 +299,12 @@ class AIOSEOP_Robots_Meta {
 	 */
 	private function is_noindexed_tax() {
 		if (
-			( is_category() && ! empty( $plugin_options['aiosp_category_noindex'] ) ) ||
-			( is_date() && ! empty( $plugin_options['aiosp_archive_date_noindex'] ) ) ||
-			( is_author() && ! empty( $plugin_options['aiosp_archive_author_noindex'] ) ) ||
-			( is_tag() && ! empty( $plugin_options['aiosp_tags_noindex'] ) ) ||
-			( is_search() && ! empty( $plugin_options['aiosp_search_noindex'] ) ) ||
-			( is_404() && ! empty( $plugin_options['aiosp_404_noindex'] ) ) ||
+			( is_category() && ! empty( $this->plugin_options['aiosp_category_noindex'] ) ) ||
+			( is_date() && ! empty( $this->plugin_options['aiosp_archive_date_noindex'] ) ) ||
+			( is_author() && ! empty( $this->plugin_options['aiosp_archive_author_noindex'] ) ) ||
+			( is_tag() && ! empty( $this->plugin_options['aiosp_tags_noindex'] ) ) ||
+			( is_search() && ! empty( $this->plugin_options['aiosp_search_noindex'] ) ) ||
+			( is_404() && ! empty( $this->plugin_options['aiosp_404_noindex'] ) ) ||
 			( is_tax() && in_array( get_query_var( 'taxonomy' ), $this->get_noindexed_taxonomies() ) )
 		) {
 			return true;
@@ -322,8 +322,8 @@ class AIOSEOP_Robots_Meta {
 	 * @return array
 	 */
 	private function get_noindexed_taxonomies() {
-		if ( isset( $plugin_options['aiosp_tax_noindex'] ) && ! empty( $plugin_options['aiosp_tax_noindex'] ) ) {
-			return $plugin_options['aiosp_tax_noindex'];
+		if ( isset( $this->plugin_options['aiosp_tax_noindex'] ) && ! empty( $this->plugin_options['aiosp_tax_noindex'] ) ) {
+			return $this->plugin_options['aiosp_tax_noindex'];
 		}
 		return array();
 	}
@@ -342,8 +342,8 @@ class AIOSEOP_Robots_Meta {
 	 */
 	private function is_noindexed_singular( $post_type, $post_meta_noindex ) {
 		if ( is_singular() && '' === $post_meta_noindex &&
-			! empty( $plugin_options['aiosp_cpostnoindex'] ) &&
-			in_array( $post_type, $plugin_options['aiosp_cpostnoindex'] )
+			! empty( $this->plugin_options['aiosp_cpostnoindex'] ) &&
+			in_array( $post_type, $this->plugin_options['aiosp_cpostnoindex'] )
 		) {
 			return true;
 		}
@@ -364,8 +364,8 @@ class AIOSEOP_Robots_Meta {
 	 */
 	private function is_nofollowed_singular( $post_type, $post_meta_follow ) {
 		if ( is_singular() && '' === $post_meta_follow &&
-			! empty( $plugin_options['aiosp_cpostnofollow'] ) &&
-			in_array( $post_type, $plugin_options['aiosp_cpostnofollow'] )
+			! empty( $this->plugin_options['aiosp_cpostnofollow'] ) &&
+			in_array( $post_type, $this->plugin_options['aiosp_cpostnofollow'] )
 		) {
 			return true;
 		}
