@@ -146,7 +146,7 @@ jQuery(function($){
 		// Remove all HTML tags.
 		content = content.replace(/(<[^ >][^>]*>)?/gm, '');
 		// Remove all line breaks.
-		content = content.replace(/\s\s+/g, ' ');
+		content = content.replace(/[\r\n]+/gm, ' ');
 		return aioseopDecodeHtmlEntities(content.trim());
 	}
 
