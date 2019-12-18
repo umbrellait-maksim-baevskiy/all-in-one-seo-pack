@@ -6,7 +6,9 @@
  * @package all-in-one-seo-pack
  */
 
-(function () {'use strict';}());
+(function () { 'use strict'; }());
+
+var aioseopEditorUndefined = false;
 
 /**
  * Checks whether the Gutenberg Editor is active.
@@ -97,6 +99,10 @@ function aioseopGetClassicEditorContent() {
  * @param functionName The name of the function that needs to be called when the event is triggered.
  */
 function aioseopSetGutenbergEditorEventListener(functionName) {
+	if ('undefined' === typeof (window._wpLoadBlockEditor)) {
+		aioseopEditorUndefined = true;
+		return;
+	}
 	window._wpLoadBlockEditor.then(function () {
 		setTimeout(function () {
 			// https://developer.wordpress.org/block-editor/packages/packages-data/
