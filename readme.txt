@@ -2,16 +2,16 @@
 Contributors: hallsofmontezuma, semperplugins, wpsmort, arnaudbroes
 Tags: SEO, Google Search Console, XML Sitemap, meta description, meta title, noindex
 Requires at least: 4.9
-Tested up to: 5.3
-Stable tag: 3.3.5
+Tested up to: 5.4
+Stable tag: 3.4.2
 License: GPLv2 or later
 Requires PHP: 5.2.4
 
-The original WordPress SEO plugin, downloaded over 50,000,000 times since 2007.
+The original WordPress SEO plugin, downloaded over 65,000,000 times since 2007.
 
 == Description ==
 
-###The original WordPress SEO plugin, downloaded over 50,000,000 times since 2007.
+###The original WordPress SEO plugin, downloaded over 65,000,000 times since 2007.
 
 Use **All in One SEO Pack** to optimize your WordPress site for SEO. It's easy and works out of the box for beginners, and has advanced features and an API for developers.
 

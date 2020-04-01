@@ -32,7 +32,7 @@ Ideas are great. All in One SEO Pack needs them. There are so many difficult pro
 Generally:
 
 1. Open a new issue / pick an existing one
-2. Fork the repo, create a branch (off the development branch), commit to it 
+2. Fork the repo, create a branch, commit to it 
 3. Push the branch, open a pull request
 4. The core team will review it and work with you if necessary
 5. Someone from the core team will merge the PR
@@ -146,9 +146,7 @@ There are tools out there for apps like Netbeans and PHPStorm to apply WordPress
 We would love your help translating the project into your language. [Translations](https://translate.wordpress.org/projects/wp-plugins/all-in-one-seo-pack)
 
 
-[How to Contribute Translations](https://github.com/semperfiwebdesign/all-in-one-seo-pack/wiki/Translating-into-your-language)
-
-[Translations FAQ](https://github.com/semperfiwebdesign/all-in-one-seo-pack/wiki/Translations-FAQ)
+*more instructions coming soon
 
 
 ---
