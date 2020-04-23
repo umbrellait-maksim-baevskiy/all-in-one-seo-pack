@@ -225,7 +225,7 @@ class AIOSEOP_Core {
 		define( 'AIOSEOP_VERSION', $plugin_data['Version'] );
 
 		if ( ! defined( 'AIOSEOPPRO' ) ) {
-			define( 'AIOSEOPPRO', true );
+			define( 'AIOSEOPPRO', false );
 		}
 
 		if ( ! defined( 'AIOSEOP_PLUGIN_DIR' ) ) {
@@ -427,7 +427,7 @@ class AIOSEOP_Core {
 
 			$file_dir = AIOSEOP_PLUGIN_DIR . 'all_in_one_seo_pack.php';
 			register_activation_hook( $file_dir, array( 'AIOSEOP_Core', 'activate' ) );
-			register_deactivation_hook( $file_dir, array( 'AIOSEOP_Core', 'deactivate' ) ); 
+			register_deactivation_hook( $file_dir, array( 'AIOSEOP_Core', 'deactivate' ) );
 
 			// TODO Move AJAX to aioseop_admin class, and could be a separate function hooked onto admin_init.
 			add_action( 'wp_ajax_aioseop_ajax_save_meta', 'aioseop_ajax_save_meta' );
@@ -511,7 +511,7 @@ class AIOSEOP_Core {
 
 	/**
 	 * Runs on plugin deactivation.
-	 * 
+	 *
 	 * @since 3.4.3
 	 */
 	public static function deactivate() {
