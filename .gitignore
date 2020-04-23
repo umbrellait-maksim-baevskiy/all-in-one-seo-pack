@@ -1,10 +1,5 @@
 # DEV #
 #######
-#.codeclimate.yml
-#.csslintrc
-#.eslintignore
-#.eslintrc
-#.travis.yml
 .svn
 node_modules
 

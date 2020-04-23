@@ -1,5 +1,5 @@
 filter:
-    excluded_paths: [vendor/*, tests/*, .tx/*, languages/*, includes/libraries/*, bin/*, assets/*, templates/*, bin/*, .travis.yml ]
+    excluded_paths: [i18n/*, assets/*, admin/*, css/*, image/*, inc/*, js/*, modules/*, aioseop_class.php, aioseop_init.php, all_in_one_seo_pack.php ]
 
 tools:
     php_code_sniffer:
