@@ -105,9 +105,12 @@ class AIOSEOP_Schema_Builder {
 		global $aioseop_options;
 
 		$layout = array(
-			'@context' => 'https://schema.org',
-			'@graph'   => array(
+			array(
+				'@context' => 'https://schema.org',
 				'[aioseop_schema_Organization]',
+			),
+			array(
+				'@context' => 'https://schema.org',
 				'[aioseop_schema_WebSite]',
 			),
 		);
@@ -119,50 +122,50 @@ class AIOSEOP_Schema_Builder {
 				bp_is_user()
 		) {
 			// Correct issue with BuddyPress when viewing a member page.
-			array_push( $layout['@graph'], '[aioseop_schema_ProfilePage]' );
-			array_push( $layout['@graph'], '[aioseop_schema_Person]' );
-			array_push( $layout['@graph'], '[aioseop_schema_BreadcrumbList]' );
+			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_ProfilePage]' );
+			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_Person]' );
+			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_BreadcrumbList]' );
 		} elseif ( is_front_page() || is_home() ) {
-			array_push( $layout['@graph'], '[aioseop_schema_WebPage]' );
-			array_push( $layout['@graph'], '[aioseop_schema_BreadcrumbList]' );
+			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_WebPage]' );
+			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_BreadcrumbList]' );
 		} elseif ( is_archive() ) {
 			if ( is_author() ) {
-				array_push( $layout['@graph'], '[aioseop_schema_ProfilePage]' );
-				array_push( $layout['@graph'], '[aioseop_schema_Person]' );
-				array_push( $layout['@graph'], '[aioseop_schema_BreadcrumbList]' );
+				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_ProfilePage]' );
+				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_Person]' );
+				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_BreadcrumbList]' );
 			} elseif ( is_post_type_archive() ) {
-				array_push( $layout['@graph'], '[aioseop_schema_CollectionPage]' );
-				array_push( $layout['@graph'], '[aioseop_schema_BreadcrumbList]' );
+				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_CollectionPage]' );
+				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_BreadcrumbList]' );
 			} elseif ( is_tax() || is_category() || is_tag() ) {
-				array_push( $layout['@graph'], '[aioseop_schema_CollectionPage]' );
-				array_push( $layout['@graph'], '[aioseop_schema_BreadcrumbList]' );
+				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_CollectionPage]' );
+				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_BreadcrumbList]' );
 				// Remove when Custom Taxonomies is supported.
 				if ( is_tax() ) {
 					$layout = array();
 				}
 			} elseif ( is_date() ) {
-				array_push( $layout['@graph'], '[aioseop_schema_CollectionPage]' );
-				array_push( $layout['@graph'], '[aioseop_schema_BreadcrumbList]' );
+				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_CollectionPage]' );
+				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_BreadcrumbList]' );
 			}
 		} elseif ( is_singular() || is_single() ) {
 			global $post;
 
-			array_push( $layout['@graph'], '[aioseop_schema_WebPage]' );
+			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_WebPage]' );
 			if ( ! is_post_type_hierarchical( $post->post_type ) ) {
 				// TODO Add custom setting for individual posts.
 
-				array_push( $layout['@graph'], '[aioseop_schema_Article]' );
-				array_push( $layout['@graph'], '[aioseop_schema_Person]' );
+				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_Article]' );
+				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_Person]' );
 			}
-			array_push( $layout['@graph'], '[aioseop_schema_BreadcrumbList]' );
+			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_BreadcrumbList]' );
 
 			// Remove when CPT is supported.
 			if ( ! in_array( get_post_type( $post ), array( 'post', 'page' ) ) ) {
 				$layout = array();
 			}
 		} elseif ( is_search() ) {
-			array_push( $layout['@graph'], '[aioseop_schema_SearchResultsPage]' );
-			array_push( $layout['@graph'], '[aioseop_schema_BreadcrumbList]' );
+			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_SearchResultsPage]' );
+			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_BreadcrumbList]' );
 		} elseif ( is_404() ) {
 			// Do 404 page.
 		}
@@ -178,18 +181,6 @@ class AIOSEOP_Schema_Builder {
 		 */
 		$layout = apply_filters( 'aioseop_schema_layout', $layout );
 
-		// Encode to json string, and remove string type around shortcodes.
-		if ( version_compare( PHP_VERSION, '5.4', '>=' ) ) {
-			$layout = wp_json_encode( (object) $layout, JSON_UNESCAPED_SLASHES ); // phpcs:ignore PHPCompatibility.Constants.NewConstants.json_unescaped_slashesFound
-		} else {
-			// PHP <= 5.3 compatibility.
-			$layout = wp_json_encode( (object) $layout );
-			$layout = str_replace( '\/', '/', $layout );
-		}
-
-		$layout = str_replace( '"[', '[', $layout );
-		$layout = str_replace( ']"', ']', $layout );
-
 		return $layout;
 	}
 
@@ -201,14 +192,27 @@ class AIOSEOP_Schema_Builder {
 	public function display_json_ld_head_script() {
 		// do stuff.
 
-		$layout = $this->get_layout();
+		$layouts = $this->get_layout();
 
-		do_action( 'aioseop_schema_internal_shortcodes_on' );
-		$schema_content = do_shortcode( $layout );
-		do_action( 'aioseop_schema_internal_shortcodes_off' );
+		foreach ( $layouts as $layout ) {
+			// Encode to json string, and remove string type around shortcodes.
+			if ( version_compare( PHP_VERSION, '5.4', '>=' ) ) {
+				$layout = wp_json_encode( (object) $layout, JSON_UNESCAPED_SLASHES ); // phpcs:ignore PHPCompatibility.Constants.NewConstants.json_unescaped_slashesFound
+			} else {
+				// PHP <= 5.3 compatibility.
+				$layout = wp_json_encode( (object) $layout );
+				$layout = str_replace( '\/', '/', $layout );
+			}
+			var_dump($layout);
+			$layout = str_replace(array( '"0":"[', ']"' ), array( '[', ']' ), $layout);
 
-		echo '<script type="application/ld+json" class="aioseop-schema">' . $schema_content . '</script>';
-		echo "\n";
+			do_action('aioseop_schema_internal_shortcodes_on');
+			$schema_content = do_shortcode($layout);
+			do_action('aioseop_schema_internal_shortcodes_off');
+
+			echo '<script type="application/ld+json" class="aioseop-schema">' . $schema_content . '</script>';
+			echo "\n";
+		}
 	}
 
 	/**

@@ -97,9 +97,6 @@ class AIOSEOP_Graph_WebPage extends AIOSEOP_Graph_Creativework {
 			'url'        => $current_url,
 			'inLanguage' => get_bloginfo( 'language' ),
 			'name'       => $current_name,
-			'isPartOf'   => array(
-				'@id' => home_url() . '/#website',
-			),
 			'breadcrumb' => array(
 				'@id' => $context->get_url() . '#breadcrumblist',
 			),

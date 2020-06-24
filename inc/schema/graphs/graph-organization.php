@@ -51,7 +51,6 @@ class AIOSEOP_Graph_Organization extends AIOSEOP_Graph {
 
 		$rtn_data = array(
 			'@type' => $this->slug,
-			'@id'   => home_url() . '/#' . strtolower( $this->slug ),
 			'url'   => home_url() . '/',
 		);
 
