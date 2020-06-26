@@ -202,7 +202,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 		 * @since   3.4.0   Minor refactoring. Renamed function to better reflect purpose.
 		 *
 		 * @param           $buf
-		 * @param   array   $args
+		 * @param   array $args
 		 *
 		 * @return  string
 		 */

@@ -53,7 +53,7 @@ class AIOSEOP_Education {
 
 		add_action( 'wp_ajax_aioseop_deactivate_conflicting_plugins', array( 'AIOSEOP_Education', 'deactivate_conflicting_plugins' ) );
 
-		if ( !AIOSEOPPRO || ( AIOSEOPPRO && !aioseop_is_addon_allowed('news_sitemap') ) ) {
+		if ( ! AIOSEOPPRO || ( AIOSEOPPRO && ! aioseop_is_addon_allowed( 'news_sitemap' ) ) ) {
 			add_action( 'wp_ajax_aioseop_get_news_sitemap_upsell', array( 'AIOSEOP_Education', 'get_news_sitemap_upsell' ) );
 		}
 
@@ -80,7 +80,7 @@ class AIOSEOP_Education {
 	public static function admin_enqueue_scripts() {
 		self::enqueue_deactivate_conflicting_plugins_script();
 
-		if ( !AIOSEOPPRO || ( AIOSEOPPRO && !aioseop_is_addon_allowed('news_sitemap') ) ) {
+		if ( ! AIOSEOPPRO || ( AIOSEOPPRO && ! aioseop_is_addon_allowed( 'news_sitemap' ) ) ) {
 			self::enqueue_news_sitemap_upsell_script();
 		}
 
@@ -161,8 +161,7 @@ class AIOSEOP_Education {
 	 * @since   3.4.0
 	 */
 	private static function enqueue_news_sitemap_upsell_script() {
-		if ( 
-			'all-in-one-seo_page_' . AIOSEOP_PLUGIN_DIRNAME . '/modules/aioseop_sitemap' !== get_current_screen()->id &&
+		if ( 'all-in-one-seo_page_' . AIOSEOP_PLUGIN_DIRNAME . '/modules/aioseop_sitemap' !== get_current_screen()->id &&
 			'all-in-one-seo_page_' . AIOSEOP_PLUGIN_DIRNAME . '/pro/class-aioseop-pro-sitemap' !== get_current_screen()->id
 		) {
 			return;
@@ -405,8 +404,7 @@ class AIOSEOP_Education {
 			$header . '&nbsp;»'
 		);
 
-		echo
-			"<div id='aioseop-video-sitemap-upsell'>
+		echo "<div id='aioseop-video-sitemap-upsell'>
             <span class='dashicons dashicons-dismiss dismiss'></span><h5>$header</h5><br/><p>$p1</p><p>$p2</p></p><p>$link</p><p>$p3</p>
             </div>";
 
@@ -429,7 +427,7 @@ class AIOSEOP_Education {
 
 		$message = __( 'Did you know that we also support Google News sitemaps?&nbsp;', 'all-in-one-seo-pack' );
 		$link    = __( 'Upgrade to Pro to unlock this feature.', 'all-in-one-seo-pack' );
-		if( AIOSEOPPRO && !aioseop_is_addon_allowed('news_sitemap') ) {
+		if ( AIOSEOPPRO && ! aioseop_is_addon_allowed( 'news_sitemap' ) ) {
 			$message = __( 'Did you know that Business & Agency plan users also have access to Google News sitemaps?&nbsp;', 'all-in-one-seo-pack' );
 			$link    = __( 'Upgrade to a higher tier to unlock this feature.', 'all-in-one-seo-pack' );
 		}
@@ -496,7 +494,7 @@ class AIOSEOP_Education {
 	 *
 	 * @since   3.4.0
 	 *
-	 * @param   string  $key    The name of the upsell.
+	 * @param   string $key    The name of the upsell.
 	 * @return  bool            Whether or not the upsell has been dismissed.
 	 */
 	private static function check_if_dismissed( $key ) {
@@ -542,7 +540,7 @@ class AIOSEOP_Education {
 	 *
 	 * @since   3.4.0
 	 *
-	 * @param   string  $key    The name of the upsell.
+	 * @param   string $key    The name of the upsell.
 	 */
 	private static function dismiss_upsell( $key ) {
 		$current_user = wp_get_current_user();
@@ -563,7 +561,7 @@ class AIOSEOP_Education {
 	 *
 	 * @since   3.4.0
 	 *
-	 * @param   string  $key    The name of the upsell.
+	 * @param   string $key    The name of the upsell.
 	 */
 	public static function deactivate_conflicting_plugins() {
 		if ( ! is_admin() ) {
@@ -579,7 +577,7 @@ class AIOSEOP_Education {
 			return;
 		}
 
-		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		include_once ABSPATH . 'wp-admin/includes/plugin.php';
 		foreach ( $plugins as $plugin_name => $plugin_path ) {
 			if ( is_plugin_active( $plugin_path ) ) {
 				deactivate_plugins( $plugin_path );
@@ -592,7 +590,7 @@ class AIOSEOP_Education {
 	 *
 	 * Acts as a callback for the "wp_admin_bar_menu" action hook.
 	 *
-	 * @param   Object   $wp_admin_bar
+	 * @param   Object $wp_admin_bar
 	 */
 	public static function wp_admin_bar_menu( $wp_admin_bar ) {
 		$url = get_permalink();
@@ -742,26 +740,26 @@ class AIOSEOP_Education {
 
 	/**
 	 * Checks if new conflicting plugins were found and resets notice status.
-	 * 
+	 *
 	 * @since 3.4.3
-	 * 
+	 *
 	 * @param array $conflicting_plugins
 	 */
 	private static function check_new_conflicting_plugins( $conflicting_plugins ) {
 		// get_option() doesn't work here because it returns false if the option is blank, and we need to know if it exists.
 		global $wpdb;
-		$count = (int) $wpdb->get_var( "select count(*) from {$wpdb->prefix}options where option_name = 'aioseop_detected_conflicting_plugins'");
-	
+		$count = (int) $wpdb->get_var( "select count(*) from {$wpdb->prefix}options where option_name = 'aioseop_detected_conflicting_plugins'" );
+
 		$stored = array();
-		if( 0 !== $count ) {
+		if ( 0 !== $count ) {
 			$stored = get_option( 'aioseop_detected_conflicting_plugins' );
 			update_option( 'aioseop_detected_conflicting_plugins', $conflicting_plugins );
 		} else {
 			add_option( 'aioseop_detected_conflicting_plugins', $conflicting_plugins );
 		}
-		
+
 		if ( count( $stored ) < count( $conflicting_plugins ) ) {
-			if( get_user_meta( get_current_user_id(), 'aioseop_notice_display_time_conflicting_plugin' ) ) {
+			if ( get_user_meta( get_current_user_id(), 'aioseop_notice_display_time_conflicting_plugin' ) ) {
 				delete_user_meta( get_current_user_id(), 'aioseop_notice_display_time_conflicting_plugin' );
 			}
 		}
@@ -772,7 +770,7 @@ class AIOSEOP_Education {
 	 *
 	 * @since   3.4.0
 	 *
-	 * @param   Object      $notice_data    The default data of the notice.
+	 * @param   Object $notice_data    The default data of the notice.
 	 */
 	public static function filter_conflicting_plugin_notice_data( $notice_data ) {
 		global $aioseop_options;
@@ -831,7 +829,7 @@ class AIOSEOP_Education {
 	 *
 	 * @since   3.4.0
 	 *
-	 * @param   string  $type   The type of conflicting plugin ("seo" or "sitemap").
+	 * @param   string $type   The type of conflicting plugin ("seo" or "sitemap").
 	 *
 	 * @return  array   The list of plugins that are known to conflict.
 	 */
@@ -869,7 +867,7 @@ class AIOSEOP_Education {
 	 *
 	 * @since   3.4.0
 	 *
-	 * @param   string  $page_id    The ID of the current page.
+	 * @param   string $page_id    The ID of the current page.
 	 *
 	 * @return  string              The taxonomies upsell markup.
 	 */
@@ -887,16 +885,15 @@ class AIOSEOP_Education {
 	 *
 	 * @since   3.4.0
 	 *
-	 * @param   string  $page_id                The ID of the current page.
-	 * @param   bool    $is_woocommerce_page    Whether or not the current page is a WooCommerce taxonomy page.
+	 * @param   string $page_id                The ID of the current page.
+	 * @param   bool   $is_woocommerce_page    Whether or not the current page is a WooCommerce taxonomy page.
 	 *
 	 * @return  string                          The taxonomies upsell modal markup.
 	 */
 	private static function get_taxonomies_upsell_modal_markup( $page_id, $is_woocommerce_page = false ) {
 		$header = ( $is_woocommerce_page ) ? __( 'Unlock SEO for WooCommerce Product Categories & Product Tags', 'all-in-one-seo-pack' ) : __( 'Unlock SEO for Categories, Tags and Custom Taxonomies', 'all-in-one-seo-pack' );
 
-		return
-		'<div class="aioseop-taxonomies-upsell-modal">
+		return '<div class="aioseop-taxonomies-upsell-modal">
         <div class="aioseop-taxonomies-upsell-modal-content">
             <h2>' . $header . '</h2>
             <p>
@@ -936,14 +933,13 @@ class AIOSEOP_Education {
 	 *
 	 * @since   3.4.0
 	 *
-	 * @param   string  $page_id                The ID of the current page.
-	 * @param   bool    $is_woocommerce_page    Whether or not the current page is a WooCommerce taxonomy page.
+	 * @param   string $page_id                The ID of the current page.
+	 * @param   bool   $is_woocommerce_page    Whether or not the current page is a WooCommerce taxonomy page.
 	 *
 	 * @return  string                          The taxonomies upsell AIOSEOP metabox markup.
 	 */
 	private static function get_taxonomies_upsell_markup( $page_id, $is_woocommerce_page ) {
-		return
-		'<div class="aioseop-preview-wrapper">
+		return '<div class="aioseop-preview-wrapper">
 		 <div id="poststuff" class="aioseop-upsell-blurred">
 			<div id="advanced-sortables" class="meta-box-sortables">
 				<div id="aiosp_tabbed" class="postbox ">
@@ -1062,7 +1058,7 @@ class AIOSEOP_Education {
 			return;
 		}
 
-		remove_all_actions('admin_notices');
-		remove_all_actions('all_admin_notices');
+		remove_all_actions( 'admin_notices' );
+		remove_all_actions( 'all_admin_notices' );
 	}
 }

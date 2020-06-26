@@ -167,7 +167,7 @@
 				}
 				return sum / field_count;
 			};
-		})();
+		}());
 
 		if (!token_count) {
 			return function() { return 0; };
@@ -348,7 +348,8 @@
 	 * @returns {object}
 	 */
 	Sifter.prototype.search = function(query, options) {
-		var self = this, value, score, search, calculateScore;
+		var self = this, 
+value, score, search, calculateScore;
 		var fn_sort;
 		var fn_score;
 
@@ -424,7 +425,7 @@
 		if (!obj || !name) return;
 		if (!nesting) return obj[name];
 		var names = name.split(".");
-		while(names.length && (obj = obj[names.shift()]));
+		while (names.length && (obj = obj[names.shift()]));
 		return obj;
 	};
 
@@ -487,7 +488,7 @@
 				return lookup[foreignletter];
 			}).toLowerCase();
 		};
-	})();
+	}());
 
 
 	// export
@@ -987,7 +988,8 @@
 	 * @param {array} properties
 	 */
 	var transferStyles = function($from, $to, properties) {
-		var i, n, styles = {};
+		var i, n, 
+styles = {};
 		if (properties) {
 			for (i = 0, n = properties.length; i < n; i++) {
 				styles[properties[i]] = $from.css(properties[i]);
@@ -1111,22 +1113,23 @@
 	};
 
 	var logError = function(message, options){
-		if(!options) options = {};
+		if (!options) options = {};
 		var component = "Selectize";
 
 		console.error(component + ": " + message)
 
-		if(options.explanation){
+		if (options.explanation){
 			// console.group is undefined in <IE11
-			if(console.group) console.group();
+			if (console.group) console.group();
 			console.error(options.explanation);
-			if(console.group) console.groupEnd();
+			if (console.group) console.groupEnd();
 		}
 	}
 
 
 	var Selectize = function($input, settings) {
-		var key, i, n, dir, input, self = this;
+		var key, i, n, dir, input, 
+self = this;
 		input = $input[0];
 		input.selectize = self;
 
@@ -1215,9 +1218,9 @@
 
 	MicroEvent.mixin(Selectize);
 
-	if(typeof MicroPlugin !== "undefined"){
+	if (typeof MicroPlugin !== "undefined"){
 		MicroPlugin.mixin(Selectize);
-	}else{
+	} else {
 		logError("Dependency MicroPlugin is missing",
 			{explanation:
 					"Make sure you either: (1) are using the \"standalone\" "+
@@ -1266,12 +1269,12 @@
 			$dropdown         = $('<div>').addClass(settings.dropdownClass).addClass(inputMode).hide().appendTo($dropdown_parent);
 			$dropdown_content = $('<div>').addClass(settings.dropdownContentClass).appendTo($dropdown);
 
-			if(inputId = $input.attr('id')) {
+			if (inputId = $input.attr('id')) {
 				$control_input.attr('id', inputId + '-selectized');
 				$("label[for='"+inputId+"']").attr('for', inputId + '-selectized');
 			}
 
-			if(self.settings.copyClassesToDropdown) {
+			if (self.settings.copyClassesToDropdown) {
 				$dropdown.addClass(classes);
 			}
 
@@ -1450,7 +1453,8 @@
 		 * in the settings used when creating the control.
 		 */
 		setupCallbacks: function() {
-			var key, fn, callbacks = {
+			var key, fn, 
+callbacks = {
 				'initialize'      : 'onInitialize',
 				'change'          : 'onChange',
 				'item_add'        : 'onItemAdd',
@@ -1563,7 +1567,7 @@
 				// Wait for pasted text to be recognized in value
 				setTimeout(function() {
 					var pastedText = self.$control_input.val();
-					if(!pastedText.match(self.settings.splitOn)){ return }
+					if (!pastedText.match(self.settings.splitOn)){ return }
 
 					var splitInput = $.trim(pastedText).split(self.settings.splitOn);
 					for (var i = 0, n = splitInput.length; i < n; i++) {
@@ -1676,7 +1680,7 @@
 
 			if ((self.isFull() || self.isInputHidden) && !(IS_MAC ? e.metaKey : e.ctrlKey)) {
 				e.preventDefault();
-				return;
+				
 			}
 		},
 
@@ -1814,7 +1818,8 @@
 		 * @returns {boolean}
 		 */
 		onOptionSelect: function(e) {
-			var value, $target, $option, self = this;
+			var value, $target, $option, 
+self = this;
 
 			if (e.preventDefault) {
 				e.preventDefault();
@@ -2322,7 +2327,8 @@
 		 * @param {object|array} data
 		 */
 		addOption: function(data) {
-			var i, n, value, self = this;
+			var i, n, value, 
+self = this;
 
 			if ($.isArray(data)) {
 				for (i = 0, n = data.length; i < n; i++) {
@@ -2500,7 +2506,7 @@
 			self.renderCache = {};
 			var options = self.options;
 			$.each(self.options, function(key, value) {
-				if(self.items.indexOf(key) == -1) {
+				if (self.items.indexOf(key) == -1) {
 					delete options[key];
 				}
 			});
@@ -2842,7 +2848,8 @@
 		 * element to reflect the current state.
 		 */
 		updateOriginalInput: function(opts) {
-			var i, n, options, label, self = this;
+			var i, n, options, label, 
+self = this;
 			opts = opts || {};
 
 			if (self.tagType === TAG_SELECT) {
@@ -3098,7 +3105,8 @@
 		 * @param {object} e (optional)
 		 */
 		advanceCaret: function(direction, e) {
-			var self = this, fn, $adj;
+			var self = this, 
+fn, $adj;
 
 			if (direction === 0) return;
 
@@ -3129,7 +3137,7 @@
 				i = Math.max(0, Math.min(self.items.length, i));
 			}
 
-			if(!self.isPending) {
+			if (!self.isPending) {
 				// the input must be moved by leaving it in place and moving the
 				// siblings, due to the fact that focus cannot be restored once lost
 				// on mobile webkit devices
@@ -3270,7 +3278,7 @@
 			else if (templateName === 'optgroup') {
 				id = data[self.settings.optgroupValueField] || '';
 				html.attr('data-group', id);
-				if(data[self.settings.disabledField]) {
+				if (data[self.settings.disabledField]) {
 					html.attr('data-disabled', '');
 				}
 			}
@@ -3453,7 +3461,8 @@
 		 * @param {object} settings_element
 		 */
 		var init_select = function($input, settings_element) {
-			var i, n, tagName, $children, order = 0;
+			var i, n, tagName, $children, 
+order = 0;
 			var options = settings_element.options;
 			var optionsMap = {};
 
@@ -3582,7 +3591,7 @@
 				if (sortable) sortable.disable();
 				return original.apply(self, arguments);
 			};
-		})();
+		}());
 
 		self.unlock = (function() {
 			var original = self.unlock;
@@ -3591,7 +3600,7 @@
 				if (sortable) sortable.enable();
 				return original.apply(self, arguments);
 			};
-		})();
+		}());
 
 		self.setup = (function() {
 			var original = self.setup;
@@ -3618,7 +3627,7 @@
 					}
 				});
 			};
-		})();
+		}());
 
 	});
 
@@ -3651,7 +3660,7 @@
 				self.$dropdown_header = $(options.html(options));
 				self.$dropdown.prepend(self.$dropdown_header);
 			};
-		})();
+		}());
 
 	});
 
@@ -3680,7 +3689,7 @@
 					$optgroup = this.$activeOption.closest('[data-group]');
 					index = $optgroup.find('[data-selectable]').index(this.$activeOption);
 
-					if(e.keyCode === KEY_LEFT) {
+					if (e.keyCode === KEY_LEFT) {
 						$optgroup = $optgroup.prev('[data-group]');
 					} else {
 						$optgroup = $optgroup.next('[data-group]');
@@ -3696,7 +3705,7 @@
 
 				return original.apply(this, arguments);
 			};
-		})();
+		}());
 
 		var getScrollbarWidth = function() {
 			var div;
@@ -3800,7 +3809,7 @@
 					});
 
 				};
-			})();
+			}());
 		};
 
 		var multiClose = function(thisRef, options) {
@@ -3846,12 +3855,12 @@
 					});
 
 				};
-			})();
+			}());
 		};
 
 		if (this.settings.mode === 'single') {
 			singleClose(this, options);
-			return;
+			
 		} else {
 			multiClose(this, options);
 		}
@@ -3883,7 +3892,7 @@
 				}
 				return original.apply(this, arguments);
 			};
-		})();
+		}());
 	});
 
 

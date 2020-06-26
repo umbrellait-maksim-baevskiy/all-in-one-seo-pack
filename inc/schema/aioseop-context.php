@@ -122,7 +122,7 @@ class AIOSEOP_Context {
 	public function log_error() {
 		global $aioseop_options;
 		if ( 'on' === $aioseop_options['aiosp_do_log'] ) {
-			$e = new Exception;
+			$e = new Exception();
 			error_log( $e->getTraceAsString() );
 		}
 	}
@@ -325,7 +325,7 @@ class AIOSEOP_Context {
 	 * @since 3.4.0
 	 *
 	 * @param        $context
-	 * @param string $type
+	 * @param string  $type
 	 * @return int
 	 */
 	public static function get_context_key( $context, $type = '' ) {
@@ -590,7 +590,7 @@ class AIOSEOP_Context {
 				break;
 
 			case 'WP_Post':
-				$wp_obj       = self::get_object( $this->context_type, $this->context_key );
+				$wp_obj = self::get_object( $this->context_type, $this->context_key );
 				if ( ! $wp_obj ) {
 					$this->log_error();
 					return $display_name;
@@ -697,7 +697,7 @@ class AIOSEOP_Context {
 				break;
 
 			case 'WP_Post_Type':
-				$url    = get_post_type_archive_link( $this->context_key );
+				$url = get_post_type_archive_link( $this->context_key );
 				break;
 
 			case 'WP_Taxonomy':
@@ -805,7 +805,7 @@ class AIOSEOP_Context {
 
 			case 'WP_Taxonomy':
 				$wp_obj = self::get_object( $this->context_type, $this->context_key, $this->wp_props );
-				$desc = $wp_obj->description;
+				$desc   = $wp_obj->description;
 				break;
 
 			case 'WP_Term':
@@ -958,7 +958,7 @@ class AIOSEOP_Context {
 					'context_type' => 'var_date_month',
 					'context_key'  => 0,
 				);
-				$context = AIOSEOP_Context::get_instance( $context );
+				$context = self::get_instance( $context );
 				// Fall through.
 			case 'var_date_month':
 				array_unshift(
@@ -972,7 +972,7 @@ class AIOSEOP_Context {
 					'context_type' => 'var_date_year',
 					'context_key'  => 0,
 				);
-				$context = AIOSEOP_Context::get_instance( $context );
+				$context = self::get_instance( $context );
 				// Fall through.
 			case 'var_date_year':
 			case 'WP_User':

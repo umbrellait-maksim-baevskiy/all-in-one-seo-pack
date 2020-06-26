@@ -23,7 +23,7 @@ jQuery(function($) {
                         },
                         success: function (response) {
                             let isMatch = window.location.href.match(/.*plugins.php.*/g);
-                            if(isMatch) {
+                            if (isMatch) {
                                 window.location.reload();
                             }
                         },

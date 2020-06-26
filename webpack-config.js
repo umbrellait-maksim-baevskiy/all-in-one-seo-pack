@@ -21,16 +21,16 @@ const mode = isProduction ? 'production' : 'development';
 const config = {
 	mode,
 	entry: {
-		'aioseop-link-attributes-gutenberg-editor': path.resolve( process.cwd(), 'src', 'aioseop-link-attributes-gutenberg-editor.js' ),
+		'aioseop-link-attributes-gutenberg-editor': path.resolve( process.cwd(), 'src', 'aioseop-link-attributes-gutenberg-editor.js' )
 	},
 	output: {
 		filename: '[name].js',
-		path: path.resolve( process.cwd(), 'build' ),
+		path: path.resolve( process.cwd(), 'build' )
 	},
 	resolve: {
 		alias: {
-			'lodash-es': 'lodash',
-		},
+			'lodash-es': 'lodash'
+		}
 	},
 	module: {
 		rules: [
@@ -56,18 +56,18 @@ const config = {
 								presets: [
 									require.resolve(
 										'@wordpress/babel-preset-default'
-									),
-								],
-							} ),
-						},
-					},
-				],
+									)
+								]
+							} )
+						}
+					}
+				]
 			},
 			{
 				test: /\.svg$/,
-				use: [ '@svgr/webpack', 'url-loader' ],
-			},
-		],
+				use: [ '@svgr/webpack', 'url-loader' ]
+			}
+		]
 	},
 	plugins: [
 		// WP_BUNDLE_ANALYZER global variable enables utility that represents bundle content
@@ -77,13 +77,13 @@ const config = {
 		// when running watch mode.
 		! isProduction &&
 			new LiveReloadPlugin( {
-				port: process.env.WP_LIVE_RELOAD_PORT || 35729,
+				port: process.env.WP_LIVE_RELOAD_PORT || 35729
 			} ),
-		new DependencyExtractionWebpackPlugin( { injectPolyfill: true } ),
+		new DependencyExtractionWebpackPlugin( { injectPolyfill: true } )
 	].filter( Boolean ),
 	stats: {
-		children: false,
-	},
+		children: false
+	}
 };
 
 if ( ! isProduction ) {
@@ -93,7 +93,7 @@ if ( ! isProduction ) {
 	config.module.rules.unshift( {
 		test: /\.js$/,
 		use: require.resolve( 'source-map-loader' ),
-		enforce: 'pre',
+		enforce: 'pre'
 	} );
 }
 

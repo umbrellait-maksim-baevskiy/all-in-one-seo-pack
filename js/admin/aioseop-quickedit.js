@@ -13,7 +13,7 @@ var aioseopQuickEdit;
 		 * @param 	String 		nonce 			The nonce.
 		 */
 		aioseop_ajax_edit_meta_form: function(postId, columnName, nonce) {
-			let field = $(`#aioseop_${columnName}_${postId}`);
+			let field = $(`#aioseop_${ columnName }_${ postId }`);
 			let dashicon = field.parent().find('.aioseop-quickedit-pencil').first();
 			let previousElements = field.html();
 			let value = field.text().trim();
@@ -21,7 +21,7 @@ var aioseopQuickEdit;
 			field.addClass('aio_editing');
 
 			let textarea = document.createElement('textarea');
-			textarea.id = `aioseop_new_${columnName}_${postId}`;
+			textarea.id = `aioseop_new_${ columnName }_${ postId }`;
 			textarea.classList.add('aioseop-quickedit-input');
 			textarea.rows = 4;
 			textarea.cols = 32;
@@ -33,7 +33,7 @@ var aioseopQuickEdit;
 			let buttons = document.createElement('div');
 
 			let btnSave = document.createElement('a');
-			btnSave.id = `aioseop_save_${columnName}_${postId}`;
+			btnSave.id = `aioseop_save_${ columnName }_${ postId }`;
 			btnSave.classList.add('dashicons', 'dashicons-yes-alt', 'aioseop-quickedit-input-save');
 			btnSave.href = 'javascript:void(0);';
 			btnSave.title = aioseopadmin.i18n.save;
@@ -43,7 +43,7 @@ var aioseopQuickEdit;
 			});
 
 			let btnCancel = document.createElement('a');
-			btnCancel.id = `aioseop_cancel_${columnName}_${postId}`;
+			btnCancel.id = `aioseop_cancel_${ columnName }_${ postId }`;
 			btnCancel.classList.add('dashicons', 'dashicons-dismiss', 'aioseop-quickedit-input-cancel');
 			btnCancel.href = 'javascript:void(0);';
 			btnCancel.title = aioseopadmin.i18n.cancel;
@@ -72,12 +72,12 @@ var aioseopQuickEdit;
 		 * @param	Object		previousElements	The initial column elements (dashicon + span).
 		 */
 		handle_post_meta: function(postId, value, columnName, nonce, previousElements) {
-			let field = $(`div#aioseop_${columnName}_${postId}`);
+			let field = $(`div#aioseop_${ columnName }_${ postId }`);
 
 			let message = document.createElement('span');
 
 			let spinner = document.createElement('img');
-			spinner.src = `${aioseopadmin.imgUrl}activity.gif`;
+			spinner.src = `${ aioseopadmin.imgUrl }activity.gif`;
 			spinner.classList.add('aioseop-quickedit-spinner');
 			spinner.align = 'absmiddle';
 
@@ -112,14 +112,14 @@ var aioseopQuickEdit;
 							}
 
 							if ('' === value) {
-								value = `<strong>${aioseopadmin.i18n.noValue}</strong>`;
+								value = `<strong>${ aioseopadmin.i18n.noValue }</strong>`;
 							}
-							$(`#aioseop_${columnName}_${postId}_value`).html(value);
+							$(`#aioseop_${ columnName }_${ postId }_value`).html(value);
 						},
 						error: function() {
 							field.empty().append(previousElements);
 							field.removeClass('aio_editing');
-							console.log(`Request to update ${columnName} failed.`);
+							console.log(`Request to update ${ columnName } failed.`);
 						}
 					});
 				});
@@ -127,7 +127,7 @@ var aioseopQuickEdit;
 		}
 	}
 
-})(jQuery);
+}(jQuery));
 
 
 //TODO This needs to be moved to another file.

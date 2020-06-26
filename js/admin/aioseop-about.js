@@ -67,7 +67,7 @@ jQuery(function ($) {
                 errorButtonText = aioseopAboutData.aioseopL10n.install;
             } 
             
-            else if( button.hasClass('status-inactive')) {
+            else if ( button.hasClass('status-inactive')) {
                 action     = 'aioseop_activate_plugin';
 				cssClass   = 'status-active button disabled';
 
@@ -89,7 +89,7 @@ jQuery(function ($) {
                     data: {
                         action: action,
                         _ajax_nonce: aioseopAboutData.nonce,
-                        plugin: downloadUrl,
+                        plugin: downloadUrl
                     },
                     success: function (response) {
                         if (response.success) {

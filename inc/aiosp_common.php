@@ -210,8 +210,8 @@ class aiosp_common {
 	 *
 	 * Renders the value XML safe.
 	 *
-	 * @since	2.10.0
-	 * @since	3.4.0	Renamed function.
+	 * @since   2.10.0
+	 * @since   3.4.0   Renamed function.
 	 */
 	public static function esc_xml( $tag, $value ) {
 		// some tags contain an array of values.
@@ -293,7 +293,7 @@ class aiosp_common {
 			if ( false !== strpos( $url, $uploads_dir['baseurl'] . '/' ) ) {
 				// Results_1 query looks for URLs with the original guid that is uncropped and unedited.
 				if ( is_null( $results_1 ) ) {
-					$results_1 = aiosp_common::attachment_url_to_postid_query_1();
+					$results_1 = self::attachment_url_to_postid_query_1();
 				}
 
 				if ( isset( $results_1[ $url_md5 ] ) ) {

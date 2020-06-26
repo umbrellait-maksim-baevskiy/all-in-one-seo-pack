@@ -37,8 +37,8 @@ class AIOSEOP_Notices_TestCase extends WP_UnitTestCase {
 	 *
 	 * @since 3.0
 	 *
-	 * @param null $name
-	 * @param array $data
+	 * @param null   $name
+	 * @param array  $data
 	 * @param string $data_name
 	 */
 	public function __construct( $name = null, array $data = array(), $data_name = '' ) {

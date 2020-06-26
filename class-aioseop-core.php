@@ -111,7 +111,7 @@ class AIOSEOP_Core {
 		if ( AIOSEOPPRO ) {
 			global $aioseop_update_checker;
 
-			require( AIOSEOP_PLUGIN_DIR . 'pro/sfwd_update_checker.php' );
+			require AIOSEOP_PLUGIN_DIR . 'pro/sfwd_update_checker.php';
 			$aiosp_update_url = 'https://semperplugins.com/upgrade_plugins.php';
 			if ( defined( 'AIOSEOP_UPDATE_URL' ) ) {
 				$aiosp_update_url = AIOSEOP_UPDATE_URL;
@@ -158,7 +158,7 @@ class AIOSEOP_Core {
 			// if the action doesn't run -- pdb.
 			add_action( 'shutdown', 'aioseop_ajax_scan_header' );
 
-			include_once( ABSPATH . 'wp-admin/includes/screen.php' );
+			include_once ABSPATH . 'wp-admin/includes/screen.php';
 			global $current_screen;
 			if ( class_exists( 'WP_Screen' ) ) {
 				$current_screen = WP_Screen::get( 'front' );
@@ -337,9 +337,9 @@ class AIOSEOP_Core {
 		require_once AIOSEOP_PLUGIN_DIR . 'admin/class-aioseop-notices.php';
 		require_once AIOSEOP_PLUGIN_DIR . 'inc/schema/schema-builder.php';
 		require_once AIOSEOP_PLUGIN_DIR . 'inc/admin/class-aioseop-link-attributes.php';
-		require_once( AIOSEOP_PLUGIN_DIR . 'inc/admin/class-aioseop-education.php' );
-		require_once( AIOSEOP_PLUGIN_DIR . 'inc/admin/views/class-aioseop-flyout.php' );
-		require_once( AIOSEOP_PLUGIN_DIR . 'inc/admin/views/class-aioseop-about.php' );
+		require_once AIOSEOP_PLUGIN_DIR . 'inc/admin/class-aioseop-education.php';
+		require_once AIOSEOP_PLUGIN_DIR . 'inc/admin/views/class-aioseop-flyout.php';
+		require_once AIOSEOP_PLUGIN_DIR . 'inc/admin/views/class-aioseop-about.php';
 
 		// Loads pro files and other pro init stuff.
 		if ( AIOSEOPPRO ) {
@@ -427,7 +427,7 @@ class AIOSEOP_Core {
 
 			$file_dir = AIOSEOP_PLUGIN_DIR . 'all_in_one_seo_pack.php';
 			register_activation_hook( $file_dir, array( 'AIOSEOP_Core', 'activate' ) );
-			register_deactivation_hook( $file_dir, array( 'AIOSEOP_Core', 'deactivate' ) ); 
+			register_deactivation_hook( $file_dir, array( 'AIOSEOP_Core', 'deactivate' ) );
 
 			// TODO Move AJAX to aioseop_admin class, and could be a separate function hooked onto admin_init.
 			add_action( 'wp_ajax_aioseop_ajax_save_meta', 'aioseop_ajax_save_meta' );
@@ -511,7 +511,7 @@ class AIOSEOP_Core {
 
 	/**
 	 * Runs on plugin deactivation.
-	 * 
+	 *
 	 * @since 3.4.3
 	 */
 	public static function deactivate() {
@@ -683,8 +683,8 @@ class AIOSEOP_Core {
 	 *
 	 * @param $actions
 	 * @param $plugin_file
-	 * @param array $action_links
-	 * @param string $position
+	 * @param array       $action_links
+	 * @param string      $position
 	 * @return array
 	 */
 	public function action_links( $actions, $plugin_file, $action_links = array(), $position = 'after' ) {
@@ -756,7 +756,7 @@ class AIOSEOP_Core {
 	 *
 	 * @since   3.4.0
 	 *
-	 * @param   string  $hook_suffix
+	 * @param   string $hook_suffix
 	 * @return  void
 	 */
 	function admin_enqueue_styles( $hook_suffix ) {

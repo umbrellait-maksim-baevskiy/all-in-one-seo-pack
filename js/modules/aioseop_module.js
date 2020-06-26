@@ -755,7 +755,7 @@ function aioseop_handle_post_url( action, settings, options, success_function, u
 			var loading = '<label class="aioseop_loading aioseop_' + settings + '_loading"></label> Please wait...';
 			jQuery( "div#aiosp_" + settings ).fadeIn(
 				'fast', function() {
-                    if(use_native) {
+                    if (use_native) {
                         jQuery.ajax({
                             url     : ajaxurl,
                             method  : 'POST',
@@ -768,12 +768,12 @@ function aioseop_handle_post_url( action, settings, options, success_function, u
                                 'nonce-aioseop-edit': jQuery( 'input[name="nonce-aioseop-edit"]' ).val()
                             },
                             success : function(data){
-                                if(success_function){
+                                if (success_function){
                                     success_function(data);
                                 }
                             }
                         });
-                    }else{
+                    } else {
 						aioseop_handle_ajax_call( action, settings, options, success_function );
                     }
 				}

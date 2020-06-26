@@ -221,7 +221,7 @@ class AIOSEOP_Test_Base extends WP_UnitTestCase {
 	/**
 	 * Upload an image and, optionally, attach to the post.
 	 */
-	protected final function upload_image_and_maybe_attach( $image, $id = 0 ) {
+	final protected function upload_image_and_maybe_attach( $image, $id = 0 ) {
 		/*
 		This factory method has a bug so we have to be a little clever.
 		$this->factory->attachment->create( array( 'file' => $image, 'post_parent' => $id ) );
@@ -249,7 +249,7 @@ class AIOSEOP_Test_Base extends WP_UnitTestCase {
 	/**
 	 * Create attachments, and, optionally, attach to a post.
 	 */
-	protected final function create_attachments( $num, $id = 0 ) {
+	final protected function create_attachments( $num, $id = 0 ) {
 		$image = str_replace( '\\', '/', AIOSEOP_UNIT_TESTING_DIR . '/resources/images/footer-logo.png' );
 		$ids   = array();
 		for ( $x = 0; $x < $num; $x++ ) {
@@ -258,7 +258,7 @@ class AIOSEOP_Test_Base extends WP_UnitTestCase {
 		return $ids;
 	}
 
-	protected final function init( $call_setup = false ) {
+	final protected function init( $call_setup = false ) {
 		$this->clean();
 		if ( $call_setup ) {
 			$this->_setUp();
@@ -268,7 +268,7 @@ class AIOSEOP_Test_Base extends WP_UnitTestCase {
 	/**
 	 * Clean up the flotsam and jetsam before starting.
 	 */
-	protected final function clean() {
+	final protected function clean() {
 		$posts = get_posts(
 			array(
 				'post_type'   => 'any',
@@ -285,7 +285,7 @@ class AIOSEOP_Test_Base extends WP_UnitTestCase {
 	/**
 	 * Set up the options for the particular module.
 	 */
-	protected final function _setup_options( $module, $custom_options ) {
+	final protected function _setup_options( $module, $custom_options ) {
 		// so that is_admin returns true.
 		set_current_screen( 'edit-post' );
 		wp_set_current_user( 1 );
@@ -469,7 +469,7 @@ class AIOSEOP_Test_Base extends WP_UnitTestCase {
 	/*
 	 * Generates the HTML source of the given link.
 	 */
-	protected final function get_page_source( $link ) {
+	final protected function get_page_source( $link ) {
 		$html = '<html>';
 		$this->go_to( $link );
 		ob_start();
@@ -486,7 +486,7 @@ class AIOSEOP_Test_Base extends WP_UnitTestCase {
 	/*
 	 * Parses the HTML of the given link and returns the nodes requested.
 	 */
-	protected final function parse_html( $link, $tags = array(), $debug = false ) {
+	final protected function parse_html( $link, $tags = array(), $debug = false ) {
 		$html = $this->get_page_source( $link );
 		if ( $debug ) {
 			error_log( "$link === $html" );

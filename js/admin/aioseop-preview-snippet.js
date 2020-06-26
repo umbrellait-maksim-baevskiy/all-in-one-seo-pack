@@ -140,7 +140,7 @@ jQuery(function($){
 	 * @return string description
 	 */
 	function aioseopGetDescription(postContent) {		
-		if( 'on' === dontShortenDescriptions ) {
+		if ( 'on' === dontShortenDescriptions ) {
 			return aioseopStripMarkup(postContent);
 		}
 

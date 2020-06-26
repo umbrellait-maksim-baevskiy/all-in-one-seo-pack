@@ -7,5 +7,5 @@
  */
 
 if ( AIOSEOPPRO ) {
-	require_once( AIOSEOP_PLUGIN_DIR . 'pro/class-aioseop-image-seo.php' );
+	require_once AIOSEOP_PLUGIN_DIR . 'pro/class-aioseop-image-seo.php';
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * Styles the Google News sitemap.
- * 
+ *
  * @since 3.4.0
  */
 
@@ -77,8 +77,8 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 						</xsl:variable>
 						<h1><?php _e( 'Google News Sitemap', 'all-in-one-seo-pack' ); ?></h1>
 						<p>
-							<?php 
-							$anchor = sprintf( 
+							<?php
+							$anchor = sprintf(
 								'<a href="%1$s" target="_blank">%2$s</a>',
 								'https://semperplugins.com/all-in-one-seo-pack-pro-version/?utm_source=WordPress&amp;utm_campaign=aioseop-pro&amp;utm_medium=news-sitemap',
 								AIOSEOP_PLUGIN_NAME
@@ -89,8 +89,9 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 						</p>
 						<p>
 							<?php
-							_e( 'It features all news articles that were published in the last 48 hours and contains', 'all-in-one-seo-pack' ); 
-							?> 
+							_e( 'It features all news articles that were published in the last 48 hours and contains', 'all-in-one-seo-pack' );
+							?>
+							 
 							<xsl:value-of select="$amountOfURLs"/> 
 							<xsl:choose>
 								<xsl:when test="$amountOfURLs = 1">

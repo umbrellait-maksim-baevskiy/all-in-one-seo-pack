@@ -122,50 +122,110 @@ class AIOSEOP_Schema_Builder {
 				bp_is_user()
 		) {
 			// Correct issue with BuddyPress when viewing a member page.
-			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_ProfilePage]' );
-			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_Person]' );
-			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_BreadcrumbList]' );
+			$layout[] = array(
+				'@context' => 'https://schema.org',
+				'[aioseop_schema_ProfilePage]',
+			);
+			$layout[] = array(
+				'@context' => 'https://schema.org',
+				'[aioseop_schema_Person]',
+			);
+			$layout[] = array(
+				'@context' => 'https://schema.org',
+				'[aioseop_schema_BreadcrumbList]',
+			);
 		} elseif ( is_front_page() || is_home() ) {
-			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_WebPage]' );
-			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_BreadcrumbList]' );
+			$layout[] = array(
+				'@context' => 'https://schema.org',
+				'[aioseop_schema_WebPage]',
+			);
+			$layout[] = array(
+				'@context' => 'https://schema.org',
+				'[aioseop_schema_BreadcrumbList]',
+			);
 		} elseif ( is_archive() ) {
 			if ( is_author() ) {
-				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_ProfilePage]' );
-				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_Person]' );
-				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_BreadcrumbList]' );
+				$layout[] = array(
+					'@context' => 'https://schema.org',
+					'[aioseop_schema_ProfilePage]',
+				);
+				$layout[] = array(
+					'@context' => 'https://schema.org',
+					'[aioseop_schema_Person]',
+				);
+				$layout[] = array(
+					'@context' => 'https://schema.org',
+					'[aioseop_schema_BreadcrumbList]',
+				);
 			} elseif ( is_post_type_archive() ) {
-				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_CollectionPage]' );
-				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_BreadcrumbList]' );
+				$layout[] = array(
+					'@context' => 'https://schema.org',
+					'[aioseop_schema_CollectionPage]',
+				);
+				$layout[] = array(
+					'@context' => 'https://schema.org',
+					'[aioseop_schema_BreadcrumbList]',
+				);
 			} elseif ( is_tax() || is_category() || is_tag() ) {
-				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_CollectionPage]' );
-				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_BreadcrumbList]' );
+				$layout[] = array(
+					'@context' => 'https://schema.org',
+					'[aioseop_schema_CollectionPage]',
+				);
+				$layout[] = array(
+					'@context' => 'https://schema.org',
+					'[aioseop_schema_BreadcrumbList]',
+				);
 				// Remove when Custom Taxonomies is supported.
 				if ( is_tax() ) {
 					$layout = array();
 				}
 			} elseif ( is_date() ) {
-				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_CollectionPage]' );
-				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_BreadcrumbList]' );
+				$layout[] = array(
+					'@context' => 'https://schema.org',
+					'[aioseop_schema_CollectionPage]',
+				);
+				$layout[] = array(
+					'@context' => 'https://schema.org',
+					'[aioseop_schema_BreadcrumbList]',
+				);
 			}
 		} elseif ( is_singular() || is_single() ) {
 			global $post;
 
-			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_WebPage]' );
+			$layout[] = array(
+				'@context' => 'https://schema.org',
+				'[aioseop_schema_WebPage]',
+			);
 			if ( ! is_post_type_hierarchical( $post->post_type ) ) {
 				// TODO Add custom setting for individual posts.
 
-				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_Article]' );
-				$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_Person]' );
+				$layout[] = array(
+					'@context' => 'https://schema.org',
+					'[aioseop_schema_Article]',
+				);
+				$layout[] = array(
+					'@context' => 'https://schema.org',
+					'[aioseop_schema_Person]',
+				);
 			}
-			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_BreadcrumbList]' );
+			$layout[] = array(
+				'@context' => 'https://schema.org',
+				'[aioseop_schema_BreadcrumbList]',
+			);
 
 			// Remove when CPT is supported.
 			if ( ! in_array( get_post_type( $post ), array( 'post', 'page' ) ) ) {
 				$layout = array();
 			}
 		} elseif ( is_search() ) {
-			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_SearchResultsPage]' );
-			$layout[] = array( '@context' => 'https://schema.org', '[aioseop_schema_BreadcrumbList]' );
+			$layout[] = array(
+				'@context' => 'https://schema.org',
+				'[aioseop_schema_SearchResultsPage]',
+			);
+			$layout[] = array(
+				'@context' => 'https://schema.org',
+				'[aioseop_schema_BreadcrumbList]',
+			);
 		} elseif ( is_404() ) {
 			// Do 404 page.
 		}
@@ -203,12 +263,12 @@ class AIOSEOP_Schema_Builder {
 				$layout = wp_json_encode( (object) $layout );
 				$layout = str_replace( '\/', '/', $layout );
 			}
-			var_dump($layout);
-			$layout = str_replace(array( '"0":"[', ']"' ), array( '[', ']' ), $layout);
 
-			do_action('aioseop_schema_internal_shortcodes_on');
-			$schema_content = do_shortcode($layout);
-			do_action('aioseop_schema_internal_shortcodes_off');
+			$layout = str_replace( array( '"0":"[', ']"' ), array( '[', ']' ), $layout );
+
+			do_action( 'aioseop_schema_internal_shortcodes_on' );
+			$schema_content = do_shortcode( $layout );
+			do_action( 'aioseop_schema_internal_shortcodes_off' );
 
 			echo '<script type="application/ld+json" class="aioseop-schema">' . $schema_content . '</script>';
 			echo "\n";

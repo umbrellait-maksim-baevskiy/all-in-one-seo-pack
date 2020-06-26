@@ -48,7 +48,7 @@ class Sitemap_Test_Base extends AIOSEOP_Test_Base {
 	 *      i) a boolean - true will check if the node exists, false if the node does not exist.
 	 *      ii) a string - the value of the node should be the same as this value.
 	 */
-	protected final function validate_sitemap( $elements, $debug = false ) {
+	final protected function validate_sitemap( $elements, $debug = false ) {
 		$file = $this->create_sitemap();
 
 		if ( $debug ) {
@@ -150,7 +150,7 @@ class Sitemap_Test_Base extends AIOSEOP_Test_Base {
 	 *
 	 * @param array $types All the types of sitemaps that should exist besides the regular one.
 	 */
-	protected final function validate_sitemap_index( $types = array(), $debug = false ) {
+	final protected function validate_sitemap_index( $types = array(), $debug = false ) {
 		add_filter( 'aioseo_sitemap_ping', '__return_false' );
 		update_option( 'blog_public', 0 );
 
@@ -180,7 +180,7 @@ class Sitemap_Test_Base extends AIOSEOP_Test_Base {
 	 * @param string $file The path of the file.
 	 * @param string $schema The schema type.
 	 */
-	protected final function validate_sitemap_schema( $file, $schema ) {
+	final protected function validate_sitemap_schema( $file, $schema ) {
 		// validate file according to schema.
 		libxml_use_internal_errors( true );
 		$dom = new DOMDocument();
@@ -195,7 +195,7 @@ class Sitemap_Test_Base extends AIOSEOP_Test_Base {
 	 * @param array $elements The elements/attribute/string to search for.
 	 * @return array
 	 */
-	protected final function count_sitemap_elements( $elements ) {
+	final protected function count_sitemap_elements( $elements ) {
 		$file     = $this->create_sitemap();
 		$contents = file_get_contents( $file );
 

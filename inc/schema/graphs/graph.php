@@ -163,7 +163,7 @@ abstract class AIOSEOP_Graph {
 			$schema_data = '';
 		}
 
-		$schema_data = substr( $schema_data, 1, -1);
+		$schema_data = substr( $schema_data, 1, -1 );
 
 		return $schema_data;
 	}

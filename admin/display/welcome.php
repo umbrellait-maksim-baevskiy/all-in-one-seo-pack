@@ -156,8 +156,8 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 
 
 				<div id='sections'>
-					<section><?php include_once( AIOSEOP_PLUGIN_DIR . 'admin/display/welcome-content.php' ); ?></section>
-					<section><?php include_once( AIOSEOP_PLUGIN_DIR . 'admin/display/credits-content.php' ); ?></section>
+					<section><?php include_once AIOSEOP_PLUGIN_DIR . 'admin/display/welcome-content.php'; ?></section>
+					<section><?php include_once AIOSEOP_PLUGIN_DIR . 'admin/display/credits-content.php'; ?></section>
 				</div>
 
 			</div>

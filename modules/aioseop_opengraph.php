@@ -145,12 +145,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 		/**
 		 * Sets the defaults for a taxonomy.
 		 *
-		 * @param string    $prefix             The prefix of this module.
-		 * @param string    $k                  The key against which the options will be determined/set.
-		 * @param string    $taxonomy_name      The name of the taxonomy.
-		 * @param Object    $tax                The taxonomy object.
-		 * @param bool      $bail_if_no_terms   Bail if the taxonomy has no terms.
-		 * @param array     $terms              The terms in the taxonomy.
+		 * @param string $prefix             The prefix of this module.
+		 * @param string $k                  The key against which the options will be determined/set.
+		 * @param string $taxonomy_name      The name of the taxonomy.
+		 * @param Object $tax                The taxonomy object.
+		 * @param bool   $bail_if_no_terms   Bail if the taxonomy has no terms.
+		 * @param array  $terms              The terms in the taxonomy.
 		 */
 		private function set_object_type_for_taxonomy( $prefix, $k, $taxonomy_name, $tax, $bail_if_no_terms = false, $terms = null ) {
 			$object_type = null;
@@ -1608,7 +1608,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 		 * @param string $value The value that is proposed to be shown in the tag.
 		 * @param string $network The social network.
 		 * @param string $meta_tag The meta tag without the network name prefixed.
-		 * @param array $extra_params Extra parameters that might be required to process the meta tag.
+		 * @param array  $extra_params Extra parameters that might be required to process the meta tag.
 		 * @return string The final value that will be shown.
 		 */
 		function handle_meta_tag( $value, $network, $meta_tag, $extra_params ) {

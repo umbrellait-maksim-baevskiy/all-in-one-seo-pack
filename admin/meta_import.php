@@ -258,7 +258,7 @@ function aiosp_seometa_admin() {
  *
  * @param string $old Old meta_key entries.
  * @param string $new New meta_key entries.
- * @param bool $delete_old Whether to delete the old entries.
+ * @param bool   $delete_old Whether to delete the old entries.
  *
  * @return stdClass Object for error detection, and the number of affected rows.
  */
@@ -268,7 +268,7 @@ function aiosp_seometa_meta_key_convert( $old = '', $new = '', $delete_old = fal
 
 	global $wpdb;
 
-	$output = new stdClass;
+	$output = new stdClass();
 
 	if ( ! $old || ! $new ) {
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
@@ -315,7 +315,7 @@ function aiosp_seometa_meta_key_convert( $old = '', $new = '', $delete_old = fal
  *
  * @param string $old_platform
  * @param string $new_platform
- * @param bool $delete_old
+ * @param bool   $delete_old
  *
  * @return stdClass Results object.
  */
@@ -325,7 +325,7 @@ function aiosp_seometa_post_meta_convert( $old_platform = '', $new_platform = 'A
 
 	global $_aiosp_seometa_platforms;
 
-	$output = new stdClass;
+	$output = new stdClass();
 
 	if ( empty( $_aiosp_seometa_platforms[ $old_platform ] ) || empty( $_aiosp_seometa_platforms[ $new_platform ] ) ) {
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
@@ -385,7 +385,7 @@ function aiosp_seometa_post_meta_analyze( $old_platform = '', $new_platform = 'A
 
 	global $wpdb, $_aiosp_seometa_platforms;
 
-	$output = new stdClass;
+	$output = new stdClass();
 
 	if ( empty( $_aiosp_seometa_platforms[ $old_platform ] ) || empty( $_aiosp_seometa_platforms[ $new_platform ] ) ) {
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase

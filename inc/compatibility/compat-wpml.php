@@ -46,7 +46,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Wpml' ) ) {
 		 *
 		 * @since 2.3.12.3
 		 *
-		 * @param string $path Relative path or url.
+		 * @param string              $path Relative path or url.
 		 *
 		 * @param string filtered url.
 		 */
@@ -69,7 +69,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Wpml' ) ) {
 		 *
 		 * @since 2.3.12.3
 		 *
-		 * @param string $url XSL url.
+		 * @param string              $url XSL url.
 		 *
 		 * @param string filtered url.
 		 */

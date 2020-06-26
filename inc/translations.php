@@ -247,7 +247,7 @@ if ( ! class_exists( 'AIOSEOP_Translations' ) ) :
 		 */
 		function set_native_language() {
 			if ( file_exists( ABSPATH . 'wp-admin/includes/translation-install.php' ) ) {
-				require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
+				require_once ABSPATH . 'wp-admin/includes/translation-install.php';
 			} else {
 				return;
 			}

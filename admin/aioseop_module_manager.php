@@ -147,7 +147,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 		 * @since ?
 		 *
 		 * @param $mod Module.
-		 * @param null $args
+		 * @param null       $args
 		 * @return bool
 		 */
 		function do_load_module( $mod, $args = null ) {
@@ -159,7 +159,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module_Manager' ) ) {
 			// $this->modules[$module].
 			$mod_path = apply_filters( "aioseop_include_$mod", AIOSEOP_PLUGIN_DIR . "modules/aioseop_$mod.php" );
 			if ( ! empty( $mod_path ) ) {
-				require_once( $mod_path );
+				require_once $mod_path;
 			}
 			$ref                   = "aioseop_$mod";
 			$classname             = 'All_in_One_SEO_Pack_' . strtr( ucwords( strtr( $mod, '_', ' ' ) ), ' ', '_' );

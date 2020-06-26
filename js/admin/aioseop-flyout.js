@@ -18,7 +18,7 @@ jQuery(function($) {
                     menu    = {
                         state: 'inactive',
                         srcInactive: $sullie.attr( 'src' ),
-                        srcActive: $sullie.data( 'active' ),
+                        srcActive: $sullie.data( 'active' )
                     };
     
                 // Click on the menu head icon.
@@ -67,7 +67,7 @@ jQuery(function($) {
                 $( window ).trigger( 'scroll' );
                 
                 */
-            },
+            }
         }
 
     aioseopFlyout.init();

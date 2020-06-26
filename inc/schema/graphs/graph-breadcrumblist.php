@@ -65,11 +65,11 @@ class AIOSEOP_Graph_BreadcrumbList extends AIOSEOP_Graph_ItemList {
 		) {
 			// BuddyPress - Member Page(s).
 			$bp_pages = get_option( 'bp-pages' );
-			$context = array(
+			$context  = array(
 				'context_type' => 'WP_Post',
-				'context_key'  => $bp_pages['groups']
+				'context_key'  => $bp_pages['groups'],
 			);
-			$context = AIOSEOP_Context::get_instance( $context );
+			$context  = AIOSEOP_Context::get_instance( $context );
 		} else {
 			$context = AIOSEOP_Context::get_instance();
 		}
@@ -129,7 +129,7 @@ class AIOSEOP_Graph_BreadcrumbList extends AIOSEOP_Graph_ItemList {
 	 *
 	 * @since 3.4.0
 	 *
-	 * @param array      $list_item_data
+	 * @param array $list_item_data
 	 * @return array
 	 */
 	protected function prepare_listitem( $list_item_data ) {

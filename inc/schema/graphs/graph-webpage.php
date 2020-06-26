@@ -78,11 +78,11 @@ class AIOSEOP_Graph_WebPage extends AIOSEOP_Graph_Creativework {
 		) {
 			// BuddyPress - Group Page(s).
 			$bp_pages = get_option( 'bp-pages' );
-			$context = array(
+			$context  = array(
 				'context_type' => 'WP_Post',
-				'context_key'  => $bp_pages['groups']
+				'context_key'  => $bp_pages['groups'],
 			);
-			$context = AIOSEOP_Context::get_instance( $context );
+			$context  = AIOSEOP_Context::get_instance( $context );
 		} else {
 			$context = AIOSEOP_Context::get_instance();
 		}

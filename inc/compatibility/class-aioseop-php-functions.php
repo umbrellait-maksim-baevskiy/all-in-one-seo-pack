@@ -30,7 +30,7 @@ class AIOSEOP_PHP_Functions {
 	 * @return string
 	 */
 	public static function strtolower( $str ) {
-		return AIOSEOP_PHP_Functions::convert_case( $str, 'lower' );
+		return self::convert_case( $str, 'lower' );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class AIOSEOP_PHP_Functions {
 	 * @return string
 	 */
 	public static function strtoupper( $str ) {
-		return AIOSEOP_PHP_Functions::convert_case( $str, 'upper' );
+		return self::convert_case( $str, 'upper' );
 	}
 
 	/**
@@ -58,7 +58,7 @@ class AIOSEOP_PHP_Functions {
 	 * @return string
 	 */
 	public static function ucwords( $str ) {
-		return AIOSEOP_PHP_Functions::convert_case( $str, 'title' );
+		return self::convert_case( $str, 'title' );
 	}
 
 	/**
@@ -88,7 +88,7 @@ class AIOSEOP_PHP_Functions {
 		if ( 'UTF-8' == $charset ) {
 			// phpcs:disable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 			global $UTF8_TABLES;
-			include_once( AIOSEOP_PLUGIN_DIR . 'inc/aioseop_UTF8.php' );
+			include_once AIOSEOP_PLUGIN_DIR . 'inc/aioseop_UTF8.php';
 			if ( is_array( $UTF8_TABLES ) ) {
 				if ( 'upper' == $mode ) {
 					return strtr( $str, $UTF8_TABLES['strtoupper'] );
@@ -143,8 +143,8 @@ class AIOSEOP_PHP_Functions {
 	 * @since 3.4.0 Change to static method.
 	 *
 	 * @param     $string
-	 * @param int $start
-	 * @param int $length
+	 * @param int    $start
+	 * @param int    $length
 	 * @return mixed
 	 */
 	public static function substr( $string, $start = 0, $length = 2147483647 ) {
@@ -163,8 +163,8 @@ class AIOSEOP_PHP_Functions {
 	 * @since 3.4.0 Change to static method.
 	 *
 	 * @param        $haystack
-	 * @param string $needle
-	 * @param int    $offset
+	 * @param string   $needle
+	 * @param int      $offset
 	 * @return bool|int
 	 */
 	public static function strpos( $haystack, $needle, $offset = 0 ) {
@@ -182,8 +182,8 @@ class AIOSEOP_PHP_Functions {
 	 * @since 3.4.0 Change to static method.
 	 *
 	 * @param        $haystack
-	 * @param string $needle
-	 * @param int    $offset
+	 * @param string   $needle
+	 * @param int      $offset
 	 * @return bool|int
 	 */
 	public static function strrpos( $haystack, $needle, $offset = 0 ) {

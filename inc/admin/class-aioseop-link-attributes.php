@@ -24,7 +24,7 @@ class AIOSEOP_Link_Attributes {
 	 */
 	public static function enqueue_link_attributes_classic_editor() {
 		wp_deregister_script( 'wplink' );
-		
+
 		wp_enqueue_script(
 			'wplink',
 			AIOSEOP_PLUGIN_URL . 'js/admin/aioseop-link.js',

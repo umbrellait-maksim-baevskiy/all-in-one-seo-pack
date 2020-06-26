@@ -311,7 +311,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * Update options for module, stored individually or together.
 		 *
 		 * @param      $option_data
-		 * @param bool $option_name
+		 * @param bool        $option_name
 		 *
 		 * @return bool
 		 */
@@ -546,7 +546,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				return true;
 			}
 			if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
-				require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+				require_once ABSPATH . '/wp-admin/includes/plugin.php';
 			}
 			if ( is_plugin_active_for_network( AIOSEOP_PLUGIN_BASENAME ) ) {
 				return true;
@@ -1182,9 +1182,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 
 				return $wp_filesystem;
 			} else {
-				require_once( ABSPATH . 'wp-admin/includes/template.php' );
-				require_once( ABSPATH . 'wp-admin/includes/screen.php' );
-				require_once( ABSPATH . 'wp-admin/includes/file.php' );
+				require_once ABSPATH . 'wp-admin/includes/template.php';
+				require_once ABSPATH . 'wp-admin/includes/screen.php';
+				require_once ABSPATH . 'wp-admin/includes/file.php';
 
 				if ( ! WP_Filesystem( $this->credentials ) ) {
 					$this->use_wp_filesystem();
@@ -1259,10 +1259,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		 * Load a file through WP Filesystem; implement basic support for offset and maxlen.
 		 *
 		 * @param      $filename
-		 * @param bool $use_include_path
-		 * @param null $context
-		 * @param int  $offset
-		 * @param int  $maxlen
+		 * @param bool     $use_include_path
+		 * @param null     $context
+		 * @param int      $offset
+		 * @param int      $maxlen
 		 *
 		 * @return bool|mixed
 		 */
@@ -1299,7 +1299,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		/**
 		 * Save a file through WP Filesystem.
 		 *
-		 * @param string $filename
+		 * @param string   $filename
 		 *
 		 * @param        $contents
 		 *
@@ -2606,7 +2606,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			$input_attr = '';
 			$id_attr    = '';
 
-			require_once( AIOSEOP_PLUGIN_DIR . 'admin/class-aioseop-helper.php' );
+			require_once AIOSEOP_PLUGIN_DIR . 'admin/class-aioseop-helper.php';
 			$info = new AIOSEOP_Helper( get_class( $this ) );
 
 			$align = 'right';

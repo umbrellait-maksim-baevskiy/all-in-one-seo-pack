@@ -716,7 +716,7 @@ class AIOSEOP_Helper {
 			// Additional Sitemaps
 			'aiosp_sitemap_posttypes_news'  => __( 'Select which Post Types should appear in your Google News sitemap. This sitemap only includes posts that were published in the last 48 hours.', 'all-in-one-seo-pack' ),
 			'aiosp_sitemap_rss_sitemap'     => __( 'Generate an RSS sitemap in addition to the regular XML Sitemap.', 'all-in-one-seo-pack' ),
-			
+
 			// Priorities.
 			'aiosp_sitemap_prio_homepage'   => sprintf( __( 'Manually set the %1$s of your %2$s.', 'all-in-one-seo-pack' ), __( 'priority', 'all-in-one-seo-pack' ), __( 'Homepage', 'all-in-one-seo-pack' ) ),
 			'aiosp_sitemap_prio_post'       => sprintf( __( 'Manually set the %1$s of your %2$s.', 'all-in-one-seo-pack' ), __( 'priority', 'all-in-one-seo-pack' ), __( 'Posts', 'all-in-one-seo-pack' ) ),
@@ -1235,8 +1235,8 @@ class AIOSEOP_Helper {
 	 *
 	 * @since   3.4.0
 	 *
-	 * @param   array   $doc_text           The tooltip strings.
-	 * @param   array   $doc_links          The links to the docs on our website.
+	 * @param   array $doc_text           The tooltip strings.
+	 * @param   array $doc_links          The links to the docs on our website.
 	 *
 	 * @return  array   $tooltip_content    The tooltip strings paired with their respective documentation links.
 	 */
